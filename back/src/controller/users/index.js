@@ -1,4 +1,4 @@
-import conexao from "../../databases/seeds/conexao.js"
+import conexao from "../../databases/conexao.js"
 
 export default {
  async select(req,res){

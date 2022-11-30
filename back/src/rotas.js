@@ -6,7 +6,7 @@ import Crypto from 'crypto';
 
 import { fileURLToPath } from 'url';
 import knex from "knex";
-import conexao from "./databases/seeds/conexao.js";
+import conexao from "./databases/conexao.js";
 import users from "./controller/users/index.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
