@@ -2,18 +2,23 @@ import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import {uniqueId}from 'lodash'
-
+import { uniqueId } from 'lodash'
+import { useNavigate } from 'react-router-dom'
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { BsFacebook, BsInstagram, BsWhatsapp } from "react-icons/bs";
+import Button from '@mui/material/Button';
 
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import Stack from '@mui/material/Stack';
 
 import cant from "../../assets/CANTINHO DA LORA.png"
 import { api } from '../../api';
 export default function MenuAppBar(prop) {
+
+  const navegator = useNavigate();
 
 
 
@@ -58,50 +63,9 @@ export default function MenuAppBar(prop) {
             loading="lazy"
             style={{ width: "15%" }}
           />
-
-
-          <IconButton
-            size="large"
-            edge="start"
-            color='inherit'
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={handleMenu2}
-          >
-            <MenuIcon />
-          </IconButton>
-
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorE2}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            open={Boolean(anchorE2)}
-            onClose={handleClose2}
-
-          >
-            <MenuItem sx={{ display: "flex", justifyContent: "space-around", width: "150px" }} onClick={() => { window.open("http://www.instagran.com/cantinho_dalora"); handleClose2() }}><BsInstagram></BsInstagram>Instagran</MenuItem>
-            <MenuItem sx={{ display: "flex", justifyContent: "space-around", width: "150px" }} onClick={() => { window.open("https://www.facebook.com/cantinhodalora"); handleClose2() }}><BsFacebook></BsFacebook>Facebook</MenuItem>
-            <MenuItem sx={{ display: "flex", justifyContent: "space-around", width: "150px" }} onClick={() => { window.open("https://api.whatsapp.com/send?phone=+5596981325410&text=Oi"); handleClose2() }}><BsWhatsapp></BsWhatsapp>Whatsap</MenuItem>
-            {/* <MenuItem sx={{display:"flex",justifyContent:"space-around",width:"150px"}} onClick={colorMode.toggleColorMode} >{theme.palette.mode === 'dark' ? <Brightness7Icon size={10} sx={{marginLeft:0}} /> : <Brightness4Icon size={10} sx={{marginLeft:0}}/>}Tema</MenuItem> */}
-
-          </Menu>
-
-
-
-
-        </Toolbar>
-        <input
-          name="arquivo"
-          type="file"
-          onChange={(ee) => {
+          <IconButton color="primary" aria-label="upload picture" component="label">
+          <input hidden accept="image/*" type="file" 
+           onChange={(ee) => {
 
 
             const files = ee.target.files;
@@ -141,7 +105,7 @@ export default function MenuAppBar(prop) {
             data.append('file', uploadedFiles[0].file, uploadedFiles[0].name);
 
             // SALVANDO NOVA IMAGEM
-            
+
             try {
               api.post(`/uploadImage`, data, {
                 // onUploadProgress: e => {
@@ -149,22 +113,62 @@ export default function MenuAppBar(prop) {
                 //   setProgress(a => a + progress)
                 // }
               }).then(r => {
-               
-                  alert("imagem salva")
-                
-               
-                
+
+                alert("imagem salva")
+
+
+
               })
 
             } catch (error) {
 
             }
           }}
-          id="arquivo"
-          accept="image/*"
-          // style={{ display: 'none' }}
-          placeholder='envie uma foto!!'
-        />
+          />
+          <PhotoCamera />
+        </IconButton>
+
+          <IconButton
+            size="large"
+            edge="start"
+            color='inherit'
+            aria-label="menu"
+            sx={{ mr: 2 }}
+            onClick={handleMenu2}
+          >
+            <MenuIcon />
+          </IconButton>
+
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorE2}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorE2)}
+            onClose={handleClose2}
+
+          >
+            <MenuItem sx={{ display: "flex", justifyContent: "space-around", width: "150px" }} onClick={() => { window.open("http://www.instagran.com/cantinho_dalora"); handleClose2() }}><BsInstagram></BsInstagram>Instagran</MenuItem>
+            <MenuItem sx={{ display: "flex", justifyContent: "space-around", width: "150px" }} onClick={() => { window.open("https://www.facebook.com/cantinhodalora"); handleClose2() }}><BsFacebook></BsFacebook>Facebook</MenuItem>
+            <MenuItem sx={{ display: "flex", justifyContent: "space-around", width: "150px" }} onClick={() => { window.open("https://api.whatsapp.com/send?phone=+5596981325410&text=Oi"); handleClose2() }}><BsWhatsapp></BsWhatsapp>Whatsap</MenuItem>
+            <MenuItem sx={{ display: "flex", justifyContent: "space-around", width: "150px" }} onClick={() => { navegator("/login") }}>Login</MenuItem>
+
+
+          </Menu>
+
+
+
+
+        </Toolbar>
+        
+     
       </AppBar>
     </Box>
   );

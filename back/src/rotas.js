@@ -3,13 +3,18 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 import Crypto from 'crypto';
-import  conexoes from "../knexfile.js";
+
 import { fileURLToPath } from 'url';
 import knex from "knex";
+import conexao from "./databases/seeds/conexao.js";
+import users from "./controller/users/index.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rotas=express.Router();
-const conexao=knex(conexoes.development);
+
+
+// #####################IMAGENS############################
+
 rotas.post("/uploadImage",
 multer({
     // dest: Path.resolve(__dirname, '..', '..', 'tmp', 'uploads'),
@@ -79,7 +84,7 @@ rotas.delete("/deleteImage",async(req,res)=>{
     try {
        await conexao("images").del().where({idimage});
        fs.unlink(path.resolve(__dirname,"..","tmp","uploads",`${key}`),(err) => {
-       if (err) {console.log("noão foi possivel apagar o arquivo")}
+       if (err) {console.log("não foi possivel apagar o arquivo")}
        else {console.log('path/file.txt was deleted')};
       })
       
@@ -94,7 +99,7 @@ rotas.get("/imagesget",async (req,res)=>{
     try {
         let images=await conexao("images")
         for (const key in images) {
-           images[key].delete=`http://109.123.243.212:3009/deleteImage?idimage=${images[key].idimage}&key=${images[key].key}`
+           images[key].delete=`deleteImage?idimage=${images[key].idimage}&key=${images[key].key}`
         }
         return res.json({status:true,images})
     } catch (error) {
@@ -102,4 +107,17 @@ rotas.get("/imagesget",async (req,res)=>{
         return res.json({status:false,mensagem:"error ao consultar"})
     }
 })
+// #######################################################
+
+// #####################USERS###############################
+
+// rotas.get("/users",users.select);
+rotas.post("/login",users.login);
+
+
+
+// ###########################################################
+
+
+
 export default rotas;

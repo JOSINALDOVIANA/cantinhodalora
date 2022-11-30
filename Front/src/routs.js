@@ -1,6 +1,8 @@
 import { createTheme, ThemeProvider, useTheme } from "@mui/material";
 import React, { createContext, useContext } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Perfil from "./components/adm";
+import Login from "./components/adm/login";
 import InicialTela from "./components/InicialTela/index";
 import { DadosProvider } from "./components/provider/dados";
 
@@ -59,6 +61,8 @@ export default function Rotas() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<InicialTela />} />                       
+                        <Route path="/login" element={<Login />} />                       
+                        <Route path="/perfil" element={<Perfil />} />                       
                     </Routes>
                 </BrowserRouter>
             </ContextProvider>
