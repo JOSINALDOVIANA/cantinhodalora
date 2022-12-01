@@ -1,11 +1,12 @@
 import { Button, Container, ImageListItem, Paper } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { api, url } from '../../api.js';
 
 
 function Perfil() {
     const dados=useLocation();
+    const navegator=useNavigate();
     const [images,setImages]=useState([]);
     useEffect(()=>{
         api.get("/imagesget").then(r=>{
@@ -28,13 +29,16 @@ function Perfil() {
               if(r.data.status){document.location.reload()}
              else{ alert("erro ao excluir"); document.location.reload()}
             })
-          }} variant="contained" color="error">excluir</Button>
+          }} variant="contained" color="error">Excluir</Button>
 
 
 
         </Paper>))
     }
        </Paper>
+       <Button onClick={()=>{
+           navegator("/")
+          }} variant="contained" color="error">Sair</Button>
     </Container>
   );
 }

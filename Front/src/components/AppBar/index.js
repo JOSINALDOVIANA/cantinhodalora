@@ -114,7 +114,8 @@ export default function MenuAppBar(prop) {
                 // }
               }).then(r => {
 
-                alert("imagem salva")
+                alert("imagem salva");
+                document.location.reload()
 
 
 
