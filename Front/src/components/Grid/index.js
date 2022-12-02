@@ -212,7 +212,7 @@ export default function GridContainer() {
         </Grid>
 
         <Grid item xs={12} sm={6} md={4} lg={4}>
-          <ComplexGrid img={CoronaLong} desc="Corona Long" tamanho="" valor="10,00" logos={[]} ></ComplexGrid>
+          <ComplexGrid img={CoronaLong} desc="Corona Long" tamanho="" valor="12,00" logos={[]} ></ComplexGrid>
         </Grid>
 
         <Grid item xs={12} sm={6} md={4} lg={4}>

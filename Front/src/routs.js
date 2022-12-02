@@ -1,74 +1,53 @@
-import { createTheme, ThemeProvider, useTheme } from "@mui/material";
-import React, { createContext, useContext } from "react";
+
+import React from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Perfil from "./components/adm";
-import Login from "./components/adm/login";
-import InicialTela from "./components/InicialTela/index";
-import { DadosProvider } from "./components/provider/dados";
+// import Perfil from "./components/adm";
+// import Login from "./components/adm/login";
+// import Cards from "./components/InicialTela/Cards";
+// import InicialTela from "./components/InicialTela/index";
+import Load from "./load";
+
+const Perfil = React.lazy(() => import("./components/adm"))
+const Login = React.lazy(() => import("./components/adm/login"))
+const Cards = React.lazy(() => import("./components/InicialTela/Cards"))
+const InicialTela = React.lazy(() => import("./components/InicialTela/index"))
+const Imagens = React.lazy(() => import("./components/adm/imagens"))
+// const Load= React.lazy(() => import("./load"))
 
 
 
-export const Context = createContext();
-export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
 
 
 
-function ContextProvider({ children }) {
-    const [values, setValues] = React.useState({});
-    return (
-        <Context.Provider value={{ values, setValues }}>
-            {children}
-        </Context.Provider>
-    );
-}
 
-export function UseDados() {
-    const { values, setValues } = useContext(Context);
-    return [values, setValues];
-}
+
 
 
 
 export default function Rotas() {
 
-    const [mode, setMode] = React.useState('light');
-    const colorMode = React.useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-      },
-    }),
-    [],
-  );
 
-  const theme = React.useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,          
-        },
-        
-      }),
-    [mode],
-  );
 
     return (
-      <DadosProvider>
-        <ColorModeContext.Provider value={colorMode}>
-            <ThemeProvider theme={theme}>
-            <ContextProvider>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<InicialTela />} />                       
-                        <Route path="/login" element={<Login />} />                       
-                        <Route path="/perfil" element={<Perfil />} />                       
-                    </Routes>
-                </BrowserRouter>
-            </ContextProvider>
-            </ThemeProvider>
-        </ColorModeContext.Provider>
-        </DadosProvider>
+
+
+
+        <React.Suspense fallback={<Load />}>
+
+            <BrowserRouter >
+                <Routes>
+                    <Route path="/" element={<InicialTela />} >
+                        <Route index element={<Cards />}></Route>
+                    </Route>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/perfil" element={<Perfil />}>
+                        <Route path="/perfil/imagens" element={<Imagens/>}></Route>
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </React.Suspense>
+
 
 
     );
