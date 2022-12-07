@@ -1,19 +1,20 @@
 import { Container} from '@mui/material';
 import React from 'react';
-import { Outlet} from 'react-router-dom';
+import { Outlet, useLocation} from 'react-router-dom';
 
 import ResponsiveAppBar from '../AppBar/appbaradm.js';
 
 
 function Perfil() {
    
-  
+  const dados=useLocation()
+  console.log(dados)
   return (
-    <Container sx={{display:"flex",height:"100vh",flexDirection:"column",padding:2}}>
-      <ResponsiveAppBar></ResponsiveAppBar>
+    <div className='container-fluid' style={{display:"flex",height:"100vh",flexDirection:"column",padding:2}}>
+      <ResponsiveAppBar user={dados.state}></ResponsiveAppBar>
       
       <Outlet></Outlet>
-    </Container>
+    </div>
   );
 }
 

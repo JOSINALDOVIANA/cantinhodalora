@@ -9,10 +9,10 @@ import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 
 
-const pages = ['Produtos', 'Imagens', 'Sair'];
+const pages = ['Produtos', 'Imagens',"Dados", 'Sair'];
 
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar(props) {
  const navegate=useNavigate();
 
 
@@ -69,8 +69,9 @@ function ResponsiveAppBar() {
               <Button
                 key={page}
                 onClick={()=>{
-                 if(index==1){navegate("/perfil/imagens")}
-                 if(index==2){navegate("/")}
+                 if(page=="Imagens"){navegate("/perfil/imagens",{state:props.user})}
+                 if(page=="Dados"){navegate("/perfil/userEdit",{state:props.user})}
+                 if(page=="Sair"){navegate("/")}
                 }}
                 sx={{ my: 2, color: 'white' }}
               >

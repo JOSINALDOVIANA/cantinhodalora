@@ -20,5 +20,16 @@ export default {
         return res.json({status :false, mensagem:"error select users"})
     }
  },
+ async Update(req,res){
+    const {id,email,password,name}=req.body;
+    try {
+        await conexao("users").where({id}).update({email,password,name});if(!!dados) {return res.json({status:true,user:dados})}else{
+        return res.json({status:true,mensagem:"Dados salvos"})}
+    } catch (error) {
+        console.error(error)
+        return res.json({status :false, mensagem:"error update users"})
+    }
+ },
+ 
 
 }
