@@ -23,8 +23,9 @@ export default {
  async Update(req,res){
     const {id,email,password,name}=req.body;
     try {
-        await conexao("users").where({id}).update({email,password,name});if(!!dados) {return res.json({status:true,user:dados})}else{
-        return res.json({status:true,mensagem:"Dados salvos"})}
+        await conexao("users").where({id}).update({email,password,name});
+        
+        return res.json({status:true,mensagem:"Dados salvos"})
     } catch (error) {
         console.error(error)
         return res.json({status :false, mensagem:"error update users"})
