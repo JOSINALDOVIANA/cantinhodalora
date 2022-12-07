@@ -1,54 +1,23 @@
 // Update with your config settings.
 
-/**
- * @type { Object.<string, import("knex").Knex.Config> }
- */
-export default  {
+export const development = {
+  client: 'mysql',
+  connection: {
+   
+    host: '109.123.243.212',
+    
+    user: 'cantinhodalora',
+    password: 'Wikazako@123*',
 
-  development: {
-    client: 'sqlite3', // or 'better-sqlite3'
-    connection: {
-      filename: "./src/databases/mydb.sqlite"
-    },
-    seeds: {
-      directory: './src/databases/seeds'
+    database: 'cantinhodalora',
   },
   migrations: {
     directory: './src/databases/migrations'
   },
-useNullAsDefault:true
-  },
-
-  staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
-  },
-
-  production: {
-    client: 'postgresql',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
+  seeds: {
+    directory: './src/databases/seeds'
   }
 
 };
+
+
