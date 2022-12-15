@@ -70,15 +70,16 @@ export default function MenuAppBar(prop) {
 
             const files = ee.target.files;
             let uploadedFiles = []
-            console.log(files)
+            // console.log(files)
 
-            for (const iterator of files) {
-
+            for (let iterator of files) {
+              
               uploadedFiles.push(
                 {
                   "file": iterator,
                   "id": uniqueId(),//definindo um id unico 
                   "name": iterator.name,
+                  "prod":false,
                   "readableSize": iterator.size,
                   preview: URL.createObjectURL(iterator), // criando um link para preview da foto carregada
                   url: URL.createObjectURL(iterator),// sera usado para setar a variavel img no proprietario/index.js
@@ -116,13 +117,14 @@ export default function MenuAppBar(prop) {
 
                 alert("imagem salva");
                 document.location.reload()
-
+                
 
 
               })
 
             } catch (error) {
-
+              console.log(error)
+              alert("formato nao aceito");
             }
           }}
           />

@@ -3,7 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { Avatar, Button, TextField } from '@mui/material';
-import { api } from '../../api';
+import { api } from '../../../api';
 import { useNavigate } from 'react-router-dom';
 export default function Login() {
   const navegator=useNavigate();

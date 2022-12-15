@@ -1,4 +1,4 @@
-import { Paper, styled, Typography, useTheme } from '@mui/material';
+import { Paper, Skeleton, styled, Typography, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { api, url } from '../../api';
 import Torre from "../../assets/Torres.png"
@@ -27,7 +27,7 @@ function Cards() {
   }, [])
   return (
     <div>
-        {images.length>0 && <Paper
+        {images.length>0 ? <Paper
         sx={{
           height: "300px",
           flexGrow: 1,
@@ -37,7 +37,7 @@ function Cards() {
           justifyContent: "center",
           marginBottom:2
         }}
-        elevation={3}
+        elevation={0}
       >
 
         <div id="carouselExampleInterval" className="carousel slide" data-bs-ride="carousel">
@@ -61,7 +61,8 @@ function Cards() {
             <span className="visually-hidden">Next</span>
           </button>
         </div>
-      </Paper>}
+      </Paper>:<Skeleton variant="rectangular" sx={{height: "300px",
+          flexGrow: 1,}}/>}
       <Paper
         sx={{
           flexGrow: 1,

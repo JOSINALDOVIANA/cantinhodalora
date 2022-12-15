@@ -8,8 +8,10 @@ import { fileURLToPath } from 'url';
 import knex from "knex";
 import conexao from "./databases/conexao.js";
 import users from "./controller/users/index.js";
+import Produtos from "./controller/produtos/index.js";
+import { promisify } from "util";
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+export const __dirname = path.dirname(__filename);
 const rotas=express.Router();
 
 
@@ -19,7 +21,7 @@ rotas.post("/uploadImage",
 multer({
     // dest: Path.resolve(__dirname, '..', '..', 'tmp', 'uploads'),
     storage: multer.diskStorage({
-        destination: (req, file, cb) => {
+        destination: (req,file, cb) => {
 
             cb(null, path.resolve(__dirname,  '..', 'tmp', 'uploads'));
         },
@@ -53,21 +55,23 @@ multer({
     }
 }).single('file'),
 async (req,res)=>{
-    let { originalname: name, size, key, location: url = '' } = req.file;
+    let { originalname: name, size, key, location: url = ''} = req.file;
+    // console.log(req.body)
     // url=`http://localhost:3001/images/${key}`
-        const idimage = `${Crypto.randomBytes(12).toString('HEX')}`;
+        const id = `${Crypto.randomBytes(12).toString('HEX')}`;
 
         try {
             await conexao('images').insert({
-                idimage,
+                id,
                 name,
                 size,
                 key,
                 url,
+                prod:false
                 
             });
             res.json({
-                idimage, name, size, key, url
+                id, name, size, key, url,prod:false
             });
         } catch (error) {
             console.error(error)
@@ -79,14 +83,14 @@ async (req,res)=>{
 )
 
 rotas.delete("/deleteImage",async(req,res)=>{
-    const {idimage,key}=req.query
+    const {id,key}=req.query
     // console.log(req.query)
     try {
-       await conexao("images").del().where({idimage});
-       fs.unlink(path.resolve(__dirname,"..","tmp","uploads",`${key}`),(err) => {
-       if (err) {console.log("não foi possivel apagar o arquivo")}
-       else {console.log('path/file.txt was deleted')};
-      })
+       await conexao("images").del().where({id,prod:false});
+     promisify(fs.unlink)(path.resolve(__dirname, "..", "tmp", "uploads", `${key}`), (err) => {
+        if (err) { console.log("não foi possivel apagar o arquivo"); }
+        else { console.log('aquivo deletado'); };
+    })
       
        return res.json({status:true,mensagem:"apagada"})
     } catch (error) {
@@ -97,7 +101,7 @@ rotas.delete("/deleteImage",async(req,res)=>{
 
 rotas.get("/imagesget",async (req,res)=>{
     try {
-        let images=await conexao("images")
+        let images=await conexao("images").where({prod:false})
         for (const key in images) {
            images[key].delete=`deleteImage?idimage=${images[key].idimage}&key=${images[key].key}`
         }
@@ -109,19 +113,11 @@ rotas.get("/imagesget",async (req,res)=>{
 })
 // #######################################################
 
-// #####################USERS###############################
 
-// rotas.get("/users",users.select);
-rotas.post("/login",users.login);
-rotas.post("/update",users.Update);
-
-
-
-// ###########################################################
 
 // #####################IMAGENS Produtos############################
 
-rotas.post("/uploadImageP",
+rotas.post("/insertImageP",
 multer({
     // dest: Path.resolve(__dirname, '..', '..', 'tmp', 'uploads'),
     storage: multer.diskStorage({
@@ -161,19 +157,20 @@ multer({
 async (req,res)=>{
     let { originalname: name, size, key, location: url = '' } = req.file;
    
-        const idimage = `${Crypto.randomBytes(12).toString('HEX')}`;
+        const id = `${Crypto.randomBytes(12).toString('HEX')}`;
 
         try {
-            await conexao('imagesp').insert({
-                idimage,
+            await conexao('images').insert({
+                id,
                 name,
                 size,
                 key,
                 url,
+                prod:true
                 
             });
             res.json({
-                idimage, name, size, key, url
+                id, name, size, key, url,prod:true
             });
         } catch (error) {
             console.error(error)
@@ -185,14 +182,14 @@ async (req,res)=>{
 )
 
 rotas.delete("/deleteImageP",async(req,res)=>{
-    const {idimage,key}=req.query
+    const {id,key}=req.query
     // console.log(req.query)
     try {
-       await conexao("imagesp").del().where({idimage});
-       fs.unlink(path.resolve(__dirname,"..","tmp","uploads",`${key}`),(err) => {
-       if (err) {console.log("não foi possivel apagar o arquivo")}
-       else {console.log('path/file.txt was deleted')};
-      })
+       await conexao("images").del().where({id});
+       promisify(fs.unlink)(path.resolve(__dirname, "..", "tmp", "uploads", `${key}`), (err) => {
+        if (err) { console.log("não foi possivel apagar o arquivo"); }
+        else { console.log('aquivo deletado'); };
+    })
       
        return res.json({status:true,mensagem:"apagada"})
     } catch (error) {
@@ -201,11 +198,11 @@ rotas.delete("/deleteImageP",async(req,res)=>{
     }
 })
 
-rotas.get("/imagesgetP",async (req,res)=>{
+rotas.get("/selectimagesP",async (req,res)=>{
     try {
-        let images=await conexao("imagesp")
+        let images=await conexao("images").where({prod:true})
         for (const key in images) {
-           images[key].delete=`deleteImage?idimage=${images[key].idimage}&key=${images[key].key}`
+           images[key].delete=`deleteImageP?idimage=${images[key].idimage}&key=${images[key].key}`
         }
         return res.json({status:true,images})
     } catch (error) {
@@ -214,5 +211,27 @@ rotas.get("/imagesgetP",async (req,res)=>{
     }
 })
 // #######################################################
+
+
+// #####################USERS###############################
+
+// rotas.get("/users",users.select);
+rotas.post("/login",users.login);
+rotas.post("/update",users.Update);
+
+
+
+// ###########################################################
+
+// #####################Produtos###############################
+
+
+rotas.post("/produtos",Produtos.Cadastro);
+rotas.get("/produtos",Produtos.Select);
+
+
+
+
+// ###########################################################
 
 export default rotas;

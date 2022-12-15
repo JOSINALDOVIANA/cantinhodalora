@@ -1,6 +1,7 @@
 
 import React from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// import Produtos from "./components/adm/produtos";
 // import Useredit from "./components/adm/useredit";
 // import Perfil from "./components/adm";
 // import Login from "./components/adm/login";
@@ -9,11 +10,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Load from "./load";
 
 const Perfil = React.lazy(() => import("./components/adm"))
-const Login = React.lazy(() => import("./components/adm/login"))
+const Login = React.lazy(() => import("./components/adm/user/login"))
 const Cards = React.lazy(() => import("./components/InicialTela/Cards"))
 const InicialTela = React.lazy(() => import("./components/InicialTela/index"))
-const Imagens = React.lazy(() => import("./components/adm/imagens"))
-const Useredit = React.lazy(() => import("./components/adm/useredit"))
+const Imagens = React.lazy(() => import("./components/adm/user/imagens"))
+const Useredit = React.lazy(() => import("./components/adm/user/useredit"))
+const Produtosedit = React.lazy(() => import("./components/adm/produtos/editar"))
+const Produtoscad = React.lazy(() => import("./components/adm/produtos/cadastro"))
 // const Load= React.lazy(() => import("./load"))
 
 
@@ -44,8 +47,11 @@ export default function Rotas() {
                     </Route>
                     <Route path="/login" element={<Login />} />
                     <Route path="/perfil" element={<Perfil />}>
-                        <Route path="/perfil/imagens" element={<Imagens/>}></Route>
+                        <Route index element={<Imagens/>}></Route>
+                        <Route path="/perfil/imagens"  element={<Imagens/>}></Route>
                         <Route path="/perfil/userEdit" element={<Useredit/>}></Route>
+                        <Route path="/perfil/produtosedit" element={<Produtosedit/>}></Route>
+                        <Route path="/perfil/produtoscad" element={<Produtoscad/>}></Route>
                     </Route>
                 </Routes>
             </BrowserRouter>

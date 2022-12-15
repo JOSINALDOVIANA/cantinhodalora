@@ -10,10 +10,10 @@ function Perfil() {
   const dados=useLocation()
   console.log(dados)
   return (
-    <div className='container-fluid' style={{display:"flex",height:"100vh",flexDirection:"column",padding:2}}>
+    <div className='fluid' style={{display:"flex",height:"100vh",flexDirection:"column"}}>
       <ResponsiveAppBar user={dados.state}></ResponsiveAppBar>
       
-      <Outlet></Outlet>
+      <Outlet ></Outlet>
     </div>
   );
 }

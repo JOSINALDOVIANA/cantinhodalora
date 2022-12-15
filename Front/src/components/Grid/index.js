@@ -55,6 +55,7 @@ import Frozen from '../../assets/frozen.png'
 import morango from '../../assets/morango.png'
 import maracuja from '../../assets/maracuja.png'
 import abacaxi from '../../assets/abacaxi.png'
+import { api,url } from '../../api';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -67,6 +68,25 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function GridContainer() {
 
+  const [produtos,setProd]=React.useState([]);
+
+  React.useEffect(()=>{
+    api.get("/produtos").then(r=>{
+      let p=r.data.produtos
+      if(r.data.status){
+        
+        for (const key in p) {
+         p[key].img.url=url+"images/"+p[key].img.key;
+         p[key].url=p[key].img.url;
+         for (const key2 in p[key].logos) {
+          p[key].logos[key2].url=url+"images/"+p[key].logos[key2].key
+         }
+        }
+        setProd(p)
+      }
+    })
+  },[])
+console.log(produtos)
   return (
     <Box sx={{
       flexGrow: 1,
@@ -78,17 +98,19 @@ export default function GridContainer() {
       <Grid container alignItems="center" spacing={2}>
 
 
-        <Grid item xs={12} sm={6} md={4} lg={4}>
-          <ComplexGrid
-            img={imgtorre}
-            desc="Torre"
-            tamanho="3.5 L"
-            valor=" 50,00"
-            logos={[logoskol, logoitaipava, logobrahma]} />
-        </Grid>
+       {produtos?.map(p=>(
+         <Grid key={p.id} item xs={12} sm={6} md={4} lg={4}>
+         <ComplexGrid
+           img={p.url}
+           desc={p.desc}
+           tamanho={p.tam}
+           valor={p.preco}
+           logos={p.logos} />
+       </Grid>
+       ))}
 
 
-        <Grid item xs={12} sm={6} md={4} lg={4}>
+        {/* <Grid item xs={12} sm={6} md={4} lg={4}>
           <ComplexGrid
             img={imgtorre}
             desc="Torre"
@@ -218,9 +240,7 @@ export default function GridContainer() {
         <Grid item xs={12} sm={6} md={4} lg={4}>
           <ComplexGrid img={imgRefrigerantes} desc="Refrigerantes" tamanho=" 350 ML" valor="5,00" logos={[]} ></ComplexGrid>
         </Grid>
-        {/* <Grid item xs={12} sm={6} md={4} lg={4}>
-          <ComplexGrid img={imgimperio} desc="Cerveja Imperio puro malte" tamanho=" 269 ML" valor="5,00" logos={[]} ></ComplexGrid>
-        </Grid> */}
+      
         <Grid item xs={12} sm={6} md={4} lg={4}>
           <ComplexGrid img={imgCoco} desc="COCO Gelado" tamanho="" valor="6,00" logos={[]} ></ComplexGrid>
         </Grid>
@@ -262,7 +282,7 @@ export default function GridContainer() {
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={4}>
           <ComplexGrid img={imgchiclet} desc="Chiclets" tamanho=" 4 UND" valor="1,00" logos={[]} ></ComplexGrid>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Box>
   );

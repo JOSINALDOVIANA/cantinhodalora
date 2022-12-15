@@ -20,14 +20,15 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg }) {
 
         <Paper
 
-            elevation={5}
+            elevation={2}
             sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
                 backgroundColor: '#fff',                
                 borderRadius: 1,
-                fontFamily: "Roboto"
+                fontFamily: "Roboto",
+                height:200
             }}
         >
 
@@ -41,9 +42,12 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg }) {
 
             <Box sx={{  flexGrow:1, padding: 1,flexDirection:"column",textAlign:"end" }}>
 
-                <Box sx={{ flexGrow:1,flexDirection: "column", alignItems: "center" ,justifyContent:"center",textAlign:"end" }}>
+                <Box sx={{ flexGrow:1,flexDirection: "column", alignItems: "center" ,justifyContent:"center",}}>
                     <Typography sx={{ color:"#000"}} gutterBottom variant="subtitle1" component="div">
-                        {desc} {tamanho}
+                        {desc}
+                    </Typography>
+                    <Typography sx={{ color:"#000"}} gutterBottom variant="subtitle1" component="div">
+                        {tamanho}
                     </Typography>
 
                     {logos.length > 0 && (
@@ -53,7 +57,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg }) {
                             </Typography>
                             <Box sx={{ display: "flex", maxWidth:"130px",  justifyContent: "space-around" }}>
 
-                                {logos.map(logo => (<Img alt='imagem' src={logo} sx={{ height: "40%", width: "40%" }}></Img>))}
+                                {logos.map(logo => (<Img key={logo.id} alt='imagem' src={logo.url} sx={{ height: "40%", width: "40%" }}></Img>))}
                             </Box>
                         </Box>
                     )}
@@ -62,8 +66,8 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg }) {
 
 
 
-                {bg ? null : <Typography sx={{  bottom: 2, right: 5, color: "red", fontWeight: "bold" }} variant="subtitle1" component="div">
-                    {"R$ " + valor}
+                {bg ? null : <Typography sx={{  bottom: 1, right: 5, color: "red", fontWeight: "bold" }} variant="subtitle1" component="div">
+                    {  new Intl.NumberFormat('pt-BR', {style: 'currency',currency: 'BRL', minimumFractionDigits: 2}).format(valor)}
                 </Typography>}
             </Box>
 

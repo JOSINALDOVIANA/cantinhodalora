@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { api } from '../../api';
+import { api } from '../../../api';
 
-import './styles.css';
+import '../styles.css';
 
 function Useredit() {
   let rota = useLocation().state
   const [dados, setdados] = useState(rota)
   console.log(dados)
   return (
-    <table className="table caption-top table-responsive">
+    <div className='container-fuid' style={{overflow:"scroll"}}>
+      <table className="table caption-top table-responsive">
       {/* <caption>List of users</caption> */}
       <thead className='table-dark'>
         <tr>
@@ -55,6 +56,7 @@ function Useredit() {
         </tr>
       </tbody>
     </table>
+    </div>
   );
 }
 

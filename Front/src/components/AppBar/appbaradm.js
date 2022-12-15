@@ -7,83 +7,73 @@ import Container from '@mui/material/Container';
 
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import './styles.css'
 
-
-const pages = ['Produtos', 'Imagens',"Dados", 'Sair'];
+const pages = [["Cadastrar Produto", "Editar Produto"], 'Imagens', "Dados", 'Sair'];
 
 
 function ResponsiveAppBar(props) {
- const navegate=useNavigate();
+  const navegate = useNavigate();
 
 
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-       
-          {/* --------------------EM TELA PEQUENA------------- */}
-          {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
-          
+    <nav style={{height:"10%"}} className="navbar navbar-dark bg-dark ">
+      <div className="container-fluid ">
+        <button style={{alignItems:"center",display:"flex"}} className="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+          <span style={{width:"16px",height:"16px"}} className="navbar-toggler-icon"></span>
+        </button>
+        <span className="navbar-brand" >Cantinho da Lora</span>
 
-{/* -----------------------EM TELA GRANDE--------------------- */}
-          <Box sx={{ flexGrow: 1,
-            //  display: { xs: 'none', md: 'flex' }
-              }}>
-            {pages.map((page,index) => (
-              <Button
-                key={page}
-                onClick={()=>{
-                 if(page=="Imagens"){navegate("/perfil/imagens",{state:props.user})}
-                 if(page=="Dados"){navegate("/perfil/userEdit",{state:props.user})}
-                 if(page=="Sair"){navegate("/")}
-                }}
-                sx={{ my: 2, color: 'white' }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
+        <div className="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+          aria-labelledby="offcanvasDarkNavbarLabel">
+          <div className="offcanvas-header">
+            <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu - Cantinho da LORA</h5>
+            <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+              aria-label="Close"></button>
+          </div>
+          <div className="offcanvas-body">
+            <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li onClick={()=>{
+                navegate("/perfil/imagens", { state: props.user })
+              }} className="nav-item link">
+                <span className="nav-link active " aria-current="page" >{pages[1]}</span>
+              </li>
+              <li onClick={()=>{
+                 navegate("/perfil/userEdit", { state: props.user })
+              }} className="nav-item link">
+                <span className="nav-link" >{pages[2]}</span>
+              </li>
+              <li className="nav-item dropdown link">
+                <span className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  Produtos
+                </span>
+                <ul className="dropdown-menu dropdown-menu-dark">
+                  <li onClick={()=>{
+                    navegate("/perfil/produtoscad",{state:props.user})
+                  }}><span className="dropdown-item" >{pages[0][0]}</span></li>
+                  <li onClick={()=>{
+                    navegate("/perfil/produtosedit",{state:props.user})
+                  }}><span className="dropdown-item" >{pages[0][1]}</span></li>
+                  {/* <li>
+                    <hr className="dropdown-divider">
+                  </li>
+                  <li><a className="dropdown-item" href="#">Something else here</a></li> */}
+                </ul>
+              </li>
+              <li onClick={()=>{
+                 navegate("/")
+              }} className="nav-item link">
+                <span className="nav-link" >{pages[3]}</span>
+              </li>
+            </ul>
 
-         
-        </Toolbar>
-      </Container>
-    </AppBar>
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 }
 export default ResponsiveAppBar;
