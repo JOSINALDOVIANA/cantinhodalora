@@ -55,9 +55,9 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg }) {
                             <Typography sx={{ fontWeight: "bold", fontSize: 10, marginBottom: 0 }} variant="body2" gutterBottom>
                                 Opções Disponiveis:
                             </Typography>
-                            <Box sx={{ display: "flex", maxWidth:"130px",  justifyContent: "space-around" }}>
+                            <Box sx={{ display: "flex", maxWidth:"130px",  justifyContent: "space-around",margin:1 }}>
 
-                                {logos.map(logo => (<Img key={logo.id} alt='imagem' src={logo.url} sx={{ height: "40%", width: "40%" }}></Img>))}
+                                {logos.map(logo => (<Img key={logo.id} alt='imagem' src={logo.url} sx={{ height: "30%", width: "30%" }}></Img>))}
                             </Box>
                         </Box>
                     )}

@@ -1,9 +1,9 @@
 import PhotoCamera from '@mui/icons-material/PhotoCamera.js';
-import { Avatar, Box, Button, IconButton, ImageList, ImageListItem, TextField,Typography , Modal} from '@mui/material';
+import { Avatar, Box, Button, IconButton, ImageList, ImageListItem, TextField, Typography, Modal } from '@mui/material';
 import { uniqueId } from 'lodash';
 import React from 'react';
 import { api, url } from '../../../api.js'
-
+import Swal from 'sweetalert2'
 const style = {
   position: 'absolute',
   top: '50%',
@@ -18,12 +18,14 @@ const style = {
 
 
 function Produtoscad() {
-  const [produto, setProduto] = React.useState({ desc: '', tam: '',logos:[], preco: 0, url: '', und: 0, id_image: '' })
+  const [produto, setProduto] = React.useState({ desc: '', tam: '', logos: [], preco: 0, url: '', und: 0, id_image: '' })
   const [imagens, setIMG] = React.useState([])
+  const [IMGC, setIMGC] = React.useState(false)
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
 
 
   React.useEffect(() => {
@@ -36,7 +38,7 @@ function Produtoscad() {
         setIMG(i)
       }
     })
-  }, [])
+  }, [IMGC])
   console.log(produto)
   return (
 
@@ -69,31 +71,49 @@ function Produtoscad() {
 
 
 
-        <Button onClick={async () => {
+        <Button onClick={async (e) => {
+          e.preventDefault();
           api.post("/produtos", { ...produto }).then(r => {
-            // console.log(r.data)
-            if (r.data.status) { alert(r.data.mensagem) }
-            else { alert(r.data.mensagem) }
+
+            if (r.data.status) { 
+              Swal.fire(
+              'Produto Salvo!',
+              '',
+              'success'
+            ) }
+            else { 
+
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'algo deu errado!',
+                // footer: '<a href="">Why do I have this issue?</a>'
+              })
+
+            }
           })
         }} variant="contained" color="success">Salvar</Button>
 
-<Button onClick={handleOpen}>Escolher logos</Button>
+        <Button onClick={handleOpen}>Escolher logos</Button>
 
       </Box>
-      <Box sx={{ width: "50%" }}>
-        <ImageList sx={{ width: "100%", height: "400px", marginTop: 2 }} cols={3} rowHeight={164}>
+      <Box sx={{ width: "50%", marginLeft:2 }}>
+
+        <ImageList sx={{ width: 500, height: 450, marginTop: 2, background: "#dddd" }} cols={3} rowHeight={164}>
           {imagens.map((item) => (
-            <ImageListItem key={item.id}>
-              <img
+            <ImageListItem sx={{ padding: 2 }} key={item.id}>
+              <img              
                 src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
                 srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                 alt={item.name}
-                loading="lazy"
                 onClick={() => { setProduto(a => ({ ...a, id_image: item.id, url: item.url })) }}
+                loading="lazy"
               />
             </ImageListItem>
           ))}
         </ImageList>
+
+
         <IconButton color="primary" aria-label="upload picture" component="label">
           <input hidden accept="image/*" type="file"
             onChange={(ee) => {
@@ -146,9 +166,15 @@ function Produtoscad() {
                   // }
                 }).then(r => {
 
-                  alert("imagem salva");
-                  document.location.reload()
 
+                  // document.location.reload()
+
+                  Swal.fire(
+                    'Imagem Salva!',
+                    '',
+                    'success'
+                  )
+                  setIMGC(a => !a)
 
 
                 })
@@ -169,19 +195,20 @@ function Produtoscad() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        <ImageList sx={{ width: "100%", height: "400px", marginTop: 2 }} cols={3} rowHeight={164}>
-          {imagens.map((item) => (
-            <ImageListItem key={item.id}>
-              <img
-                src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.name}
-                loading="lazy"
-                onClick={() => { setProduto(a => ({ ...a, logos: [...a.logos,item.id] })) }}
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
+
+          <ImageList sx={{ width: "100%", height: "400px", marginTop: 2 }} cols={3} rowHeight={164}>
+            {imagens.map((item) => (
+              <ImageListItem key={item.id}>
+                <img
+                  src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
+                  srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                  alt={item.name}
+                  loading="lazy"
+                  onClick={() => { setProduto(a => ({ ...a, logos: [...a.logos, item.id] })) }}
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
         </Box>
       </Modal>
     </Box>
