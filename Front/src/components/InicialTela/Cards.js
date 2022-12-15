@@ -94,7 +94,7 @@ function Cards() {
             fontWeight: "100"
 
           }} >
-          Promoção do dia, Na Compra de duas torres de R$50,00 ganhe uma caipirinha.
+          Promoção do dia, Na Compra de duas torres de R$55,00 ganhe uma caipirinha.
         </Typography>
       </Paper>
       <GridContainer></GridContainer>
