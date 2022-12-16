@@ -27,7 +27,7 @@ function Cards() {
   }, [])
   return (
     <div>
-        {images.length>0 ? <Paper
+       <Paper
         sx={{
           height: "300px",
           flexGrow: 1,
@@ -61,8 +61,7 @@ function Cards() {
             <span className="visually-hidden">Next</span>
           </button>
         </div>
-      </Paper>:<Skeleton variant="rectangular" sx={{height: "300px",
-          flexGrow: 1,}}/>}
+      </Paper>
       <Paper
         sx={{
           flexGrow: 1,
@@ -73,10 +72,10 @@ function Cards() {
           color: "#000",
           display: "flex",
           alignItems: "center",
-          marginBottom: 2
+          marginBottom: 5
 
         }}
-        elevation={3}
+        elevation={0}
       >
         <Img classNameName='img' alt="torre"
           sx={{

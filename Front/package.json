@@ -1,6 +1,7 @@
 {
   "name": "web",
   "version": "0.1.0",
+  "homepage": "http://cantinhodalora.space:3008/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.8.2",

@@ -1,5 +1,5 @@
 import PhotoCamera from '@mui/icons-material/PhotoCamera.js';
-import { Avatar, Box, Button, IconButton, ImageList, ImageListItem, TextField, Typography, Modal } from '@mui/material';
+import { Avatar, Box, Button, IconButton, ImageList, ImageListItem, TextField, Typography, Modal, Paper } from '@mui/material';
 import { uniqueId } from 'lodash';
 import React from 'react';
 import { api, url } from '../../../api.js'
@@ -9,7 +9,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+ 
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -20,6 +20,7 @@ const style = {
 function Produtoscad() {
   const [produto, setProduto] = React.useState({ desc: '', tam: '', logos: [], preco: 0, url: '', und: 0, id_image: '' })
   const [imagens, setIMG] = React.useState([])
+  const [logos, setLogos] = React.useState([])
   const [IMGC, setIMGC] = React.useState(false)
 
   const [open, setOpen] = React.useState(false);
@@ -39,14 +40,30 @@ function Produtoscad() {
       }
     })
   }, [IMGC])
-  console.log(produto)
+ console.log(produto)
+ console.log(imagens)
+ 
+
+
   return (
 
 
 
-    <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "row" }} >
-      <Box sx={{ border: "2px solid #dddddd", borderRadius: "3px", boxShadow: " 1px 1px 1px 1px  ", display: "flex", flexDirection: "column", justifyContent: "space-evenly", alignItems: "center", marginTop: 2 }}>
+    <Box sx={{ display: "flex", justifyContent: "space-around", alignItems: "stretch", flexDirection: "row" }} >
+      <Box sx={{  display: "flex", flexDirection: "column", justifyContent: "space-evenly", alignItems: "center", marginTop: 2 }}>
         {!!produto.url && <Avatar sx={{ width: 56, height: 56, marginBottom: 5 }} src={produto.url} alt='imagem produto'></Avatar>}
+        {logos.length>0 && 
+           <Paper elevation={0} sx={{display:"flex", width:"100%",height:"10%",justifyContent:"space-around"}}>
+           {logos.map((logo,index)=>(
+            
+              <Avatar key={logo.id} src={logo.url} onClick={()=>{
+                setLogos(a=>(a.filter(i=>i.id!=logo.id)));
+                setProduto(a=>({...a,logos:a.logos.filter(i=>i!=logo.id)}))
+              }} alt="img"></Avatar>
+          
+           ))}
+       </Paper>
+          }
 
         <TextField sx={{ marginBottom: 1 }}
           value={produto.desc}
@@ -99,7 +116,7 @@ function Produtoscad() {
       </Box>
       <Box sx={{ width: "50%", marginLeft:2 }}>
 
-        <ImageList sx={{ width: 500, height: 450, marginTop: 2, background: "#dddd" }} cols={3} rowHeight={164}>
+        <ImageList sx={{ width: 500, height: 450, marginTop: 2, background: "#fff" }} cols={3} rowHeight={164}>
           {imagens.map((item) => (
             <ImageListItem sx={{ padding: 2 }} key={item.id}>
               <img              
@@ -114,8 +131,8 @@ function Produtoscad() {
         </ImageList>
 
 
-        <IconButton color="primary" aria-label="upload picture" component="label">
-          <input hidden accept="image/*" type="file"
+        <IconButton id="Camera" color="primary" aria-label="upload picture" component="label">
+          <input id='img' hidden accept="image/*" type="file"
             onChange={(ee) => {
 
 
@@ -185,8 +202,9 @@ function Produtoscad() {
               }
             }}
           />
-          <PhotoCamera />
+          <PhotoCamera  />
         </IconButton>
+        <label htmlFor='img'>Carregar uma Imagem</label>
       </Box>
       <Modal
         open={open}
@@ -196,7 +214,7 @@ function Produtoscad() {
       >
         <Box sx={style}>
 
-          <ImageList sx={{ width: "100%", height: "400px", marginTop: 2 }} cols={3} rowHeight={164}>
+          {/* <ImageList sx={{ width: "100%", height: "400px", marginTop: 2 }} cols={3} rowHeight={164}>
             {imagens.map((item) => (
               <ImageListItem key={item.id}>
                 <img
@@ -208,7 +226,20 @@ function Produtoscad() {
                 />
               </ImageListItem>
             ))}
-          </ImageList>
+          </ImageList> */}
+          <ImageList sx={{ width: 500, height: 450, marginTop: 2, background: "#fff" }} cols={3} rowHeight={164}>
+          {imagens.map((item) => (
+            <ImageListItem sx={{ padding: 2 }} key={item.id}>
+              <img              
+                src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
+                srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                alt={item.name}
+                onClick={() => { setProduto(a => ({ ...a, logos: [...a.logos, item.id] })); setLogos(a=>([...a,{...item}])) }}
+                loading="lazy"
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
         </Box>
       </Modal>
     </Box>
