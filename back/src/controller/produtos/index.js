@@ -33,8 +33,9 @@ export default {
                 desc, tam, preco, url, und,id_image
             }).where({id})
             if(logos && logos.length>0){
-                logos=logos.map(logo=>({id_image:logo}));
-                await conexao("image_prod").update(logos).where({id_prod:id})
+                logos=logos.map(logo=>({id_image:logo,id_prod:id}));
+                await conexao("image_prod").delete().where({id_prod:id});
+                await conexao("image_prod").insert(logos);
             }
          return res.json({status:true,mensagem:"produto atualizado"})
         } catch (error) {
