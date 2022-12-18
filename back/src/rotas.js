@@ -228,6 +228,8 @@ rotas.post("/update",users.Update);
 
 rotas.post("/produtos",Produtos.Cadastro);
 rotas.get("/produtos",Produtos.Select);
+rotas.delete("/produtos",Produtos.Delete);
+rotas.put("/produtos",Produtos.Update);
 
 
 

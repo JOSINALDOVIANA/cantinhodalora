@@ -25,6 +25,25 @@ export default {
 
         }
     },
+    async Update (req,res){ 
+        let {id, desc, tam, preco, url='', und,id_image=null,logos=false}=req.body;
+        
+        try {
+          await conexao("produtos").update({
+                desc, tam, preco, url, und,id_image
+            }).where({id})
+            if(logos && logos.length>0){
+                logos=logos.map(logo=>({id_image:logo}));
+                await conexao("image_prod").update(logos).where({id_prod:id})
+            }
+         return res.json({status:true,mensagem:"produto atualizado"})
+        } catch (error) {
+            
+            console.log(error)
+            return res.json({status:false,mensagem:"error produtos update"})
+
+        }
+    },
     async Select (req,res){ 
        
         
@@ -43,5 +62,21 @@ export default {
             return res.json({status:false,mensagem:"error produtos select"})
 
         }
-    }
+    },
+    async Delete (req,res){ 
+       
+        const {id}=req.query;
+        try {
+       await conexao("produtos").delete({id});
+
+        
+          
+         return res.json({status:true,mensagem:"apagado"})
+        } catch (error) {
+            
+            console.log(error)
+            return res.json({status:false,mensagem:"error produto delete"})
+
+        }
+    },
 }

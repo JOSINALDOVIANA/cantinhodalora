@@ -214,19 +214,7 @@ function Produtoscad() {
       >
         <Box sx={style}>
 
-          {/* <ImageList sx={{ width: "100%", height: "400px", marginTop: 2 }} cols={3} rowHeight={164}>
-            {imagens.map((item) => (
-              <ImageListItem key={item.id}>
-                <img
-                  src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
-                  srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.name}
-                  loading="lazy"
-                  onClick={() => { setProduto(a => ({ ...a, logos: [...a.logos, item.id] })) }}
-                />
-              </ImageListItem>
-            ))}
-          </ImageList> */}
+          
           <ImageList sx={{ width: 500, height: 450, marginTop: 2, background: "#fff" }} cols={3} rowHeight={164}>
           {imagens.map((item) => (
             <ImageListItem sx={{ padding: 2 }} key={item.id}>
