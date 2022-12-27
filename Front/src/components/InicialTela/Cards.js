@@ -26,7 +26,9 @@ function Cards() {
     })
   }, [])
   return (
-    <div>
+    <div style={{}}>
+
+      {/* imagens */}
        <Paper
         sx={{
           height: "300px",
@@ -62,6 +64,8 @@ function Cards() {
           </button>
         </div>
       </Paper>
+
+      {/* Promoção */}
       <Paper
         sx={{
           flexGrow: 1,

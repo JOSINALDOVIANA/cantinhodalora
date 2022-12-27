@@ -1,0 +1,74 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add styled-components
+
+PATH: 
+  C:\Program Files\WindowsApps\Microsoft.PowerShell_7.2.6.0_x64__8wekyb3d8bbwe;C:\Program Files\Microsoft MPI\Bin\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Python310\Scripts\;C:\Python310\;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\OpenJDK\openjdk-8u282-b08\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\OpenJDK\openjdk-11.0.12_7\bin;C:\Program Files\dotnet\;C:\ProgramData\UNIVALI\Portugol Studio;C:\laragon\bin\php\php-7.4.19-Win32-vc15-x64;C:\ProgramData\ComposerSetup\bin;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\PuTTY\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\josinaldo\AppData\Local\Microsoft\WindowsApps;C:\Users\josinaldo\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\josinaldo\AppData\Local\Android\Sdk\platform-tools;C:\Users\josinaldo\AppData\Local\Yarn\bin;C:\Program Files\Azure Data Studio\bin;C:\Program Files\JetBrains\PyCharm Community Edition 2021.1.2\bin;;C:\Users\josinaldo\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin;C:\Users\josinaldo\AppData\Local\GitHubDesktop\bin;C:\Users\josinaldo\AppData\Local\Android\Sdk\emulator;C:\Users\josinaldo\AppData\Local\Android\Sdk\tools;C:\Users\josinaldo\AppData\Local\Android\Sdk\tools\bin;C:\Users\josinaldo\AppData\Local\Android\Sdk\platform-tools;C:\Program Files\heroku\bin;C:\Users\josinaldo\AppData\Roaming\Composer\vendor\bin;C:\Users\josinaldo\AppData\Roaming\npm
+
+Yarn version: 
+  1.22.5
+
+Node version: 
+  16.18.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, copyfile 'C:\Users\josinaldo\AppData\Local\Yarn\Cache\v6\npm-@babel-runtime-7.20.7-fcb41a5a70550e04a7b708037c7c32f7f356d8fd-integrity\node_modules\@babel\runtime\helpers\interopRequireDefault.js' -> 'C:\Users\josinaldo\Documents\GitHub\cantinhodalora\Front\node_modules\@babel\runtime\helpers\interopRequireDefault.js'
+
+npm manifest: 
+  {
+    "name": "web",
+    "version": "0.1.0",
+    "homepage": "http://cantinhodalora.space:3008/",
+    "private": true,
+    "dependencies": {
+      "@emotion/react": "^11.8.2",
+      "@emotion/styled": "^11.8.1",
+      "@mui/icons-material": "^5.5.1",
+      "@mui/material": "^5.5.2",
+      "@testing-library/jest-dom": "^5.16.2",
+      "@testing-library/react": "^12.1.4",
+      "@testing-library/user-event": "^13.5.0",
+      "axios": "^1.2.0",
+      "lodash": "^4.17.21",
+      "nth-check": "^2.0.1",
+      "react": "^17.0.2",
+      "react-dom": "^17.0.2",
+      "react-icons": "^4.3.1",
+      "react-router-dom": "^6.2.2",
+      "react-scripts": "5.0.0",
+      "sweetalert2": "^11.6.15",
+      "web-vitals": "^2.1.4"
+    },
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+      "extends": [
+        "react-app",
+        "react-app/jest"
+      ]
+    },
+    "browserslist": {
+      "production": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+      ],
+      "development": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version"
+      ]
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

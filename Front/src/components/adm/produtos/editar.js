@@ -93,8 +93,11 @@ function Produtosedit() {
 
               <td>
                 <div style={{ display: "flex", justifyContent: "space-around" }}>
-                <Button >Excluir</Button>
+                <Button color='error'
+                variant='contained' >Excluir</Button>
                 <Button 
+                color='success'
+                variant='contained'
                 onClick={(e)=>{
                   e.preventDefault();
                   let p=prod;

@@ -35,7 +35,7 @@ export default function GridContainer() {
     <Box sx={{
       flexGrow: 1,
       marginTop: 0,
-      backgroundColor: "#fff",
+    
       color: "#000",
       marginBottom: 2
     }}>
@@ -43,7 +43,7 @@ export default function GridContainer() {
 
 
         {produtos?.map(p => (
-          <Grid key={p.id} item xs={12} sm={6} md={4} lg={4}>
+          <Grid key={p.id} item xs={6} sm={4} md={3} lg={3}>
             <ComplexGrid
               img={p.url}
               desc={p.desc}

@@ -41,7 +41,7 @@ export default function MenuAppBar(prop) {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, }}>
+    <Box >
 
       <AppBar position="static" sx={{
         backgroundColor: "#fff",

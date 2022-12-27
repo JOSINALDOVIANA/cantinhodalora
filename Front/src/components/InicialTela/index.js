@@ -7,6 +7,7 @@ import MenuAppBar from '../AppBar/index';
 
 
 import { Outlet } from 'react-router-dom';
+import { Box } from '@mui/material';
 
 function InicialTela() {
   
@@ -15,21 +16,22 @@ function InicialTela() {
 
 
 
-    <Container maxWidth="lg" sx={{
-      backgroundColor: "#fff",
+    <Box  sx={{
+      
       color: "#000",
       display: "flex",
       flexDirection: "column",
-      alignItems: "stretch",
-      flexGrow: 1,
+      flexGrow:1
+     
+     
       
 
 
     }}>
-      <CssBaseline />
+      
       <MenuAppBar></MenuAppBar>
       <Outlet></Outlet>
-    </Container>
+    </Box>
 
 
   );

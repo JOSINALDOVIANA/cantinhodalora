@@ -14,61 +14,64 @@ const Img = styled('img')({
     maxHeight: '100%',
 });
 
-export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg }) {
    
+
+export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg }) {
+
     return (
 
         <Paper
 
-            elevation={1}
+            elevation={4}
             sx={{
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                backgroundColor: '#fff',                
                 borderRadius: 1,
+                flexDirection: "column",
                 fontFamily: "Roboto",
-                height:200
+                alignItems: "center"
+
             }}
         >
 
 
-            <Box>
-
-                <Img alt={desc} src={img} sx={{ borderRadius: 0, width: 130, height: 130 }} />
-
-            </Box>
 
 
-            <Box sx={{  flexGrow:1, padding: 1,flexDirection:"column",textAlign:"end" }}>
 
-                <Box sx={{ flexGrow:1,flexDirection: "column", alignItems: "center" ,justifyContent:"center",}}>
-                    <Typography sx={{ color:"#000"}} gutterBottom variant="subtitle1" component="div">
-                        {desc}
+            <Img alt={desc} src={img} sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
+            {/* {logos.length > 0 && <Divider color="#000" sx={{ width: "90%" }} ></Divider>} */}
+            {logos.length > 0 && (
+
+                <Box sx={{ display: "flex", maxWidth: "130px", justifyContent: "space-around", margin: 1 }}>
+
+                    {logos.map(logo => (<Img key={logo.id} alt='imagem' src={logo.url} sx={{ height: "30%", width: "30%" }}></Img>))}
+                </Box>
+
+            )}
+
+            <Divider color="#000" sx={{ width: "90%" }} ></Divider>
+
+
+            <Box sx={{ flexDirection: "column", width: "100%", padding: 2 }}>
+
+                {bg ? null : <Typography sx={{ fontSize: "1.5em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginTop: 2, color: "#050A30" }} variant="subtitle1" component="div">
+                    {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(valor)}
+                </Typography>}
+
+                <Box sx={{ flexGrow: 1, flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
+                    <Typography sx={{ color: "#404E5C",fontSize:"1em" }} gutterBottom variant="subtitle1" component="div">
+                        {desc} {tamanho}
                     </Typography>
-                    <Typography sx={{ color:"#000"}} gutterBottom variant="subtitle1" component="div">
+                    {/* <Typography sx={{ color:"#000"}} gutterBottom variant="subtitle1" component="div">
                         {tamanho}
-                    </Typography>
+                    </Typography> */}
 
-                    {logos.length > 0 && (
-                        <Box sx={{ display: "flex", flexDirection: "column",justifyContent:"center",alignItems:"center" }}>
-                            <Typography sx={{ fontWeight: "bold", fontSize: 10, marginBottom: 0 }} variant="body2" gutterBottom>
-                                Opções Disponiveis:
-                            </Typography>
-                            <Box sx={{ display: "flex", maxWidth:"130px",  justifyContent: "space-around",margin:1 }}>
 
-                                {logos.map(logo => (<Img key={logo.id} alt='imagem' src={logo.url} sx={{ height: "30%", width: "30%" }}></Img>))}
-                            </Box>
-                        </Box>
-                    )}
 
                 </Box>
 
 
 
-                {bg ? null : <Typography sx={{  bottom: 1, right: 5, color: "red", fontWeight: "bold" }} variant="subtitle1" component="div">
-                    {  new Intl.NumberFormat('pt-BR', {style: 'currency',currency: 'BRL', minimumFractionDigits: 2}).format(valor)}
-                </Typography>}
+
             </Box>
 
 
