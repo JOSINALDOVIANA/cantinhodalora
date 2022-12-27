@@ -34,10 +34,9 @@ export default function GridContainer() {
   return (
     <Box sx={{
       flexGrow: 1,
-      marginTop: 0,
-    
+     margin:2,
       color: "#000",
-      marginBottom: 2
+      
     }}>
       <Grid container alignItems="center" spacing={2}>
 
