@@ -37,7 +37,8 @@ function Cards() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          marginBottom:2
+          marginBottom:2,
+          background: "#ebebeb"
         }}
         elevation={0}
       >
@@ -72,7 +73,7 @@ function Cards() {
           height: "auto",
           borderRadius: 1,
           overflow: "scroll",
-
+          background: "#ebebeb",
           color: "#000",
           display: "flex",
           alignItems: "center",

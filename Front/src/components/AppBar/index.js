@@ -44,7 +44,7 @@ export default function MenuAppBar(prop) {
     <Box >
 
       <AppBar position="static" sx={{
-        backgroundColor: "#fff",
+          background: "#ebebeb",
         color: "#000",
         boxShadow: 0,
         textAlign: "center",
