@@ -1,4 +1,4 @@
-import express from  "express";
+import express, { Router } from  "express";
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
@@ -12,6 +12,7 @@ import Produtos from "./controller/produtos/index.js";
 import { promisify } from "util";
 import config from "./controller/multer/config.js";
 import images from "./controller/images/index.js";
+import categorias from "./controller/categorias/index.js";
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
 const rotas=express.Router();
@@ -66,5 +67,11 @@ rotas.put("/produtos",Produtos.Update);
 
 
 // ###########################################################
+
+
+// CATEGORIAS:
+
+rotas.post("/categorias",categorias.insert)
+rotas.get("/categorias",categorias.select)
 
 export default rotas;
