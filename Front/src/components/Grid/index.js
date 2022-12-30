@@ -8,7 +8,7 @@ import ComplexGrid from './card';
 import { api, url } from '../../api';
 import { Paper, Typography } from '@mui/material';
 
-
+import "./style.css"
 
 
 export default function GridContainer() {
@@ -41,6 +41,11 @@ export default function GridContainer() {
     })
   }, [])
   function filtro(id){
+    const l=document.querySelectorAll(".active2")
+    l.forEach(element => {
+      element.classList.remove("active2")
+    });
+    document.getElementById(`${id+"C"}`).classList.add("active2")
     api.get(`/categorias?id=${id}`).then(r => {
       let p = r.data.produtos
       
@@ -57,7 +62,7 @@ export default function GridContainer() {
       setProdFilter(p)
     })
   }
-  console.log(produtosFilter)
+  // console.log(produtosFilter)
   return (
     <Box sx={{
       flexGrow: 1,
@@ -66,9 +71,16 @@ export default function GridContainer() {
       
     }}>
       <Box className='carousel' sx={{display:"flex",flexGrow:1,margin:2,height:100,overflow:"scroll"}}>
-        <Paper onClick={()=>{setProdFilter(produtos)}} sx={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",padding:2,margin:2}}><Typography>Todos</Typography></Paper>
+        <Paper onClick={()=>{
+          setProdFilter(produtos)
+          const l=document.querySelectorAll(".active2")
+          l.forEach(element => {
+            element.classList.remove("active2")
+          });
+        }
+          } sx={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",padding:2,margin:2}}><Typography>Todos</Typography></Paper>
         {categorias.map(cat=>(
-          <Paper  key={cat.id} onClick={()=>{filtro(cat.id)}} sx={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",padding:2,margin:2}}><Typography>{cat.desc}</Typography></Paper>
+          <Paper id={cat.id+"C"}  key={cat.id} className="" onClick={()=>{filtro(cat.id)}} sx={{cursor:"pointer",display:"flex",justifyContent:"center",alignItems:"center",padding:2,margin:2}}><Typography>{cat.desc}</Typography></Paper>
         ))}
         
         

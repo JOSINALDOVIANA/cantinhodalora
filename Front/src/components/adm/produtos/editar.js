@@ -21,6 +21,7 @@ function Produtosedit() {
   const [selectprod, setSelectP] = React.useState({ index: "", id: "", prod: {} });
   const [imagens, setIMG] = React.useState([])
   const [logos, setL] = React.useState([])
+  const [categorias, setCatgorias] = React.useState([])
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -33,6 +34,10 @@ function Produtosedit() {
   const [openE, setOpenE] = React.useState(false);
   const handleOpenE = () => setOpenE(true);
   const handleCloseE = () => setOpenE(false);
+
+  const [openC, setOpenC] = React.useState(false);
+  const handleOpenC = () => setOpenC(true);
+  const handleCloseC = () => setOpenC(false);
 
 
 
@@ -52,6 +57,7 @@ function Produtosedit() {
       }
     })
   }, [])
+
   React.useEffect(() => {
 
     api.get("/selectimagesP").then(r => {
@@ -65,17 +71,26 @@ function Produtosedit() {
     })
   }, [])
 
+  React.useEffect(()=>{
+    api.get("/categorias").then(r=>{
+      setCatgorias(r.data.categorias)
+    })
+  },[])
+
+  // console.log(categorias)
+  // console.log(produtos)
+  console.log(selectprod)
   return (
     <div className='container table-responsive'>
       <table className="table ">
         <thead className="thead-ligth">
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Des</th>
-            <th scope="col">Tam</th>
-            <th scope="col">QT</th>
-            <th scope="col">R$</th>
-            <th scope="col">Image</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Tamanho</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Valor</th>
+            <th scope="col">Imagem</th>
             <th scope="col">Logos</th>
             <th scope="col">Ações</th>
           </tr>
@@ -101,6 +116,7 @@ function Produtosedit() {
                 onClick={(e)=>{
                   e.preventDefault();
                   let p=prod;
+                  p.cat=p.cat.map(c=>(c.id))
                   p.logos=p.logos.map(l=>(`${l.id}`))
                   api.put(`/produtos`,{...p}).then(r=>{
                     if(r.data.status){
@@ -114,6 +130,14 @@ function Produtosedit() {
                     }
                   })
                   }}>Salvar</Button>
+                <Button 
+                color='success'
+                variant='contained'
+                onClick={(e)=>{
+                  e.preventDefault();
+                  setSelectP({ id: prod.id, index, prod })
+                  handleOpenC()
+                  }}>Categorias</Button>
                 </div>
                 </td>
             </tr>
@@ -242,6 +266,51 @@ function Produtosedit() {
 
         </Box>
       </Modal>
+      {/* Modal categorias */}
+      <Modal
+        open={openC}
+        onClose={() => {
+          let prs = produtos;
+          prs[selectprod.index] = selectprod.prod
+          setProd(prs)
+          handleCloseC()
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+
+          {categorias.map(cat=>(
+            <Button onClick={()=>{
+              setSelectP(a => ({ ...a, prod:{...a.prod,cat:[...a.prod.cat,{...cat}]} }))
+            }}>{cat.desc}</Button>
+          ))}
+
+          {/* <TextField sx={{ marginBottom: 1 }}
+            value={selectprod.prod.desc}
+            onChange={(e) => setSelectP(a => ({ ...a, prod:{...a.prod,desc:e.target.value} }))}
+            type="text" label="Descrição"
+          ></TextField>
+
+          <TextField sx={{ marginBottom: 1 }}
+            value={selectprod.prod.tam}
+            onChange={(e) => setSelectP(a => ({ ...a, prod:{...a.prod,tam:e.target.value} }))}
+            type="text" label="Tamanho"></TextField>
+
+          <TextField sx={{ marginBottom: 1 }}
+            value={selectprod.prod.preco}
+            onChange={(e) => setSelectP(a => ({ ...a, prod:{...a.prod,preco:e.target.value} }))}
+            type="number" label="Preço/UND"></TextField>
+          <TextField sx={{ marginBottom: 1 }}
+            value={selectprod.prod.und}
+            onChange={(e) => setSelectP(a => ({ ...a, prod:{...a.prod,und:e.target.value} }))}
+            type="number" label="Preço/UND"></TextField> */}
+
+         
+
+        </Box>
+      </Modal>
+
     </div>
   );
 }
