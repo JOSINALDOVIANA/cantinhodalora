@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, ImageList, ImageListItem, Modal, Paper, TextField } from '@mui/material';
+import { Avatar, Box, Button, ImageList, ImageListItem, Modal, Paper, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { api, url } from '../../../api';
 import { uniqueId } from 'lodash'
@@ -280,11 +280,28 @@ function Produtosedit() {
       >
         <Box sx={style}>
 
-          {categorias.map(cat=>(
+          <Box>
+            <Typography>
+              Cadastrada
+            </Typography>
+            {
+              selectprod?.prod?.cat?.map(cat=>( <Button onClick={()=>{
+                let c=selectprod.prod.cat;
+                c=c.filter(i=>i.id!=cat.id)
+                setSelectP(a => ({ ...a, prod:{...a.prod,cat:c} }))
+              }}>{cat.desc}</Button>))
+            }
+          </Box>
+          <Box>
+            <Typography>
+              Todas
+            </Typography>
+            {categorias.map(cat=>(
             <Button onClick={()=>{
               setSelectP(a => ({ ...a, prod:{...a.prod,cat:[...a.prod.cat,{...cat}]} }))
             }}>{cat.desc}</Button>
           ))}
+          </Box>
 
           {/* <TextField sx={{ marginBottom: 1 }}
             value={selectprod.prod.desc}

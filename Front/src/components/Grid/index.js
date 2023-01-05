@@ -97,7 +97,8 @@ export default function GridContainer() {
               desc={p.desc}
               tamanho={p.tam}
               valor={p.preco}
-              logos={p.logos} />
+              logos={p.logos}
+              id={p.id }/>
           </Grid>
         ))}
 

@@ -16,7 +16,7 @@ const Img = styled('img')({
 
    
 
-export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg }) {
+export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg ,id}) {
 
     return (
 
@@ -31,6 +31,23 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg }) {
                 alignItems: "center"
 
             }}
+            onClick={()=>{
+                if(logos.length>0){
+                    
+                    if(window.getComputedStyle(document.getElementById(id),null).display=="none"){
+                        
+                        document.getElementById(id).style.display="flex"
+                        return
+                }
+                    if(window.getComputedStyle(document.getElementById(id),null).display=="flex"){
+                        
+                        document.getElementById(id).style.display="none"
+                        return
+                }
+              
+               }
+            }}
+            
         >
 
 
@@ -41,7 +58,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg }) {
             {/* {logos.length > 0 && <Divider color="#000" sx={{ width: "90%" }} ></Divider>} */}
             {logos.length > 0 && (
 
-                <Box sx={{ display: "flex", maxWidth: "130px", justifyContent: "space-around", margin: 1 }}>
+                <Box id={id} sx={{ display: "none", maxWidth: "130px", justifyContent: "space-around", margin: 1}}>
 
                     {logos.map(logo => (<Img key={logo.id} alt='imagem' src={logo.url} sx={{ height: "30%", width: "30%" }}></Img>))}
                 </Box>
@@ -57,8 +74,8 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg }) {
                     {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(valor)}
                 </Typography>}
 
-                <Box sx={{ flexGrow: 1, flexDirection: "column", alignItems: "center", justifyContent: "center", }}>
-                    <Typography sx={{ color: "#404E5C",fontSize:"1em" }} gutterBottom variant="subtitle1" component="div">
+                <Box sx={{ flexGrow:1}}>
+                    <Typography sx={{ color: "#404E5C",fontSize:"0.9em" }} noWrap variant="subtitle1" component="p">
                         {desc} {tamanho}
                     </Typography>
                     {/* <Typography sx={{ color:"#000"}} gutterBottom variant="subtitle1" component="div">
