@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles.css'
 
-const pages = [["Cadastrar Produto", "Editar Produto"], 'Imagens', "Dados", 'Sair'];
+const pages = [["Cadastrar Produto", "Editar Produto"], 'Inicio', "Dados", 'Sair'];
 
 
 function ResponsiveAppBar(props) {
@@ -30,7 +30,7 @@ function ResponsiveAppBar(props) {
           <div className="offcanvas-body">
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li onClick={()=>{
-                navegate("/perfil/imagens", { state: props.user })
+                navegate("/perfil/inicio", { state: props.user })
               }} className="nav-item link">
                 <span className="nav-link active " aria-current="page" >{pages[1]}</span>
               </li>

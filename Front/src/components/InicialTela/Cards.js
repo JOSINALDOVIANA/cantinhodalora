@@ -29,7 +29,7 @@ function Cards() {
     <div style={{}}>
 
       {/* imagens */}
-       <Paper
+       {/* <Paper
         sx={{
           height: "300px",
           flexGrow: 1,
@@ -64,7 +64,7 @@ function Cards() {
             <span className="visually-hidden">Next</span>
           </button>
         </div>
-      </Paper>
+      </Paper> */}
 
       {/* Promoção */}
       <Paper
@@ -77,7 +77,7 @@ function Cards() {
           color: "#000",
           display: "flex",
           alignItems: "center",
-          marginBottom: 5
+          margin:2
 
         }}
         elevation={0}

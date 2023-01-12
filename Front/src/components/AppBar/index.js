@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { BsFacebook, BsInstagram, BsWhatsapp } from "react-icons/bs";
+import { BsFacebook, BsInstagram, BsWhatsapp,BsArrowDownLeftSquare } from "react-icons/bs";
 import Button from '@mui/material/Button';
 
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
@@ -63,7 +63,7 @@ export default function MenuAppBar(prop) {
             loading="lazy"
             style={{ width: "15%" }}
           />
-          <IconButton color="primary" aria-label="upload picture" component="label">
+          {/* <IconButton color="primary" aria-label="upload picture" component="label">
           <input hidden accept="image/*" type="file" 
            onChange={(ee) => {
 
@@ -129,7 +129,7 @@ export default function MenuAppBar(prop) {
           }}
           />
           <PhotoCamera />
-        </IconButton>
+        </IconButton> */}
 
           <IconButton
             size="large"
@@ -143,6 +143,7 @@ export default function MenuAppBar(prop) {
           </IconButton>
 
           <Menu
+          
             id="menu-appbar"
             anchorEl={anchorE2}
             anchorOrigin={{
@@ -156,12 +157,14 @@ export default function MenuAppBar(prop) {
             }}
             open={Boolean(anchorE2)}
             onClose={handleClose2}
+            // sx={{display:"flex",justifyContent:"space-between",alignItems:"center"}}
 
           >
-            <MenuItem sx={{ display: "flex", justifyContent: "space-around", width: "150px" }} onClick={() => { window.open("http://www.instagran.com/cantinho_dalora"); handleClose2() }}><BsInstagram></BsInstagram>Instagran</MenuItem>
-            <MenuItem sx={{ display: "flex", justifyContent: "space-around", width: "150px" }} onClick={() => { window.open("https://www.facebook.com/cantinhodalora"); handleClose2() }}><BsFacebook></BsFacebook>Facebook</MenuItem>
-            <MenuItem sx={{ display: "flex", justifyContent: "space-around", width: "150px" }} onClick={() => { window.open("https://api.whatsapp.com/send?phone=+5596981325410&text=Oi"); handleClose2() }}><BsWhatsapp></BsWhatsapp>Whatsap</MenuItem>
-            <MenuItem sx={{ display: "flex", justifyContent: "space-around", width: "150px" }} onClick={() => { navegator("/login") }}>Login</MenuItem>
+            <MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("http://www.instagran.com/cantinho_dalora"); handleClose2() }}><BsInstagram></BsInstagram>Instagran</MenuItem>
+            <MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("https://www.facebook.com/cantinhodalora"); handleClose2() }}><BsFacebook></BsFacebook>Facebook</MenuItem>
+            <MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("https://api.whatsapp.com/send?phone=+5596981325410&text=Oi"); handleClose2() }}><BsWhatsapp></BsWhatsapp>Whatsap</MenuItem>
+            <MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { navegator("/login") }}><BsArrowDownLeftSquare></BsArrowDownLeftSquare>Login/Entrar</MenuItem>
+           
 
 
           </Menu>

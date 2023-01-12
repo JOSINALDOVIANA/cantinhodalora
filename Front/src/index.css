@@ -23,8 +23,8 @@ code {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 100%;
+  height: 0.2em;
 }
 
 *::-webkit-scrollbar-track {
@@ -37,11 +37,11 @@ code {
   border: 3px solid transparent;
 }
 
-.img{
-  transition: 0,5s;
+.card{
+  transition: 0,7s;
 }
 
-.img:hover{
+.card:hover{
   transform: scale(0.95);
   animation-delay: 1s;
 }

@@ -31,6 +31,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg ,id})
                 alignItems: "center"
 
             }}
+            className='card' 
             onClick={()=>{
                 if(logos.length>0){
                     

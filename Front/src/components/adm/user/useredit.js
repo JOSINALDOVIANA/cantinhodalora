@@ -25,10 +25,10 @@ function Useredit() {
       <tbody>
         <tr>
           <th scope="row">{dados.id}</th>
-          <td><input onChange={(e) => { setdados(a => ({ ...a, [`${e.target["name"]}`]: e.target.value })) }} type="text" name='name' style={{ border: 0, textDecoration: "none", outline: "none" }} value={dados.name} ></input></td>
-          <td><input onChange={(e) => { setdados(a => ({ ...a, [`${e.target["name"]}`]: e.target.value })) }} type="text" style={{ border: 0, textDecoration: "none", outline: "none" }} name="email" value={dados.email} ></input></td>
+          <td><input onChange={(e) => { setdados(a => ({ ...a, [`${e.target["name"]}`]: e.target.value })) }} type="text" name='name' style={{ border: 0, textDecoration: "none", outline: "none", background:"transparent"}} value={dados.name} ></input></td>
+          <td><input onChange={(e) => { setdados(a => ({ ...a, [`${e.target["name"]}`]: e.target.value })) }} type="text" style={{ border: 0, textDecoration: "none", outline: "none", background:"transparent" }} name="email" value={dados.email} ></input></td>
           <td>
-            <input id={`password` + dados.id} onChange={(e) => { setdados(a => ({ ...a, [`${e.target["name"]}`]: e.target.value })) }} type="password" style={{ border: 0, textDecoration: "none", outline: "none" }} name="password" value={dados.password}></input>
+            <input id={`password` + dados.id} onChange={(e) => { setdados(a => ({ ...a, [`${e.target["name"]}`]: e.target.value })) }} type="password" style={{ border: 0, textDecoration: "none", outline: "none", background:"transparent" }} name="password" value={dados.password}></input>
             <svg id="ver" style={{ margin: 0 }} onClick={() => {
               document.querySelector(`${"#password" + dados.id}`).type = "text"
               document.querySelector("#ver").classList.add("none")

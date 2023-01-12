@@ -47,8 +47,8 @@ export default function Rotas() {
                     </Route>
                     <Route path="/login" element={<Login />} />
                     <Route path="/perfil" element={<Perfil />}>
-                        <Route index element={<Imagens/>}></Route>
-                        <Route path="/perfil/imagens"  element={<Imagens/>}></Route>
+                        <Route index element={<Cards/>}></Route>
+                        <Route path="/perfil/inicio"  element={<Cards/>}></Route>
                         <Route path="/perfil/userEdit" element={<Useredit/>}></Route>
                         <Route path="/perfil/produtosedit" element={<Produtosedit/>}></Route>
                         <Route path="/perfil/produtoscad" element={<Produtoscad/>}></Route>
