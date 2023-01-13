@@ -78,7 +78,7 @@ export default {
        
         const {id}=req.query;
         try {
-       await conexao("produtos").delete({id});
+       await conexao("produtos").delete().where({id});
 
         
           
