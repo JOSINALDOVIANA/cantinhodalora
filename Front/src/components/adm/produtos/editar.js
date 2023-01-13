@@ -1,8 +1,9 @@
-import { Avatar, Box, Button, ImageList, ImageListItem, Modal, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Divider, Grid, ImageList, ImageListItem, Modal, Paper, TextField, Typography, styled } from '@mui/material';
 import React from 'react';
 import { api, url } from '../../../api';
-import { uniqueId } from 'lodash'
-import Swal from 'sweetalert2';
+import { uniqueId } from 'lodash';
+import {TfiClose,TfiUpload,TfiWrite} from  "react-icons/tfi";
+import "./styleeditar.css";
 
 // import { Container } from './styles';
 const style = {
@@ -16,6 +17,12 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+const Img = styled('img')({
+  margin: 'auto',
+  display: 'block',
+  maxWidth: '100%',
+  maxHeight: '100%',
+});
 function Produtosedit() {
   const [produtos, setProd] = React.useState([]);
   const [selectprod, setSelectP] = React.useState({ index: "", id: "", prod: {} });
@@ -30,7 +37,7 @@ function Produtosedit() {
   const [openL, setOpenL] = React.useState(false);
   const handleOpenL = () => setOpenL(true);
   const handleCloseL = () => setOpenL(false);
-  
+
   const [openE, setOpenE] = React.useState(false);
   const handleOpenE = () => setOpenE(true);
   const handleCloseE = () => setOpenE(false);
@@ -71,18 +78,78 @@ function Produtosedit() {
     })
   }, [])
 
-  React.useEffect(()=>{
-    api.get("/categorias").then(r=>{
+  React.useEffect(() => {
+    api.get("/categorias").then(r => {
       setCatgorias(r.data.categorias)
     })
-  },[])
+  }, [])
 
-  // console.log(categorias)
   // console.log(produtos)
-  console.log(selectprod)
   return (
-    <div className='container table-responsive'>
-      <table className="table ">
+    <div className='p-1'>
+      <Grid container alignItems="center" spacing={2}>
+        {produtos?.map((p,index) => (
+          <Grid key={p.id + "prod"} item xs={6} sm={4} md={3} lg={3}>
+
+
+            <Paper
+
+              elevation={4}
+              sx={{
+                display: "flex",
+                borderRadius: 1,
+                flexDirection: "column",
+                fontFamily: "Roboto",
+                alignItems: "center"
+
+              }}
+              className='card'
+              onClick={() => {
+
+              }}
+
+            >
+
+
+
+
+
+              <Img alt={p.desc} src={p.url} sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
+              
+              <Typography>{p.desc+" "+p.tam}</Typography>
+
+              
+
+              <Divider color="#000" sx={{ width: "90%" }} ></Divider>
+
+
+              <div className="container text-center mb-1 mt-1">
+                <div className="row g-2">
+                  <div onClick={() => { api.delete(`/produtos?id=${p.id}`).then(r=>{
+                    if(r.data.status){
+                      let pr=produtos.filter(item=>item.id!=p.id)
+
+                      setProd(pr);
+                    }
+                    }) }} className="col-6 caixa">
+                    <TfiClose color='#e02141' size={20}></TfiClose>
+                  </div>
+                  <div onClick={() => { setSelectP({ id: p.id, index, prod:p }); setL(p.logos); handleOpenE() }} className="col-6 caixa">
+                    <TfiWrite color="#04B431" size={20}></TfiWrite>
+                  </div>
+                  
+                </div>
+              </div>
+
+
+
+
+            </Paper>
+          </Grid>
+        ))}
+
+      </Grid>
+      {/* <table className="table ">
         <thead className="thead-ligth">
           <tr>
             <th scope="col">ID</th>
@@ -144,7 +211,7 @@ function Produtosedit() {
           ))}
 
         </tbody>
-      </table>
+      </table> */}
 
       {/* -----MOdal para produtos---- */}
       <Modal
@@ -244,25 +311,25 @@ function Produtosedit() {
 
           <TextField sx={{ marginBottom: 1 }}
             value={selectprod.prod.desc}
-            onChange={(e) => setSelectP(a => ({ ...a, prod:{...a.prod,desc:e.target.value} }))}
+            onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, desc: e.target.value } }))}
             type="text" label="Descrição"
           ></TextField>
 
           <TextField sx={{ marginBottom: 1 }}
             value={selectprod.prod.tam}
-            onChange={(e) => setSelectP(a => ({ ...a, prod:{...a.prod,tam:e.target.value} }))}
+            onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, tam: e.target.value } }))}
             type="text" label="Tamanho"></TextField>
 
           <TextField sx={{ marginBottom: 1 }}
             value={selectprod.prod.preco}
-            onChange={(e) => setSelectP(a => ({ ...a, prod:{...a.prod,preco:e.target.value} }))}
+            onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, preco: e.target.value } }))}
             type="number" label="Preço/UND"></TextField>
           <TextField sx={{ marginBottom: 1 }}
             value={selectprod.prod.und}
-            onChange={(e) => setSelectP(a => ({ ...a, prod:{...a.prod,und:e.target.value} }))}
+            onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, und: e.target.value } }))}
             type="number" label="Preço/UND"></TextField>
 
-         
+
 
         </Box>
       </Modal>
@@ -285,10 +352,10 @@ function Produtosedit() {
               Cadastrada
             </Typography>
             {
-              selectprod?.prod?.cat?.map(cat=>( <Button onClick={()=>{
-                let c=selectprod.prod.cat;
-                c=c.filter(i=>i.id!=cat.id)
-                setSelectP(a => ({ ...a, prod:{...a.prod,cat:c} }))
+              selectprod?.prod?.cat?.map(cat => (<Button onClick={() => {
+                let c = selectprod.prod.cat;
+                c = c.filter(i => i.id != cat.id)
+                setSelectP(a => ({ ...a, prod: { ...a.prod, cat: c } }))
               }}>{cat.desc}</Button>))
             }
           </Box>
@@ -296,11 +363,11 @@ function Produtosedit() {
             <Typography>
               Todas
             </Typography>
-            {categorias.map(cat=>(
-            <Button onClick={()=>{
-              setSelectP(a => ({ ...a, prod:{...a.prod,cat:[...a.prod.cat,{...cat}]} }))
-            }}>{cat.desc}</Button>
-          ))}
+            {categorias.map(cat => (
+              <Button onClick={() => {
+                setSelectP(a => ({ ...a, prod: { ...a.prod, cat: [...a.prod.cat, { ...cat }] } }))
+              }}>{cat.desc}</Button>
+            ))}
           </Box>
 
           {/* <TextField sx={{ marginBottom: 1 }}
@@ -323,7 +390,7 @@ function Produtosedit() {
             onChange={(e) => setSelectP(a => ({ ...a, prod:{...a.prod,und:e.target.value} }))}
             type="number" label="Preço/UND"></TextField> */}
 
-         
+
 
         </Box>
       </Modal>
