@@ -1,9 +1,10 @@
-import { Box, Button, Divider, Grid, ImageList, ImageListItem, Modal, Paper, TextField, Typography, styled } from '@mui/material';
+import { Avatar, Box, Button, Divider, Grid, ImageList, ImageListItem, Modal, Paper, TextField, Typography, styled } from '@mui/material';
 import React from 'react';
 import { api, url } from '../../../api';
 import { uniqueId } from 'lodash';
-import {TfiClose,TfiUpload,TfiWrite} from  "react-icons/tfi";
+import {TfiClose,TfiUpload,TfiWrite,TfiAlignJustify, TfiShiftLeft, TfiCloudUp} from  "react-icons/tfi";
 import "./styleeditar.css";
+import Swal from 'sweetalert2';
 
 // import { Container } from './styles';
 const style = {
@@ -84,7 +85,7 @@ function Produtosedit() {
     })
   }, [])
 
-  // console.log(produtos)
+  console.log(produtos)
   return (
     <div className='p-1'>
       <Grid container alignItems="center" spacing={2}>
@@ -114,9 +115,17 @@ function Produtosedit() {
 
 
 
-              <Img alt={p.desc} src={p.url} sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
-              
+              <Img onClick={() => { setSelectP({ id: p.id, index, prod:p }); handleOpen() }} alt={p.desc} src={p.url} sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
+              <Paper  
+              onClick={()=>{
+                setSelectP({ id: p.id, index, prod:p }); setL(p.logos); handleOpenL()
+              }}
+              elevation={0} sx={{background:"transparent",display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:1}}>
+                {p.logos.map(item=>(<Avatar  key={item.id} src={item.url} alt={item.desc}></Avatar>))}
+              </Paper>
               <Typography>{p.desc+" "+p.tam}</Typography>
+
+           
 
               
 
@@ -136,6 +145,33 @@ function Produtosedit() {
                   </div>
                   <div onClick={() => { setSelectP({ id: p.id, index, prod:p }); setL(p.logos); handleOpenE() }} className="col-6 caixa">
                     <TfiWrite color="#04B431" size={20}></TfiWrite>
+                  </div>
+                  <div onClick={(e)=>{
+                  e.preventDefault();
+                  setSelectP({ id: p.id, index, prod:p })
+                  handleOpenC()
+                  }} className="col-6 caixa">
+                    <TfiAlignJustify color="#04B431" size={20}></TfiAlignJustify>
+                  </div>
+
+                  <div onClick={(e)=>{
+                  e.preventDefault();
+                  let prod=p;
+                  prod.cat=prod.cat.map(c=>(c.id))
+                  prod.logos=prod.logos.map(l=>(`${l.id}`))
+                  api.put(`/produtos`,{...prod}).then(r=>{
+                    if(r.data.status){
+                      Swal.fire(
+                        'Atualizado!',
+                        '',
+                        'success'
+                      )
+                    }else{
+                      alert("error")
+                    }
+                  })
+                  }} className="col-6 caixa">
+                    <TfiCloudUp color="#04B431" size={20}></TfiCloudUp>
                   </div>
                   
                 </div>
@@ -253,9 +289,13 @@ function Produtosedit() {
       <Modal
         open={openL}
         onClose={() => {
-          let prs = produtos;
-          prs[selectprod.index] = { ...produtos[selectprod.index], logos }
-          setProd(prs)
+          
+          
+          setProd(a=>{
+            let allProd = a;
+            allProd[selectprod.index] = { ...allProd[selectprod.index], logos }
+            return([...allProd])
+          })
           handleCloseL()
         }}
         aria-labelledby="modal-modal-title"
@@ -263,7 +303,7 @@ function Produtosedit() {
       >
         <Box sx={style}>
 
-          <Paper sx={{ display: "flex", justifyContent: "space-around", height: "30px" }}>
+          <Paper elevation={0} sx={{ display: "flex", justifyContent: "space-around", height: "30px" }}>
             {logos?.map((item, ind) => (
               <img
                 key={ind + item.id + item.key + "-" + uniqueId()}

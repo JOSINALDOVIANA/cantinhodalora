@@ -13,12 +13,13 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4,
+  padding:4,
+  // width:"90%"
 };
 
 
 function Produtoscad() {
-  const [produto, setProduto] = React.useState({ desc: '', tam: '', logos: [], preco: 0, url: '', und: 0, id_image: '',cat:[] })
+  const [produto, setProduto] = React.useState({ desc: '', tam: '', logos: [], preco: 0, url: '', und: 0, id_image: '', cat: [] })
   const [imagens, setIMG] = React.useState([])
   const [logos, setLogos] = React.useState([])
   const [IMGC, setIMGC] = React.useState(false)
@@ -45,7 +46,7 @@ function Produtoscad() {
       }
     })
   }, [IMGC])
-   console.log(produto)
+  console.log(produto)
   //  console.log(imagens)
 
   React.useEffect(() => {
@@ -54,7 +55,7 @@ function Produtoscad() {
       setCat(r.data.categorias)
     })
   }, [])
-
+// console.log(produto.cat.includes(String(1)))
   return (
 
 
@@ -64,17 +65,17 @@ function Produtoscad() {
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-evenly",
+          justifyContent: "space-around",
           flexDirection: "column",
           alignItems: "center",
-          // background: "#e02141",
-          marginTop: 1
+          background: "#eeeee4",
+          // marginTop: 1
         }}
         className='container'
       >
-        {!!produto.url && <Avatar sx={{ width: 56, height: 56, marginBottom: 5 }} src={produto.url} alt='imagem produto'></Avatar>}
+        <Avatar sx={{ width: 100, height: 100, marginBottom:1 }} onClick={handleOpenfp} src={produto.url} alt='imagem produto'></Avatar>
         {logos.length > 0 &&
-          <Paper elevation={0} sx={{ display: "flex", width: "100%", height: "10%", justifyContent: "space-around", background: "transparent" }}>
+          <Paper elevation={0} sx={{ display: "flex", width: "100%", height: "10%", justifyContent: "space-evenly", background: "transparent" }}>
             {logos.map((logo, index) => (
 
               <Avatar key={logo.id} src={logo.url} onClick={() => {
@@ -85,6 +86,19 @@ function Produtoscad() {
             ))}
           </Paper>
         }
+
+        {!!produto.cat && <Paper elevation={0} sx={{ display: "flex", width: "100%",  justifyContent: "space-evenly", background: "transparent" }}>
+          {(categorias.filter(item=>produto?.cat?.includes(String(item.id)))).map((item) => (
+
+            <Button onClick={()=>{
+              let c=produto.cat.filter(i=>i!=item.id)
+              setProduto(a=>({...a,cat:c}))
+            }}  key={item.id}>{item.desc}</Button>
+
+          ))}
+        </Paper>}
+
+
 
         <div style={{ width: "100%" }} className='row justify-content-around'>
           <TextField className='col' sx={{ margin: 1 }}
@@ -112,24 +126,24 @@ function Produtoscad() {
             onChange={(e) => setProduto(a => ({ ...a, und: e.target.value }))}
             type="number" label="Quantidade/UND" />
 
-          <select onChange={(e)=>{
-             const id=e.target.value;
-             if(produto.cat.includes(id)){
-               let c=produto.cat.filter(i=>(i!=id));
-               setProduto(a=>({...a,cat:c}));
-               return
-             }
-             if(!produto.cat.includes(id)){
-             setProduto(a=>({...a,cat:[...a.cat,id]}))
-             return
-             }
+          <select onChange={(e) => {
+            const id = e.target.value;
+            if (produto.cat.includes(id)) {
+              let c = produto.cat.filter(i => (i != id));
+              setProduto(a => ({ ...a, cat: c }));
+              return
+            }
+            if (!produto.cat.includes(id)) {
+              setProduto(a => ({ ...a, cat: [...a.cat, id] }))
+              return
+            }
             // setProduto(a=>({...a,cat:[...a.cat,e.target.value]}))
-            }} style={{ width: "40%" }} className="form-select col-8" aria-label="Categoria">
-            
-            {categorias?.map(cat=>(
+          }} style={{ width: "40%" }} className="form-select col-8" aria-label="Categoria">
+            <option selected value={0}>selecione uma categoria</option>
+            {categorias?.map(cat => (
               <option key={cat.id} value={cat.id}>{cat.desc}</option>
             ))}
-            
+
           </select>
         </div>
 
@@ -159,7 +173,7 @@ function Produtoscad() {
             })
           }} variant="contained" color="success">Salvar</Button>
 
-          <Button className='col-3' onClick={handleOpenfp}>Ecolher Imagem</Button>
+          {/* <Button className='col-3' onClick={handleOpenfp}>Ecolher Imagem</Button> */}
           <Button className='col-3' onClick={handleOpen}>Escolher logos</Button>
           <IconButton className='col-1' id="Camera" color="primary" aria-label="upload picture" component="label">
             <input id='img' hidden accept="image/*" type="file"
