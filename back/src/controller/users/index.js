@@ -1,14 +1,7 @@
 import conexao from "../../databases/conexao.js"
 
 export default {
- async select(req,res){
-    try {
-        return res.json({status:true,users:await conexao("users")})
-    } catch (error) {
-        console.error(error)
-        return res.json({status :false, mensagem:"error select users"})
-    }
- },
+ 
  async login(req,res){
     const {email,password}=req.body;
     try {
@@ -29,6 +22,17 @@ export default {
     } catch (error) {
         console.error(error)
         return res.json({status :false, mensagem:"error update users"})
+    }
+ },
+ async Insert(req,res){
+    const {email,password,name}=req.body;
+    try {
+       const [id]= await conexao("users").insert({email,password,name});
+        
+        return res.json({status:true,mensagem:"Dados salvos",dados:{id,name,email,password}})
+    } catch (error) {
+        console.error(error)
+        return res.json({status :false, mensagem:"error Insert users"})
     }
  },
  

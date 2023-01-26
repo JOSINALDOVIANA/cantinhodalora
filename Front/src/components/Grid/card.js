@@ -22,7 +22,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg ,id})
 
         <Paper
 
-            elevation={4}
+            elevation={1}
             sx={{
                 display: "flex",
                 borderRadius: 1,

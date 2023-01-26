@@ -42,7 +42,7 @@ rotas.delete("/deleteImageP",images.deleteIMGprod)
 rotas.get("/selectimagesP",images.selectIMGprod)
 
 
-// #######################################################
+
 
 
 // #####################USERS###############################
@@ -50,10 +50,11 @@ rotas.get("/selectimagesP",images.selectIMGprod)
 // rotas.get("/users",users.select);
 rotas.post("/login",users.login);
 rotas.post("/update",users.Update);
+rotas.post("/insert",users.Insert);
 
 
 
-// ###########################################################
+
 
 // #####################Produtos###############################
 

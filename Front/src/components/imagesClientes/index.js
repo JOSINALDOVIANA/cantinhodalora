@@ -1,35 +1,26 @@
-import { Paper, Skeleton, styled, Typography, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { api, url } from '../../api';
-import Torre from "../../assets/Torres.png"
-import GridContainer from '../Grid';
-// import { Container } from './styles';
-const Img = styled('img')({
+import { Paper } from '@mui/material';
+import { api,url } from '../../api';
 
-    display: 'block',
-    maxWidth: '100%',
-    maxHeight: '100%',
-  });
-function Cards() {
-    const theme=useTheme();
+// import { Container } from './styles';
+
+function ImagesClientes() {
     const [images, setImages] = useState([])
   
-  useEffect(() => {
-    api.get("/imagesget").then(r => {
-      if (r.data.status) {
-        let im = r.data.images;
-        for (const key in im) {
-          im[key].url = `${url}images/${im[key].key}`
+    useEffect(() => {
+      api.get("/imagesget").then(r => {
+        if (r.data.status) {
+          let im = r.data.images;
+          for (const key in im) {
+            im[key].url = `${url}images/${im[key].key}`
+          }
+          setImages(im)
         }
-        setImages(im)
-      }
-    })
-  }, [])
+      })
+    }, [])
   return (
-    <div style={{}}>
-
-      {/* imagens */}
-       {/* <Paper
+    
+        <Paper
         sx={{
           height: "300px",
           flexGrow: 1,
@@ -64,46 +55,9 @@ function Cards() {
             <span className="visually-hidden">Next</span>
           </button>
         </div>
-      </Paper> */}
+      </Paper> 
 
-      {/* Promoção */}
-      <Paper
-        sx={{
-          flexGrow: 1,
-          height: "auto",
-          borderRadius: 1,
-          overflow: "scroll",
-          background: "#ebebeb",
-          color: "#000",
-          display: "flex",
-          alignItems: "center",
-          margin:2
-
-        }}
-        elevation={0}
-      >
-        <Img classNameName='img' alt="torre"
-          sx={{
-            marginTop: theme.spacing(2),
-            width: theme.spacing(30),
-            height: theme.spacing(20)
-          }}
-          src={Torre}></Img>
-
-        <Typography variant='p' component="h1"
-          sx={{
-            fontFamily: "Oswald",
-            textAlign: "justify",
-
-            fontWeight: "100"
-
-          }} >
-          Promoção do dia, Na Compra de duas torres de R$55,00 ganhe uma caipirinha.
-        </Typography>
-      </Paper>
-      <GridContainer></GridContainer>
-    </div>
   );
 }
 
-export default Cards;
+export default ImagesClientes;

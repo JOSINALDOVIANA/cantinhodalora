@@ -1,9 +1,10 @@
 import PhotoCamera from '@mui/icons-material/PhotoCamera.js';
-import { Avatar, Box, Button, IconButton, ImageList, ImageListItem, TextField, Typography, Modal, Paper } from '@mui/material';
+import { Avatar, Box, Button, IconButton, ImageList, ImageListItem, TextField, Typography, Modal, Paper, styled } from '@mui/material';
 import { uniqueId } from 'lodash';
 import React from 'react';
 import { api, url } from '../../../api.js'
 import Swal from 'sweetalert2'
+import { green } from '@mui/material/colors';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -17,6 +18,13 @@ const style = {
   // width:"90%"
 };
 
+const ColorButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText("#2e7d32"),
+  backgroundColor: "#2e7d32",
+  '&:hover': {
+    backgroundColor: "#1b5e20",
+  },
+}));
 
 function Produtoscad() {
   const [produto, setProduto] = React.useState({ desc: '', tam: '', logos: [], preco: 0, url: '', und: 0, id_image: '', cat: [] })
@@ -33,7 +41,7 @@ function Produtoscad() {
   const handleOpenfp = () => setOpenfp(true);
   const handleClosefp = () => setOpenfp(false);
 
-
+ 
 
   React.useEffect(() => {
     api.get("/selectimagesP").then(r => {
@@ -90,10 +98,10 @@ function Produtoscad() {
         {!!produto.cat && <Paper elevation={0} sx={{ display: "flex", width: "100%",  justifyContent: "space-evenly", background: "transparent" }}>
           {(categorias.filter(item=>produto?.cat?.includes(String(item.id)))).map((item) => (
 
-            <Button onClick={()=>{
+            <ColorButton  variant='outlined' onClick={()=>{
               let c=produto.cat.filter(i=>i!=item.id)
               setProduto(a=>({...a,cat:c}))
-            }}  key={item.id}>{item.desc}</Button>
+            }}  key={item.id}>{item.desc}</ColorButton>
 
           ))}
         </Paper>}
@@ -304,7 +312,7 @@ function Produtoscad() {
                   src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
                   srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                   alt={item.name}
-                  onClick={() => { setProduto(a => ({ ...a, id_image: item.id, url: item.url })) }}
+                  onClick={() => { setProduto(a => ({ ...a, id_image: item.id, url: item.url }));handleClosefp() }}
                   loading="lazy"
                 />
               </ImageListItem>

@@ -87,7 +87,7 @@ export default function GridContainer() {
        
 
       </Box>
-      <Grid container alignItems="center" spacing={2}>
+      <Grid container alignItems="center" >
 
 
         {produtosFilter?.map(p => (

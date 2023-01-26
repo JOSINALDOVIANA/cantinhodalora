@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useOutletContext,useNavigate } from 'react-router-dom';
 import { api } from '../../../api';
 
 import '../styles.css';
 
 function Useredit() {
-  let rota = useLocation().state
-  const [dados, setdados] = useState(rota)
+const navegar=useNavigate();
+  const [dados,setdados] = useOutletContext();
+  // let rota = useLocation().state
+  // const [dados, setdados] = useState(dadoss.state)
+  React.useEffect(()=>{
+    if(!dados){
+      navegar("/login")
+    }
+  },[])
   console.log(dados)
   return (
     <div className='container-fuid' style={{overflow:"scroll"}}>

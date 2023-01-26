@@ -5,6 +5,7 @@ import { uniqueId } from 'lodash';
 import {TfiClose,TfiUpload,TfiWrite,TfiAlignJustify, TfiShiftLeft, TfiCloudUp} from  "react-icons/tfi";
 import "./styleeditar.css";
 import Swal from 'sweetalert2';
+import { useOutletContext } from 'react-router-dom';
 
 // import { Container } from './styles';
 const style = {
@@ -25,6 +26,8 @@ const Img = styled('img')({
   maxHeight: '100%',
 });
 function Produtosedit() {
+
+  const [dados] = useOutletContext();
   const [produtos, setProd] = React.useState([]);
   const [selectprod, setSelectP] = React.useState({ index: "", id: "", prod: {} });
   const [imagens, setIMG] = React.useState([])
@@ -85,7 +88,7 @@ function Produtosedit() {
     })
   }, [])
 
-  console.log(produtos)
+  console.log(dados)
   return (
     <div className='p-1'>
       <Grid container alignItems="center" spacing={2}>

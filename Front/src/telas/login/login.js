@@ -5,8 +5,9 @@ import Box from '@mui/material/Box';
 import  TextField  from '@mui/material/TextField';
 import  Avatar  from '@mui/material/Avatar';
 import  Button  from '@mui/material/Button';
-import { api } from '../../../api';
+import { api } from '../../api';
 import { useNavigate } from 'react-router-dom';
+import { FormLabel } from '@mui/material';
 export default function Login() {
   const navegator = useNavigate();
   const [values, setValues] = React.useState({ email: '', password: '' });
@@ -51,9 +52,15 @@ export default function Login() {
 
         >
           <Avatar sx={{ width: 56, height: 56, marginBottom: 5 }} alt='josinaldo'></Avatar>
-
-          <TextField sx={{ marginBottom: 5 }} onChange={(e) => setValues(a => ({ ...a, email: e.target.value }))} type="email" label="E-mail"></TextField>
-          <TextField label="Required" autoComplete="current-password" sx={{ marginBottom: 5 }} onChange={(e) => setValues(a => ({ ...a, password: e.target.value }))} type="password" label="Senha"></TextField>
+          
+          <div style={{display:"flex",flexDirection:"column"}}>
+          <FormLabel htmlFor='email' sx={{marginBottom:1}}>E-mail</FormLabel>
+          <TextField id='email' sx={{ marginBottom: 5 }} onChange={(e) => setValues(a => ({ ...a, email: e.target.value }))} type="email" ></TextField>
+          </div>
+          <div style={{display:"flex",flexDirection:"column"}}>
+            <FormLabel sx={{marginBottom:1}} htmlFor='password'>Senha</FormLabel>
+          <TextField id="password"  autoComplete="current-password" sx={{ marginBottom: 5 }} onChange={(e) => setValues(a => ({ ...a, password: e.target.value }))} type="password" ></TextField>
+          </div>
 
           <Button type='submit' variant="contained" color="success">Entrar</Button>
 
