@@ -6,7 +6,7 @@ import { __dirname } from "../../rotas.js";
 
 
 export default {
-    async Cadastro (req,res){ 
+    async Insert (req,res){ 
         let { desc, tam, preco, url='', und,id_image=null,logos=false,cat=false}=req.body;
         
         try {
@@ -78,7 +78,7 @@ export default {
        
         const {id}=req.query;
         try {
-       await conexao("produtos").delete().where({id});
+       await conexao("produtos").del().where({id});
 
         
           

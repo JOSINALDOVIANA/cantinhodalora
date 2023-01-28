@@ -32,7 +32,7 @@ function FecharCaixa() {
     const [selectprod, setSelectP] = React.useState({ index: "", id: "", prod: {} });
     const [fechamento, setFechamento] = React.useState({ colaborador: "", gerente: "", valorF: { cart: 0, dinheiro: 0, comiss: 0, gastos: 0, total: 0, saldo: 0 }, valorC: 0, ValorDIF: 0 })
 
-    const [colaboradores, setCol] = React.useState(["Joilson Martins", "Agel"])
+    const [colaboradores, setCol] = React.useState([])
     const [gerentes, setGer] = React.useState(["Josinaldo Viana", "Francisca Gislaiane"])
 
     const [openE, setOpenE] = React.useState(false);
@@ -52,6 +52,14 @@ function calculaValor(qi,qf,preco){
             let p = r.data.produtos
             if (r.data.status) {
                 setProd(p)
+            }
+        })
+    }, [])
+    React.useEffect(() => {
+        api.get("/cols/select").then(r => {
+            let p = r.data.cols
+            if (r.data.status) {
+                setCol(r.cols)
             }
         })
     }, [])
@@ -75,7 +83,7 @@ function calculaValor(qi,qf,preco){
             return ({ ...a, gerente: gerentes[event.target.value] })
         })
     };
-    console.log(fechamento)
+    console.log(colaboradores)
     return (
         <div className='p-1'>
 
@@ -99,7 +107,7 @@ function calculaValor(qi,qf,preco){
                             >
 
                                 {
-                                    colaboradores.map((col, i) => (<MenuItem key={i + "col"} value={i}>{col}</MenuItem>))
+                                    colaboradores.map((col) => (<MenuItem key={col.id + "col"} value={col.id}>{col.name}</MenuItem>))
                                 }
 
                             </Select>
