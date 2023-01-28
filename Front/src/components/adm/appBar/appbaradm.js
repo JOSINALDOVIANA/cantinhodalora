@@ -1,14 +1,19 @@
 import * as React from 'react';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import './styles.css'
 
-const pages = [["Cadastrar Produto", "Editar Produto"], 'Inicio', "Dados", 'Sair'];
+const pages = [["Cadastrar Produto", "Editar Produto"], 'Inicio', "Dados","Fechar Caixa", 'Sair'];
 
 
-function ResponsiveAppBar(props) {
+function ResponsiveAppBar() {
   const navegate = useNavigate();
+  const d=useLocation();
+  const [props,setProps]=React.useState({});
 
+  React.useEffect(()=>{
+    setProps({user:d.state})
+  },[])
 
 
   return (
@@ -58,9 +63,14 @@ function ResponsiveAppBar(props) {
                 </ul>
               </li>
               <li onClick={()=>{
-                 navegate("/")
+                 navegate("/perfil/fecharCaixa")
               }} className="nav-item link">
                 <span className="nav-link" >{pages[3]}</span>
+              </li>
+              <li onClick={()=>{
+                 navegate("/")
+              }} className="nav-item link">
+                <span className="nav-link" >{pages[4]}</span>
               </li>
             </ul>
 

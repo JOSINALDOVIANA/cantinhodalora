@@ -10,6 +10,7 @@ const InicialTela = React.lazy(() => import("./telas/home/index.js"))
 const Useredit = React.lazy(() => import("./components/adm/user/useredit"))
 const Produtosedit = React.lazy(() => import("./components/adm/produtos/editar"))
 const Produtoscad = React.lazy(() => import("./components/adm/produtos/cadastro"))
+const Fcaixa = React.lazy(() => import("./components/adm/fechamento"))
 
 
 
@@ -45,6 +46,7 @@ export default function Rotas() {
                         <Route path="/perfil/userEdit" element={<Useredit/>}></Route>
                         <Route path="/perfil/produtosedit" element={<Produtosedit/>}></Route>
                         <Route path="/perfil/produtoscad" element={<Produtoscad/>}></Route>
+                        <Route path="/perfil/fecharCaixa" element={<Fcaixa/>}></Route>
                     </Route>
                 </Routes>
             </BrowserRouter>

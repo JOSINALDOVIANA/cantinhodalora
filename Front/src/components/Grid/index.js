@@ -91,12 +91,12 @@ export default function GridContainer() {
 
 
         {produtosFilter?.map(p => (
-          <Grid key={p.id} item xs={6} sm={4} md={3} lg={3}>
+          <Grid gap={5} key={p.id} item xs={6} sm={4} md={3} lg={3}>
             <ComplexGrid
               img={p.url}
               desc={p.desc}
               tamanho={p.tam}
-              valor={p.preco}
+              valor={p.tam=="Carteira (20 UND)"?20:p.preco}
               logos={p.logos}
               id={p.id }/>
           </Grid>

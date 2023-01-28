@@ -6,15 +6,15 @@ import '../styles.css';
 
 function Useredit() {
 const navegar=useNavigate();
-  const [dados,setdados] = useOutletContext();
-  // let rota = useLocation().state
-  // const [dados, setdados] = useState(dadoss.state)
+  
+  let rota = useLocation();
+  const [dados, setdados] = useState(rota.state)
   React.useEffect(()=>{
     if(!dados){
       navegar("/login")
     }
   },[])
-  console.log(dados)
+  // console.log(dados)
   return (
     <div className='container-fuid' style={{overflow:"scroll"}}>
       <table className="table caption-top table-responsive">
@@ -58,6 +58,7 @@ const navegar=useNavigate();
           <td><input onClick={() => {
             api.post("/update", { ...dados }).then(r => {
               alert(r.data.mensagem)
+              navegar('/perfil',{state:{...dados}})
             })
           }} type="button" style={{ backgroundColor: "#379237", border: 0, borderRadius: "3px" }} value="Salvar"></input></td>
         </tr>

@@ -2,7 +2,8 @@ import { Avatar, Box, Button, Divider, Grid, ImageList, ImageListItem, Modal, Pa
 import React from 'react';
 import { api, url } from '../../../api';
 import { uniqueId } from 'lodash';
-import {TfiClose,TfiUpload,TfiWrite,TfiAlignJustify, TfiShiftLeft, TfiCloudUp} from  "react-icons/tfi";
+import { TfiCloudUp,TfiTrash,TfiRulerPencil,TfiStackOverflow} from  "react-icons/tfi";
+import {AiTwotoneSave} from  "react-icons/ai";
 import "./styleeditar.css";
 import Swal from 'sweetalert2';
 import { useOutletContext } from 'react-router-dom';
@@ -27,7 +28,7 @@ const Img = styled('img')({
 });
 function Produtosedit() {
 
-  const [dados] = useOutletContext();
+  // const [dados] = useOutletContext();
   const [produtos, setProd] = React.useState([]);
   const [selectprod, setSelectP] = React.useState({ index: "", id: "", prod: {} });
   const [imagens, setIMG] = React.useState([])
@@ -57,13 +58,13 @@ function Produtosedit() {
       let p = r.data.produtos
       if (r.data.status) {
 
-        for (const key in p) {
-          p[key].img.url = url + "images/" + p[key].img.key;
-          p[key].url = p[key].img.url;
-          for (const key2 in p[key].logos) {
-            p[key].logos[key2].url = url + "images/" + p[key].logos[key2].key
-          }
-        }
+        // for (const key in p) {
+        //   p[key].img.url = url + "images/" + p[key].img.key;
+        //   p[key].url = p[key].img.url;
+        //   // for (const key2 in p[key].logos) {
+        //   //   p[key].logos[key2].url = url + "images/" + p[key].logos[key2].key
+        //   // }
+        // }
         setProd(p)
       }
     })
@@ -88,7 +89,7 @@ function Produtosedit() {
     })
   }, [])
 
-  console.log(dados)
+
   return (
     <div className='p-1'>
       <Grid container alignItems="center" spacing={2}>
@@ -104,7 +105,11 @@ function Produtosedit() {
                 borderRadius: 1,
                 flexDirection: "column",
                 fontFamily: "Roboto",
-                alignItems: "center"
+                alignItems: "center",
+                justifyContent:"center",
+                padding:1,
+                overflow:"hidden"
+
 
               }}
               className='card'
@@ -118,15 +123,19 @@ function Produtosedit() {
 
 
 
-              <Img onClick={() => { setSelectP({ id: p.id, index, prod:p }); handleOpen() }} alt={p.desc} src={p.url} sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
+              <Img onClick={() => { setSelectP({ id: p.id, index, prod:p }); handleOpen() }} alt={p.desc} src={url+"images/"+p.img.key} sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
               <Paper  
               onClick={()=>{
                 setSelectP({ id: p.id, index, prod:p }); setL(p.logos); handleOpenL()
               }}
               elevation={0} sx={{background:"transparent",display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:1}}>
-                {p.logos.map(item=>(<Avatar  key={item.id} src={item.url} alt={item.desc}></Avatar>))}
+                {p.logos.map(item=>(<Avatar  key={item.id} src={url+'images/'+item.key} alt={item.desc}></Avatar>))}
               </Paper>
-              <Typography>{p.desc+" "+p.tam}</Typography>
+             
+
+              <Typography sx={{ color: "#404E5C",fontSize:"0.9em",width:"90%" }} noWrap variant="subtitle1" component="p">
+              {p.desc+" "+p.tam}
+                    </Typography>
 
            
 
@@ -144,17 +153,17 @@ function Produtosedit() {
                       setProd(pr);
                     }
                     }) }} className="col-6 caixa">
-                    <TfiClose color='#e02141' size={20}></TfiClose>
+                    <TfiTrash color='#e02141' size={20}/>
                   </div>
                   <div onClick={() => { setSelectP({ id: p.id, index, prod:p }); setL(p.logos); handleOpenE() }} className="col-6 caixa">
-                    <TfiWrite color="#04B431" size={20}></TfiWrite>
+                    <TfiRulerPencil color="#04B431" size={20}/>
                   </div>
                   <div onClick={(e)=>{
                   e.preventDefault();
                   setSelectP({ id: p.id, index, prod:p })
                   handleOpenC()
                   }} className="col-6 caixa">
-                    <TfiAlignJustify color="#04B431" size={20}></TfiAlignJustify>
+                    <TfiStackOverflow color="#00425A" size={20}/>
                   </div>
 
                   <div onClick={(e)=>{
@@ -174,7 +183,7 @@ function Produtosedit() {
                     }
                   })
                   }} className="col-6 caixa">
-                    <TfiCloudUp color="#04B431" size={20}></TfiCloudUp>
+                    <AiTwotoneSave color="#04B431" size={20}/>
                   </div>
                   
                 </div>
@@ -310,8 +319,8 @@ function Produtosedit() {
             {logos?.map((item, ind) => (
               <img
                 key={ind + item.id + item.key + "-" + uniqueId()}
-                src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                src={`${url+"images/"+item.key}?w=164&h=164&fit=crop&auto=format`}
+                srcSet={`${url+"images/"+item.key}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                 alt={item.name}
                 onClick={() => {
                   setL(a => (a.filter(i => i.id != item.id)))
@@ -370,7 +379,7 @@ function Produtosedit() {
           <TextField sx={{ marginBottom: 1 }}
             value={selectprod.prod.und}
             onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, und: e.target.value } }))}
-            type="number" label="Preço/UND"></TextField>
+            type="number" label="Quantidade"></TextField>
 
 
 
