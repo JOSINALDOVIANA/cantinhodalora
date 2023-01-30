@@ -33,7 +33,7 @@ function FecharCaixa() {
     const [fechamento, setFechamento] = React.useState({ colaborador: "", gerente: "", valorF: { cart: 0, dinheiro: 0, comiss: 0, gastos: 0, total: 0, saldo: 0 }, valorC: 0, ValorDIF: 0 })
 
     const [colaboradores, setCol] = React.useState([])
-    const [gerentes, setGer] = React.useState(["Josinaldo Viana", "Francisca Gislaiane"])
+    const [gerentes, setGer] = React.useState([])
 
     const [openE, setOpenE] = React.useState(false);
     const handleOpenE = () => setOpenE(true);
@@ -57,9 +57,17 @@ function calculaValor(qi,qf,preco){
     }, [])
     React.useEffect(() => {
         api.get("/cols/select").then(r => {
-            let p = r.data.cols
+            // console.log(r.data)
             if (r.data.status) {
-                setCol(r.cols)
+                setCol(r.data.cols)
+            }
+        })
+    }, [])
+    React.useEffect(() => {
+        api.get("/users").then(r => {
+            // console.log(r.data)
+            if (r.data.status) {
+                setGer(r.data.users)
             }
         })
     }, [])
@@ -73,17 +81,17 @@ function calculaValor(qi,qf,preco){
     const handleChangeConCol = (event) => {
         setContCOL(event.target.value);
         setFechamento(a => {
-            return ({ ...a, colaborador: colaboradores[event.target.value] })
+            return ({ ...a, colaborador: colaboradores.filter(col=>col.id==event.target.value)[0].id })
         })
     };
 
     const handleChangeConGer = (event) => {
         setContGer(event.target.value);
         setFechamento(a => {
-            return ({ ...a, gerente: gerentes[event.target.value] })
+            return ({ ...a, gerente: gerentes.filter(ger=>ger.id==event.target.value)[0].id })
         })
     };
-    console.log(colaboradores)
+    console.log(fechamento)
     return (
         <div className='p-1'>
 
@@ -107,7 +115,7 @@ function calculaValor(qi,qf,preco){
                             >
 
                                 {
-                                    colaboradores.map((col) => (<MenuItem key={col.id + "col"} value={col.id}>{col.name}</MenuItem>))
+                                    colaboradores?.map((col) => (<MenuItem key={col.id + "col"} value={col.id}>{col.name}</MenuItem>))
                                 }
 
                             </Select>
@@ -125,7 +133,7 @@ function calculaValor(qi,qf,preco){
                             >
 
                                 {
-                                    gerentes.map((ger, i) => (<MenuItem key={i + "ger"} value={i}>{ger}</MenuItem>))
+                                    gerentes?.map((ger) => (<MenuItem key={ger.id + "ger"} value={ger.id}>{ger.name}</MenuItem>))
                                 }
 
                             </Select>
