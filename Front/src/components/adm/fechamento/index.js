@@ -52,7 +52,7 @@ function FecharCaixa() {
         })
     }, [])
     React.useEffect(() => {
-        api.get("/cols/select").then(r => {
+        api.get("/cols").then(r => {
             // console.log(r.data)
             if (r.data.status) {
                 setCol(r.data.cols)
