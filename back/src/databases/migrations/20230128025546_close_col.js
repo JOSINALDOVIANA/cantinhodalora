@@ -6,7 +6,7 @@ export function up(knex) {
         table.integer('valcart').notNullable();
         table.integer('valdin').notNullable();
         table.integer('valcom').notNullable();
-        table.integer('valcototal').notNullable();        
+        table.integer('valtotal').notNullable();        
         table.foreign('id_col').references('id').inTable('cols'); 
         table.timestamp('updated_at',{ precision: 0 },{ useTz: true }).defaultTo(knex.fn.now(0));
 
