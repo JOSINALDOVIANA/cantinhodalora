@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import './styles.css'
 
-const pages = [["Cadastrar Produto", "Editar Produto"], 'Inicio', "Dados","Fechar Caixa", 'Sair'];
+const pages = [["Cadastrar Produto", "Editar Produto"], 'Inicio', "Dados","Fechar Caixa","Relatório", 'Sair'];
 
 
 function ResponsiveAppBar() {
@@ -68,10 +68,16 @@ function ResponsiveAppBar() {
                 <span className="nav-link" >{pages[3]}</span>
               </li>
               <li onClick={()=>{
-                 navegate("/")
+                 navegate("/perfil/relatorio")
               }} className="nav-item link">
                 <span className="nav-link" >{pages[4]}</span>
               </li>
+              <li onClick={()=>{
+                 navegate("/")
+              }} className="nav-item link">
+                <span className="nav-link" >{pages[5]}</span>
+              </li>
+             
             </ul>
 
           </div>

@@ -87,7 +87,7 @@ function FecharCaixa() {
             return ({ ...a, gerente: gerentes.filter(ger => ger.id == event.target.value)[0].id })
         })
     };
-    console.log(fechamento)
+    // console.log(fechamento)
     return (
         <div className='p-1'>
 
@@ -171,6 +171,7 @@ function FecharCaixa() {
                         <div className="form-group col-md-3">
                             <label for="inputState">Valor/Dinheiro</label>
                             <input
+                            value={fechamento.valorF.dinheiro}
                                 onChange={
                                     e => setFechamento(a => (
                                         {
@@ -198,7 +199,7 @@ function FecharCaixa() {
                         <div className="form-group col-md-2 ">
                             <label for="inputZip">Comissão</label>
                             <input
-                                value={fechamento.valorF.comiss}
+                                value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(fechamento.valorF.saldo)}
                                 disabled
                                 type="text"
                                 className="form-control" id="inputZip" />
@@ -255,7 +256,7 @@ function FecharCaixa() {
                         <div className="form-group col-md-2">
                             <label for="inputZip">Saldo</label>
                             <input
-                                value={parseFloat(fechamento.valsald)}
+                                value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(parseFloat(fechamento.valsald))}
                                 disabled
 
                                 type="text"

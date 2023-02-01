@@ -12,6 +12,7 @@ export default {
             dados.gerente=await conexao("users").where({"id":dados.id_users}).first();
             dados.colaborador=await conexao("cols").where({"id":dados.id_col}).first();
             dados.FCcolaborador=await conexao("close_col").where({"id":dados.id_close_col}).first();
+            return res.json({status:true,close:dados})
 
         }
         if(!!id_col){
@@ -22,6 +23,7 @@ export default {
                dados[index].colaborador=col;
                dados[index].FCcolaborador=await conexao("close_col").where({"id":dados[index].id_close_col}).first();
             }
+            return res.json({status:true,close:dados})
 
         }
         if(!!id_users){
@@ -32,6 +34,7 @@ export default {
                dados[index].colaborador=await conexao("cols").where({"id":dados[index].id_col}).first();
                dados[index].FCcolaborador=await conexao("close_col").where({"id":dados[index].id_close_col}).first();
             }
+            return res.json({status:true,close:dados})
 
         }
         if(!!id_close_col){
@@ -42,13 +45,14 @@ export default {
                dados.colaborador=await conexao("cols").where({"id":dados.id_col}).first();
                dados.FCcolaborador=await conexao("close_col").where({"id":dados.id_close_col});
             
+               return res.json({status:true,close:dados})
 
         }
 
 
 
         
-        return res.json({status:true,close:dados})
+        return res.json({status:true,close: await conexao("close")})
     } catch (error) {
         console.error(error)
         return res.json({status :false, mensagem:"error select close"})

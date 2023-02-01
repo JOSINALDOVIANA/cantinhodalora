@@ -2,6 +2,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Load from "./load";
+import Relatorios from "./components/adm/relatorios";
 const Perfil = React.lazy(() => import("./telas/adm"))
 const Login = React.lazy(() => import("./telas/login/login"))
 const Produtos = React.lazy(() => import("./components/produtos/index"))
@@ -47,6 +48,7 @@ export default function Rotas() {
                         <Route path="/perfil/produtosedit" element={<Produtosedit/>}></Route>
                         <Route path="/perfil/produtoscad" element={<Produtoscad/>}></Route>
                         <Route path="/perfil/fecharCaixa" element={<Fcaixa/>}></Route>
+                        <Route path="/perfil/relatorio" element={<Relatorios/>}></Route>
                     </Route>
                 </Routes>
             </BrowserRouter>
