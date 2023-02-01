@@ -9,6 +9,8 @@ function Relatorios() {
   const [gerentes, setGer] = React.useState([])
   const [controlecol, setContCOL] = React.useState('');
   const [controleGer, setContGer] = React.useState('');
+  const [closes, setCloses] = React.useState([]);
+  const [closesFilter, setClosesF] = React.useState([]);
 
 
   React.useEffect(() => {
@@ -27,12 +29,21 @@ function Relatorios() {
       }
     })
   }, [])
+  React.useEffect(() => {
+    api.get("/fechamentogerente").then(r => {
+      console.log(r.data)
+      if (r.data.status) {
+        setCloses(r.data.close)
+        setClosesF(r.data.close)
+      }
+    })
+  }, [])
+
+
 
   const handleChangeConCol = (event) => {
     setContCOL(event.target.value);
-    // setFechamento(a => {
-    //     return ({ ...a, colaborador: colaboradores.filter(col => col.id == event.target.value)[0].id })
-    // })
+    setClosesF(closes.filter(c => c.id_col == event.target.value))
   };
 
   const handleChangeConGer = (event) => {
@@ -42,7 +53,7 @@ function Relatorios() {
     // })
   };
 
-  console.log(new Date())
+  console.log(closesFilter)
   return (
     <Box
       sx={{
@@ -92,22 +103,34 @@ function Relatorios() {
               </Select>
             </FormControl>
           </div>
-          <div className="col-3 align-items-center justify-content-center " style={{display:"flex"}}>
+          <div className="col-3 align-items-center justify-content-center " style={{ display: "flex" }}>
 
-            
-           
-                
-                <input type="date" className='form-control' name="festa" min="2023-01-01"  required/>
-                
-             
-              
-           
+
+
+
+            <input type="date" className='form-control' name="festa" min="2023-01-01" required />
+
+
+
+
 
 
           </div>
         </div>
       </Paper>
+      <div  style={{ background: "#fff"}} className='row'>
+        <p className='col' style={{ width: "100%", textAlign: "center" }}>Colaborador</p>
+        <p className='col' style={{ width: "100%", textAlign: "center" }}>Gerente</p>
+      </div>
+      {/* {closesFilter.map(item => (
+        <div key={item.id} style={{ background: "#fff", border: "solid 1px #dddd", display: "flex", alignItems: "center", justifyContent: "center" }} className='row'>
+          <p className='col' style={{ width: "100%", textAlign: "center" }}>{item.colaborador.name}</p>
+          <p className='col' style={{ width: "100%", textAlign: "center" }}>{item.gerente.name}</p>
+        </div>
+      ))} */}
     </Box>
+
+
   );
 }
 

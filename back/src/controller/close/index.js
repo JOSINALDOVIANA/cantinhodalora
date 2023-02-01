@@ -41,18 +41,25 @@ export default {
             dados=await conexao("close").where({id_close_col}).first();
             
             
-               dados.gerente=await conexao("users").where({"id":dados.id_users}).first(); ;
+               dados.gerente=await conexao("users").where({"id":dados.id_users}).first(); 
                dados.colaborador=await conexao("cols").where({"id":dados.id_col}).first();
                dados.FCcolaborador=await conexao("close_col").where({"id":dados.id_close_col});
             
                return res.json({status:true,close:dados})
 
         }
+        
+        dados=await conexao("close");
 
+        for (const index in dados) {
+            dados[index].gerente=await conexao("users").where({"id":dados[index].id_users}).first(); 
+            dados[index].colaborador=await conexao("cols").where({"id":dados[index].id_col}).first();
+            dados[index].FCcolaborador=await conexao("close_col").where({"id":dados[index].id_close_col}).first();
+        }
 
 
         
-        return res.json({status:true,close: await conexao("close")})
+        return res.json({status:true,close: dados})
     } catch (error) {
         console.error(error)
         return res.json({status :false, mensagem:"error select close"})
