@@ -199,7 +199,7 @@ function FecharCaixa() {
                         <div className="form-group col-md-2 ">
                             <label for="inputZip">Comissão</label>
                             <input
-                                value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(fechamento.valorF.saldo)}
+                                value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(fechamento.valorF.comiss)}
                                 disabled
                                 type="text"
                                 className="form-control" id="inputZip" />
