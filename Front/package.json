@@ -4,10 +4,10 @@
   "homepage": "http://cantinhodalora.space:3008/",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.8.2",
-    "@emotion/styled": "^11.8.1",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.5.1",
-    "@mui/material": "^5.5.2",
+    "@mui/material": "^5.11.7",
     "@mui/x-date-pickers": "^5.0.16",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
