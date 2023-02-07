@@ -12,7 +12,7 @@ body,html, #root {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #ebebeb;
+  background: #fff;
   width: 100vw;
   height: 100vh;
 }
@@ -37,11 +37,11 @@ code {
   border: 3px solid transparent;
 }
 
-.card{
+/* .card{
   transition: 0,7s;
 }
 
 .card:hover{
   transform: scale(0.95);
   animation-delay: 1s;
-}
+} */

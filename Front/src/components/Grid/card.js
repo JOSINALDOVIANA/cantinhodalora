@@ -4,6 +4,7 @@ import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Box, useTheme } from '@mui/material';
+import { red } from '@mui/material/colors';
 
 
 
@@ -22,7 +23,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg ,id})
 
         <Paper
 
-            elevation={0}
+            elevation={2}
             sx={{
                 display: "flex",
                 borderRadius: 0,
@@ -66,7 +67,9 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg ,id})
 
             )}
 
-            <Divider color="#000" sx={{ width: "90%" }} ></Divider>
+            {/* <Divider color="#000" sx={{ width: "90%" }} ></Divider> */}
+
+            {logos.length>0?<Typography noWrap sx={{fontSize: "0.6em", fontFamily: "Roboto","&:hover":{cursor:"pointer"}}} color={red[600]}>CLIQUE PARA OPÇÕES</Typography>:""}
 
 
             <Box sx={{ flexDirection: "column", width: "100%", padding: 2 }}>

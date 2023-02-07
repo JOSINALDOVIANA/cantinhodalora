@@ -36,3 +36,10 @@ function InicialTela() {
 }
 
 export default InicialTela;
+
+
+//xs, extra pequeno: 0px
+//sm, pequeno: 600px
+//md, médio: 900px
+// lg, grande: 1200px
+// xl, extragrande: 1536px

@@ -17,7 +17,7 @@ function Promo() {
                 height: "auto",
                 borderRadius: 1,
                 overflow: "scroll",
-                background: "#ebebeb",
+                // background: "#ebebeb",
                 color: "#000",
                 display: "flex",
                 alignItems: "center",

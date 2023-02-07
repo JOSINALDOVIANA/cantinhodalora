@@ -13,7 +13,7 @@ import { BsFacebook, BsInstagram, BsWhatsapp,BsArrowDownLeftSquare } from "react
 
 
 
-import cant from "../../assets/CANTINHO DA LORA.png"
+import cant from "../../assets/cantinho da lora 2.jpeg"
 
 export default function MenuAppBar(prop) {
 
@@ -43,7 +43,7 @@ export default function MenuAppBar(prop) {
     <Box >
 
       <AppBar position="static" sx={{
-          background: "#ebebeb",
+          background: "transparent",
         color: "#000",
         boxShadow: 0,
         textAlign: "center",
