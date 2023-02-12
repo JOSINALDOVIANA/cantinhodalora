@@ -30,7 +30,7 @@ export default function GridContainer() {
           }
         }
 
-        p=moveArrayElement(p,p.length-1,2)
+       
         setProd(p)
 
 
@@ -67,6 +67,7 @@ export default function GridContainer() {
     })
   }
   // console.log(produtosFilter)
+
 
   function moveArrayElement(arr, from, to) {
     var el = arr[from];
@@ -116,7 +117,8 @@ export default function GridContainer() {
               tamanho={p.tam}
               valor={p.tam == "Carteira (20 UND)" ? 20 : p.preco}
               logos={p.logos}
-              id={p.id} />
+              id={p.id}
+              und={p.und} />
           </Grid>
         ))}
 

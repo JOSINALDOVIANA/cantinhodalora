@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { Box, Chip, useTheme } from '@mui/material';
+import { Badge, Box, Chip, useTheme } from '@mui/material';
 import { red, green } from '@mui/material/colors';
 
 
@@ -17,8 +17,9 @@ const Img = styled('img')({
 
 
 
-export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id }) {
-
+export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id,und }) {
+    const theme=useTheme();
+    
     return (
 
         <Paper
@@ -29,7 +30,9 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id }
                 borderRadius: 0,
                 flexDirection: "column",
                 fontFamily: "Roboto",
-                alignItems: "center"
+                alignItems: "center",
+                position: "relative"
+
 
             }}
             className='card'
@@ -54,10 +57,12 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id }
 
 
 
-
+        <Badge sx={{right:25,top:15,position:"absolute"}} badgeContent={und} color={"success"} max={999} >
+                
+            </Badge>
 
             <Img alt={desc} src={img} sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
-            <Divider sx={{ margin: 1, marginTop: 2,width:"90%"}}>
+            <Divider sx={{ margin: 1, marginTop: 2, width: "90%" }}>
                 <Chip label="Informações" />
             </Divider>
             {/* {logos.length > 0 && <Divider color="#000" sx={{ width: "90%" }} ></Divider>} */}
@@ -71,7 +76,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id }
             )}
 
             {/* <Divider color="#000" sx={{ width: "90%" }} ></Divider> */}
-           
+
 
             {logos.length > 0 ? <Typography noWrap sx={{ fontSize: "0.6em", fontFamily: "Roboto", "&:hover": { cursor: "pointer" } }} color={red[600]}>CLIQUE PARA OPÇÕES</Typography> : ""}
 

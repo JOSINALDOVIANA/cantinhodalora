@@ -197,69 +197,7 @@ function Produtosedit() {
         ))}
 
       </Grid>
-      {/* <table className="table ">
-        <thead className="thead-ligth">
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Descrição</th>
-            <th scope="col">Tamanho</th>
-            <th scope="col">Quantidade</th>
-            <th scope="col">Valor</th>
-            <th scope="col">Imagem</th>
-            <th scope="col">Logos</th>
-            <th scope="col">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {produtos.map((prod, index) => (
-            <tr key={prod.id + uniqueId()}>
-              <th scope="row">{prod.id}</th>
-              <td onClick={() => { setSelectP({ id: prod.id, index, prod }); setL(prod.logos); handleOpenE() }} >{prod.desc}</td>
-              <td onClick={() => { setSelectP({ id: prod.id, index, prod }); setL(prod.logos); handleOpenE() }}>{prod.tam}</td>
-              <td onClick={() => { setSelectP({ id: prod.id, index, prod }); setL(prod.logos); handleOpenE() }}>{prod.und}</td>
-              <td onClick={() => { setSelectP({ id: prod.id, index, prod }); setL(prod.logos); handleOpenE() }}>{prod.preco}</td>
-              <td onClick={() => { setSelectP({ id: prod.id, index, prod }); handleOpen() }}><Avatar src={prod.url} alt={prod.desc} ></Avatar></td>
-              <td onClick={() => { setSelectP({ id: prod.id, index, prod }); setL(prod.logos); handleOpenL() }}><div style={{ display: "flex", justifyContent: "space-around" }}>{prod?.logos?.map(l => (<Avatar key={l.id + uniqueId()} src={l.url} alt={l.name} ></Avatar>))}</div></td>
-
-              <td>
-                <div style={{ display: "flex", justifyContent: "space-around" }}>
-                <Button color='error'
-                variant='contained' >Excluir</Button>
-                <Button 
-                color='success'
-                variant='contained'
-                onClick={(e)=>{
-                  e.preventDefault();
-                  let p=prod;
-                  p.cat=p.cat.map(c=>(c.id))
-                  p.logos=p.logos.map(l=>(`${l.id}`))
-                  api.put(`/produtos`,{...p}).then(r=>{
-                    if(r.data.status){
-                      Swal.fire(
-                        'Atualizado!',
-                        '',
-                        'success'
-                      )
-                    }else{
-                      alert("error")
-                    }
-                  })
-                  }}>Salvar</Button>
-                <Button 
-                color='success'
-                variant='contained'
-                onClick={(e)=>{
-                  e.preventDefault();
-                  setSelectP({ id: prod.id, index, prod })
-                  handleOpenC()
-                  }}>Categorias</Button>
-                </div>
-                </td>
-            </tr>
-          ))}
-
-        </tbody>
-      </table> */}
+      
 
       {/* -----MOdal para produtos---- */}
       <Modal
@@ -308,6 +246,7 @@ function Produtosedit() {
             allProd[selectprod.index] = { ...allProd[selectprod.index], logos }
             return([...allProd])
           })
+          setL([])
           handleCloseL()
         }}
         aria-labelledby="modal-modal-title"
