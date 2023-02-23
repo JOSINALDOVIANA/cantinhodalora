@@ -83,7 +83,7 @@ export default function GridContainer() {
 
 
     }}>
-      <Box className='carousel' sx={{ display: "flex", flexGrow: 1, margin: 2, justifyContent: "center", height: 100, overflow: "scroll" }}>
+      <Box className='carousel' sx={{ display: "flex", flexGrow: 1, margin: 2, height: 100, overflow: "scroll" }}>
         <Paper
           elevation={6}
           onClick={() => {
