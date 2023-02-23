@@ -68,7 +68,7 @@ function Produtoscad() {
 
 
 
-    <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "space-around", alignItems: "stretch", flexDirection: "row" }} >
+    <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "space-around", alignItems: "stretch", flexDirection: "row", margin:2 }} >
 
       <Box
         sx={{
@@ -76,7 +76,8 @@ function Produtoscad() {
           justifyContent: "space-around",
           flexDirection: "column",
           alignItems: "center",
-          background: "#eeeee4",
+          background: "#fff",
+          borderRadius:3
           // marginTop: 1
         }}
         className='container'

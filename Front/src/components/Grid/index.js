@@ -30,7 +30,7 @@ export default function GridContainer() {
           }
         }
 
-       
+
         setProd(p)
 
 
@@ -74,42 +74,48 @@ export default function GridContainer() {
     arr.splice(from, 1);
     arr.splice(to, 0, el);
     return arr
-};
+  };
   return (
     <Box sx={{
       flexGrow: 1,
       margin: 2,
       color: "#000",
 
+
     }}>
-      <Box className='carousel' sx={{ display: "flex", flexGrow: 1, margin: 2, height: 100, overflow: "scroll" }}>
-        <Paper elevation={6} onClick={() => {
-          setProdFilter(produtos)
-          const l = document.querySelectorAll(".active2")
-          l.forEach(element => {
-            element.classList.remove("active2")
-          });
-        }
-        } sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2 }}><Typography>Todos</Typography></Paper>
+      <Box className='carousel' sx={{ display: "flex", flexGrow: 1, margin: 2, justifyContent: "center", height: 100, overflow: "scroll" }}>
+        <Paper
+          elevation={6}
+          onClick={() => {
+            setProdFilter(produtos)
+            const l = document.querySelectorAll(".active2")
+            l.forEach(element => {
+              element.classList.remove("active2")
+            });
+          }}
+          sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2 }}>
+          <Typography>Todos</Typography>
+        </Paper>
         {categorias.map(cat => (
-          <Paper elevation={6} id={cat.id + "C"} key={cat.id} className="" onClick={() => { filtro(cat.id) }} sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2 }}><Typography>{cat.desc}</Typography></Paper>
+          <Paper elevation={1} id={cat.id + "C"} key={cat.id}  onClick={() => { filtro(cat.id) }} sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2 }}><Typography>{cat.desc}</Typography></Paper>
         ))}
 
 
 
 
       </Box>
-      <Grid container alignItems="center" spacing={2} >
+      <Grid container alignItems="center" spacing={0.3} >
 
 
         {produtosFilter?.map(p => (
-          <Grid           
-          key={p.id} 
-          item 
-          xs={6} 
-          sm={6} 
-          md={4} 
-          lg={3}
+          <Grid
+            key={p.id}
+            item
+            xs={6}
+            sm={6}
+            md={4}
+            lg={3}
+
           >
             <ComplexGrid
               img={p.url}

@@ -5,6 +5,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Badge, Box, Chip, useTheme } from '@mui/material';
 import { red, green } from '@mui/material/colors';
+import { border } from '@mui/system';
 
 
 
@@ -27,11 +28,12 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id,u
             elevation={2}
             sx={{
                 display: "flex",
-                borderRadius: 0,
+                borderRadius: 1,
                 flexDirection: "column",
                 fontFamily: "Roboto",
                 alignItems: "center",
-                position: "relative"
+                position: "relative",
+                
 
 
             }}
@@ -57,7 +59,9 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id,u
 
 
 
-        <Badge sx={{right:25,top:15,position:"absolute"}} badgeContent={und} color={"success"} max={999} >
+        <Badge sx={{right:25,top:15,position:"absolute"}} badgeContent={und} 
+        color={"success"}
+         max={999} >
                 
             </Badge>
 
@@ -78,7 +82,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id,u
             {/* <Divider color="#000" sx={{ width: "90%" }} ></Divider> */}
 
 
-            {logos.length > 0 ? <Typography noWrap sx={{ fontSize: "0.6em", fontFamily: "Roboto", "&:hover": { cursor: "pointer" } }} color={red[600]}>CLIQUE PARA OPÇÕES</Typography> : ""}
+            {logos.length > 0 ? <Typography noWrap sx={{ fontSize: "0.6em", fontFamily: "Roboto", "&:hover": { cursor: "pointer" } }} color={red[600]}>CLIQUE PARA OPÇÕES</Typography> : <div style={{height:"0.9em",width:"100%"}}></div>}
 
 
             <Box sx={{ flexDirection: "column", width: "100%", padding: 2 }}>
@@ -88,10 +92,10 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id,u
                 </Typography>}
 
                 <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-                    <Typography sx={{ color: "#404E5C", fontSize: "0.9em" }} noWrap variant="subtitle1" component="p">
+                    <Typography sx={{ color: "#404E5C", fontSize: "0.9em",fontFamily:"Roboto" }} noWrap variant="subtitle1" component="p">
                         {desc} {tamanho}
                     </Typography>
-                    <Typography sx={{ fontSize: "0.7em" }} color={green[500]} noWrap gutterBottom variant="subtitle1" component="div">
+                    <Typography sx={{ fontSize: "0.8em" }} color={green[600]} noWrap gutterBottom variant="subtitle1" component="div">
                         OBS: Verifique a disponibilidade
                     </Typography>
 

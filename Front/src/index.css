@@ -12,7 +12,8 @@ body,html, #root {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #fff;
+  background: #00695c;
+  color:#fff;
   width: 100vw;
   height: 100vh;
 }

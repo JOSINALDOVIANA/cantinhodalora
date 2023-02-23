@@ -44,7 +44,7 @@ export default function MenuAppBar(prop) {
 
       <AppBar position="static" sx={{
           background: "transparent",
-        color: "#000",
+        
         boxShadow: 0,
         textAlign: "center",
         padding: 1,
@@ -56,12 +56,12 @@ export default function MenuAppBar(prop) {
         }}>
 
 
-          <img
+          {/* <img
             src={`${cant}`}
             alt="logo"
             loading="lazy"
             style={{ width: "15%" }}
-          />
+          /> */}
         
 
           <IconButton

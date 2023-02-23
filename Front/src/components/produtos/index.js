@@ -17,7 +17,7 @@ function Produtos() {
       {/* Imagens clients */}
       {/* <ImagesClientes/> */}
       {/* Promoção */}
-      <Promo></Promo>
+      {/* <Promo></Promo> */}
       <GridContainer></GridContainer>
     </div>
   );

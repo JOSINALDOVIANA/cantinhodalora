@@ -22,7 +22,7 @@ export default function Login() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          background: "#000"
+          // background: "#000"
         }} >
         <Box
           sx={{
