@@ -1,13 +1,11 @@
-import { Avatar, Box, Button, Divider, Grid, ImageList, ImageListItem, Modal, Paper, TextField, Typography, styled } from '@mui/material';
+import { Avatar, Box, Button, Divider, Grid, ImageList, ImageListItem, Modal, Paper, TextField, Typography, styled, useTheme } from '@mui/material';
 import React from 'react';
 import { api, url } from '../../../api';
 import { uniqueId } from 'lodash';
-import { TfiCloudUp, TfiTrash, TfiRulerPencil, TfiStackOverflow } from "react-icons/tfi";
-import { AiTwotoneSave } from "react-icons/ai";
+
+
 import "./styleeditar.css";
 import Swal from 'sweetalert2';
-import { useOutletContext } from 'react-router-dom';
-import { blue, green, red } from '@mui/material/colors';
 
 // import { Container } from './styles';
 const style = {
@@ -15,10 +13,9 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-
+  // overflow: "scroll",
   bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
+
   p: 4,
 };
 const Img = styled('img')({
@@ -29,7 +26,7 @@ const Img = styled('img')({
 });
 function Produtosedit() {
 
-  // const [dados] = useOutletContext();
+  const theme = useTheme();
   const [produtos, setProd] = React.useState([]);
   const [selectprod, setSelectP] = React.useState({ index: "", id: "", prod: {} });
   const [imagens, setIMG] = React.useState([])
@@ -53,19 +50,18 @@ function Produtosedit() {
   const handleCloseC = () => setOpenC(false);
 
 
+  const [openTeste, setOpenTeste] = React.useState(false);
+  const handleOpenTeste = () => setOpenTeste(true);
+  const handleCloseTeste = () => setOpenTeste(false);
+
+
 
   React.useEffect(() => {
     api.get("/produtos").then(r => {
       let p = r.data.produtos
       if (r.data.status) {
 
-        // for (const key in p) {
-        //   p[key].img.url = url + "images/" + p[key].img.key;
-        //   p[key].url = p[key].img.url;
-        //   // for (const key2 in p[key].logos) {
-        //   //   p[key].logos[key2].url = url + "images/" + p[key].logos[key2].key
-        //   // }
-        // }
+
         setProd(p)
       }
     })
@@ -90,7 +86,7 @@ function Produtosedit() {
     })
   }, [])
 
-
+  console.log(selectprod)
   return (
     <div className='p-1'>
       <Grid container alignItems="center" spacing={2}>
@@ -115,7 +111,7 @@ function Produtosedit() {
               }}
               className='card'
               onClick={() => {
-
+                setSelectP({ id: p.id, index, prod: p }); handleOpenTeste()
               }}
 
             >
@@ -124,14 +120,18 @@ function Produtosedit() {
 
 
 
-              <Img onClick={() => { setSelectP({ id: p.id, index, prod: p }); handleOpen() }} alt={p.desc} src={url + "images/" + p.img.key} sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
-              <Paper
+              <Img
+                // onClick={() => { setSelectP({ id: p.id, index, prod: p }); handleOpen() }} 
+                alt={p.desc}
+                src={url + "images/" + p.img.key}
+                sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
+              {/* <Paper
                 onClick={() => {
                   setSelectP({ id: p.id, index, prod: p }); setL(p.logos); handleOpenL()
                 }}
                 elevation={0} sx={{ background: "transparent", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 1 }}>
                 {p.logos.length>0?p.logos.map(item => (<Avatar key={item.id} src={url + 'images/' + item.key} alt={item.desc}></Avatar>)):<div style={{height:"2.5em",width:"100%"}}></div>}
-              </Paper>
+              </Paper> */}
 
 
               <Typography sx={{ color: "#404E5C", fontSize: "0.9em", width: "90%" }} noWrap variant="subtitle1" component="p">
@@ -142,12 +142,13 @@ function Produtosedit() {
 
 
 
-              <Divider color="#000" sx={{ width: "90%" }} ></Divider>
+              {/* <Divider color="#000" sx={{ width: "90%" }} ></Divider> */}
 
 
-              <div className="container text-center mb-1 mt-1">
+              {/* <div className="container text-center mb-1 mt-1">
                 <div className="row g-2">
-                  <div onClick={() => {
+                  <div 
+                  onClick={() => {
                     api.delete(`/produtos?id=${p.id}`).then(r => {
                       if (r.data.status) {
                         let pr = produtos.filter(item => item.id != p.id)
@@ -155,12 +156,13 @@ function Produtosedit() {
                         setProd(pr);
                       }
                     })
-                  }} className="col-6 caixa">
-                    {/* <TfiTrash color='#e02141' size={20}/> */}
+                  }} 
+                  className="col-6 caixa">
+                    
                     <Typography noWrap sx={{ fontFamily: "Roboto", fontSize: "1em", color: red[500] }}>Excluir</Typography>
                   </div>
                   <div onClick={() => { setSelectP({ id: p.id, index, prod: p }); setL(p.logos); handleOpenE() }} className="col-6 caixa">
-                    {/* <TfiRulerPencil color="#04B431" size={20}/> */}
+                 
                     <Typography noWrap sx={{ fontFamily: "Roboto", fontSize: "1em", color: green[500] }}>Editar</Typography>
                   </div>
                   <div onClick={(e) => {
@@ -168,11 +170,12 @@ function Produtosedit() {
                     setSelectP({ id: p.id, index, prod: p })
                     handleOpenC()
                   }} className="col-6 caixa">
-                    {/* <TfiStackOverflow color="#00425A" size={20}/> */}
+                    
                     <Typography noWrap sx={{ fontFamily: "Roboto", fontSize: "1em", color: blue[500] }}>Categorias</Typography>
                   </div>
 
-                  <div onClick={(e) => {
+                  <div 
+                  onClick={(e) => {
                     e.preventDefault();
                     let prod = p;
                     prod.cat = prod.cat.map(c => (c.id))
@@ -193,7 +196,7 @@ function Produtosedit() {
                   </div>
 
                 </div>
-              </div>
+              </div> */}
 
 
 
@@ -205,7 +208,7 @@ function Produtosedit() {
       </Grid>
 
 
-      {/* -----MOdal para produtos---- */}
+      {/* -----MOdal para fotos de produtos---- */}
       <Modal
         open={open}
         onClose={() => {
@@ -225,13 +228,8 @@ function Produtosedit() {
                   srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                   alt={item.name}
                   onClick={() => {
-                    let p1 = produtos[selectprod.index];
-                    p1.img = item;
-                    p1.url = item.url;
-                    p1.id_image = item.id
-                    let p = produtos;
-                    p[selectprod.index] = { ...p1 }
-                    setProd(p)
+                    setSelectP(a=>({...a,prod:{...a.prod,img:item,id_image:item.id}})) 
+                          handleClose()             
                   }}
                   loading="lazy"
                 />
@@ -245,14 +243,6 @@ function Produtosedit() {
       <Modal
         open={openL}
         onClose={() => {
-
-
-          setProd(a => {
-            let allProd = a;
-            allProd[selectprod.index] = { ...allProd[selectprod.index], logos }
-            return ([...allProd])
-          })
-          setL([])
           handleCloseL()
         }}
         aria-labelledby="modal-modal-title"
@@ -282,7 +272,14 @@ function Produtosedit() {
                   srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                   alt={item.name}
                   onClick={() => {
-                    setL(a => ([...a, { ...item }]))
+
+                    if (selectprod.prod.logos.filter(i => i.id === item.id).length <= 0) {
+                      setSelectP(a => ({ ...a, prod: { ...a.prod, logos: [...a.prod.logos, item] } }))
+                    } else {
+                      setSelectP(a => ({ ...a, prod: { ...a.prod, logos: a.prod.logos.filter(i => i.id != item.id) } }))
+                    }
+                    handleCloseL()
+
                   }}
                   loading="lazy"
                 />
@@ -292,51 +289,12 @@ function Produtosedit() {
         </Box>
       </Modal>
 
-      {/* -----Modal Edit---- */}
-      <Modal
-        open={openE}
-        onClose={() => {
-          let prs = produtos;
-          prs[selectprod.index] = selectprod.prod
-          setProd(prs)
-          handleCloseE()
-        }}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-
-          <TextField sx={{ marginBottom: 1 }}
-            value={selectprod.prod.desc}
-            onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, desc: e.target.value } }))}
-            type="text" label="Descrição"
-          ></TextField>
-
-          <TextField sx={{ marginBottom: 1 }}
-            value={selectprod.prod.tam}
-            onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, tam: e.target.value } }))}
-            type="text" label="Tamanho"></TextField>
-
-          <TextField sx={{ marginBottom: 1 }}
-            value={selectprod.prod.preco}
-            onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, preco: e.target.value } }))}
-            type="number" label="Preço/UND"></TextField>
-          <TextField sx={{ marginBottom: 1 }}
-            value={selectprod.prod.und}
-            onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, und: e.target.value } }))}
-            type="number" label="Quantidade"></TextField>
-
-
-
-        </Box>
-      </Modal>
+    
       {/* Modal categorias */}
       <Modal
         open={openC}
         onClose={() => {
-          let prs = produtos;
-          prs[selectprod.index] = selectprod.prod
-          setProd(prs)
+          
           handleCloseC()
         }}
         aria-labelledby="modal-modal-title"
@@ -346,7 +304,7 @@ function Produtosedit() {
 
           <Box>
             <Typography>
-              Cadastrada
+              Cadastradas
             </Typography>
             {
               selectprod?.prod?.cat?.map(cat => (<Button onClick={() => {
@@ -366,26 +324,179 @@ function Produtosedit() {
               }}>{cat.desc}</Button>
             ))}
           </Box>
+        </Box>
+      </Modal>
+      {/* Modal TESTE*/}
+      <Modal
+        sx={{ overflow: "scroll" }}
+        open={openTeste}
+        onClose={() => {
 
-          {/* <TextField sx={{ marginBottom: 1 }}
-            value={selectprod.prod.desc}
-            onChange={(e) => setSelectP(a => ({ ...a, prod:{...a.prod,desc:e.target.value} }))}
-            type="text" label="Descrição"
-          ></TextField>
+          handleCloseTeste()
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={{
+          ...style, ...{
+            display: "flex",
+            borderRadius: 1,
+            flexDirection: "column",
+            fontFamily: "Roboto",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: theme.spacing(3),
 
-          <TextField sx={{ marginBottom: 1 }}
-            value={selectprod.prod.tam}
-            onChange={(e) => setSelectP(a => ({ ...a, prod:{...a.prod,tam:e.target.value} }))}
-            type="text" label="Tamanho"></TextField>
+            width: theme.spacing(50)
+          }
+        }}
 
-          <TextField sx={{ marginBottom: 1 }}
-            value={selectprod.prod.preco}
-            onChange={(e) => setSelectP(a => ({ ...a, prod:{...a.prod,preco:e.target.value} }))}
-            type="number" label="Preço/UND"></TextField>
-          <TextField sx={{ marginBottom: 1 }}
-            value={selectprod.prod.und}
-            onChange={(e) => setSelectP(a => ({ ...a, prod:{...a.prod,und:e.target.value} }))}
-            type="number" label="Preço/UND"></TextField> */}
+        >
+
+
+
+          <Img
+
+            onClick={() => { handleOpen() }} 
+            alt={selectprod.prod.desc}
+            src={url + "images/" + selectprod?.prod?.img?.key}
+            sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
+          <Paper
+            onClick={() => {
+              handleOpenL()
+            }}
+            elevation={0}
+            sx={{ background: "transparent", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 1, height: theme.spacing(8), width: "100%", border: " dashed 1px #000" }}>
+            {selectprod?.prod?.logos?.map(item => (<Avatar key={item.id} src={url + 'images/' + item.key} alt={item.desc}></Avatar>))}
+          </Paper>
+
+
+          <Typography sx={{ color: "#404E5C", fontSize: "0.9em", width: "90%" }} noWrap variant="subtitle1" component="p">
+            {selectprod.prod.desc + " " + selectprod.prod.tam}
+          </Typography>
+
+
+
+
+
+          <Divider color="#000" sx={{ width: "90%" }} ></Divider>
+
+          <div
+            style={{ display: "flex", marginTop: theme.spacing(5), alignItems: "center", justifyContent: "center", flexDirection: "column" }}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <TextField sx={{ marginBottom: 1 }}
+              value={selectprod.prod.desc}
+              onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, desc: e.target.value } }))}
+              type="text" label="Descrição"
+            ></TextField>
+
+            <TextField sx={{ marginBottom: 1 }}
+              value={selectprod.prod.tam}
+              onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, tam: e.target.value } }))}
+              type="text" label="Tamanho"></TextField>
+
+            <TextField sx={{ marginBottom: 1 }}
+              value={selectprod.prod.preco}
+              onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, preco: e.target.value } }))}
+              type="number" label="Preço/UND"></TextField>
+            <TextField sx={{ marginBottom: 1 }}
+              value={selectprod.prod.und}
+              onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, und: e.target.value } }))}
+              type="number" label="Quantidade"></TextField>
+          </div>
+
+          <Box className="row">
+            <Button
+              variant='contained'
+              color='success'
+              className='col m-2'
+              onClick={(e) => {
+                e.preventDefault();
+                
+                api.put(`/produtos`, { ...selectprod.prod,cat:selectprod.prod.cat.map(c => (c.id)),logos:selectprod.prod.logos.map(l => (`${l.id}`)) }).then(r => {
+                  if (r.data.status) {
+                    Swal.fire(
+                      'Atualizado!',
+                      '',
+                      'success'
+                    )
+                    setProd(a => {
+                      let ProdAnteriores = a;
+                      ProdAnteriores[selectprod.index] = selectprod.prod;
+
+                      return (ProdAnteriores)
+                    })
+                    handleCloseTeste();
+                  } else {
+                    Swal.fire(
+                      'Error!',
+                      '',
+                      'error'
+                    )
+                    handleCloseTeste()
+                  }
+                })
+              }}
+            >Salvar</Button>
+            <Button
+              variant='contained'
+              color='info'
+              className='col m-2'
+              onClick={()=>{
+                handleOpenC()
+              }}
+            >
+              Categorias
+            </Button>
+          </Box>
+
+          <Box className="row">
+            <Button
+              variant='contained'
+              color='error'
+              className='col m-2'
+              
+
+              onClick={() => {
+                api.delete(`/produtos?id=${selectprod.prod.id}`).then(r => {
+                  if (r.data.status) {
+                    let pr = produtos.filter(item => item.id != selectprod.prod.id)
+
+                    setProd(pr);
+
+                    handleCloseTeste()
+                  }
+                })
+              }}
+
+            >
+              Excluir
+              </Button>
+            <Button
+              variant='contained'
+              color='warning'
+              className='col m-2'
+              onClick={()=>{
+               handleCloseTeste()
+              }}
+            >
+              Cancelar
+            </Button>
+          </Box>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
