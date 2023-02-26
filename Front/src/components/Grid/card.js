@@ -25,7 +25,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id,u
 
         <Paper
 
-            elevation={2}
+            elevation={0}
             sx={{
                 display: "flex",
                 borderRadius: 1,
@@ -33,11 +33,13 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id,u
                 fontFamily: "Roboto",
                 alignItems: "center",
                 position: "relative",
+                border: "solid 0.000001px #ddd",
+                // background:"#ddd"
                 
 
 
             }}
-            className='card'
+            className='card marcado'
             onClick={() => {
                 if (logos.length > 0) {
 
@@ -65,7 +67,9 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id,u
                 
             </Badge>
 
-            <Img alt={desc} src={img} sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
+        <div style={{width:100,height:100,marginTop:10,marginBottom:2}}>
+            <Img alt={desc} src={img} sx={{ borderRadius: 0,maxWidth:90,maxHeight:90, width: "auto", height: "auto",overflowClipMargin:"content-box",overflow:"clip" }} />
+            </div>
             <Divider sx={{ margin: 1, marginTop: 2, width: "90%" }}>
                 <Chip label="Informações" />
             </Divider>
@@ -87,7 +91,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id,u
 
             <Box sx={{ flexDirection: "column", width: "100%", padding: 2 }}>
 
-                {bg ? null : <Typography sx={{ fontSize: "1.5em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginTop: 2, color: "#050A30" }} variant="subtitle1" component="div">
+                {bg ? null : <Typography noWrap sx={{ fontSize: "1.5em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginTop: 2, color: "#050A30" }} variant="subtitle1" component="div">
                     {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(valor)}
                 </Typography>}
 

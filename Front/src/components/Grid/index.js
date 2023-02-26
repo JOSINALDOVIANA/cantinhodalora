@@ -78,8 +78,8 @@ export default function GridContainer() {
   return (
     <Box sx={{
       flexGrow: 1,
-      margin: 2,
-      color: "#000",
+      margin: 1,
+      
 
 
     }}>

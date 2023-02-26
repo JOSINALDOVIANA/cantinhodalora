@@ -12,8 +12,8 @@ body,html, #root {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #00695c;
-  color:#fff;
+  background: #fff;
+  /* color:#000; */
   width: 100vw;
   height: 100vh;
 }
@@ -46,3 +46,14 @@ code {
   transform: scale(0.95);
   animation-delay: 1s;
 } */
+
+.marcado {
+  /* padding: 2em; */
+  background-image: 
+  linear-gradient(135deg, transparent 0%, transparent 50%, rgb(7, 83, 58) 50%, rgb(20, 82, 36) 55%, transparent 55%, transparent 60%, rgb(14, 73, 34) 60%);
+  /* linear-gradient(yellow, yellow); */
+    /*controla o tamanho do chanfro vermelho aqui*/
+  background-size: 20px 20px, 50% 50%;
+  background-position: right bottom;
+  background-repeat: no-repeat;
+}

@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { BsFacebook, BsInstagram, BsWhatsapp,BsArrowDownLeftSquare } from "react-icons/bs";
+import { BsFacebook, BsInstagram, BsWhatsapp, BsArrowDownLeftSquare } from "react-icons/bs";
 
 
 
@@ -43,40 +43,46 @@ export default function MenuAppBar(prop) {
     <Box >
 
       <AppBar position="static" sx={{
-          background: "transparent",
-        
-        boxShadow: 0,
-        textAlign: "center",
-        padding: 1,
+        background: "#fff",
+        // height: "50px",
+        boxShadow: 1,
+        // textAlign: "center",
+        // padding: 1,
+        verticalAlign: "center"
 
-      }}>
+      }}
+     >
         <Toolbar sx={{
           display: "flex",
           justifyContent: "space-between"
         }}>
 
 
-          {/* <img
-            src={`${cant}`}
-            alt="logo"
-            loading="lazy"
-            style={{ width: "15%" }}
-          /> */}
-        
+
+
 
           <IconButton
             size="large"
             edge="start"
-            color='inherit'
+
             aria-label="menu"
-            sx={{ mr: 2 }}
+            sx={{ color: "#000" }}
             onClick={handleMenu2}
           >
             <MenuIcon />
           </IconButton>
 
+          <div style={{ height: "3rem", width: "3rem", background: "#000" }}>
+            <img
+              src={`${cant}`}
+              alt="logo"
+              loading="lazy"
+              style={{ maxHeight: "3rem", maxWidth: "3rem", width: "auto", height: "auto", overflowClipMargin: "content-box", overflow: "clip" }}
+            />
+          </div>
+
           <Menu
-          
+
             id="menu-appbar"
             anchorEl={anchorE2}
             anchorOrigin={{
@@ -90,14 +96,14 @@ export default function MenuAppBar(prop) {
             }}
             open={Boolean(anchorE2)}
             onClose={handleClose2}
-            // sx={{display:"flex",justifyContent:"space-between",alignItems:"center"}}
+          // sx={{display:"flex",justifyContent:"space-between",alignItems:"center"}}
 
           >
             <MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("http://www.instagran.com/cantinho_dalora"); handleClose2() }}><BsInstagram></BsInstagram>Instagran</MenuItem>
             <MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("https://www.facebook.com/cantinhodalora"); handleClose2() }}><BsFacebook></BsFacebook>Facebook</MenuItem>
             <MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("https://api.whatsapp.com/send?phone=+5596981325410&text=Oi"); handleClose2() }}><BsWhatsapp></BsWhatsapp>Whatsap</MenuItem>
             <MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { navegator("/login") }}><BsArrowDownLeftSquare></BsArrowDownLeftSquare>Login/Entrar</MenuItem>
-           
+
 
 
           </Menu>
@@ -106,8 +112,8 @@ export default function MenuAppBar(prop) {
 
 
         </Toolbar>
-        
-     
+
+
       </AppBar>
     </Box>
   );
