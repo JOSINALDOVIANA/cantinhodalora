@@ -1,12 +1,14 @@
 import React from 'react';
-import { Box, FormControl, InputLabel, MenuItem, Paper, Select } from '@mui/material'
+import { Box, FormControl, InputLabel, MenuItem, Paper, Select, useTheme } from '@mui/material'
 import { api } from '../../../api';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { subYears } from 'date-fns';
+
 // import { Container } from './styles';
 
 function Relatorios() {
+  const theme=useTheme();
   const [colaboradores, setCol] = React.useState([])//todos os colaboradores
   const [gerentes, setGer] = React.useState([])//todos os gerentes
   const [desabilitar, setDesabilitar] = React.useState([true,true,true,true])
@@ -74,6 +76,7 @@ function Relatorios() {
       sx={{
         width: "100vw",
         height: "100vh",
+        marginTop:theme.spacing(10)
 
 
       }}

@@ -88,7 +88,7 @@ function Produtosedit() {
 
   console.log(selectprod)
   return (
-    <div className='p-1'>
+    <div style={{marginTop:theme.spacing(10)}} className='p-1'>
       <Grid container alignItems="center" spacing={2}>
         {produtos?.map((p, index) => (
           <Grid key={p.id + "prod"} item xs={6} sm={4} md={3} lg={3}>

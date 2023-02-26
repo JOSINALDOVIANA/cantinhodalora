@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Chip, Divider, FormControl, Grid, ImageList, ImageListItem, InputLabel, MenuItem, Modal, Paper, Select, TextField, Typography, styled } from '@mui/material';
+import { Avatar, Box, Button, Chip, Divider, FormControl, Grid, ImageList, ImageListItem, InputLabel, MenuItem, Modal, Paper, Select, TextField, Typography, styled, useTheme } from '@mui/material';
 import React from 'react';
 import { api, url } from '../../../api';
 import { uniqueId } from 'lodash';
@@ -26,6 +26,8 @@ const Img = styled('img')({
     maxHeight: '100%',
 });
 function FecharCaixa() {
+    const theme=useTheme();
+
 
     // const [dados] = useOutletContext();
     const [produtos, setProd] = React.useState([]);
@@ -89,7 +91,7 @@ function FecharCaixa() {
     };
     // console.log(fechamento)
     return (
-        <div className='p-1'>
+        <div style={{marginTop:theme.spacing(10)}} className='p-1'>
 
 
 

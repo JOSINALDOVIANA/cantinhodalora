@@ -17,7 +17,7 @@ function ResponsiveAppBar() {
 
 
   return (
-    <nav style={{height:"10%"}} className="navbar navbar-dark bg-dark ">
+    <nav style={{height:"10%"}} className="navbar fixed-top navbar-light bg-light ">
       <div className="container-fluid ">
         <button style={{alignItems:"center",display:"flex"}} className="navbar-toggler" type="button" data-bs-toggle="offcanvas"
           data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
@@ -25,10 +25,10 @@ function ResponsiveAppBar() {
         </button>
         <span className="navbar-brand" >Cantinho da Lora</span>
 
-        <div className="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+        <div className="offcanvas offcanvas-start text-bg-light" tabindex="-1" id="offcanvasDarkNavbar"
           aria-labelledby="offcanvasDarkNavbarLabel">
           <div className="offcanvas-header">
-            <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu - Cantinho da LORA</h5>
+            <h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">Cantinho da LORA</h5>
             <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas"
               aria-label="Close"></button>
           </div>
@@ -36,26 +36,26 @@ function ResponsiveAppBar() {
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
               <li onClick={()=>{
                 navegate("/perfil/inicio", { state: props.user })
-              }} className="nav-item link">
+              }} className="nav-item link bg-light">
                 <span className="nav-link active " aria-current="page" >{pages[1]}</span>
               </li>
               <li onClick={()=>{
                  navegate("/perfil/userEdit", { state: props.user })
-              }} className="nav-item link">
+              }} className="nav-item link bg-light">
                 <span className="nav-link" >{pages[2]}</span>
               </li>
-              <li className="nav-item dropdown link">
+              <li className="nav-item dropdown link bg-light">
                 <span className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                   aria-expanded="false">
                   Produtos
                 </span>
-                <ul className="dropdown-menu dropdown-menu-dark">
+                <ul className="dropdown-menu dropdown-menu-light">
                   <li onClick={()=>{
                     navegate("/perfil/produtoscad",{state:props.user})
-                  }}><span className="dropdown-item" >{pages[0][0]}</span></li>
+                  }}><span className="dropdown-item link bg-light" >{pages[0][0]}</span></li>
                   <li onClick={()=>{
                     navegate("/perfil/produtosedit",{state:props.user})
-                  }}><span className="dropdown-item" >{pages[0][1]}</span></li>
+                  }}><span className="dropdown-item link bg-light" >{pages[0][1]}</span></li>
                   {/* <li>
                     <hr className="dropdown-divider">
                   </li>
@@ -64,17 +64,17 @@ function ResponsiveAppBar() {
               </li>
               <li onClick={()=>{
                  navegate("/perfil/fecharCaixa")
-              }} className="nav-item link">
+              }} className="nav-item link  bg-light">
                 <span className="nav-link" >{pages[3]}</span>
               </li>
               <li onClick={()=>{
                  navegate("/perfil/relatorio")
-              }} className="nav-item link">
+              }} className="nav-item link bg-light">
                 <span className="nav-link" >{pages[4]}</span>
               </li>
               <li onClick={()=>{
                  navegate("/")
-              }} className="nav-item link">
+              }} className="nav-item link bg-light">
                 <span className="nav-link" >{pages[5]}</span>
               </li>
              

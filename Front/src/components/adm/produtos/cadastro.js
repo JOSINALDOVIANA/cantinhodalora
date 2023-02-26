@@ -1,5 +1,5 @@
 import PhotoCamera from '@mui/icons-material/PhotoCamera.js';
-import { Avatar, Box, Button, IconButton, ImageList, ImageListItem, TextField, Typography, Modal, Paper, styled } from '@mui/material';
+import { Avatar, Box, Button, IconButton, ImageList, ImageListItem, TextField, Typography, Modal, Paper, styled, useTheme } from '@mui/material';
 import { uniqueId } from 'lodash';
 import React from 'react';
 import { api, url } from '../../../api.js'
@@ -27,6 +27,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 function Produtoscad() {
+  const theme=useTheme();
   const [produto, setProduto] = React.useState({ desc: '', tam: '', logos: [], preco: 0, url: '', und: 0, id_image: '', cat: [] })
   const [imagens, setIMG] = React.useState([])
   const [logos, setLogos] = React.useState([])
@@ -68,7 +69,7 @@ function Produtoscad() {
 
 
 
-    <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "space-around", alignItems: "stretch", flexDirection: "row", margin:2 }} >
+    <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "space-around", alignItems: "stretch", flexDirection: "row", margin:2,marginTop:theme.spacing(8)}} >
 
       <Box
         sx={{
