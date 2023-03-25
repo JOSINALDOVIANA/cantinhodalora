@@ -1,10 +1,11 @@
 
 
 import path from 'path';
-
+import * as fs from 'fs';
 import Crypto from 'crypto';
 
 import { fileURLToPath } from 'url';
+import { promisify } from 'util';
 
 import conexao from '../../databases/conexao.js';
 

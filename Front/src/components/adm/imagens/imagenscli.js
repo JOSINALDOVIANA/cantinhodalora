@@ -53,7 +53,7 @@ function Imagens() {
 							loading="lazy"
 						/>
 						<Button onClick={() => {
-							api.delete(`${url}${item.delete}`).then(r => {
+							api.delete(`${item.delete}`).then(r => {
 								let ims = [];
 								if (r.data.status) {
 
