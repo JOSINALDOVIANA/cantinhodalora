@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import conexao from "./databases/conexao.js";
 import users from "./controller/users/index.js";
 import Produtos from "./controller/produtos/index.js";
+import payments from "./controller/payments/index.js";
 import { promisify } from "util";
 import config from "./controller/multer/config.js";
 import images from "./controller/images/index.js";
@@ -91,6 +92,9 @@ rotas.put("/fechamentogerente",close.Update)
 rotas.get("/fechamentogerente",close.Select)
 rotas.delete("/fechamentogerente",close.Delete)
 
-
-
+//close fechamento geral
+rotas.post("/payments/create",payments.Insert)
+rotas.post("/payments/conf",payments.Insert2)
+rotas.get("/payments/get",payments.Select)
+rotas.delete("/payments/delete",payments.DEL)
 export default rotas;

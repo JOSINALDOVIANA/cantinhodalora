@@ -59,7 +59,8 @@ export default {
         try {
             let images=await conexao("images").where({prod:false})
             for (const key in images) {
-               images[key].delete=`deleteImage?idimage=${images[key].idimage}&key=${images[key].key}`
+               images[key].delete=`http://${process.env.IP_SERVER}:3009/deleteImage?id=${images[key].idimage}&key=${images[key].key}`
+               images[key].url=`http://${process.env.IP_SERVER}:3009/images/${images[key].key}}`;
             }
             return res.json({status:true,images})
         } catch (error) {
@@ -112,7 +113,9 @@ export default {
         try {
             let images=await conexao("images").where({prod:true})
             for (const key in images) {
-               images[key].delete=`deleteImageP?idimage=${images[key].idimage}&key=${images[key].key}`
+               images[key].delete=`http://${process.env.IP_SERVER}:3009/deleteImageP?id=${images[key].idimage}&key=${images[key].key}`;
+               images[key].url=`http://${process.env.IP_SERVER}:3009/images/${images[key].key}}`;
+
             }
             return res.json({status:true,images})
         } catch (error) {

@@ -1,38 +1,38 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {  } from "react";
 
-import MenuAppBar from '../../components/AppBar';
+import MenuAppBar from "../../components/AppBar";
 
 
 
-import { Outlet } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Outlet } from "react-router-dom";
+import { Box } from "@mui/material";
 
 function InicialTela() {
   
-  return (
+	return (
 
 
 
 
-    <Box  sx={{
+		<Box  sx={{
       
-      color: "#000",
-      display: "flex",
-      flexDirection: "column",
-      flexGrow:1
+			color: "#000",
+			display: "flex",
+			flexDirection: "column",
+			flexGrow:1
      
      
       
 
 
-    }}>
+		}}>
       
-      <MenuAppBar></MenuAppBar>
-      <Outlet></Outlet>
-    </Box>
+			<MenuAppBar></MenuAppBar>
+			<Outlet></Outlet>
+		</Box>
 
 
-  );
+	);
 }
 
 export default InicialTela;

@@ -1,19 +1,19 @@
 
-import React from 'react';
-import { Outlet, useLocation,useNavigate} from 'react-router-dom';
+import React from "react";
+import { Outlet} from "react-router-dom";
 
-import ResponsiveAppBar from '../../components/adm/appBar/appbaradm.js';
+import ResponsiveAppBar from "../../components/adm/appBar/appbaradm.js";
 
 
 function Perfil() {
   
-  return (
-    <div className='fluid' style={{display:"flex",height:"100vh",flexDirection:"column"}}>
-      <ResponsiveAppBar></ResponsiveAppBar>
+	return (
+		<div className='fluid' style={{display:"flex",height:"100vh",flexDirection:"column"}}>
+			<ResponsiveAppBar></ResponsiveAppBar>
       
-      <Outlet ></Outlet>
-    </div>
-  );
+			<Outlet></Outlet>
+		</div>
+	);
 }
 
 export default Perfil;
