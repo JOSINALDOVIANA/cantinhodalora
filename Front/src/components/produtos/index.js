@@ -2,6 +2,7 @@
 import React from "react";
 
 import GridContainer from "../Grid";
+import Promo from "../promocoes";
 
 // import { Container } from './styles';
 
@@ -14,7 +15,7 @@ function Produtos() {
 			{/* Imagens clients */}
 			{/* <ImagesClientes/> */}
 			{/* Promoção */}
-			{/* <Promo></Promo> */}
+			<Promo></Promo>
 			<GridContainer></GridContainer>
 		</div>
 	);

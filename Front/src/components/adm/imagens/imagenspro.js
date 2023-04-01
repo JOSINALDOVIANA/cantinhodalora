@@ -73,8 +73,8 @@ function Imagens() {
 		// 			))}
 		// 		</ImageList>
 		// 	</Paper>
-		<Grid container alignItems="center" spacing={0.3} >
-			{images.map(img => (
+		<Grid sx={{ marginTop: theme.spacing(10),padding:theme.spacing(3) }} container alignItems="center" spacing={0.3} >
+			{images.map((img,i) => (
 				<Grid
 					key={img.id}
 					item
@@ -84,8 +84,24 @@ function Imagens() {
 					lg={3}
 
 				>
-					<Paper elevation={2} sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-						<img src={img.url}></img>
+					<Paper elevation={2} sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%", height: "200px" }}>
+						<img style={{ width: "120px", height: "120px" }} src={img.url}></img>
+						<Button sx={{marginTop:theme.spacing(2)}} onClick={() => {
+							api.delete(`${img.delete}`).then(r => {
+								let ims = [];
+								if (r.data.status) {
+
+									for (const key in images) {
+										if (key != i) {
+											ims.push(images[key]);
+										}
+									}
+									setImages(ims);
+									alert("imagem apagada");
+								}
+								else { alert("erro ao excluir"); }
+							});
+						}} variant="contained" color="error">Excluir</Button>
 					</Paper>
 				</Grid>
 			))}

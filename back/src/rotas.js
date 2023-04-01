@@ -1,12 +1,11 @@
-import express, { Router } from  "express";
+import express from  "express";
 import multer from 'multer';
 import path from 'path';
-import fs from 'fs';
-import Crypto from 'crypto';
+
 
 import { fileURLToPath } from 'url';
 
-import conexao from "./databases/conexao.js";
+import promo from "./controller/promo/index.js";
 import users from "./controller/users/index.js";
 import Produtos from "./controller/produtos/index.js";
 import payments from "./controller/payments/index.js";
@@ -92,9 +91,21 @@ rotas.put("/fechamentogerente",close.Update)
 rotas.get("/fechamentogerente",close.Select)
 rotas.delete("/fechamentogerente",close.Delete)
 
-//close fechamento geral
+//pagamentos faze de teste
 rotas.post("/payments/create",payments.Insert)
 rotas.post("/payments/conf",payments.Insert2)
 rotas.get("/payments/get",payments.Select)
 rotas.delete("/payments/delete",payments.DEL)
+
+
+//pagamentos faze de teste
+rotas.post("/promo",promo.Insert)
+// rotas.post("/promo",promo.Insert2)
+rotas.get("/promo",promo.Select)
+rotas.put("/promo",promo.Update)
+rotas.delete("/promo",promo.Delete)
+
+
+
+
 export default rotas;

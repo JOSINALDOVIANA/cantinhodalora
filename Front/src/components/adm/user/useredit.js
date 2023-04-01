@@ -1,3 +1,4 @@
+import { useTheme } from '@mui/material';
 import React, { useState } from 'react';
 import { useLocation, useOutletContext,useNavigate } from 'react-router-dom';
 import { api } from '../../../api';
@@ -6,7 +7,7 @@ import '../styles.css';
 
 function Useredit() {
 const navegar=useNavigate();
-  
+  const theme=useTheme();
   let rota = useLocation();
   const [dados, setdados] = useState(rota.state)
   React.useEffect(()=>{
@@ -16,7 +17,7 @@ const navegar=useNavigate();
   },[])
   // console.log(dados)
   return (
-    <div className='container-fuid' style={{overflow:"scroll"}}>
+    <div className='container-fuid' style={{overflow:"scroll",marginTop:theme.spacing(7)}}>
       <table className="table caption-top table-responsive">
       {/* <caption>List of users</caption> */}
       <thead className='table-dark'>
