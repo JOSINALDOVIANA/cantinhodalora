@@ -27,16 +27,16 @@ function Promo({ bg }) {
 				borderRadius: 1,
 				overflow: "scroll",
 				display: "flex",
+				alignItems:"center",
 				padding: theme.spacing(2),
 				margin: theme.spacing(2)
 
 
 			}}
-			elevation={1}
+			elevation={0}
 		>
-			<Grid container alignItems="center" spacing={0.3}>
+			<Grid container  spacing={0.3}>
 
-			</Grid>
 			{promo.map(i => (
 				<Grid
 					key={i}
@@ -48,12 +48,12 @@ function Promo({ bg }) {
 
 				>
 					<Paper
-						className="promoblock"
-						elevation={1}
+						// className="promoblock"
+						elevation={2}
 						sx={{
 							width: "200px",
 							height: "auto",
-							background: "#e02141",
+							// background: "#ffff5",
 							"& ": {
 								marginRight: theme.spacing(2)
 							},
@@ -76,7 +76,7 @@ function Promo({ bg }) {
 								// icon={
 								// 	<ListAlt color={"success"} />
 								// }
-								sx={{ color: "#fff", fontSize: "1.8em", border: "solid 1px #fff" }}
+								sx={{ color: "#000", fontSize: "1.8em", border: "solid 1px #000" }}
 								variant="outlined" />
 						</Divider>
 						{/* {logos.length > 0 && (
@@ -94,15 +94,15 @@ function Promo({ bg }) {
 								{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(i.valpromo)}
 							</Typography>
 
-							<Typography noWrap sx={{ fontSize: "1.5em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginTop: 2, color: "#ddd" }} variant="subtitle1" component="div">
-								{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(i.pro.val)}
+							<Typography noWrap sx={{ fontSize: "1.5em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginTop: 2, color: "#ddd70",textDecoration:"line-through" }} variant="subtitle1" component="div">
+								{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(i.prod.preco)}
 							</Typography>
 
 							<Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-								<Typography sx={{ color: "#fff", fontSize: "0.9em", fontFamily: "Roboto" }}  variant="subtitle1" component="p">
+								<Typography sx={{ color: "#000", fontSize: "0.9em", fontFamily: "Roboto" }}  variant="subtitle1" component="p">
 									{i.newdesc} {i.prod.tam}
 								</Typography>
-								<Typography sx={{ fontSize: "0.8em",color:"#fff" }}  noWrap gutterBottom variant="subtitle1" component="div">
+								<Typography sx={{ fontSize: "0.8em",color:"#045043" }}  noWrap gutterBottom variant="subtitle1" component="div">
 									Enquanto durar o estoque
 								</Typography>
 
@@ -119,6 +119,9 @@ function Promo({ bg }) {
 					</Paper>
 				</Grid>
 			))}
+
+			</Grid>
+			
 
 
 		</Paper>
