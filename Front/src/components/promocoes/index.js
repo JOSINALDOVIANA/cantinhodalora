@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Paper, Typography, styled, useTheme, Grid, Badge, Divider, Chip, Box } from "@mui/material";
 import Torre from "../../assets/Torres.png";
 import ComplexGrid from "../Grid/card";
 import "./style.css"
 
 import { green } from "@mui/material/colors";
+import { api } from "../../api";
 const Img = styled("img")({
 
 	display: "block",
@@ -13,7 +14,12 @@ const Img = styled("img")({
 });
 function Promo({ img = Torre, desc="Torre de Brahma Duplo Malte", tamanho="3,5 L", valor=50, logos = [], bg, id=1, und=48 }) {
 	const theme = useTheme();
-	const qt = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	const [promo,setPromo]=useState([]);
+	useEffect(()=>{
+		api.get("/promo").then(r=>{
+			setPromo(r.data.promo)
+		})
+	},[])
 	return (
 		<Paper
 			sx={{
@@ -31,7 +37,7 @@ function Promo({ img = Torre, desc="Torre de Brahma Duplo Malte", tamanho="3,5 L
 			<Grid container alignItems="center" spacing={0.3}>
 
 			</Grid>
-			{qt.map(i => (
+			{promo.map(i => (
 				<Grid
 					key={i}
 					item
@@ -63,7 +69,7 @@ function Promo({ img = Torre, desc="Torre de Brahma Duplo Malte", tamanho="3,5 L
 				max={999} >
 
 			</Badge> */}
-						<Img alt={"test"} src={img} sx={{ borderRadius: 0, maxWidth: 90, maxHeight: 90, width: "auto", height: "auto", overflowClipMargin: "content-box", overflow: "clip" }} />
+						<Img alt={"test"} src={i.img.url} sx={{ borderRadius: 0, maxWidth: 90, maxHeight: 90, width: "auto", height: "auto", overflowClipMargin: "content-box", overflow: "clip" }} />
 
 						<Divider sx={{ margin: 1, marginTop: 2, width: "90%",display:"flex",justifyContent:"center",alignItems:"center" }}>
 							<Chip label="Promoção"

@@ -111,8 +111,15 @@ export default {
         }
     },
     async selectIMGprod(req,res){
+        let {id}=req.query;
+        let images=[];
+
         try {
-            let images=await conexao("images").where({prod:true})
+            if(!!id){
+                images=await conexao("images").where({prod:true,id})
+            }else{
+                images=await conexao("images").where({prod:true})
+            }
             for (const key in images) {
                images[key].delete=`http://${process.env.IP_SERVER}:3009/deleteImageP?id=${images[key].idimage}&key=${images[key].key}`;
                images[key].url=`http://${process.env.IP_SERVER}:3009/images/${images[key].key}`;

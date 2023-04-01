@@ -1,4 +1,4 @@
 node_modules
 /src/databases/mydb.sqlite
 knexfile.js
-*env
+*.env

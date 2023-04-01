@@ -47,6 +47,8 @@ export default {
 
         for (const key in promo) {
            promo[key].img=await conexao("images").where({id:promo[key].id_image}).first();
+           promo[key].img.delete=`http://${process.env.IP_SERVER}:3009/deleteImage?id=${promo[key].img.id}&key=${promo[key].img.key}`
+           promo[key].img.url=`http://${process.env.IP_SERVER}:3009/images/${promo[key].img.key}`
            promo[key].prod=await conexao("produtos").where({id:promo[key].id_prod}).first();
         //    promo[key].logos=await conexao("image_prod").where({"image_prod.id_prod":promo[key].id}).join("images","image_prod.id_image","=","images.id").select("images.*");
         //    promo[key].cat=await conexao("prod_cat").where({"prod_cat.id_prod":promo[key].id}).join("categorias","prod_cat.id_cat","=","categorias.id").select("categorias.*")
