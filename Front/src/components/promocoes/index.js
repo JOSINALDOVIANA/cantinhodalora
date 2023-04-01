@@ -12,7 +12,7 @@ const Img = styled("img")({
 	maxWidth: "100%",
 	maxHeight: "100%",
 });
-function Promo({ img = Torre, desc="Torre de Brahma Duplo Malte", tamanho="3,5 L", valor=50, logos = [], bg, id=1, und=48 }) {
+function Promo({ bg }) {
 	const theme = useTheme();
 	const [promo,setPromo]=useState([]);
 	useEffect(()=>{
@@ -79,24 +79,28 @@ function Promo({ img = Torre, desc="Torre de Brahma Duplo Malte", tamanho="3,5 L
 								sx={{ color: "#fff", fontSize: "1.8em", border: "solid 1px #fff" }}
 								variant="outlined" />
 						</Divider>
-						{logos.length > 0 && (
+						{/* {logos.length > 0 && (
 
 							<Box id={id} sx={{ display: "none", maxWidth: "130px", justifyContent: "space-around", margin: 1 }}>
 
 								{logos.map(logo => (<Img key={logo.id} alt='imagem' src={logo.url} sx={{ height: "30%", width: "30%" }}></Img>))}
 							</Box>
 
-						)}
+						)} */}
 
 						<Box sx={{ flexDirection: "column", width: "100%", padding: 2 }}>
 
-							{bg ? null : <Typography noWrap sx={{ fontSize: "1.5em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginTop: 2, color: "#fff" }} variant="subtitle1" component="div">
-								{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(valor)}
-							</Typography>}
+						  <Typography noWrap sx={{ fontSize: "1.5em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginTop: 2, color: "#e02141" }} variant="subtitle1" component="div">
+								{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(i.valpromo)}
+							</Typography>
+
+							<Typography noWrap sx={{ fontSize: "1.5em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginTop: 2, color: "#ddd" }} variant="subtitle1" component="div">
+								{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(i.pro.val)}
+							</Typography>
 
 							<Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
 								<Typography sx={{ color: "#fff", fontSize: "0.9em", fontFamily: "Roboto" }}  variant="subtitle1" component="p">
-									{desc} {tamanho}
+									{i.newdesc} {i.prod.tam}
 								</Typography>
 								<Typography sx={{ fontSize: "0.8em",color:"#fff" }}  noWrap gutterBottom variant="subtitle1" component="div">
 									Enquanto durar o estoque
