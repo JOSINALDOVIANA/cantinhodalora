@@ -14,12 +14,12 @@ const Img = styled("img")({
 });
 function Promo({ bg }) {
 	const theme = useTheme();
-	const [promo,setPromo]=useState([]);
-	useEffect(()=>{
-		api.get("/promo").then(r=>{
+	const [promo, setPromo] = useState([]);
+	useEffect(() => {
+		api.get("/promo").then(r => {
 			setPromo(r.data.promo)
 		})
-	},[])
+	}, [])
 	return (
 		<Paper
 			sx={{
@@ -27,7 +27,7 @@ function Promo({ bg }) {
 				borderRadius: 1,
 				overflow: "scroll",
 				display: "flex",
-				alignItems:"center",
+				alignItems: "center",
 				padding: theme.spacing(2),
 				margin: theme.spacing(2)
 
@@ -35,51 +35,51 @@ function Promo({ bg }) {
 			}}
 			elevation={0}
 		>
-			<Grid container  spacing={0.3}>
+			<Grid container spacing={0.3}>
 
-			{promo.map(i => (
-				<Grid
-					key={i}
-					item
-					xs={6}
-					sm={6}
-					md={4}
-					lg={3}
+				{promo.map(i => (
+					<Grid
+						key={i}
+						item
+						xs={6}
+						sm={6}
+						md={4}
+						lg={3}
 
-				>
-					<Paper
-						// className="promoblock"
-						elevation={2}
-						sx={{
-							width: "200px",
-							height: "auto",
-							// background: "#ffff5",
-							"& ": {
-								marginRight: theme.spacing(2)
-							},
-							display: "flex",
-							flexDirection: "column",
-							justifyContent: "center",
-							alignItems: "center",
-							position: "relative",
-						}}
 					>
-						{/* <Badge sx={{ right: 25, top: 15, position: "absolute" }} badgeContent={58}
+						<Paper
+							// className="promoblock"
+							elevation={2}
+							sx={{
+								width: "200px",
+								height: "auto",
+								// background: "#ffff5",
+								"& ": {
+									marginRight: theme.spacing(2)
+								},
+								display: "flex",
+								flexDirection: "column",
+								justifyContent: "center",
+								alignItems: "center",
+								position: "relative",
+							}}
+						>
+							{/* <Badge sx={{ right: 25, top: 15, position: "absolute" }} badgeContent={58}
 				color={"success"}
 				max={999} >
 
 			</Badge> */}
-						<Img alt={"test"} src={i.img.url} sx={{ borderRadius: 0, maxWidth: 90, maxHeight: 90, width: "auto", height: "auto", overflowClipMargin: "content-box", overflow: "clip" }} />
+							<Img alt={"test"} src={i.img.url} sx={{ borderRadius: 0, maxWidth: 90, maxHeight: 90, width: "auto", height: "auto", overflowClipMargin: "content-box", overflow: "clip" }} />
 
-						<Divider sx={{ margin: 1, marginTop: 2, width: "90%",display:"flex",justifyContent:"center",alignItems:"center" }}>
-							<Chip label="Promoção"
-								// icon={
-								// 	<ListAlt color={"success"} />
-								// }
-								sx={{ color: "#000", fontSize: "1.8em", border: "solid 1px #000" }}
-								variant="outlined" />
-						</Divider>
-						{/* {logos.length > 0 && (
+							<Divider sx={{ margin: 1, marginTop: 2, width: "90%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+								<Chip label="Promoção"
+									// icon={
+									// 	<ListAlt color={"success"} />
+									// }
+									sx={{ color: "#e02141", fontSize: "1.8em", border: "solid 1px #000" }}
+									variant="outlined" />
+							</Divider>
+							{/* {logos.length > 0 && (
 
 							<Box id={id} sx={{ display: "none", maxWidth: "130px", justifyContent: "space-around", margin: 1 }}>
 
@@ -88,40 +88,62 @@ function Promo({ bg }) {
 
 						)} */}
 
-						<Box sx={{ flexDirection: "column", width: "100%", padding: 2 }}>
+							<Box sx={{ flexDirection: "column", width: "100%", padding: 2 }}>
+								<Box sx={{
+									display:"flex"
 
-						  <Typography noWrap sx={{ fontSize: "1.5em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginTop: 2, color: "#e02141" }} variant="subtitle1" component="div">
-								{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(i.valpromo)}
-							</Typography>
-
-							<Typography noWrap sx={{ fontSize: "1.5em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginTop: 2, color: "#ddd70",textDecoration:"line-through" }} variant="subtitle1" component="div">
-								{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(i.prod.preco)}
-							</Typography>
-
-							<Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-								<Typography sx={{ color: "#000", fontSize: "0.9em", fontFamily: "Roboto" }}  variant="subtitle1" component="p">
-									{i.newdesc} {i.prod.tam}
+								}}>
+									<Typography noWrap sx={{ fontSize: "1em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial",marginRight:theme.spacing(2) }} variant="subtitle1" component="div">
+										De  
+									</Typography>
+									<Typography noWrap
+										sx={{
+											fontSize: "1em",
+											fontFamily: "Roboto",
+											fontWeight: 300,
+											textAlign: "initial",
+											// marginTop: 2,
+											color: "#ddd70",
+											textDecoration: "line-through"
+										}} variant="subtitle1" component="div">
+										  {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(i.prod.preco)}
+									</Typography>
+									</Box>
+								<Box sx={{display:"flex",alignItems:"center"}}>
+								<Typography noWrap sx={{ fontSize: "1em",marginRight:theme.spacing(2), fontFamily: "Roboto", fontWeight: 300, textAlign: "initial" }} variant="subtitle1" component="div">
+									Por
 								</Typography>
-								<Typography sx={{ fontSize: "0.8em",color:"#045043" }}  noWrap gutterBottom variant="subtitle1" component="div">
-									Enquanto durar o estoque
+								<Typography noWrap sx={{ fontSize: "1.5em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", color: "#e02141" }} variant="subtitle1" component="div">
+									{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(i.valpromo)}
 								</Typography>
+								</Box>
+
+
+
+								<Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+									<Typography sx={{ color: "#000", fontSize: "0.9em", fontFamily: "Roboto" }} variant="subtitle1" component="p">
+										{i.newdesc} {i.prod.tam}
+									</Typography>
+									<Typography sx={{ fontSize: "0.8em", color: "#045043" }} noWrap gutterBottom variant="subtitle1" component="div">
+										Enquanto durar o estoque
+									</Typography>
+
+
+
+								</Box>
+
 
 
 
 							</Box>
 
 
-
-
-						</Box>
-
-
-					</Paper>
-				</Grid>
-			))}
+						</Paper>
+					</Grid>
+				))}
 
 			</Grid>
-			
+
 
 
 		</Paper>

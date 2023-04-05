@@ -9,11 +9,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { BsFacebook, BsInstagram, BsWhatsapp, BsArrowDownLeftSquare } from "react-icons/bs";
-
+import ageu from "../../assets/ageu.jpg"
+import naldo from "../../assets/josinaldo.jpg"
+import joilson from "../../assets/joilson.jpg"
 
 
 
 import cant from "../../assets/cantinho da lora 2.jpeg";
+import { Avatar } from "@mui/material";
 
 // eslint-disable-next-line no-unused-vars
 export default function MenuAppBar(prop) {
@@ -73,6 +76,11 @@ export default function MenuAppBar(prop) {
 						<MenuIcon />
 					</IconButton>
 
+					<Avatar onClick={()=>{window.open("https://api.whatsapp.com/send?phone=+5596981325410&text=Oi")}} alt="josinaldo" src={naldo} />
+					<Avatar onClick={()=>{window.open("https://api.whatsapp.com/send?phone=+5596991615690&text=Oi")}} alt="joilson" src={joilson}/>
+					<Avatar onClick={()=>{window.open("https://api.whatsapp.com/send?phone=+5596991674615&text=Oi")}} alt="ageu" src={ageu}/>
+
+
 					<div style={{ height: "3rem", width: "3rem", background: "#000" }}>
 						<img
 							src={`${cant}`}
@@ -100,10 +108,10 @@ export default function MenuAppBar(prop) {
 						// sx={{display:"flex",justifyContent:"space-between",alignItems:"center"}}
 
 					>
-						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("http://www.instagran.com/cantinho_dalora"); handleClose2(); }}><BsInstagram></BsInstagram>Instagran</MenuItem>
-						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("https://www.facebook.com/cantinhodalora"); handleClose2(); }}><BsFacebook></BsFacebook>Facebook</MenuItem>
-						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("https://api.whatsapp.com/send?phone=+5596981325410&text=Oi"); handleClose2(); }}><BsWhatsapp></BsWhatsapp>Whatsap</MenuItem>
-						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { navegator("/login"); }}><BsArrowDownLeftSquare></BsArrowDownLeftSquare>Login/Entrar</MenuItem>
+						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("http://www.instagran.com/cantinho_dalora"); handleClose2(); }}><BsInstagram color="#405DE6"></BsInstagram>Instagran</MenuItem>
+						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("https://www.facebook.com/cantinhodalora"); handleClose2(); }}><BsFacebook color="#4267B2"></BsFacebook>Facebook</MenuItem>
+						{/* <MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("https://api.whatsapp.com/send?phone=+5596981325410&text=Oi"); handleClose2(); }}><BsWhatsapp  color="#25D366"></BsWhatsapp>Whatsap</MenuItem> */}
+						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { navegator("/login") }}><BsArrowDownLeftSquare color="#e02141"></BsArrowDownLeftSquare>Login/Entrar</MenuItem>
 
 
 
