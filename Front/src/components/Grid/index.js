@@ -20,15 +20,10 @@ export default function GridContainer() {
   React.useEffect(() => {
     api.get("/produtos").then(r => {
       let p = r.data.produtos
+      console.log(p)
       if (r.data.status) {
 
-        for (const key in p) {
-          p[key].img.url = url + "images/" + p[key].img.key;
-          p[key].url = p[key].img.url;
-          for (const key2 in p[key].logos) {
-            p[key].logos[key2].url = url + "images/" + p[key].logos[key2].key
-          }
-        }
+        
 
 
         setProd(p)

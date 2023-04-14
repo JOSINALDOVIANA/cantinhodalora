@@ -72,6 +72,11 @@ export default {
                 }
 
                    produtos[key].logos=await conexao("image_prod").where({"image_prod.id_prod":produtos[key].id}).join("images","image_prod.id_image","=","images.id").select("images.*");
+                   if(!!produtos[key].logos){
+                    for (const index in produtos[key].logos) {
+                        produtos[key].logos[index].url=`http://${process.env.IP_SERVER}:3009/images/${produtos[key].logos[index].key}`;
+                    }
+                   }
                    produtos[key].cat=await conexao("prod_cat").where({"prod_cat.id_prod":produtos[key].id}).join("categorias","prod_cat.id_cat","=","categorias.id").select("categorias.*")
             }
 
