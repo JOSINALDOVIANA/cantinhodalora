@@ -1,4 +1,4 @@
-import { Button, Grid, ImageList, ImageListItem, Paper, useTheme } from "@mui/material";
+import { Button, Grid, ImageList, ImageListItem, Paper, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { api, url } from "../../../api";
 
@@ -84,8 +84,9 @@ function Imagens() {
 					lg={3}
 
 				>
-					<Paper elevation={2} sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%", height: "200px" }}>
+					<Paper elevation={2} sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%", height: "300px" }}>
 						<img style={{ width: "120px", height: "120px" }} src={img.url}></img>
+						<Typography sx={{padding:theme.spacing(2),width:"80%",fontSize:"1rem"}}>{img.key}</Typography>
 						<Button sx={{marginTop:theme.spacing(2)}} onClick={() => {
 							api.delete(`${img.delete}`).then(r => {
 								let ims = [];
