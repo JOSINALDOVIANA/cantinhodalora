@@ -121,7 +121,7 @@ export default {
                 images=await conexao("images").where({prod:true})
             }
             for (const key in images) {
-               images[key].delete=`http://${process.env.IP_SERVER}:3009/deleteImageP?id=${images[key].idimage}&key=${images[key].key}`;
+               images[key].delete=`http://${process.env.IP_SERVER}:3009/deleteImageP?id=${images[key].id}&key=${images[key].key}`;
                images[key].url=`http://${process.env.IP_SERVER}:3009/images/${images[key].key}`;
 
             }

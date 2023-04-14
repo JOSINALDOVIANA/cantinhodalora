@@ -20,7 +20,7 @@ export default function GridContainer() {
   React.useEffect(() => {
     api.get("/produtos").then(r => {
       let p = r.data.produtos
-      console.log(p)
+      // console.log(p)
       if (r.data.status) {
 
         
@@ -113,7 +113,7 @@ export default function GridContainer() {
 
           >
             <ComplexGrid
-              img={p.url}
+              img={!!p.id_image?p.img.url:""}
               desc={p.desc}
               tamanho={p.tam}
               valor={p.tam == "Carteira (20 UND)" ? 20 : p.preco}
