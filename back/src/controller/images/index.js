@@ -96,7 +96,7 @@ export default {
     },
     async deleteIMGprod (req,res){
         const {id,key}=req.query
-        // console.log(req.query)
+        console.log(req.query)
         try {
            await conexao("images").del().where({id});
            promisify(fs.unlink)(path.resolve(__dirname, "..","..", "tmp", "uploads", `${key}`), (err) => {

@@ -89,7 +89,7 @@ function Produtosedit() {
 		});
 	}, []);
 
-	console.log(selectprod);
+	console.log(produtos);
 	return (
 		<div style={{ marginTop: theme.spacing(10) }} className='p-1'>
 			<Grid container alignItems="center" spacing={2}>
@@ -126,7 +126,7 @@ function Produtosedit() {
 							<Img
 								// onClick={() => { setSelectP({ id: p.id, index, prod: p }); handleOpen() }} 
 								alt={p.desc}
-								src={url + "images/" + p.img.key}
+								src={!!p.img?url + "images/" + p.img.key:""}
 								sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
 							{/* <Paper
                 onClick={() => {
@@ -224,7 +224,7 @@ function Produtosedit() {
 
 
 					<ImageList sx={{ width: 500, height: 450, marginTop: 2, background: "#fff" }} cols={3} rowHeight={164}>
-						{imagens.map((item) => (
+						{imagens?.map((item) => (
 							<ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
 								<img
 									src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
