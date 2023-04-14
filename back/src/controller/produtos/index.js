@@ -64,6 +64,11 @@ export default {
                 delete produtos[key]["url"]
                 if (!!produtos[key].id_image) {
                     produtos[key].img = await conexao("images").where({ id: produtos[key].id_image }).first();
+                    if(!!produtos[key].img){
+                        produtos[key].img.url=`http://${process.env.IP_SERVER}:3009/images/${produtos[key].img.key}`;
+                        produtos[key].img.delete=`http://${process.env.IP_SERVER}:3009/deleteImage?id=${produtos[key].img.id}&key=${produtos[key].img.key}`;
+
+                    }
                 }
 
                    produtos[key].logos=await conexao("image_prod").where({"image_prod.id_prod":produtos[key].id}).join("images","image_prod.id_image","=","images.id").select("images.*");
