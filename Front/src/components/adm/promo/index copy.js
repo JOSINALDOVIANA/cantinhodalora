@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Paper, Typography, styled, useTheme, Grid, Badge, Divider, Chip, Box } from "@mui/material";
-import Torre from "../../assets/Torres.png";
-import ComplexGrid from "../Grid/card";
+import { Paper, Typography, styled, useTheme, Grid, Badge, Divider, Chip, Box, Button } from "@mui/material";
+
 import "./style.css"
 
 import { green } from "@mui/material/colors";
-import { api } from "../../api";
+import { api } from "../../../api";
 const Img = styled("img")({
 
 	display: "block",
@@ -63,7 +62,7 @@ function Promo({ bg }) {
 								variant="outlined" />
 						</Divider>
 
-						<Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+						<Box sx={{ }}>
 							<Typography sx={{ color: "#000", fontSize: "0.9em", fontFamily: "Roboto" }} variant="subtitle1" component="p">
 								{i.newdesc}
 							</Typography>
@@ -105,6 +104,15 @@ function Promo({ bg }) {
 							<Typography sx={{ fontSize: "0.8em", color: "#045043" }} noWrap gutterBottom variant="subtitle1" component="div">
 								Enquanto durar o estoque
 							</Typography>
+
+							<Button onClick={()=>{
+								api.delete(`/promo?id=${i.id}`).then(r=>{
+									if(r.data.status){
+										alert("apagado");
+										setPromo(a=>(a.filter(e=>i.id!=e.id)))
+									}
+								})
+							}}>Excluir</Button>
 
 
 

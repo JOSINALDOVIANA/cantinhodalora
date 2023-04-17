@@ -13,6 +13,8 @@ const Useredit = React.lazy(() => import("./components/adm/user/useredit"));
 const Produtosedit = React.lazy(() => import("./components/adm/produtos/editar"));
 const Produtoscad = React.lazy(() => import("./components/adm/produtos/cadastro"));
 const Fcaixa = React.lazy(() => import("./components/adm/fechamento"));
+const Promo = React.lazy(() => import("./components/adm/promo"));
+
 
 
 
@@ -52,6 +54,7 @@ export default function Rotas() {
 						<Route path="/perfil/relatorio" element={<Relatorios/>}></Route>
 						<Route path="/perfil/imagensclientes" element={<Imagenscli/>}></Route>
 						<Route path="/perfil/imagensprodutos" element={<Imagenspro/>}></Route>
+						<Route path="/perfil/promocoes" element={<Promo/>}></Route>
 					</Route>
 				</Routes>
 			</BrowserRouter>
