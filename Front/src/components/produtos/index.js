@@ -11,7 +11,9 @@ function Produtos() {
 	// console.log(dados)
    
 	return (
-		<div>
+		<div 
+		// style={{display:"flex",justifyContent:"center",flexDirection:"column",alignItems:"center"}}
+		>
 			{/* Imagens clients */}
 			{/* <ImagesClientes/> */}
 			{/* Promoção */}

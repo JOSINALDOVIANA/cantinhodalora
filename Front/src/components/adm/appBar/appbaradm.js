@@ -30,7 +30,7 @@ function ResponsiveAppBar() {
 					aria-labelledby="offcanvasDarkNavbarLabel">
 					<div className="offcanvas-header">
 						<h5 className="offcanvas-title" id="offcanvasDarkNavbarLabel">Cantinho da LORA</h5>
-						<button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+						<button  type="button" className="btn-close btn-close-dark" data-bs-dismiss="offcanvas"
 							aria-label="Close"></button>
 					</div>
 					<div className="offcanvas-body">

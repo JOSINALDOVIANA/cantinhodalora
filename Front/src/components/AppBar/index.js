@@ -44,9 +44,9 @@ export default function MenuAppBar(prop) {
 	};
 
 	return (
-		<Box >
+		<Box flexGrow={1}>
 
-			<AppBar position="static" sx={{
+			<AppBar flexGrow position="static" sx={{
 				background: "#fff",
 				// height: "50px",
 				boxShadow: 1,
