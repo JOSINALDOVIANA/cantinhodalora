@@ -11,6 +11,7 @@ import { Paper, Typography } from '@mui/material';
 import "./style.css"
 
 
+
 export default function GridContainer() {
 
   const [produtos, setProd] = React.useState([]);
@@ -79,6 +80,7 @@ export default function GridContainer() {
 
     }}>
       <Box className='carousel' sx={{ display: "flex", flexGrow: 1, margin: 2, height: 100, overflow: "scroll" }}>
+        
         <Paper
           elevation={6}
           onClick={() => {

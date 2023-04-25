@@ -28,6 +28,7 @@ function InicialTela() {
 		}}>
       
 			<MenuAppBar></MenuAppBar>
+			
 			<Outlet></Outlet>
 		</Box>
 

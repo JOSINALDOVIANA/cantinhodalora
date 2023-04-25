@@ -4,6 +4,8 @@ import React from "react";
 import GridContainer from "../Grid";
 import Promo from "../promocoes";
 
+import { Typography } from "@mui/material";
+
 // import { Container } from './styles';
 
 function Produtos() {
@@ -12,12 +14,14 @@ function Produtos() {
    
 	return (
 		<div 
-		// style={{display:"flex",justifyContent:"center",flexDirection:"column",alignItems:"center"}}
+		style={{padding:"5px"}}
 		>
 			{/* Imagens clients */}
 			{/* <ImagesClientes/> */}
 			{/* Promoção */}
+			<Typography>Promoções</Typography>
 			<Promo></Promo>
+			<Typography>Categorias</Typography>
 			<GridContainer></GridContainer>
 		</div>
 	);
