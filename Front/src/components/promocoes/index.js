@@ -57,11 +57,11 @@ function Promo({ bg }) {
 			{promo.map(i => (
 				<Paper
 
-					elevation={2}
+					elevation={1}
 					sx={{
 						padding:theme.spacing(2),
-						width: "250px",
-						height: "auto",
+						// width: "250px",
+						// height: "auto",
 
 						"& ": {
 							marginRight: theme.spacing(2)
@@ -76,11 +76,15 @@ function Promo({ bg }) {
 
 					<Img alt={"test"} src={i.id_prod ? i.prod.img.url : i.img.url} sx={{ borderRadius: 0, maxWidth: 90, maxHeight: 90, width: "auto", height: "auto", overflowClipMargin: "content-box", overflow: "clip" }} />
 
-					<Divider sx={{ margin: 1, marginTop: 2, width: "90%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+					<Divider sx={{ margin: 0, marginTop: 2, width: "90%", display: "flex", justifyContent: "center", alignItems: "center" }}>
 						<Chip label="Promoção"
 
 
-							sx={{ color: "#e02141", fontSize: "1.8em", border: "solid 1px #000" }}
+							sx={{ 
+								color: "#e02141", 
+								fontSize: "1.8em",
+								//  border: "solid 1px #000" 
+								}}
 							variant="outlined" />
 					</Divider>
 
@@ -122,8 +126,8 @@ function Promo({ bg }) {
 								{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(i.valpromo)}
 							</Typography>
 						</Box>
-						<Typography sx={{ fontSize: "0.8em", color: "#045043" }} noWrap gutterBottom variant="subtitle1" component="div">
-							Enquanto durar o estoque
+						<Typography sx={{ fontSize: "0.8em", color: "#e02141" }} noWrap gutterBottom variant="subtitle1" component="div">
+							OBS: Enquanto durar o estoque
 						</Typography>
 
 

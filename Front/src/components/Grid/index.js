@@ -90,11 +90,11 @@ export default function GridContainer() {
               element.classList.remove("active2")
             });
           }}
-          sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2 }}>
+          sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2,width:"30%"}}>
           <Typography>Todos</Typography>
         </Paper>
         {categorias.map(cat => (
-          <Paper elevation={1} id={cat.id + "C"} key={cat.id}  onClick={() => { filtro(cat.id) }} sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2 }}><Typography>{cat.desc}</Typography></Paper>
+          <Paper elevation={1} id={cat.id + "C"} key={cat.id}  onClick={() => { filtro(cat.id) }} sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2, width:"30%"}}><Typography>{cat.desc}</Typography></Paper>
         ))}
 
 
@@ -111,7 +111,7 @@ export default function GridContainer() {
             xs={6}
             sm={6}
             md={4}
-            lg={3}
+            lg={2}
 
           >
             <ComplexGrid

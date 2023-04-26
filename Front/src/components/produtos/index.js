@@ -19,9 +19,9 @@ function Produtos() {
 			{/* Imagens clients */}
 			{/* <ImagesClientes/> */}
 			{/* Promoção */}
-			<Typography>Promoções</Typography>
+			<Typography sx={{fontSize: "1.5em", fontFamily: "Roboto"}}>Promoções</Typography>
 			<Promo></Promo>
-			<Typography>Categorias</Typography>
+			<Typography sx={{fontSize: "1.5em", fontFamily: "Roboto"}}>Categorias</Typography>
 			<GridContainer></GridContainer>
 		</div>
 	);
