@@ -1,8 +1,9 @@
-import { Avatar, Box, Button, FormControl, FormHelperText, ImageList, ImageListItem, Input, InputLabel, MenuItem, Modal, TextField, useTheme } from '@mui/material';
+import { Avatar, Box, Button, FormControl, FormHelperText, ImageList, ImageListItem, Input, InputLabel, MenuItem, Modal, TextField, styled, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { api } from '../../../api';
 import { set } from 'lodash';
 import Promo from './index copy';
+import { green } from '@mui/material/colors';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -15,12 +16,28 @@ const style = {
   padding: 4,
   // width:"90%"
 };
+const ColorButton = styled(Button)(({ theme }) => ({
+	color: theme.palette.getContrastText(green[700]),
+	backgroundColor: green[700],
+  fontFamily:"Roboto",
+	fontSize:"1em",
+	fontWeight:"bold",
+	'&:hover': {
+	  backgroundColor: green["A700"],
+	
+	},
+  }));
 
 // import { Container } from './styles';
 
 const promo = () => {
   const theme = useTheme();
   const [produtos, setProd] = useState([]);
+  const [promo, setPromo] = useState([]);
+
+
+
+	
 
   const [prodselct, setProdSelect] = useState(false);
   const [promoCad, setPromoCad] = useState({});
@@ -31,13 +48,16 @@ const promo = () => {
   const handleClosefp = () => setOpenfp(false);
 
 
+	useEffect(() => {
+		getPromos()
+	}, [])
 
   useEffect(() => {
     api.get("/produtos").then(r => {
       setProd(r.data.produtos)
     })
   }, [])
-  console.log(promoCad)
+  
 
   useEffect(() => {
     api.get("/selectimagesP").then(r => {
@@ -48,6 +68,12 @@ const promo = () => {
       }
     })
   }, [IMGC])
+
+  function getPromos(){
+		api.get("/promo").then(r => {
+			setPromo(r.data.promo)
+		})
+	}
 
   return (
     <Box component="form" onSubmit={(e) => {
@@ -65,6 +91,8 @@ const promo = () => {
       api.post("/promo",{...obj}).then(r=>{
         if(r.data.status){
           alert("Promoção cadastrada");
+          getPromos();
+          
           return
         }
         alert("error ao cadastrar ")
@@ -117,7 +145,7 @@ const promo = () => {
 
 
         {/* </Box> */}
-        <Button variant='contained' type='submit'>enviar</Button>
+        <ColorButton variant='contained' type='submit'>enviar</ColorButton>
       </FormControl>
 
       {/* fotos principal */}
@@ -146,7 +174,10 @@ const promo = () => {
         </Box>
       </Modal>
 
-      <Promo></Promo>
+      <Promo proms={{
+        promocoes:promo,
+        atualizarPromo:setPromo,        
+      }}></Promo>
 
     </Box>
   );
