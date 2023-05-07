@@ -17,16 +17,16 @@ const style = {
   // width:"90%"
 };
 const ColorButton = styled(Button)(({ theme }) => ({
-	color: theme.palette.getContrastText(green[700]),
-	backgroundColor: green[700],
-  fontFamily:"Roboto",
-	fontSize:"1em",
-	fontWeight:"bold",
-	'&:hover': {
-	  backgroundColor: green["A700"],
-	
-	},
-  }));
+  color: theme.palette.getContrastText(green[700]),
+  backgroundColor: green[700],
+  fontFamily: "Roboto",
+  fontSize: "1em",
+  fontWeight: "bold",
+  '&:hover': {
+    backgroundColor: green["A700"],
+
+  },
+}));
 
 // import { Container } from './styles';
 
@@ -37,7 +37,7 @@ const promo = () => {
 
 
 
-	
+
 
   const [prodselct, setProdSelect] = useState(false);
   const [promoCad, setPromoCad] = useState({});
@@ -48,16 +48,16 @@ const promo = () => {
   const handleClosefp = () => setOpenfp(false);
 
 
-	useEffect(() => {
-		getPromos()
-	}, [])
+  useEffect(() => {
+    getPromos()
+  }, [])
 
   useEffect(() => {
     api.get("/produtos").then(r => {
       setProd(r.data.produtos)
     })
   }, [])
-  
+
 
   useEffect(() => {
     api.get("/selectimagesP").then(r => {
@@ -69,41 +69,41 @@ const promo = () => {
     })
   }, [IMGC])
 
-  function getPromos(){
-		api.get("/promo").then(r => {
-			setPromo(r.data.promo)
-		})
-	}
+  function getPromos() {
+    api.get("/promo").then(r => {
+      setPromo(r.data.promo)
+    })
+  }
 
   return (
     <Box component="form" onSubmit={(e) => {
-      let obj={};
-      
+      let obj = {};
+
       e.preventDefault();
-      if(prodselct){
-        obj={newdesc:e.target["newdesc"].value,id_prod:promoCad.id_prod,valpromo:e.target["valpromo"].value};
-               
-      }else{
-        obj={newdesc:e.target["newdesc"].value,valpromo:e.target["valpromo"].value,id_image:promoCad.img.id}
-       
+      if (prodselct) {
+        obj = { newdesc: e.target["newdesc"].value, id_prod: promoCad.id_prod, valpromo: e.target["valpromo"].value };
+
+      } else {
+        obj = { newdesc: e.target["newdesc"].value, valpromo: e.target["valpromo"].value, id_image: promoCad.img.id }
+
       }
-      
-      api.post("/promo",{...obj}).then(r=>{
-        if(r.data.status){
+
+      api.post("/promo", { ...obj }).then(r => {
+        if (r.data.status) {
           alert("Promoção cadastrada");
           getPromos();
-          
+
           return
         }
         alert("error ao cadastrar ")
         return
       })
 
-      
+
     }} sx={{ marginTop: theme.spacing(7), padding: theme.spacing(2) }}>
       <FormControl sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", height: "auto" }} >
         <Avatar sx={{ width: 100, height: 100, marginBottom: 1 }} onClick={() => { prodselct ? () => { } : handleOpenfp() }} src={promoCad?.img?.url || ""} alt='imagem produto'></Avatar>
-       
+
         <TextField
           sx={{ width: "40%", marginBottom: theme.spacing(2) }}
 
@@ -113,12 +113,12 @@ const promo = () => {
           defaultValue=""
           helperText="seleção opcional"
         >
-          <MenuItem onClick={() => { setProdSelect(false), setPromoCad({}) }}  value={""}>
-            Nenhum
+          <MenuItem onClick={() => { setProdSelect(false), setPromoCad({}) }}  >
+
           </MenuItem>
           {produtos.map((prod) => (
             <MenuItem onClick={() => { setProdSelect(true), setPromoCad(a => ({ ...a, id_prod: prod.id, img: prod.img })) }} key={prod.id + "prod"} value={prod.id}>
-              {prod.desc+" "+ prod.tam}
+              {prod.desc + " " + prod.tam}
             </MenuItem>
           ))}
         </TextField>
@@ -128,24 +128,26 @@ const promo = () => {
           label="Desc. Promoção"
           multiline
           rows={5}
-        // defaultValue="Default Value"
-        // variant="filled"
-        />
-        {/* </Box> */}
-        {/* <Box sx={{ width: "90%", display: "flex", justifyContent: "space-around", alignItems: "center","& ":{marginBottom:theme.spacing(2)} }}> */}
-        <TextField
-          sx={{ marginBottom: theme.spacing(2) }}
-          id="valpromo"
-          label="Valor"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
+
         />
 
+        <Box sx={{ display: "flex", width: "45%", justifyContent: "space-around",[theme.breakpoints.down('md')]:{flexDirection:"column"} }}>
 
-        {/* </Box> */}
-        <ColorButton variant='contained' type='submit'>enviar</ColorButton>
+          <TextField
+            sx={{ marginBottom: theme.spacing(2) }}
+            id="valpromo"
+            label="Valor"
+            type="number"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+
+
+          {/* </Box> */}
+          <ColorButton variant='contained' type='submit'>enviar</ColorButton>
+
+        </Box>
       </FormControl>
 
       {/* fotos principal */}
@@ -165,7 +167,7 @@ const promo = () => {
                   src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
                   srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                   alt={item.name}
-                  onClick={() => { setPromoCad(a => ({ ...a, img: { ...item },id_image:item.id })); handleClosefp() }}
+                  onClick={() => { setPromoCad(a => ({ ...a, img: { ...item }, id_image: item.id })); handleClosefp() }}
                   loading="lazy"
                 />
               </ImageListItem>
@@ -175,8 +177,8 @@ const promo = () => {
       </Modal>
 
       <Promo proms={{
-        promocoes:promo,
-        atualizarPromo:setPromo,        
+        promocoes: promo,
+        atualizarPromo: setPromo,
       }}></Promo>
 
     </Box>

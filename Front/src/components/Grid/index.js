@@ -6,13 +6,15 @@ import Grid from '@mui/material/Grid';
 import ComplexGrid from './card';
 
 import { api, url } from '../../api';
-import { Paper, Typography } from '@mui/material';
+import { Paper, Typography, useTheme } from '@mui/material';
 
 import "./style.css"
 
 
 
 export default function GridContainer() {
+
+  const theme=useTheme();
 
   const [produtos, setProd] = React.useState([]);
   const [produtosFilter, setProdFilter] = React.useState([]);
@@ -106,6 +108,8 @@ export default function GridContainer() {
 
         {produtosFilter?.map(p => (
           <Grid
+
+            direction={theme.breakpoints.down("md")?"column":"row"}
             key={p.id}
             item
             xs={6}
