@@ -63,7 +63,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 					// icon={
 					// 	<ListAlt color={"success"} />
 					// }
-					color={"success"}
+					sx={{color: theme.palette.mode=="light"?"#000":theme.palette.getContrastText("#000")}}
 					variant="outlined" />
 			</Divider>
 			{/* {logos.length > 0 && <Divider color="#000" sx={{ width: "90%" }} ></Divider>} */}
@@ -102,12 +102,12 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 
 			<Box sx={{ flexDirection: "column", width: "100%", padding: 2 }}>
 
-				{bg ? null : <Typography noWrap sx={{ fontSize: "1.5em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginTop: 2, color: "#050A30" }} variant="subtitle1" component="div">
+				{bg ? null : <Typography noWrap sx={{ fontSize: "1.5em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginTop: 2,color: theme.palette.mode=="light"?"#050A30":theme.palette.getContrastText("#000") }} variant="subtitle1" component="div">
 					{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(valor)}
 				</Typography>}
 
 				<Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-					<Typography sx={{ color: "#404E5C", fontSize: "0.9em", fontFamily: "Roboto" }} noWrap variant="subtitle1" component="p">
+					<Typography sx={{ color:theme.palette.mode=="light"? "#404E5C":theme.palette.getContrastText("#000"), fontSize: "0.9em", fontFamily: "Roboto" }} noWrap variant="subtitle1" component="p">
 						{desc} {tamanho}
 					</Typography>
 					<Typography sx={{ fontSize: "0.8em" }} color={green[600]} noWrap gutterBottom variant="subtitle1" component="div">

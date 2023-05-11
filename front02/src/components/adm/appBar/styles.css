@@ -1,0 +1,9 @@
+.link{
+    cursor: pointer;
+    padding: 2px;
+    transition: 0.2s;
+    border-radius: 3px;
+}
+.link:hover{
+    background-color: rgb(56, 55, 55);
+}

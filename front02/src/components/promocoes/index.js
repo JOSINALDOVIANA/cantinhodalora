@@ -26,16 +26,15 @@ function Promo({ bg }) {
 
 		<Grid
 			container
-			sx={{ flexDirection: "row" }}
-			// justifyContent="center"
-			// alignItems="center"
-			spacing={2}
+			sx={{ flexDirection: "row",overflow:"scroll",padding:theme.spacing(1) }}
+			
+			spacing={1}
 		>
 
 
 			{promo?.map(i => (
 				<Grid
-					// sx={{ flexDirection: "row" }}
+					
 					key={i}
 					item
 					xs={6}
@@ -48,13 +47,11 @@ function Promo({ bg }) {
 
 						elevation={1}
 						sx={{
-							padding: theme.spacing(2),
-							// width: "250px",
-							// height: "auto",
+							padding: theme.spacing(1),
+							width: "100%",
+							// height: "500px",
 
-							"& ": {
-								marginRight: theme.spacing(2)
-							},
+							
 							display: "flex",
 							flexDirection: "column",
 							justifyContent: "center",
@@ -65,20 +62,20 @@ function Promo({ bg }) {
 
 						<Img alt={"test"} src={i.id_prod ? i.prod.img.url : i.img.url} sx={{ borderRadius: 0, maxWidth: 90, maxHeight: 90, width: "auto", height: "auto", overflowClipMargin: "content-box", overflow: "clip" }} />
 
-						<Divider sx={{ margin: 0, marginTop: 2, width: "90%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+						<Divider sx={{ margin: 0, marginTop: 2, width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
 							<Chip label="Promoção"
 
 
 								sx={{
-									// color: "#e02141",
-									fontSize: "1.8em",
+									color: theme.palette.mode=="light"?"#e02141":theme.palette.getContrastText("#000"),
+									fontSize: "1em",
 									//  border: "solid 1px #000" 
 								}}
 								variant="outlined" />
 						</Divider>
 
 						<Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-							<Typography sx={{  fontSize: "0.9em", fontFamily: "Roboto" }} variant="subtitle1" component="p">
+							<Typography sx={{  fontSize: "0.9em", fontFamily: "Roboto" }} variant="subtitle1" component="span">
 								{i.newdesc}
 							</Typography>
 
@@ -91,9 +88,10 @@ function Promo({ bg }) {
 							sx={{ flexDirection: "column", width: "100%", padding: 2 }}>
 							{!!i.id_prod ?
 								<Box sx={{ display: "flex" }}>
-									<Typography noWrap sx={{ fontSize: "1em", fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginRight: theme.spacing(2) }} variant="subtitle1" component="div">
+									<Typography noWrap sx={{  fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginRight: theme.spacing(2) }} variant="subtitle1" component="span">
 										De
 									</Typography>
+									
 									<Typography noWrap
 										sx={{
 											fontSize: "1em",
