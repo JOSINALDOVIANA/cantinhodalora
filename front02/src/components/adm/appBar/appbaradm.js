@@ -2,6 +2,7 @@
 import * as React from "react";
 
 import { useNavigate, useLocation } from "react-router-dom";
+import {TrocarTheme} from "../../../routs.js"
 import "./styles.css";
 
 const pages = [["Cadastrar Produto", "Editar Produto"], "Inicio", "Dados", "Fechar Caixa", "Relatório", "Imagens/clientes", "Imagens/produtos", "Promoções", "Sair"];
@@ -24,7 +25,8 @@ function ResponsiveAppBar() {
 					data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
 					<span style={{ width: "16px", height: "16px" }} className="navbar-toggler-icon"></span>
 				</button>
-				<span className="navbar-brand" >Cantinho da Lora</span>
+				{/* <span className="navbar-brand" >Cantinho da Lora</span> */}
+				<TrocarTheme></TrocarTheme>
 
 				<div className="offcanvas offcanvas-start text-bg-light" tabIndex="-1" id="offcanvasDarkNavbar"
 					aria-labelledby="offcanvasDarkNavbarLabel">

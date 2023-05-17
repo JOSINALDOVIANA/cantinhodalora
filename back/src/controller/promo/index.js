@@ -51,8 +51,8 @@ export default {
                     promo[key].prod = await conexao("produtos").where({ id: promo[key].id_prod }).first();
                     promo[key].prod.url="";
                     promo[key].prod.img=await conexao("images").where({id:promo[key].prod.id_image}).first();
-                    promo[key].prod.img.delete = `http://${process.env.IP_SERVER}:3009/deleteImage?id=${promo[key].prod.img.id}&key=${promo[key].prod.img.key}`;
-                    promo[key].prod.img.url = `http://${process.env.IP_SERVER}:3009/images/${promo[key].prod.img.key}`;
+                    !!promo[key].prod.img?promo[key].prod.img.delete = `http://${process.env.IP_SERVER}:3009/deleteImage?id=${promo[key].prod.img.id}&key=${promo[key].prod.img.key}`:null;
+                    !!promo[key].prod.img? promo[key].prod.img.url = `http://${process.env.IP_SERVER}:3009/images/${promo[key].prod.img.key}`:null;
                     
                 }
 

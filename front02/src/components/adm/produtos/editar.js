@@ -227,9 +227,9 @@ function Produtosedit() {
 						{imagens?.map((item) => (
 							<ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
 								<img
-									src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
-									srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-									alt={item.name}
+									src={`${item?.url}?w=164&h=164&fit=crop&auto=format`}
+									srcSet={`${item?.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+									alt={item?.name}
 									onClick={() => {
 										setSelectP(a => ({ ...a, prod: { ...a.prod, img: item, id_image: item.id } }));
 										handleClose();

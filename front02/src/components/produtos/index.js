@@ -20,7 +20,7 @@ function Produtos() {
 			{/* Imagens clients */}
 			{/* <ImagesClientes/> */}
 			{/* Promoção */}
-			<Typography sx={{fontSize: "1.5em", fontFamily: "Roboto"}}>Promoções</Typography>
+			{/* <Typography sx={{fontSize: "1.5em", fontFamily: "Roboto"}}>Promoções</Typography> */}
 			{/* <Box sx={{flexFlow:1,height:"450px",marginBottom:theme.spacing(1),marginTop:theme.spacing(1)}}> */}
 
 			<Promo></Promo>

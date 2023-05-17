@@ -60,7 +60,7 @@ function Promo({ bg }) {
 						}}
 					>
 
-						<Img alt={"test"} src={i.id_prod ? i.prod.img.url : i.img.url} sx={{ borderRadius: 0, maxWidth: 90, maxHeight: 90, width: "auto", height: "auto", overflowClipMargin: "content-box", overflow: "clip" }} />
+						<Img alt={"test"} src={i.id_prod ? i.prod?.img?.url : i?.img?.url} sx={{ borderRadius: 0, maxWidth: 90, maxHeight: 90, width: "auto", height: "auto", overflowClipMargin: "content-box", overflow: "clip" }} />
 
 						<Divider sx={{ margin: 0, marginTop: 2, width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
 							<Chip label="Promoção"
