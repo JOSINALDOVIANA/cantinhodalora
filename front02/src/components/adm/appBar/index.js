@@ -48,7 +48,7 @@ export default function MenuAppBar() {
 	return (
 		<Box flexGrow>
 
-			<AppBar flexGrow position="fixed" sx={{
+			<AppBar flexGrow position="static" sx={{
 				background: theme.palette.mode=="light"?"#fff":null,
 				color:theme.palette.mode=="light"?"#000":null,
 				
@@ -115,9 +115,15 @@ export default function MenuAppBar() {
 					>
 						
 
-						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { navegator("/perfil/produtosedit",{ state: props.user }) }}>Editar Produtos</MenuItem>
-						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { navegator("/perfil/produtoscad",{ state: props.user }) }}>Cadastrar Produto</MenuItem>
-						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { navegator("/perfil/userEdit",{ state: props.user }) }}>Usuário/Dados</MenuItem>
+						<MenuItem  onClick={() => { navegator("/perfil/produtosedit",{ state: props.user }) }}>Editar Produtos</MenuItem>
+						<MenuItem  onClick={() => { navegator("/perfil/produtoscad",{ state: props.user }) }}>Cadastrar Produto</MenuItem>
+						<MenuItem  onClick={() => { navegator("/perfil/userEdit",{ state: props.user }) }}>Usuário/Dados</MenuItem>
+						<MenuItem  onClick={() => { navegator("/perfil/imagensclientes",{ state: props.user }) }}>Imagens/Clientes</MenuItem>
+						<MenuItem  onClick={() => { navegator("/perfil/imagensprodutos",{ state: props.user }) }}>Imagens/Produtos</MenuItem>
+						<MenuItem  onClick={() => { navegator("/perfil/promocoes",{ state: props.user }) }}>Promoções</MenuItem>
+						<MenuItem  onClick={() => { navegator("/perfil/fecharCaixa",{ state: props.user }) }}>Fechamentos</MenuItem>
+						<MenuItem  onClick={() => { navegator("/perfil/relatorio",{ state: props.user }) }}>Relatotios</MenuItem>
+						<MenuItem  onClick={() => { navegator("/",{ state: props.user }) }}>Sair</MenuItem>
 
 
 

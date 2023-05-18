@@ -1,5 +1,5 @@
 import PhotoCamera from '@mui/icons-material/PhotoCamera.js';
-import { Avatar, Box, Button, IconButton, ImageList, ImageListItem, TextField, Typography, Modal, Paper, styled, useTheme } from '@mui/material';
+import { Avatar, Box, Button, IconButton, ImageList, ImageListItem, TextField, Typography, Modal, Paper, styled, useTheme, Select, InputLabel, MenuItem } from '@mui/material';
 import { uniqueId } from 'lodash';
 import React from 'react';
 import { api, url } from '../../../api.js'
@@ -14,7 +14,7 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  padding:4,
+  padding: 4,
   // width:"90%"
 };
 
@@ -27,12 +27,13 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 function Produtoscad() {
-  const theme=useTheme();
+  const theme = useTheme();
   const [produto, setProduto] = React.useState({ desc: '', tam: '', logos: [], preco: 0, url: '', und: 0, id_image: '', cat: [] })
   const [imagens, setIMG] = React.useState([])
   const [logos, setLogos] = React.useState([])
   const [IMGC, setIMGC] = React.useState(false)
   const [categorias, setCat] = React.useState([]);
+  const [age, setAge] = React.useState("");
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -42,7 +43,7 @@ function Produtoscad() {
   const handleOpenfp = () => setOpenfp(true);
   const handleClosefp = () => setOpenfp(false);
 
- 
+
 
   React.useEffect(() => {
     api.get("/selectimagesP").then(r => {
@@ -55,8 +56,7 @@ function Produtoscad() {
       }
     })
   }, [IMGC])
-  console.log(produto)
-  //  console.log(imagens)
+
 
   React.useEffect(() => {
     api.get("/categorias").then(r => {
@@ -64,26 +64,41 @@ function Produtoscad() {
       setCat(r.data.categorias)
     })
   }, [])
-// console.log(produto.cat.includes(String(1)))
+
+  console.log(produto)
+
   return (
 
 
 
-    <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "space-around", alignItems: "stretch", flexDirection: "row", margin:2,marginTop:theme.spacing(8)}} >
+    <Box sx={{
+      bgcolor: "background.paper",
+      flexGrow: 1,
+      height: "100vh",
+      width: "100%",
+      display: "flex",
+      // justifyContent: "space-around",
+      alignItems: "stretch",
+      // marginTop: theme.spacing(8),
+      [theme.breakpoints.down("md")]: {
+        flexDirection: "column"
+      }
+    }} >
 
       <Box
         sx={{
+          bgcolor: "background.paper",
           display: "flex",
           justifyContent: "space-around",
           flexDirection: "column",
           alignItems: "center",
-          background: "#fff",
-          borderRadius:3
+          // background: "#fff",
+          borderRadius: 3
           // marginTop: 1
         }}
         className='container'
       >
-        <Avatar sx={{ width: 100, height: 100, marginBottom:1 }} onClick={handleOpenfp} src={produto.url} alt='imagem produto'></Avatar>
+        <Avatar sx={{ width: 100, height: 100, marginBottom: 1 }} onClick={handleOpenfp} src={produto.url} alt='imagem produto'></Avatar>
         {logos.length > 0 &&
           <Paper elevation={0} sx={{ display: "flex", width: "100%", height: "10%", justifyContent: "space-evenly", background: "transparent" }}>
             {logos.map((logo, index) => (
@@ -97,13 +112,14 @@ function Produtoscad() {
           </Paper>
         }
 
-        {!!produto.cat && <Paper elevation={0} sx={{ display: "flex", width: "100%",  justifyContent: "space-evenly", background: "transparent" }}>
-          {(categorias.filter(item=>produto?.cat?.includes(String(item.id)))).map((item) => (
+        {!!produto.cat && 
+        <Paper elevation={0} sx={{ display: "flex", width: "100%", justifyContent: "space-evenly", background: "transparent" }}>
+          {(categorias.filter(item => produto?.cat?.includes(item.id))).map((item) => (
 
-            <ColorButton  variant='outlined' onClick={()=>{
-              let c=produto.cat.filter(i=>i!=item.id)
-              setProduto(a=>({...a,cat:c}))
-            }}  key={item.id}>{item.desc}</ColorButton>
+            <ColorButton variant='outlined' onClick={() => {
+              let c = produto.cat.filter(i => i != item.id)
+              setProduto(a => ({ ...a, cat: c }))
+            }} key={item.id}>{item.desc}</ColorButton>
 
           ))}
         </Paper>}
@@ -136,7 +152,7 @@ function Produtoscad() {
             onChange={(e) => setProduto(a => ({ ...a, und: e.target.value }))}
             type="number" label="Quantidade/UND" />
 
-          <select onChange={(e) => {
+          {/* <select onChange={(e) => {
             const id = e.target.value;
             if (produto.cat.includes(id)) {
               let c = produto.cat.filter(i => (i != id));
@@ -154,12 +170,41 @@ function Produtoscad() {
               <option key={cat.id} value={cat.id}>{cat.desc}</option>
             ))}
 
-          </select>
+          </select> */}
+
+          <InputLabel id="demo-simple-select-label">Categorias</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={age}
+            sx={{color:theme.palette.mode=="light"?"#000":"#fff"}}
+            label="Categorias"
+            onChange={(e) => {
+              setAge(e.target.value)
+              
+              if (produto.cat.includes(e.target.value)) {
+                let c = produto.cat.filter(i => (i != e.target.value));
+                setProduto(a => ({ ...a, cat: c }));
+                return
+              }
+              if (!produto.cat.includes(e.target.value)) {
+                setProduto(a => ({ ...a, cat: [...a.cat, e.target.value] }))
+                return
+              }
+              setProduto(a=>({...a,cat:[...a.cat,e.target.value]}))
+            }}
+          >
+
+            {categorias?.map(cat => (
+              <MenuItem key={cat.id} name={cat} value={cat.id}>{cat.desc}</MenuItem>
+            ))}
+
+          </Select>
         </div>
 
-        <div style={{ width: "100%" }} className='row justify-content-around'>
+        <Box component={"div"} sx={{ width: "100%", display: "flex", justifyContent: "space-between", marginTop: theme.spacing(2) }} >
 
-          <Button className='col-3' onClick={async (e) => {
+          <Button onClick={async (e) => {
             e.preventDefault();
             api.post("/produtos", { ...produto }).then(r => {
 
@@ -183,9 +228,17 @@ function Produtoscad() {
             })
           }} variant="contained" color="success">Salvar</Button>
 
-          {/* <Button className='col-3' onClick={handleOpenfp}>Ecolher Imagem</Button> */}
-          <Button className='col-3' onClick={handleOpen}>Escolher logos</Button>
-          <IconButton className='col-1' id="Camera" color="primary" aria-label="upload picture" component="label">
+
+          <Button 
+          variant='contained'
+          color="success"
+          sx={{
+           
+          }}
+          onClick={handleOpen}>
+            Escolher logos
+            </Button>
+          <IconButton className='col-1' id="Camera" color="success" aria-label="upload picture" component="label">
             <input id='img' hidden accept="image/*" type="file"
               onChange={(ee) => {
 
@@ -209,19 +262,7 @@ function Produtoscad() {
                   )
                 }
 
-                // SETANDO O LOCAL ONDE APARECE IMAGEM 
-                // document.getElementById("imgtroc1").setAttribute("src", uploadedFiles[0].preview);
-                // document.getElementById("imgtroc").setAttribute("src", uploadedFiles[0].preview);
-                // document.getElementById("imgheader").setAttribute("src", uploadedFiles[0].preview);
 
-                // DELETANDO:
-                // try {
-                //   api.delete(`/images/deletar?key=${values?.image?.key}&id=${values?.image?.id}`).then(r => {
-                //     // console.log(r)
-                //   });
-                // } catch (error) {
-
-                // }
 
                 // CRIANDO UM DATAFORM
                 const data = new FormData();
@@ -259,7 +300,7 @@ function Produtoscad() {
             <PhotoCamera />
           </IconButton>
 
-        </div>
+        </Box>
 
 
 
@@ -272,7 +313,7 @@ function Produtoscad() {
 
 
 
-
+      {/* selecionar as logos */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -282,7 +323,7 @@ function Produtoscad() {
         <Box sx={style}>
 
 
-          <ImageList sx={{ width: 500, height: 450, marginTop: 2, background: "#fff" }} cols={3} rowHeight={164}>
+          <ImageList sx={{ width: 500, height: 450, marginTop: 2 }} cols={3} rowHeight={164}>
             {imagens.map((item) => (
               <ImageListItem sx={{ padding: 2 }} key={item.id}>
                 <img
@@ -307,14 +348,14 @@ function Produtoscad() {
         <Box sx={style}>
 
 
-          <ImageList sx={{ width: 500, height: 450, marginTop: 2, background: "#fff" }} cols={3} rowHeight={164}>
+          <ImageList sx={{ width: 500, height: 450, marginTop: 2 }} cols={3} rowHeight={164}>
             {imagens.map((item) => (
               <ImageListItem sx={{ padding: 2 }} key={item.id}>
                 <img
                   src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
                   srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                   alt={item.name}
-                  onClick={() => { setProduto(a => ({ ...a, id_image: item.id, url: item.url }));handleClosefp() }}
+                  onClick={() => { setProduto(a => ({ ...a, id_image: item.id, url: item.url })); handleClosefp() }}
                   loading="lazy"
                 />
               </ImageListItem>

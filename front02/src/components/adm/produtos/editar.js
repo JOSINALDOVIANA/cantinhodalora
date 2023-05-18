@@ -15,6 +15,7 @@ const style = {
 	transform: "translate(-50%, -50%)",
 	// overflow: "scroll",
 	bgcolor: "background.paper",
+	overflow: "scroll",
 
 	p: 4,
 };
@@ -38,14 +39,15 @@ function Produtosedit() {
 	const handleClose = () => setOpen(false);
 
 	const [openL, setOpenL] = React.useState(false);
-	const handleOpenL = () => setOpenL(true);
+	const handleOpenL = () => setOpenL(true)
+
 	const handleCloseL = () => setOpenL(false);
 
-	// eslint-disable-next-line no-unused-vars
+
 	const [openE, setOpenE] = React.useState(false);
-	// eslint-disable-next-line no-unused-vars
+
 	const handleOpenE = () => setOpenE(true);
-	// eslint-disable-next-line no-unused-vars
+
 	const handleCloseE = () => setOpenE(false);
 
 	const [openC, setOpenC] = React.useState(false);
@@ -58,7 +60,7 @@ function Produtosedit() {
 	const handleCloseTeste = () => setOpenTeste(false);
 
 
-
+ //carregar todos os produtos
 	React.useEffect(() => {
 		api.get("/produtos").then(r => {
 			let p = r.data.produtos;
@@ -70,28 +72,27 @@ function Produtosedit() {
 		});
 	}, []);
 
+	//carrega todas as imagens
 	React.useEffect(() => {
 
 		api.get("/selectimagesP").then(r => {
 			if (r.data.status) {
-				let i = r.data.images;
-				for (const key in i) {
-					i[key].url = `${url}images/${i[key].key}`;
-				}
-				setIMG(i);
+				
+				setIMG(r.data.images);
 			}
 		});
 	}, []);
 
+	//carrega as categorias
 	React.useEffect(() => {
 		api.get("/categorias").then(r => {
 			setCatgorias(r.data.categorias);
 		});
 	}, []);
 
-	console.log(produtos);
+	// console.log(selectprod);
 	return (
-		<Paper sx={{ marginTop: theme.spacing(8) }} className='p-1'>
+		<Paper sx={{ }} className='p-1'>
 			<Grid container alignItems="center" spacing={2}>
 				{produtos?.map((p, index) => (
 					<Grid key={p.id + "prod"} item xs={6} sm={4} md={3} lg={3}>
@@ -124,17 +125,11 @@ function Produtosedit() {
 
 
 							<Img
-								// onClick={() => { setSelectP({ id: p.id, index, prod: p }); handleOpen() }} 
+
 								alt={p.desc}
-								src={!!p.img?url + "images/" + p.img.key:""}
+								src={!!p.img ? url + "images/" + p.img.key : ""}
 								sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
-							{/* <Paper
-                onClick={() => {
-                  setSelectP({ id: p.id, index, prod: p }); setL(p.logos); handleOpenL()
-                }}
-                elevation={0} sx={{ background: "transparent", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 1 }}>
-                {p.logos.length>0?p.logos.map(item => (<Avatar key={item.id} src={url + 'images/' + item.key} alt={item.desc}></Avatar>)):<div style={{height:"2.5em",width:"100%"}}></div>}
-              </Paper> */}
+
 
 
 							<Typography sx={{ color: "#404E5C", fontSize: "0.9em", width: "90%" }} noWrap variant="subtitle1" component="p">
@@ -143,63 +138,6 @@ function Produtosedit() {
 
 
 
-
-
-							{/* <Divider color="#000" sx={{ width: "90%" }} ></Divider> */}
-
-
-							{/* <div className="container text-center mb-1 mt-1">
-                <div className="row g-2">
-                  <div 
-                  onClick={() => {
-                    api.delete(`/produtos?id=${p.id}`).then(r => {
-                      if (r.data.status) {
-                        let pr = produtos.filter(item => item.id != p.id)
-
-                        setProd(pr);
-                      }
-                    })
-                  }} 
-                  className="col-6 caixa">
-                    
-                    <Typography noWrap sx={{ fontFamily: "Roboto", fontSize: "1em", color: red[500] }}>Excluir</Typography>
-                  </div>
-                  <div onClick={() => { setSelectP({ id: p.id, index, prod: p }); setL(p.logos); handleOpenE() }} className="col-6 caixa">
-                 
-                    <Typography noWrap sx={{ fontFamily: "Roboto", fontSize: "1em", color: green[500] }}>Editar</Typography>
-                  </div>
-                  <div onClick={(e) => {
-                    e.preventDefault();
-                    setSelectP({ id: p.id, index, prod: p })
-                    handleOpenC()
-                  }} className="col-6 caixa">
-                    
-                    <Typography noWrap sx={{ fontFamily: "Roboto", fontSize: "1em", color: blue[500] }}>Categorias</Typography>
-                  </div>
-
-                  <div 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    let prod = p;
-                    prod.cat = prod.cat.map(c => (c.id))
-                    prod.logos = prod.logos.map(l => (`${l.id}`))
-                    api.put(`/produtos`, { ...prod }).then(r => {
-                      if (r.data.status) {
-                        Swal.fire(
-                          'Atualizado!',
-                          '',
-                          'success'
-                        )
-                      } else {
-                        alert("error")
-                      }
-                    })
-                  }} className="col-6 caixa">
-                    <AiTwotoneSave color={green[400]} size={20} />
-                  </div>
-
-                </div>
-              </div> */}
 
 
 
@@ -223,7 +161,7 @@ function Produtosedit() {
 				<Box sx={style}>
 
 
-					<ImageList sx={{ width: 500, height: 450, marginTop: 2, background: "#fff" }} cols={3} rowHeight={164}>
+					<ImageList sx={{ width: 500, height: 450, marginTop: 2 }} cols={3} rowHeight={164}>
 						{imagens?.map((item) => (
 							<ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
 								<img
@@ -251,44 +189,57 @@ function Produtosedit() {
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
 			>
-				<Box sx={style}>
+				<Box sx={{
+					position: "absolute",
+					top: "50%",
+					left: "50%",
+					transform: "translate(-50%, -50%)",
+					// overflow: "scroll",
+					bgcolor: "background.paper",
+					overflow: "scroll",
+					display:"flex",
+					flexDirection:"column",
+					height:"100%"
 
-					<Paper elevation={0} sx={{ display: "flex", justifyContent: "space-around", height: "30px" }}>
-						{logos?.map((item, ind) => (
-							<img
+				}}>
+
+					<Paper elevation={0} component={"div"} sx={{ display: "flex", justifyContent: "space-around", height: "50px",width:"90%",marginBottom:theme.spacing(5) }}>
+						{selectprod?.prod?.logos?.map((item, ind) => (
+							<Img
 								key={ind + item.id + item.key + "-" + uniqueId()}
-								src={`${url + "images/" + item.key}?w=164&h=164&fit=crop&auto=format`}
-								srcSet={`${url + "images/" + item.key}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+								src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
+								// srcSet={`${}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
 								alt={item.name}
 								onClick={() => {
-									setL(a => (a.filter(i => i.id != item.id)));
+									let log=selectprod?.prod?.logos.filter(i => i.id != item.id)
+									setSelectP(a=>({...a,prod:{...a.prod,logos:[...log]}}))
 								}}
 								loading="lazy"
 							/>
 						))}
 					</Paper>
-					<ImageList sx={{ width: 500, height: 450, marginTop: 2, background: "#fff" }} cols={3} rowHeight={164}>
-						{imagens.map((item) => (
-							<ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
-								<img
-									src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
-									srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+					
+					<Grid container alignItems="center" spacing={2} sx={{ background: "backgroud.paper", overflow: "scroll" }} >
+						{imagens.map(item => (
+							<Grid key={item.id + uniqueId()} item xs={6} sm={4} md={3} lg={3}>
+								<Img
 									alt={item.name}
+									src={item.url}
+									sx={{ borderRadius: 0, width: 70, height: 70}}
 									onClick={() => {
 
-										if (selectprod.prod.logos.filter(i => i.id === item.id).length <= 0) {
+										
 											setSelectP(a => ({ ...a, prod: { ...a.prod, logos: [...a.prod.logos, item] } }));
-										} else {
-											setSelectP(a => ({ ...a, prod: { ...a.prod, logos: a.prod.logos.filter(i => i.id != item.id) } }));
-										}
-										handleCloseL();
+										
+										
 
 									}}
-									loading="lazy"
 								/>
-							</ImageListItem>
+
+
+							</Grid>
 						))}
-					</ImageList>
+					</Grid>
 				</Box>
 			</Modal>
 
@@ -307,7 +258,7 @@ function Produtosedit() {
 
 					<Box>
 						<Typography>
-              Cadastradas
+							Cadastradas
 						</Typography>
 						{
 							selectprod?.prod?.cat?.map(cat => (
@@ -326,7 +277,7 @@ function Produtosedit() {
 					</Box>
 					<Box>
 						<Typography>
-              Todas
+							Todas
 						</Typography>
 						{categorias.map(cat => (
 							<Button key={cat.id} onClick={() => {
@@ -336,7 +287,7 @@ function Produtosedit() {
 					</Box>
 				</Box>
 			</Modal>
-			{/* Modal TESTE*/}
+			{/* Modal editar dados*/}
 			<Modal
 				sx={{ overflow: "scroll" }}
 				open={openTeste}
@@ -373,11 +324,11 @@ function Produtosedit() {
 						sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
 					<Paper
 						onClick={() => {
-							handleOpenL();
+							handleOpenL(selectprod?.prod?.logos);
 						}}
 						elevation={0}
 						sx={{ background: "transparent", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 1, height: theme.spacing(8), width: "100%", border: " dashed 1px #000" }}>
-						{selectprod?.prod?.logos?.map(item => (<Avatar key={item.id} src={url + "images/" + item.key} alt={item.desc}></Avatar>))}
+						{selectprod?.prod?.logos?.map(item => (<Avatar key={item.id} src={item.url} alt={item.desc}></Avatar>))}
 					</Paper>
 
 
@@ -458,7 +409,7 @@ function Produtosedit() {
 								handleOpenC();
 							}}
 						>
-              Categorias
+							Categorias
 						</Button>
 					</Box>
 
@@ -482,7 +433,7 @@ function Produtosedit() {
 							}}
 
 						>
-              Excluir
+							Excluir
 						</Button>
 						<Button
 							variant='contained'
@@ -492,7 +443,7 @@ function Produtosedit() {
 								handleCloseTeste();
 							}}
 						>
-              Cancelar
+							Cancelar
 						</Button>
 					</Box>
 
