@@ -1,18 +1,28 @@
 
 import React from "react";
-import { Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import ResponsiveAppBar from "../../components/adm/appBar/appbaradm.js";
+import MenuAppBar from "./appBar/index.js";
+import { Box, Container } from "@mui/material";
 
 
 function Perfil() {
-  
+
 	return (
-		<div className='fluid' style={{display:"flex",height:"100vh",flexDirection:"column"}}>
-			<ResponsiveAppBar></ResponsiveAppBar>
-      
+		
+		<Box flexGrow>
+
+
+			<MenuAppBar></MenuAppBar>
+	  
 			<Outlet></Outlet>
-		</div>
+		</Box>
+
+
+		
+
+		
 	);
 }
 

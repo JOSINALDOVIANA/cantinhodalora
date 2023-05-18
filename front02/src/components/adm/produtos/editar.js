@@ -91,7 +91,7 @@ function Produtosedit() {
 
 	console.log(produtos);
 	return (
-		<div style={{ marginTop: theme.spacing(10) }} className='p-1'>
+		<Paper sx={{ marginTop: theme.spacing(8) }} className='p-1'>
 			<Grid container alignItems="center" spacing={2}>
 				{produtos?.map((p, index) => (
 					<Grid key={p.id + "prod"} item xs={6} sm={4} md={3} lg={3}>
@@ -513,7 +513,7 @@ function Produtosedit() {
 				</Box>
 			</Modal>
 
-		</div>
+		</Paper>
 	);
 }
 
