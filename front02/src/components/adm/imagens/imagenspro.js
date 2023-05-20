@@ -86,9 +86,9 @@ function Imagens() {
 				>
 					<Paper elevation={2} sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height:"auto",padding:theme.spacing(2) }}>
 						<img style={{ width: "120px", height: "120px" }} src={img.url}/>
-						<Box>
+						{/* <Box>
 						<Typography sx={{padding:theme.spacing(2),fontSize:"1rem",textAlign:"center"}}>{img.key}</Typography>
-						</Box>
+						</Box> */}
 						<Button sx={{marginTop:theme.spacing(2)}} onClick={() => {
 							api.delete(`${img.delete}`).then(r => {
 								let ims = [];
