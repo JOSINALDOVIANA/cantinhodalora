@@ -45,6 +45,7 @@ export default function Login() {
 						display:"flex",
 						justifyContent:"center",
 						alignItems:"center",
+						
 						[theme.breakpoints.down("md")]:{
 							height:"20%",
 							width:"90%"}
@@ -56,12 +57,13 @@ export default function Login() {
 
 					</Box>
 				<Paper
-				elevation={2}
+				elevation={4}
 					sx={{
 					
 						
 						
 						height: "90%",
+						// backgroundColor:theme.palette.mode=="dark"?"#fff":"#000",
 						[theme.breakpoints.down("md")]:{height:"70%",width:"90%"},
 						width: "50%",
 						display: "flex",

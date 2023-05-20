@@ -14,11 +14,11 @@ export default {
                 desc, tam, preco, url, und, id_image
             })
             if (logos && logos.length > 0) {
-                logos = logos.map(logo => ({ id_image: logo, id_prod: id }));
+                logos = logos.map(logo => ({ id_image: logo.id, id_prod: id }));
                 await conexao("image_prod").insert(logos)
             }
             if (cat && cat.length > 0) {
-                let cats = cat.map(item => ({ id_prod: id, id_cat: item }))
+                let cats = cat.map(item => ({ id_prod: id, id_cat: item.id }))
                 await conexao("prod_cat").insert(cats)
             }
             return res.json({ status: true, mensagem: "produto salvo" })
@@ -37,12 +37,12 @@ export default {
                 desc, tam, preco, url, und, id_image
             }).where({ id })
             if (logos && logos.length > 0) {
-                logos = logos.map(logo => ({ id_image: logo, id_prod: id }));
+                logos = logos.map(logo => ({ id_image: logo.id, id_prod: id }));
                 await conexao("image_prod").delete().where({ id_prod: id });
                 await conexao("image_prod").insert(logos);
             }
             if (cat && cat.length > 0) {
-                cat = cat.map(id_cat => ({ id_prod: id, id_cat }));
+                cat = cat.map(id_cat => ({ id_prod: id, id_cat:id_cat.id }));
                 await conexao("prod_cat").delete().where({ id_prod: id });
                 await conexao("prod_cat").insert(cat);
             }
