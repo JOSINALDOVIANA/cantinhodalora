@@ -245,7 +245,7 @@ function Produtoscad() {
                         '',
                         'success'
                       );
-                      setIMGC(a=>!a);
+                      setIMGC(a => !a);
                     }
                     else {
 
@@ -259,7 +259,7 @@ function Produtoscad() {
                     }
                   })
                 }
-                else{
+                else {
                   api.post("/produtos", { ...produto }).then(r => {
 
                     if (r.data.status) {
@@ -268,7 +268,7 @@ function Produtoscad() {
                         '',
                         'success'
                       );
-                      setIMGC(a=>!a);
+                      setIMGC(a => !a);
                     }
                     else {
 
@@ -395,10 +395,10 @@ function Produtoscad() {
                 // direction={theme.breakpoints.down("md")?"column":"row"}
                 key={p.id}
                 item
-                xs={12}
-                sm={12}
-                md={6}
-                lg={6}
+                xs={6}
+                sm={6}
+                md={4}
+                lg={3}
 
 
               >
