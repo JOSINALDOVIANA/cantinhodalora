@@ -76,7 +76,8 @@ export default function Promo01(){
   }
 
   return (
-    <Box component="form" onSubmit={(e) => {
+    <Box component="form" 
+    onSubmit={(e) => {
       let obj = {};
 
       e.preventDefault();
@@ -100,7 +101,8 @@ export default function Promo01(){
       })
 
 
-    }} sx={{ marginTop: theme.spacing(7), padding: theme.spacing(2) }}>
+    }} 
+    sx={{ marginTop: theme.spacing(7), padding: theme.spacing(2)}}>
       <FormControl sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", height: "auto" }} >
         <Avatar sx={{ width: 100, height: 100, marginBottom: 1 }} onClick={() => { if(!!prodselct){handleOpenfp()} }} src={promoCad?.img?.url} alt='imagem produto'></Avatar>
 

@@ -25,13 +25,13 @@ const Perfil = React.lazy(()=>import('./components/adm/index.js')) ;
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
-export function TrocarTheme() {
+export function TrocarTheme(props) {
     const theme = useTheme();
     const colorMode = React.useContext(ColorModeContext);
     return (
 
 
-        <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+        <IconButton {...props} sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
             {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
         </IconButton>
 
@@ -39,7 +39,7 @@ export function TrocarTheme() {
 }
 
 export function Rotas() {
-    const [mode, setMode] = React.useState('light');
+    const [mode, setMode] = React.useState('dark');
     const colorMode = React.useMemo(
         () => ({
             toggleColorMode: () => {
