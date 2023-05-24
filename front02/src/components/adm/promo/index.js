@@ -74,7 +74,7 @@ export default function Promo01(){
       setPromo(r.data.promo)
     })
   }
-
+console.log(promo)
   return (
     <Box component="form" 
     onSubmit={(e) => {
@@ -104,11 +104,10 @@ export default function Promo01(){
     }} 
     sx={{ marginTop: theme.spacing(7), padding: theme.spacing(2)}}>
       <FormControl sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", height: "auto" }} >
-        <Avatar sx={{ width: 100, height: 100, marginBottom: 1 }} onClick={() => { if(!!prodselct){handleOpenfp()} }} src={promoCad?.img?.url} alt='imagem produto'></Avatar>
+        <Avatar sx={{ width: 100, height: 100, marginBottom: 1 }} onClick={() => { handleOpenfp() }} src={promoCad?.img?.url||promoCad?.prod?.img?.url} alt='imagem produto'></Avatar>
 
         <TextField
           sx={{ width: "40%", marginBottom: theme.spacing(2) }}
-
           select
           name='selectprod'
           label="selecione um produto"
@@ -130,6 +129,10 @@ export default function Promo01(){
           label="Desc. Promoção"
           multiline
           rows={5}
+          value={promoCad.newdesc}
+          onChange={e=>{
+            setPromoCad(a=>({...a,newdesc:e.target.value}))
+          }}
 
         />
 
@@ -140,6 +143,10 @@ export default function Promo01(){
             id="valpromo"
             label="Valor"
             type="number"
+            value={promoCad.valpromo}
+            onChange={e=>{
+              setPromoCad(a=>({...a,valpromo:e.target.value}))
+            }}
             InputLabelProps={{
               shrink: true,
             }}
@@ -181,6 +188,7 @@ export default function Promo01(){
       <Promo proms={{
         promocoes: promo,
         atualizarPromo: setPromo,
+        setPromoCad:setPromoCad,
       }}></Promo>
 
     </Box>

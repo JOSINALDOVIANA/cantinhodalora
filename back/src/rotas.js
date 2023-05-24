@@ -92,15 +92,14 @@ rotas.get("/fechamentogerente",close.Select)
 rotas.delete("/fechamentogerente",close.Delete)
 
 //pagamentos faze de teste
-rotas.post("/payments/create",payments.Insert)
-rotas.post("/payments/conf",payments.Insert2)
-rotas.get("/payments/get",payments.Select)
-rotas.delete("/payments/delete",payments.DEL)
+// rotas.post("/payments/create",payments.Insert)
+// rotas.post("/payments/conf",payments.Insert2)
+// rotas.get("/payments/get",payments.Select)
+// rotas.delete("/payments/delete",payments.DEL)
 
 
 //pagamentos faze de teste
 rotas.post("/promo",promo.Insert)
-// rotas.post("/promo",promo.Insert2)
 rotas.get("/promo",promo.Select)
 rotas.put("/promo",promo.Update)
 rotas.delete("/promo",promo.Delete)

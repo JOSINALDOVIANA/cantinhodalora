@@ -37,7 +37,7 @@ function Promo02({ proms }) {
 			sx={{
 
 
-				
+
 				margin: theme.spacing(2),
 
 				padding: theme.spacing(2)
@@ -52,7 +52,7 @@ function Promo02({ proms }) {
 				direction={"row"}
 				justifyContent={"center"}
 				overflow={"scroll"}
-				
+
 
 			>
 
@@ -73,7 +73,7 @@ function Promo02({ proms }) {
 							sx={{
 								padding: "5px",
 								// width: "250px",
-								height: "400px",								
+								height: "400px",
 								display: "flex",
 								flexDirection: "column",
 								justifyContent: "center",
@@ -84,7 +84,7 @@ function Promo02({ proms }) {
 
 							<Img alt={"test"} src={i.id_prod ? i.prod?.img?.url : i?.img?.url} sx={{ borderRadius: 0, maxWidth: 90, maxHeight: 90, width: "auto", height: "auto", overflowClipMargin: "content-box", overflow: "clip" }} />
 
-							<Divider sx={{ margin:"5px" }}>
+							<Divider sx={{ margin: "5px" }}>
 								<Chip label="Promoção"
 
 
@@ -97,9 +97,9 @@ function Promo02({ proms }) {
 							</Divider>
 
 							{/* <Box sx={{ display: "flex", flexDirection: "column", width: theme.spacing(30),height:"100px" }}> */}
-								<Typography sx={{ textAlign:"center",color: "#000", fontSize: "0.9em", fontFamily: "Roboto" }} variant="subtitle1" component="p">
-									{i.newdesc}
-								</Typography>
+							<Typography sx={{ textAlign: "center", color: "#000", fontSize: "0.9em", fontFamily: "Roboto" }} variant="subtitle1" component="p">
+								{i.newdesc}
+							</Typography>
 
 
 
@@ -155,7 +155,17 @@ function Promo02({ proms }) {
 										proms?.atualizarPromo(a => (a.filter(e => i.id != e.id)))
 									}
 								})
-							}}>Excluir</ColorButton>
+							}}>
+								Excluir
+							</ColorButton>
+
+							<Button
+								onClick={() => {
+									proms?.setPromoCad({...i})
+								}}
+							>
+								Selecionar
+							</Button>
 
 
 						</Paper>

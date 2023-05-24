@@ -14,34 +14,30 @@ import "./style.css"
 
 export default function GridContainer() {
 
-  const theme=useTheme();
+  const theme = useTheme();
 
   const [produtos, setProd] = React.useState([]);
   const [produtosFilter, setProdFilter] = React.useState([]);
   const [categorias, setCat] = React.useState([]);
 
+  //carrega todos os produtos
   React.useEffect(() => {
     api.get("/produtos").then(r => {
       let p = r.data.produtos
-      // console.log(p)
       if (r.data.status) {
-
-        
-
-
         setProd(p)
-
-
         setProdFilter(p)
       }
     })
   }, [])
+  //carrega todas as categorias
   React.useEffect(() => {
     api.get("/categorias").then(r => {
-
       setCat(r.data.categorias)
     })
   }, [])
+
+  //controla o filtro qaundo se clica numa categoria
   function filtro(id) {
     const l = document.querySelectorAll(".active2")
     l.forEach(element => {
@@ -64,25 +60,17 @@ export default function GridContainer() {
       setProdFilter(p)
     })
   }
-  // console.log(produtosFilter)
+  
 
 
-  function moveArrayElement(arr, from, to) {
-    var el = arr[from];
-    arr.splice(from, 1);
-    arr.splice(to, 0, el);
-    return arr
-  };
+ 
+
   return (
-    <Box sx={{
-      flexGrow: 1,
-      margin: 1,
-      
+    <Box 
+    
+    >
+      <Box   sx={{ display: "flex", flexGrow: 1, margin: 2, height: 100, overflow: "scroll" }}>
 
-
-    }}>
-      <Box className='carousel' sx={{ display: "flex", flexGrow: 1, margin: 2, height: 100, overflow: "scroll" }}>
-        
         <Paper
           elevation={6}
           onClick={() => {
@@ -92,23 +80,23 @@ export default function GridContainer() {
               element.classList.remove("active2")
             });
           }}
-          sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2,width:"30%"}}>
+          sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2, width: "30%" }}>
           <Typography>Todos</Typography>
         </Paper>
         {categorias.map(cat => (
-          <Paper elevation={1} id={cat.id + "C"} key={cat.id}  onClick={() => { filtro(cat.id) }} sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2, width:"30%"}}><Typography>{cat.desc}</Typography></Paper>
+          <Paper elevation={1} id={cat.id + "C"} key={cat.id} onClick={() => { filtro(cat.id) }} sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2, width: "30%" }}><Typography>{cat.desc}</Typography></Paper>
         ))}
 
 
 
 
       </Box>
-      <Grid container alignItems="center" spacing={1} >
+      <Grid container  alignItems="center" spacing={1} >
 
 
         {produtosFilter?.map(p => (
           <Grid
-            direction={theme.breakpoints.down("md")?"column":"row"}
+            direction={theme.breakpoints.down("md") ? "column" : "row"}
             key={p.id}
             item
             xs={6}
@@ -118,7 +106,7 @@ export default function GridContainer() {
 
           >
             <ComplexGrid
-              img={!!p.id_image?p.img.url:""}
+              img={!!p.id_image ? p.img.url : ""}
               desc={p.desc}
               tamanho={p.tam}
               valor={p.tam == "Carteira (20 UND)" ? 20 : p.preco}
