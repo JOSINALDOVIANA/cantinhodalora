@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Paper, Typography, styled, useTheme, Grid, Badge, Divider, Chip, Box } from "@mui/material";
+import { Paper, Typography, styled, useTheme, Grid, Badge, Divider, Chip, Box, IconButton } from "@mui/material";
 import Torre from "../../assets/Torres.png";
 import Carousel from 'react-material-ui-carousel'
 import ComplexGrid from "../Grid/card";
@@ -7,6 +7,7 @@ import "./style.css"
 
 import { green } from "@mui/material/colors";
 import { api } from "../../api";
+import { Fingerprint } from "@mui/icons-material";
 const Img = styled("img")({
 
 	display: "block",
@@ -31,7 +32,7 @@ function Promo({ bg }) {
 					height:"auto",
 					justifyContent: "center",
 					alignItems: "center",
-					// padding:theme.spacing(2)
+					
 				}}
 			>
 
@@ -131,7 +132,7 @@ function Promo({ bg }) {
 	return (
 
 
-	<Carousel autoPlay cycleNavigation indicators  >
+	<Carousel sx={{height:"auto",width:"100%"}}   indicators>
 
 
 

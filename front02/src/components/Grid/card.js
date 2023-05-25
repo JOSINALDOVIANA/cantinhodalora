@@ -55,18 +55,13 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 
 			</Badge> : null}
 
-			<div style={{ width: 100, height: 100, marginTop: 10, marginBottom: 2 }}>
+			<Box component={"div"} sx={{height: "100px", marginTop: theme.spacing(2), marginBottom: theme.spacing(2) }}>
 				<Img alt={desc} src={img} sx={{ borderRadius: 0, maxWidth: 90, maxHeight: 90, width: "auto", height: "auto", overflowClipMargin: "content-box", overflow: "clip" }} />
-			</div>
-			<Divider sx={{ margin: 1, marginTop: 2, width: "90%" }}>
-				<Chip label="Informações"
-					// icon={
-					// 	<ListAlt color={"success"} />
-					// }
-					sx={{color: theme.palette.mode=="light"?"#000":theme.palette.getContrastText("#000")}}
-					variant="outlined" />
-			</Divider>
-			{/* {logos.length > 0 && <Divider color="#000" sx={{ width: "90%" }} ></Divider>} */}
+			</Box>
+			<Divider sx={{ margin: 1, marginTop: 2, width: "100%",height:5 }}/>
+				
+			
+			
 			{logos.length > 0 && (
 
 				<Box id={id} sx={{ display: "none", maxWidth: "130px", justifyContent: "space-around", margin: 1 }}>
@@ -76,7 +71,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 
 			)}
 
-			{/* <Divider color="#000" sx={{ width: "90%" }} ></Divider> */}
+			
 
 
 			{logos.length > 0 ? <Typography noWrap sx={{ fontSize: "0.6em", fontFamily: "Roboto", "&:hover": { cursor: "pointer" } }} onClick={() => {

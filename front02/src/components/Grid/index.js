@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Box from '@mui/material/Box';
-
+import Carousel from 'react-material-ui-carousel'
 import Grid from '@mui/material/Grid';
 import ComplexGrid from './card';
 
@@ -17,6 +17,7 @@ export default function GridContainer() {
   const theme = useTheme();
 
   const [produtos, setProd] = React.useState([]);
+  const [play, setPlay] = React.useState(true);
   const [produtosFilter, setProdFilter] = React.useState([]);
   const [categorias, setCat] = React.useState([]);
 
@@ -44,52 +45,45 @@ export default function GridContainer() {
       element.classList.remove("active2")
     });
     document.getElementById(`${id + "C"}`).classList.add("active2")
+
+    setProdFilter(()=>(produtos.filter(p=>p.cat.filter(c=>c.id==id).length>0)))   
    
-   
-    api.get(`/categorias?id=${id}`).then(r => {
-      let p = r.data.produtos
-
-      console.log(r.data.produtos)
+  
 
 
-      // for (const key in p) {
-      //   p[key].img.url = url + "images/" + p[key]?.img?.key;
-      //   p[key].url = p[key]?.img?.url;
-      //   for (const key2 in p[key].logos) {
-      //     p[key].logos[key2].url = url + "images/" + p[key]?.logos[key2]?.key
-      //   }
-      // }
-
-
-      setProdFilter(p)
-    })
   }
   
 
 
  
-console.log(produtosFilter)
+
   return (
     <Box 
     
     >
-      <Box   sx={{ display: "flex", flexGrow: 1, margin: 2, height: 100, overflow: "scroll" }}>
+      <Box   sx={{ display: "flex", flexGrow: 1, margin: 2,  overflow: "scroll" }}>
 
         <Paper
           elevation={6}
           onClick={() => {
             setProdFilter(produtos)
+            setPlay(false)
             const l = document.querySelectorAll(".active2")
             l.forEach(element => {
               element.classList.remove("active2")
             });
           }}
-          sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2, width: "30%" }}>
+          sx={{ cursor: "pointer", display: "flex",height:"30%", justifyContent: "center", alignItems: "center", padding: 2, margin: 2, width: "auto" }}>
           <Typography>Todos</Typography>
         </Paper>
+        <Carousel  autoPlay={play}  indicators={true} sx={{width:"90%"}} onChange={(e)=>{filtro(categorias[e].id)}}>
         {categorias.map(cat => (
-          <Paper elevation={1} id={cat.id + "C"} key={cat.id} onClick={() => { filtro(cat.id) }} sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2, width: "30%" }}><Typography>{cat.desc}</Typography></Paper>
+          <Box sx={{width:"100%",display:"flex",justifyContent:"center",alignItems:"center"}}>
+            <Paper elevation={1} id={cat.id + "C"} key={cat.id} onClick={() => { filtro(cat.id);setPlay(false) }} sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2, width: "auto" }}><Typography>{cat.desc}</Typography></Paper>
+          </Box>
         ))}
+
+        </Carousel>
 
 
 
