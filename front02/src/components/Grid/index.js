@@ -50,16 +50,16 @@ export default function GridContainer() {
       console.log(r.data.produtos)
 
 
-      for (const key in p) {
-        p[key].img.url = url + "images/" + p[key]?.img?.key;
-        p[key].url = p[key]?.img?.url;
-        for (const key2 in p[key].logos) {
-          p[key].logos[key2].url = url + "images/" + p[key]?.logos[key2]?.key
-        }
-      }
+      // for (const key in p) {
+      //   p[key].img.url = url + "images/" + p[key]?.img?.key;
+      //   p[key].url = p[key]?.img?.url;
+      //   for (const key2 in p[key].logos) {
+      //     p[key].logos[key2].url = url + "images/" + p[key]?.logos[key2]?.key
+      //   }
+      // }
 
 
-      // setProdFilter(p)
+      setProdFilter(p)
     })
   }
   
