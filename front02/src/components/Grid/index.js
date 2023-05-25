@@ -47,6 +47,8 @@ export default function GridContainer() {
     api.get(`/categorias?id=${id}`).then(r => {
       let p = r.data.produtos
 
+      console.log(r.data.produtos)
+
 
       for (const key in p) {
         p[key].img.url = url + "images/" + p[key]?.img?.key;
@@ -57,14 +59,14 @@ export default function GridContainer() {
       }
 
 
-      setProdFilter(p)
+      // setProdFilter(p)
     })
   }
   
 
 
  
-
+console.log(produtosFilter)
   return (
     <Box 
     

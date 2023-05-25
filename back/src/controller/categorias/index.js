@@ -18,8 +18,13 @@ export default {
                 let produtos= await conexao("prod_cat").where({"prod_cat.id_cat":id}).join("produtos","produtos.id","=","prod_cat.id_prod")
                 for (const key in produtos) {
                     produtos[key].img=await conexao("images").where({id:produtos[key].id_image}).first();
+                    if(!!produtos[key].img){produtos[key].img.url=process.env.IP_SERVER+":3009/images/"+produtos[key].img.key}
                     produtos[key].logos=await conexao("image_prod").where({"image_prod.id_prod":produtos[key].id}).join("images","image_prod.id_image","=","images.id").select("images.*");
-                    // produtos[key].cat=await conexao("prod_cat").where({"prod_cat.id_prod":produtos[key].id}).join("categorias","prod_cat.id_cat","=","categorias.id").select("categorias.*")
+                    if(!!produtos[key].logos){
+                        for (const key2 in produtos[key].logos) {
+                            produtos[key].logos[key2].url=process.env.IP_SERVER+":3009/images/"+ produtos[key].logos[key2].key
+                        }
+                    }
                  }
                 return res.json({status:true,produtos})
             }
