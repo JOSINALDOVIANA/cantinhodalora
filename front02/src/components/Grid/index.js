@@ -44,6 +44,8 @@ export default function GridContainer() {
       element.classList.remove("active2")
     });
     document.getElementById(`${id + "C"}`).classList.add("active2")
+   
+   
     api.get(`/categorias?id=${id}`).then(r => {
       let p = r.data.produtos
 
