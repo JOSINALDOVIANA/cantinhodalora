@@ -1,10 +1,11 @@
 import PhotoCamera from '@mui/icons-material/PhotoCamera.js';
-import { Avatar, Box, Button, IconButton, ImageList, ImageListItem, TextField, Typography, Modal, Paper, styled, useTheme, Select, InputLabel, MenuItem, Grid } from '@mui/material';
+import { Avatar, Box, Button, IconButton, ImageList, ImageListItem, TextField, Typography, Modal, Paper, styled, useTheme, Select, InputLabel, MenuItem, Grid, FormControl } from '@mui/material';
 import { uniqueId } from 'lodash';
 import React from 'react';
 import { api, url } from '../../../api.js'
 import Swal from 'sweetalert2'
-import { green } from '@mui/material/colors';
+
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -60,6 +61,16 @@ function Produtoscad() {
   const handleClosefp = () => setOpenfp(false);
 
 
+  // controle do select
+
+  const [age2, setAge2] = React.useState('');
+
+  const handleChange2 = (event) => {
+    setAge2(event.target.value);
+    setProduto({...produtos.filter(i=>i.id==event.target.value)[0]})
+  };
+
+
 
   React.useEffect(() => {
     api.get("/selectimagesP").then(r => {
@@ -93,7 +104,7 @@ function Produtoscad() {
   }, [IMGC]);
 
   // console.log(categorias)
-  // console.log(produto)
+  console.log(produto)
 
   return (
 
@@ -140,7 +151,11 @@ function Produtoscad() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+            marginTop:theme.spacing(2),
+            overflow:"scroll",
+          
+          
           }}
         >
           <Avatar variant='rounded' sx={{ width: theme.spacing(10), height: theme.spacing(10), marginBottom: theme.spacing(2) }} onClick={handleOpenfp} src={produto?.img?.url} srcSet={produto?.img?.url} alt='imagem produto'></Avatar>
@@ -379,11 +394,12 @@ function Produtoscad() {
           marginRight: theme.spacing(1),
 
           [theme.breakpoints.down("md")]: {
-            height: "50%",
-            width: "100%",
-            marginTop: theme.spacing(2),
+            // height: "50%",
+            // width: "100%",
+            // marginTop: theme.spacing(2),
             // marginBottom:theme.spacing(2),
             // marginRight:theme.spacing(1),
+            display:"none"
           }
         }}
       >
@@ -454,6 +470,26 @@ function Produtoscad() {
         </Grid>
 
       </Box>
+
+      <Box sx={{ width:"90%",[theme.breakpoints.up("md")]:{
+        display:'none'
+      } }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Produto</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age2}
+          label="Produto"
+          onChange={handleChange2}
+        >
+          {produtos.map((p,i)=>(
+              <MenuItem key={p.id} value={p.id}>{p.desc+ ' '+ p.tam}</MenuItem>
+          ))}
+          
+        </Select>
+      </FormControl>
+    </Box>
 
 
 

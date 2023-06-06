@@ -62,7 +62,7 @@ export default function Login() {
 					
 						
 						
-						height: "90%",
+						height: "60%",
 						// backgroundColor:theme.palette.mode=="dark"?"#fff":"#000",
 						[theme.breakpoints.down("md")]:{height:"70%",width:"90%"},
 						width: "50%",
