@@ -39,7 +39,13 @@ export function TrocarTheme(props) {
 }
 
 export function Rotas() {
-    const [mode, setMode] = React.useState('dark');
+    const [mode, setMode] = React.useState(()=>{
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return "dark"
+          } else {
+            return "light"
+          }
+    });
     const colorMode = React.useMemo(
         () => ({
             toggleColorMode: () => {

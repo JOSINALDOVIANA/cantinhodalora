@@ -61,17 +61,16 @@ function Produtoscad() {
   const handleClosefp = () => setOpenfp(false);
 
 
-  // controle do select
+  // controle do select que aparece quando a tela for menor que "md"
 
   const [age2, setAge2] = React.useState('');
-
   const handleChange2 = (event) => {
     setAge2(event.target.value);
-    setProduto({...produtos.filter(i=>i.id==event.target.value)[0]})
+    setProduto({ ...produtos.filter(i => i.id == event.target.value)[0] })
   };
 
 
-
+  //vai carregar todas as imagens de produtos
   React.useEffect(() => {
     api.get("/selectimagesP").then(r => {
       if (r.data.status) {
@@ -84,14 +83,14 @@ function Produtoscad() {
     })
   }, [IMGC])
 
-
+  //carrega as categorias de produtos
   React.useEffect(() => {
     api.get("/categorias").then(r => {
 
       setCat(r.data.categorias)
     })
   }, [])
-
+  //carrega os produtos
   React.useEffect(() => {
     api.get("/produtos").then(r => {
 
@@ -104,7 +103,7 @@ function Produtoscad() {
   }, [IMGC]);
 
   // console.log(categorias)
-  console.log(produto)
+  // console.log(produto)
 
   return (
 
@@ -129,7 +128,6 @@ function Produtoscad() {
       <Box
         sx={{
           bgcolor: "background.paper",
-          // backgroundColor:"#e02141",
           display: "flex",
           justifyContent: "space-evenly",
           alignItems: "center",
@@ -152,10 +150,10 @@ function Produtoscad() {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            marginTop:theme.spacing(2),
-            overflow:"scroll",
-          
-          
+            marginTop: theme.spacing(2),
+            overflow: "scroll",
+
+
           }}
         >
           <Avatar variant='rounded' sx={{ width: theme.spacing(10), height: theme.spacing(10), marginBottom: theme.spacing(2) }} onClick={handleOpenfp} src={produto?.img?.url} srcSet={produto?.img?.url} alt='imagem produto'></Avatar>
@@ -399,7 +397,7 @@ function Produtoscad() {
             // marginTop: theme.spacing(2),
             // marginBottom:theme.spacing(2),
             // marginRight:theme.spacing(1),
-            display:"none"
+            display: "none"
           }
         }}
       >
@@ -471,25 +469,27 @@ function Produtoscad() {
 
       </Box>
 
-      <Box sx={{ width:"90%",[theme.breakpoints.up("md")]:{
-        display:'none'
-      } }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Produto</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age2}
-          label="Produto"
-          onChange={handleChange2}
-        >
-          {produtos.map((p,i)=>(
-              <MenuItem key={p.id} value={p.id}>{p.desc+ ' '+ p.tam}</MenuItem>
-          ))}
-          
-        </Select>
-      </FormControl>
-    </Box>
+      <Box sx={{
+        width: "90%", [theme.breakpoints.up("md")]: {
+          display: 'none'
+        }
+      }}>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Produto</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={age2}
+            label="Produto"
+            onChange={handleChange2}
+          >
+            {produtos.map((p, i) => (
+              <MenuItem key={p.id} value={p.id}>{p.desc + ' ' + p.tam}</MenuItem>
+            ))}
+
+          </Select>
+        </FormControl>
+      </Box>
 
 
 
