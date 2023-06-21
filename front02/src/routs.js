@@ -24,6 +24,7 @@ const Perfil = React.lazy(()=>import('./components/adm/index.js')) ;
 
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
+export let SearchContex = React.createContext(null);
 
 export function TrocarTheme(props) {
     const theme = useTheme();
@@ -39,6 +40,7 @@ export function TrocarTheme(props) {
 }
 
 export function Rotas() {
+    const [search,setSearch]=React.useState("")
     const [mode, setMode] = React.useState(()=>{
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             return "dark"
@@ -54,7 +56,7 @@ export function Rotas() {
         }),
         [],
     );
-    const t = useTheme()
+    
     const theme = React.useMemo(
         () =>
             createTheme({
@@ -66,6 +68,7 @@ export function Rotas() {
     );
 
     return (
+        <SearchContex.Provider value={[search,setSearch]}>
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
                 <React.Suspense fallback={<Load />}>
@@ -111,5 +114,6 @@ export function Rotas() {
                 </React.Suspense>
             </ThemeProvider>
         </ColorModeContext.Provider>
+        </SearchContex.Provider>
     );
 }

@@ -9,17 +9,25 @@ import { api, url } from '../../api';
 import { Paper, Typography, useTheme } from '@mui/material';
 
 import "./style.css"
+import { SearchContex } from '../../routs';
 
 
 
 export default function GridContainer() {
-
+  const [search,setSearch]=React.useContext(SearchContex);
+  // console.log(search)
   const theme = useTheme();
 
   const [produtos, setProd] = React.useState([]);
   const [play, setPlay] = React.useState(true);
   const [produtosFilter, setProdFilter] = React.useState([]);
   const [categorias, setCat] = React.useState([]);
+
+  React.useEffect(()=>{
+  // console.log(produtos)
+ setProdFilter(produtos.filter(i=>i.desc.toUpperCase().includes(search.toUpperCase())))
+ 
+  },[search])
 
   //carrega todos os produtos
   React.useEffect(() => {

@@ -11,30 +11,18 @@ import { Outlet } from 'react-router-dom';
 function TelaInicial() {
   const theme = useTheme()
 
- 
+
 
   return (
 
     <React.Fragment>
       <CssBaseline />
-        <MenuAppBar></MenuAppBar>
-      <Container sx={{marginTop:theme.spacing(10)} } >
-       <Outlet></Outlet>
+      <MenuAppBar></MenuAppBar>
+      <Container sx={{ marginTop: theme.spacing(10), paddingBottom: theme.spacing(5) }} >
+        <Outlet></Outlet>
       </Container>
     </React.Fragment>
-    // <Container maxWidth="xl"   sx={{
-    //   background:theme.palette.mode=="dark"?"#fff":"#000",
-    //   color:theme.palette.mode=="dark"?"#000":"#fff",
-    //   margin:0,
-    //   // padding:theme.spacing(2),
-
-
-
-    //   }}>
-    //     <MenuAppBar></MenuAppBar>
-
-    //   <TrocarTheme></TrocarTheme>
-    // </Container>
+  
   );
 }
 
