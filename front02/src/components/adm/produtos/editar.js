@@ -95,7 +95,7 @@ function Produtosedit() {
 		<Paper sx={{ }} className='p-1'>
 			<Grid container alignItems="center" spacing={2}>
 				{produtos?.map((p, index) => (
-					<Grid key={p.id + "prod"} item xs={6} sm={4} md={3} lg={3}>
+					<Grid key={p.id + "prod"+uniqueId()} item xs={6} sm={4} md={3} lg={3}>
 
 
 						<Paper
@@ -263,7 +263,7 @@ function Produtosedit() {
 						{
 							selectprod?.prod?.cat?.map(cat => (
 								<Button
-									key={cat.id}
+									key={cat.id+uniqueId()}
 									onClick={() => {
 										let c = selectprod.prod.cat;
 										c = c.filter(i => i.id != cat.id);
@@ -280,7 +280,7 @@ function Produtosedit() {
 							Todas
 						</Typography>
 						{categorias.map(cat => (
-							<Button key={cat.id} onClick={() => {
+							<Button key={cat.id+uniqueId()} onClick={() => {
 								setSelectP(a => ({ ...a, prod: { ...a.prod, cat: [...a.prod.cat, { ...cat }] } }));
 							}}>{cat.desc}</Button>
 						))}
@@ -328,7 +328,7 @@ function Produtosedit() {
 						}}
 						elevation={0}
 						sx={{ background: "transparent", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 1, height: theme.spacing(8), width: "100%", border: " dashed 1px #000" }}>
-						{selectprod?.prod?.logos?.map(item => (<Avatar key={item.id} src={item.url} alt={item.desc}></Avatar>))}
+						{selectprod?.prod?.logos?.map(item => (<Avatar key={item.id+uniqueId()} src={item.url} alt={item.desc}></Avatar>))}
 					</Paper>
 
 

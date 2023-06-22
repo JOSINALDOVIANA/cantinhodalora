@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { } from "react";
 import { Paper, Typography, styled, useTheme, Grid, Badge, Divider, Chip, Box } from "@mui/material";
 import Button from '@mui/material/Button';
+import {uniqueId} from "lodash"
 import "./style.css"
 
-import { green, red } from "@mui/material/colors";
+import { red } from "@mui/material/colors";
 import { api } from "../../../api";
 const Img = styled("img")({
 
@@ -59,7 +60,7 @@ function Promo02({ proms }) {
 				{proms?.promocoes?.map(i => (
 
 					<Grid
-						key={i.id}
+						key={i.id+uniqueId()}
 						item
 						xs={6}
 						sm={6}

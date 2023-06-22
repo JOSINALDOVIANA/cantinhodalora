@@ -3,6 +3,7 @@ import { Box, FormControl, InputLabel, MenuItem, Paper, Select, useTheme } from 
 import { api } from "../../../api";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {uniqueId} from "lodash"
 import { subYears } from "date-fns";
 
 // import { Container } from './styles';
@@ -99,7 +100,7 @@ function Relatorios() {
 							>
 
 								{
-									gerentes?.map((ger) => (<MenuItem key={ger.id + "ger"} value={ger.id}>{ger.name}</MenuItem>))
+									gerentes?.map((ger) => (<MenuItem key={ger.id + "ger"+uniqueId()} value={ger.id}>{ger.name}</MenuItem>))
 								}
 
 							</Select>
@@ -118,7 +119,7 @@ function Relatorios() {
 							>
 
 								{
-									colaboradores?.map((col) => (<MenuItem key={col.id + "col"} value={col.id}>{col.name}</MenuItem>))
+									colaboradores?.map((col) => (<MenuItem key={col.id + "col"+uniqueId()} value={col.id}>{col.name}</MenuItem>))
 								}
 
 							</Select>
@@ -188,29 +189,7 @@ function Relatorios() {
 					</div>
 				</div>
 			</Paper>
-			{/* <Box sx={{overflow:"scroll"}}>
-      <div style={{ background: "#ddd", display: "flex", height: "2em" }} className='row'>
-        <div className='col' style={{ width: "100%", height: "2em", textAlign: "center", border: " solid  1px   #000" }}><p>Colaborador</p></div>
-        <div className='col ' style={{ width: "100%", height: "2em", textAlign: "center", border: " solid  1px   #000" }}><p>Gerente</p></div>
-        <div className='col ' style={{ width: "100%", height: "2em", textAlign: "center", border: " solid  1px   #000" }}><p>Venda/cartão</p></div>
-        <div className='col ' style={{ width: "100%", height: "2em", textAlign: "center", border: " solid  1px   #000" }}><p>Venda/dinheiro</p></div>
-        <div className='col ' style={{ width: "100%", height: "2em", textAlign: "center", border: " solid  1px   #000" }}><p>Venda/total</p></div>
-        <div className='col ' style={{ width: "100%", height: "2em", textAlign: "center", border: " solid  1px   #000" }}><p>Fechamento/Ger</p></div>
-        <div className='col ' style={{ width: "100%", height: "2em", textAlign: "center", border: " solid  1px   #000" }}><p>Diferença/Ger</p></div>
-      </div>
-      {closesFilter.map(item => (
-        <div key={item.id} style={{ background: "#fff", display: "flex", alignItems: "center", justifyContent: "center" }} className='row'>
-          <p className='col m-3' style={{ width: "100%", textAlign: "initial" }}>{item.colaborador.name}</p>
-          <p className='col m-3' style={{ width: "100%", textAlign: "initial" }}>{item.gerente.name}</p>
-          <p className='col m-3' style={{ width: "100%", textAlign: "initial" }}>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(item.FCcolaborador.valcart)}</p>
-          <p className='col m-3' style={{ width: "100%", textAlign: "initial" }}>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(item.FCcolaborador.valdin)}</p>
-          <p className='col m-3' style={{ width: "100%", textAlign: "initial" }}>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(item.FCcolaborador.valtotal)}</p>
-          <p className='col m-3' style={{ width: "100%", textAlign: "initial" }}>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(item.FCcolaborador.valtotal)}</p>
-          <p className='col m-3' style={{ width: "100%", textAlign: "initial" }}>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(item.valconf)}</p>
-          <p className='col m-3' style={{ width: "100%", textAlign: "initial" }}>{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(item.valdesv)}</p>
-        </div>
-      ))}
-      </Box> */}
+			
 
 			<table className="table" style={{ overflow: "scroll" }}>
 				<thead>
@@ -231,7 +210,7 @@ function Relatorios() {
 				<tbody>
 
 					{closesFilter.map(item => (
-						<tr key={item.id + "col"}>
+						<tr key={item.id + "col"+uniqueId()}>
 							<th scope="row">{item.id}</th>
 							<td>{item.gerente.name}</td>
 							<td>{item.colaborador.name}</td>

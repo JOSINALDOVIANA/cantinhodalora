@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar, Box, Button, FormControl, FormHelperText, ImageList, ImageListItem, Input, InputLabel, MenuItem, Modal, TextField, styled, useTheme } from '@mui/material';
 import { api } from '../../../api';
-import { set } from 'lodash';
+import { set, uniqueId } from 'lodash';
 import Promo from './index copy';
 import { green } from '@mui/material/colors';
 const style = {
@@ -118,7 +118,11 @@ console.log(promo)
 
           </MenuItem>
           {produtos.map((prod) => (
-            <MenuItem onClick={() => { setProdSelect(true); setPromoCad(a => ({ ...a, id_prod: prod.id, img: prod.img })) }} key={prod.id + "prod"} value={prod.id}>
+            <MenuItem 
+            onClick={() => { setProdSelect(true); setPromoCad(a => ({ ...a, id_prod: prod.id, img: prod.img })) }} 
+            key={prod.id + "prod"+uniqueId()} 
+            value={prod.id}
+            >
               {prod.desc + " " + prod.tam}
             </MenuItem>
           ))}
@@ -171,7 +175,7 @@ console.log(promo)
 
           <ImageList sx={{ width: 500, height: 450, marginTop: 2, background: "#fff" }} cols={3} rowHeight={164}>
             {imagens.map((item) => (
-              <ImageListItem sx={{ padding: 2 }} key={item.id}>
+              <ImageListItem sx={{ padding: 2 }} key={item.id+uniqueId()}>
                 <img
                   src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
                   srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}

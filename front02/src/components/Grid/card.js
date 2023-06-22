@@ -9,6 +9,7 @@ import { red, green } from "@mui/material/colors";
 
 // eslint-disable-next-line no-unused-vars
 import { ListAlt } from "@mui/icons-material";
+import { uniqueId } from "lodash";
 
 
 const Img = styled("img")({
@@ -66,7 +67,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 
 				<Box id={id} sx={{ display: "none", maxWidth: "130px", justifyContent: "space-around", margin: 1 }}>
 
-					{logos.map(logo => (<Img key={logo.id} alt='imagem' src={logo.url} sx={{ height: "30%", width: "30%" }}></Img>))}
+					{logos.map(logo => (<Img key={logo.id+uniqueId()} alt='imagem' src={logo.url} sx={{ height: "30%", width: "30%" }}></Img>))}
 				</Box>
 
 			)}
@@ -105,7 +106,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 					<Typography sx={{ color:theme.palette.mode=="light"? "#404E5C":theme.palette.getContrastText("#000"), fontSize: "0.9em", fontFamily: "Roboto" }} noWrap variant="subtitle1" component="p">
 						{desc} {tamanho}
 					</Typography>
-					<Typography sx={{ fontSize: "0.8em" }} color={green[600]} noWrap gutterBottom variant="subtitle1" component="div">
+					<Typography sx={{ fontSize: "0.7em" }} color={green[600]} noWrap gutterBottom variant="subtitle1" component="div">
 						Verifique a disponibilidade
 					</Typography>
 

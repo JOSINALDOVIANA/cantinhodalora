@@ -358,25 +358,7 @@ function FecharCaixa() {
                                     </div>
 
 
-                                    {/* <div onClick={(e) => {
-                                        e.preventDefault();
-                                        let prod = p;
-                                        prod.cat = prod.cat.map(c => (c.id))
-                                        prod.logos = prod.logos.map(l => (`${l.id}`))
-                                        api.put(`/produtos`, { ...prod }).then(r => {
-                                            if (r.data.status) {
-                                                Swal.fire(
-                                                    'Atualizado!',
-                                                    '',
-                                                    'success'
-                                                )
-                                            } else {
-                                                alert("error")
-                                            }
-                                        })
-                                    }} className="col-6 caixa">
-                                        <AiTwotoneSave color="#04B431" size={20} />
-                                    </div> */}
+                                  
                                     <div className="col-6 caixa"></div>
 
                                 </div>
@@ -449,7 +431,7 @@ function FecharCaixa() {
                             let prs = produtos;//todos os produtos
                             let prod = selectprod.prod;//produto selecionado e editado
                             let v = (parseInt(prod.QTNE) - parseInt(prod.und)) * parseFloat(prod.preco)//calculando quantas unidades faltam e calculando preço
-                            // console.log(v)
+                        
                             prod.und = prod.QTNE//definindo as novas unidades 
                             prod.cat = prod.cat.map(c => (c.id))//transformando as categorias em array [1,2,3]
                             prod.logos = prod.logos.map(l => (`${l.id}`))//transformando as logos em array [1,2,3]

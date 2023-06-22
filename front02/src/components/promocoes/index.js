@@ -8,6 +8,7 @@ import "./style.css"
 import { green } from "@mui/material/colors";
 import { api } from "../../api";
 import { Fingerprint } from "@mui/icons-material";
+import { uniqueId } from "lodash";
 const Img = styled("img")({
 
 	display: "block",
@@ -232,7 +233,7 @@ function Promo() {
 
 			{promo?.map(i => (
 
-				<Item key={i.id} i={i}></Item>
+				<Item key={i.id+uniqueId()} i={i}></Item>
 
 
 			))}

@@ -46,9 +46,11 @@ export default function MenuAppBar() {
 	};
 
 	return (
-		<Box flexGrow>
+		<Box 
+		// flexGrow
+		>
 
-			<AppBar flexGrow position="static" sx={{
+			<AppBar  position="static" sx={{
 				background: theme.palette.mode=="light"?"#fff":null,
 				color:theme.palette.mode=="light"?"#000":null,
 				

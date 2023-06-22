@@ -11,7 +11,7 @@ function Perfil() {
 const theme=useTheme()
 	return (
 		
-		<Box flexGrow sx={{bgcolor:"background.paper"}}>
+		<Box  sx={{bgcolor:"background.paper"}}>
 
 
 			<MenuAppBar></MenuAppBar>

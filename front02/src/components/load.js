@@ -50,8 +50,8 @@ export default function Load() {
 	}, []);
 
 	return (
-		<div style={{display:"flex", width:"100vw",height:"100vh",alignItems:"center",justifyContent:"center"}}>
+		<Box component={"div"} sx={{display:"flex", width:"100vw",height:"100vh",alignItems:"center",justifyContent:"center",bgcolor:"background.paper"}}>
 			<CircularProgressWithLabel value={progress} />
-		</div>
+		</Box>
 	);
 }

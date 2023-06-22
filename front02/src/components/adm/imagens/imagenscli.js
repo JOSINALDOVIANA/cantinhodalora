@@ -1,5 +1,6 @@
 import { Box, Button, Grid, ImageList, ImageListItem, Paper, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import {uniqueId} from "lodash"
 import { api, url } from "../../../api";
 
 // import { Container } from './styles';
@@ -27,7 +28,7 @@ function Imagens() {
 				{images.map(i => (
 					<Grid
 
-						key={i.key}
+						key={i.key+uniqueId()}
 						item
 						xs={6}
 						sm={6}
