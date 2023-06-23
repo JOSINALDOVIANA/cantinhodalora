@@ -8,13 +8,14 @@ import  Button  from "@mui/material/Button";
 import { api } from "../../api";
 import { useNavigate } from "react-router-dom";
 import { FormLabel, Paper, Typography, useTheme } from "@mui/material";
-import { TrocarTheme } from "../../routs";
+import { DadosContext, TrocarTheme } from "../../routs";
 
 export default function Login() {
 	const navegator = useNavigate();
 	const theme=useTheme()
 	const [values, setValues] = React.useState({ email: "", password: "" });
-	// console.log(values)
+	const [Dados,setDados]=React.useContext(DadosContext);
+
 	return (
 		<React.Fragment>
 
@@ -81,8 +82,8 @@ export default function Login() {
 					onSubmit={async (e) => {
 						e.preventDefault();
 						api.post("/login", { ...values }).then(r => {
-							console.log(r.data);
-							if (r.data.status) { navegator("/perfil", { state: r.data.user }); }
+							// console.log(r.data);
+							if (r.data.status) { setDados({user:r.data.user});navegator("/perfil", { state: r.data.user }); }
 							else { alert(r.data.mensagem); }
 						});
 					}}

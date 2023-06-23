@@ -1,104 +1,71 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { BsFacebook, BsInstagram, BsWhatsapp, BsArrowDownLeftSquare } from "react-icons/bs";
 
-import { Avatar, useTheme } from "@mui/material";
-import { TrocarTheme } from "../../../routs.js";
+
+import { useTheme } from "@mui/material";
+import { DadosContext, TrocarTheme } from "../../../routs.js";
 
 
 export default function MenuAppBar() {
 
-	const navegator = useNavigate();
-    const theme=useTheme(); 
-	const d = useLocation();
-	const [props, setProps] = React.useState({});
-
-	React.useEffect(() => {
-		setProps({ user: d.state });
-	}, []);
-
-
-
-
-
-
+	const navegar = useNavigate();//usado para navegar nas rotas
+	const theme = useTheme();//usado para prover as propriedades do thema
+	
+	
+	const [Dados,setDados]=useContext(DadosContext);
+    useEffect(() => {
+		if (Object.keys(Dados).length>0) { return }
+		navegar("/")
+	  }, [Dados])
+	
+	//controla o menu suspenso
 	const [anchorE2, setAnchorE2] = React.useState(null);
-
-
-
-
+	//controle para o menu suspenso (abrir)
 	const handleMenu2 = (event) => {
 		setAnchorE2(event.currentTarget);
 	};
-
-
-
+	//controle para o menu suspenso (fechar)
 	const handleClose2 = () => {
 		setAnchorE2(null);
 	};
+	
 
 	return (
-		<Box 
-		// flexGrow
-		>
+		<Box>
 
-			<AppBar  position="static" sx={{
-				background: theme.palette.mode=="light"?"#fff":null,
-				color:theme.palette.mode=="light"?"#000":null,
-				
-				boxShadow: 1,
-				
-				verticalAlign: "center",
-				// marginBottom:theme.spacing(2)
-				
-
-			}}
+			<AppBar
+				position="static"
+				sx={{
+					background: theme.palette.mode == "light" ? "#fff" : null,
+					color: theme.palette.mode == "light" ? "#000" : null,
+					boxShadow: 1,
+					verticalAlign: "center",
+				}}
 			>
-				<Toolbar sx={{
-					display: "flex",
-					justifyContent: "space-between"
-				}}>
-
-
-
-
-
+				<Toolbar
+					sx={{
+						display: "flex",
+						justifyContent: "space-between"
+					}}
+				>
 					<IconButton
 						size="large"
 						edge="start"
-
 						aria-label="menu"
-						// sx={{ color: theme.palette.mode=="dark"?"#fff":"#000" }}
 						onClick={handleMenu2}
 					>
 						<MenuIcon />
 					</IconButton>
-
-					{/* <Avatar onClick={()=>{window.open("https://api.whatsapp.com/send?phone=+5596981325410&text=Oi")}} alt="josinaldo" src={naldo} /> */}
-					{/* <Avatar onClick={()=>{window.open("https://api.whatsapp.com/send?phone=+5596991615690&text=Oi")}} alt="joilson" src={joilson}/> */}
-					{/* <Avatar onClick={()=>{window.open("https://api.whatsapp.com/send?phone=+5596991674615&text=Oi")}} alt="ageu" src={ageu}/> */}
-					<TrocarTheme></TrocarTheme>
-
-
-					{/* <div style={{ height: "3rem", width: "3rem", background: "#000" }}>
-						<img
-							src={`${cant}`}
-							alt="logo"
-							loading="lazy"
-							style={{ maxHeight: "3rem", maxWidth: "3rem", width: "auto", height: "auto", overflowClipMargin: "content-box", overflow: "clip" }}
-						/>
-					</div> */}
-
+					<TrocarTheme />
 					<Menu
-
 						id="menu-appbar"
 						anchorEl={anchorE2}
 						anchorOrigin={{
@@ -112,28 +79,18 @@ export default function MenuAppBar() {
 						}}
 						open={Boolean(anchorE2)}
 						onClose={handleClose2}
-						sx={{padding:theme.spacing(2)}}
-
+						sx={{ padding: theme.spacing(2) }}
 					>
-						
-
-						<MenuItem  onClick={() => { navegator("/perfil/produtosedit",{ state: props.user }) }}>Editar Produtos</MenuItem>
-						<MenuItem  onClick={() => { navegator("/perfil/produtoscad",{ state: props.user }) }}>Cadastrar Produto</MenuItem>
-						<MenuItem  onClick={() => { navegator("/perfil/userEdit",{ state: props.user }) }}>Usuário/Dados</MenuItem>
-						<MenuItem  onClick={() => { navegator("/perfil/imagensclientes",{ state: props.user }) }}>Imagens/Clientes</MenuItem>
-						<MenuItem  onClick={() => { navegator("/perfil/imagensprodutos",{ state: props.user }) }}>Imagens/Produtos</MenuItem>
-						<MenuItem  onClick={() => { navegator("/perfil/promocoes",{ state: props.user }) }}>Promoções</MenuItem>
-						<MenuItem  onClick={() => { navegator("/perfil/fecharCaixa",{ state: props.user }) }}>Fechamentos</MenuItem>
-						<MenuItem  onClick={() => { navegator("/perfil/relatorio",{ state: props.user }) }}>Relatotios</MenuItem>
-						<MenuItem  onClick={() => { navegator("/",{ state: props.user }) }}>Sair</MenuItem>
-
-
-
+						<MenuItem onClick={() => { navegar("/perfil/produtosedit", { state: Dados.user }) }}>Editar Produtos</MenuItem>
+						<MenuItem onClick={() => { navegar("/perfil/produtoscad", { state: Dados.user }) }}>Cadastrar Produto</MenuItem>
+						<MenuItem onClick={() => { navegar("/perfil/userEdit", { state: Dados.user }) }}>Usuário/Dados</MenuItem>
+						<MenuItem onClick={() => { navegar("/perfil/imagensclientes", { state: Dados.user }) }}>Imagens/Clientes</MenuItem>
+						<MenuItem onClick={() => { navegar("/perfil/imagensprodutos", { state: Dados.user }) }}>Imagens/Produtos</MenuItem>
+						<MenuItem onClick={() => { navegar("/perfil/promocoes", { state: Dados.user}) }}>Promoções</MenuItem>
+						<MenuItem onClick={() => { navegar("/perfil/fecharCaixa", { state: Dados.user }) }}>Fechamentos</MenuItem>
+						<MenuItem onClick={() => { navegar("/perfil/relatorio", { state: Dados.user }) }}>Relatotios</MenuItem>
+						<MenuItem onClick={() => { navegar("/") }}>Sair</MenuItem>
 					</Menu>
-
-
-
-
 				</Toolbar>
 
 

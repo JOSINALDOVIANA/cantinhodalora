@@ -21,21 +21,15 @@ export default function GridContainer() {
   const theme = useTheme();
 
   const [produtos, setProd] = React.useState([]);
-  const [play, setPlay] = React.useState(true);
+
   const [produtosFilter, setProdFilter] = React.useState([]);
   const [categorias, setCat] = React.useState([]);
 
 
   //caso algo seja digitado no campo de pesquisa isso executa
-  React.useEffect(() => {    
-    setPlay(false)  
+  React.useEffect(() => {
 
-    
-
-      setProdFilter(produtos.filter(i => i.desc.toUpperCase().includes(search.toUpperCase())))
-    
-
-
+    setProdFilter(produtos.filter(i => i.desc.toUpperCase().includes(search.toUpperCase())))
   }, [search])
 
   //carrega todos os produtos
@@ -62,12 +56,7 @@ export default function GridContainer() {
       element.classList.remove("active2")
     });
     document.getElementById(`${id + "C"}`).classList.add("active2")
-
     setProdFilter(() => (produtos.filter(p => p.cat.filter(c => c.id == id).length > 0)))
-
-
-
-
   }
 
 
@@ -84,7 +73,7 @@ export default function GridContainer() {
           elevation={6}
           onClick={() => {
             setProdFilter(produtos)
-            setPlay(false)
+
             const l = document.querySelectorAll(".active2")
             l.forEach(element => {
               element.classList.remove("active2")
@@ -93,14 +82,7 @@ export default function GridContainer() {
           sx={{ cursor: "pointer", display: "flex", height: "30%", justifyContent: "center", alignItems: "center", padding: 2, margin: 2, width: "auto" }}>
           <Typography>Todos</Typography>
         </Paper>
-        {/* <Carousel autoPlay={play} indicators={true} sx={{ width: "90%" }} onChange={(e) => { filtro(categorias[e].id) }}>
-          {categorias.map(cat => (
-            <Box key={cat.id+uniqueId()} sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <Paper elevation={1} id={cat.id + "C"}  onClick={() => { filtro(cat.id); setPlay(false) }} sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2, width: "auto" }}><Typography>{cat.desc}</Typography></Paper>
-            </Box>
-          ))}
 
-        </Carousel> */}
 
         <Box
           component={"div"}
@@ -115,14 +97,19 @@ export default function GridContainer() {
         >
 
           {categorias.map(cat => (
-            
-              <Paper 
-              elevation={1} 
-              key={cat.id + uniqueId()} 
-              id={cat.id + "C"} 
-              onClick={() => { filtro(cat.id); setPlay(false) }} 
-              sx={{ cursor: "pointer", padding: 2, width: "auto","& ":{marginRight:1} }}><Typography noWrap>{cat.desc}</Typography></Paper>
-           
+
+            <Paper
+              elevation={1}
+              key={cat.id + uniqueId()}
+              id={cat.id + "C"}
+              onClick={() => { filtro(cat.id)}}
+              sx={{ cursor: "pointer", padding: 2, width: "auto", "& ": { marginRight: 1 } }}
+            >
+              <Typography noWrap>
+                {cat.desc}
+              </Typography>
+            </Paper>
+
           ))}
 
 

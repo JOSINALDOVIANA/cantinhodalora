@@ -442,7 +442,7 @@ function FecharCaixa() {
                             })// setando a conferencia no caixa
                             setProd(prs)// atualizando todos os produtos
 
-                            //salvado no banco
+                            //salvando no banco
                             api.put(`/produtos`, { ...prod }).then(r => {
                                 if (r.data.status) {
                                     Swal.fire(
