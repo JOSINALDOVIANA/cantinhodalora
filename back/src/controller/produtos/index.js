@@ -32,7 +32,7 @@ export default {
     async Update(req, res) {
         let { id, desc, tam, preco, url = '', und, id_image = null, logos = false, cat = false } = req.body;
 
-        console.log(req.body)
+      
 
         try {
             await conexao("produtos").update({
@@ -44,7 +44,7 @@ export default {
                 await conexao("image_prod").insert(logos);
             }
             if (cat && cat.length > 0) {
-                console.log("entrou aqui")
+                
                 cat = cat.map(id_cat => ({ id_prod: id, id_cat }));
                 await conexao("prod_cat").delete().where({ id_prod: id });
                 await conexao("prod_cat").insert(cat);

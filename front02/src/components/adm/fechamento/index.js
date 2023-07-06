@@ -3,11 +3,11 @@ import { Avatar, Box, Button, Chip, Divider, FormControl, Grid, ImageList, Image
 import { api, url } from '../../../api';
 import { uniqueId } from 'lodash';
 import { TfiTrash, TfiRulerPencil, TfiStackOverflow } from "react-icons/tfi";
-import { AiTwotoneSave } from "react-icons/ai";
+
 import "./styleeditar.css";
 import Swal from 'sweetalert2';
 
-// import { Container } from './styles';
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -25,8 +25,14 @@ const Img = styled('img')({
     maxWidth: '100%',
     maxHeight: '100%',
 });
+const InputPerson = styled(TextField)(({ theme }) => ({
+    [theme.breakpoints.down("md")]: {
+        marginBottom: theme.spacing(2)
+    },
+    "& ": { marginRight: theme.spacing(1) }
+}))
 function FecharCaixa() {
-    const theme=useTheme();
+    const theme = useTheme();
 
 
     // const [dados] = useOutletContext();
@@ -89,158 +95,160 @@ function FecharCaixa() {
             return ({ ...a, gerente: gerentes.filter(ger => ger.id == event.target.value)[0].id })
         })
     };
-    // console.log(fechamento)
+
     return (
-        <div style={{marginTop:theme.spacing(10)}} className='p-1'>
+        <Paper component={"div"} elevation={0} className='p-1'>
+            <Paper sx={{ padding: theme.spacing(1) }} >
+                <Box component={"form"} sx={{ display: "flex", flexDirection: "column", marginBottom: "20px" }} className='container'>
+                    <Box
+                        sx={{ display: "flex", justifyContent: "space-evenly", [theme.breakpoints.down("md")]: { flexDirection: "collum" } }}
+                    >
+
+                        <FormControl sx={{ width: "50%", margin: 1 }}>
+                            <InputLabel id="demo-simple-select-label">Colaborador</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={controlecol}
+                                label="Colaborador"
+                                onChange={handleChangeConCol}
+                            >
+
+                                {
+                                    colaboradores?.map((col) => (<MenuItem key={col.id + "col"} value={col.id}>{col.name}</MenuItem>))
+                                }
+
+                            </Select>
+                        </FormControl>
 
 
+                        <FormControl sx={{ width: "50%", margin: 1, }}>
+                            <InputLabel id="demo-simple-select-label">Gerente</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={controleGer}
+                                label="Gerente"
+                                onChange={handleChangeConGer}
+                            >
 
+                                {
+                                    gerentes?.map((ger) => (<MenuItem key={ger.id + "ger"} value={ger.id}>{ger.name}</MenuItem>))
+                                }
 
+                            </Select>
+                        </FormControl>
 
-
-
-            <Paper className='p-3 mb-2'>
-                <form style={{ display: "flex", flexDirection: "column", marginBottom: "20px" }} className='container'>
-                    <div className="form-row row">
-                        <div className="form-group col-md-6">
-                            <FormControl sx={{ width: "100%", margin: 1, background: "#fff" }}>
-                                <InputLabel id="demo-simple-select-label">Colaborador</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={controlecol}
-                                    label="Colaborador"
-                                    onChange={handleChangeConCol}
-                                >
-
-                                    {
-                                        colaboradores?.map((col) => (<MenuItem key={col.id + "col"} value={col.id}>{col.name}</MenuItem>))
-                                    }
-
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <div className="form-group col-md-6">
-                            <FormControl sx={{ width: "100%", margin: 1, background: "#fff" }}>
-                                <InputLabel id="demo-simple-select-label">Gerente</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={controleGer}
-                                    label="Gerente"
-                                    onChange={handleChangeConGer}
-                                >
-
-                                    {
-                                        gerentes?.map((ger) => (<MenuItem key={ger.id + "ger"} value={ger.id}>{ger.name}</MenuItem>))
-                                    }
-
-                                </Select>
-                            </FormControl>
-                        </div>
-                    </div>
-                    {/* <div className="form-group">
-                        <label for="inputAddress">Address</label>
-                        <input type="text" className="form-control" id="inputAddress" placeholder="1234 Main St" />
-                    </div> */}
-
-
+                    </Box>
                     <Divider sx={{ margin: 1 }}>
                         <Chip label="Valores informados pelo Colaborador" />
                     </Divider>
 
-                    <div className="form-row row">
-                        <div className="form-group col-md-3">
-                            <label for="inputCity">Valor/Cartão</label>
-                            <input type="text" value={fechamento.valorF.cart}
-                                onChange={
-                                    e => setFechamento(a => (
-                                        {
-                                            ...a,
-                                            valorF: {
-                                                ...a.valorF,
-                                                cart: e.target.value,
-                                                total: (parseFloat(a.valorF.dinheiro) + parseFloat(e.target.value)),
-                                                comiss: ((parseFloat(a.valorF.dinheiro) + parseFloat(e.target.value)) * 0.2),
-                                                saldo: ((parseFloat(a.valorF.dinheiro) + parseFloat(e.target.value)) - ((parseFloat(a.valorF.dinheiro) + parseFloat(e.target.value)) * 0.2))
-                                            }
-                                        }
-                                    )
-                                    )
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "space-evenly",
+                            with: "100%",
+                            margin: theme.spacing(1),
+                            [theme.breakpoints.down("md")]: {
+                                flexDirection: "column"
+                            }
+                        }}
+                    >
+                        <InputPerson
+                            value={fechamento.valorF.cart}
+                            onChange={e => setFechamento(a => (
+                                {
+                                    ...a,
+                                    valorF: {
+                                        ...a.valorF,
+                                        cart: e.target.value,
+                                        total: (parseFloat(a.valorF.dinheiro) + parseFloat(e.target.value)),
+                                        comiss: ((parseFloat(a.valorF.dinheiro) + parseFloat(e.target.value)) * 0.2),
+                                        saldo: ((parseFloat(a.valorF.dinheiro) + parseFloat(e.target.value)) - ((parseFloat(a.valorF.dinheiro) + parseFloat(e.target.value)) * 0.2))
+                                    }
                                 }
-                                className="form-control" />
-                        </div>
-                        <div className="form-group col-md-3">
-                            <label for="inputState">Valor/Dinheiro</label>
-                            <input
+                            )
+                            )
+                            }
+                            type="text"
+                            label="Valor/Cartão"
+                        />
+                        <InputPerson
                             value={fechamento.valorF.dinheiro}
-                                onChange={
-                                    e => setFechamento(a => (
-                                        {
-                                            ...a,
-                                            valorF: {
-                                                ...a.valorF,
-                                                dinheiro: e.target.value,
-                                                total: (parseFloat(a.valorF.cart) + parseFloat(e.target.value)),
-                                                comiss: ((parseFloat(a.valorF.cart) + parseFloat(e.target.value)) * 0.2),
-                                                saldo: ((parseFloat(a.valorF.cart) + parseFloat(e.target.value)) - ((parseFloat(a.valorF.cart) + parseFloat(e.target.value)) * 0.2))
-                                            }
-
+                            onChange={
+                                e => setFechamento(a => (
+                                    {
+                                        ...a,
+                                        valorF: {
+                                            ...a.valorF,
+                                            dinheiro: e.target.value,
+                                            total: (parseFloat(a.valorF.cart) + parseFloat(e.target.value)),
+                                            comiss: ((parseFloat(a.valorF.cart) + parseFloat(e.target.value)) * 0.2),
+                                            saldo: ((parseFloat(a.valorF.cart) + parseFloat(e.target.value)) - ((parseFloat(a.valorF.cart) + parseFloat(e.target.value)) * 0.2))
                                         }
-                                    )
-                                    )
-                                }
-                                type="text"
-                                className="form-control" />
-                        </div>
-                        <div className="form-group col-md-2">
-                            <label for="inputZip">Total</label>
-                            <input disabled type="text" value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(fechamento.valorF.total)} className="form-control" id="inputZip" />
-                        </div>
 
-                        <div className="form-group col-md-2 ">
-                            <label for="inputZip">Comissão</label>
-                            <input
-                                value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(fechamento.valorF.comiss)}
-                                disabled
-                                type="text"
-                                className="form-control" id="inputZip" />
-                        </div>
+                                    }
+                                )
+                                )
+                            }
+                            type="text"
+                            label="Valor/Dinheiro"
+                        />
 
-                        <div className="form-group col-md-2">
-                            <label for="inputZip">Saldo</label>
-                            <input disabled type="text" value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(fechamento.valorF.saldo)} className="form-control" id="inputZip" />
-                        </div>
-                    </div>
+
+
+                        <InputPerson label="Total" disabled type="text" value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(fechamento.valorF.total)} />
+
+
+                        <InputPerson
+                            value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(fechamento.valorF.comiss)}
+                            disabled
+                            label="Comissão"
+                            type="text"
+                        />
+
+
+                        <InputPerson
+                            label="Saldo"
+                            disabled
+                            type="text"
+                            value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(fechamento.valorF.saldo)}
+                        />
+
+                    </Box>
                     <Divider sx={{ margin: 1, marginTop: 2 }}>
                         <Chip label="Valores Conferidos pelo Gerente" />
                     </Divider>
-                    <div className="form-group row">
-                        <div className="form-group col-4" >
-                            <label className="" >
-                                Conferência
-                            </label>
-                            <input
+                    <Box
+                        component={"div"}
+                        sx={{ display: "flex", justifyContent: "space-evenly", [theme.breakpoints.down("md")]: { flexDirection: "column" } }}
+                    >
+                        <Box
+                            sx={{  display: "flex", [theme.breakpoints.down("md")]: { flexDirection: "column" } }}
+                        >
+
+                            <InputPerson
+                                label="Conferência"
                                 disabled
                                 value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(fechamento.valorC)}
-                                className="form-control"
+
                                 type="text"
                                 id="gridCheck" />
-                        </div>
-                        <div className="form-group col-4 mb-2" >
-                            <label className="" >
-                                Diferência
-                            </label>
-                            <input
+
+
+                            <InputPerson
                                 disabled
+                                label=" Diferência"
                                 value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(parseFloat(fechamento.valorC) - parseFloat(fechamento.valorF.total))}
-                                className="form-control"
+
                                 type="text"
                                 id="valorDIF" />
-                        </div>
-                        <div className="form-group col-md-2">
-                            <label for="inputZip">Gastos</label>
-                            <input
+                        </Box>
+                        <Box sx={{ display: "flex", [theme.breakpoints.down("md")]: { flexDirection: "column" } }}>
+
+                            <InputPerson
+                                label="Gatos"
                                 value={fechamento.valgast}
                                 onChange={
                                     e => setFechamento(a => (
@@ -253,39 +261,41 @@ function FecharCaixa() {
                                     )
                                 }
                                 type="text"
-                                className="form-control" id="inputZip" />
-                        </div>
-                        <div className="form-group col-md-2">
-                            <label for="inputZip">Saldo</label>
-                            <input
+                            />
+
+
+                            <InputPerson
+                                label="Saldo"
                                 value={new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 }).format(parseFloat(fechamento.valsald))}
                                 disabled
-
                                 type="text"
-                                className="form-control" id="inputZip" />
-                        </div>
+                            />
+                        </Box>
                         <Button
                             variant='contained'
                             color='success'
-                            className="form-group btn btn-primary col-4"
-                            onClick={async()=>{
-                                let close_col=await api.post("/fechamentocolaborador",{
-                                    id_col:fechamento.colaborador,
-                                    valcart:fechamento.valorF.cart,
-                                    valdin:fechamento.valorF.dinheiro,
-                                    valcom:fechamento.valorF.comiss,
-                                    valtotal:fechamento.valorF.total,
-                                    valsaldo:fechamento.valorF.saldo
+                            sx={{
+                                height:theme.spacing(7)
+                            }}
+                            
+                            onClick={async () => {
+                                let close_col = await api.post("/fechamentocolaborador", {
+                                    id_col: fechamento.colaborador,
+                                    valcart: fechamento.valorF.cart,
+                                    valdin: fechamento.valorF.dinheiro,
+                                    valcom: fechamento.valorF.comiss,
+                                    valtotal: fechamento.valorF.total,
+                                    valsaldo: fechamento.valorF.saldo
                                 })
-                                await api.post("fechamentogerente",{
-                                    id_users:fechamento.gerente,
-                                    id_col:fechamento.colaborador,
-                                    id_close_col:close_col.data.dados.id,
-                                    valconf:fechamento.valorC,
-                                    valdesv:fechamento.ValorDIF,
-                                    valgast:fechamento.valgast,
-                                    valsald:fechamento.valsald
-                                }).then(r=>{
+                                await api.post("fechamentogerente", {
+                                    id_users: fechamento.gerente,
+                                    id_col: fechamento.colaborador,
+                                    id_close_col: close_col.data.dados.id,
+                                    valconf: fechamento.valorC,
+                                    valdesv: fechamento.ValorDIF,
+                                    valgast: fechamento.valgast,
+                                    valsald: fechamento.valsald
+                                }).then(r => {
                                     if (r.data.status) {
                                         Swal.fire(
                                             'Atualizado!',
@@ -297,11 +307,11 @@ function FecharCaixa() {
                                     }
                                 })
                             }}
-                            >
+                        >
                             Salvar
                         </Button>
-                    </div>
-                </form>
+                    </Box>
+                </Box>
             </Paper>
 
 
@@ -358,7 +368,7 @@ function FecharCaixa() {
                                     </div>
 
 
-                                  
+
                                     <div className="col-6 caixa"></div>
 
                                 </div>
@@ -431,7 +441,7 @@ function FecharCaixa() {
                             let prs = produtos;//todos os produtos
                             let prod = selectprod.prod;//produto selecionado e editado
                             let v = (parseInt(prod.QTNE) - parseInt(prod.und)) * parseFloat(prod.preco)//calculando quantas unidades faltam e calculando preço
-                        
+
                             prod.und = prod.QTNE//definindo as novas unidades 
                             prod.cat = prod.cat.map(c => (c.id))//transformando as categorias em array [1,2,3]
                             prod.logos = prod.logos.map(l => (`${l.id}`))//transformando as logos em array [1,2,3]
@@ -470,7 +480,7 @@ function FecharCaixa() {
             </Modal>
 
 
-        </div>
+        </Paper>
     );
 }
 

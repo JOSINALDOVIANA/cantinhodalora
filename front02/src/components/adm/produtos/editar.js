@@ -92,7 +92,7 @@ function Produtosedit() {
 
 	// console.log(selectprod);
 	return (
-		<Paper sx={{ }} className='p-1'>
+		<Paper className='p-1'>
 			<Grid container alignItems="center" spacing={2}>
 				{produtos?.map((p, index) => (
 					<Grid key={p.id + "prod"+uniqueId()} item xs={6} sm={4} md={3} lg={3}>

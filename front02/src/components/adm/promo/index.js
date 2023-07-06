@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Box, Button, FormControl, FormHelperText, ImageList, ImageListItem, Input, InputLabel, MenuItem, Modal, TextField, styled, useTheme } from '@mui/material';
+import { Avatar, Box, Button, FormControl, FormHelperText, ImageList, ImageListItem, Input, InputLabel, MenuItem, Modal, Paper, TextField, styled, useTheme } from '@mui/material';
 import { api } from '../../../api';
 import { set, uniqueId } from 'lodash';
 import Promo from './index copy';
@@ -30,14 +30,10 @@ const ColorButton = styled(Button)(({ theme }) => ({
 
 // import { Container } from './styles';
 
-export default function Promo01(){
+export default function Promo01() {
   const theme = useTheme();
   const [produtos, setProd] = useState([]);
   const [promo, setPromo] = useState([]);
-
-
-
-
 
   const [prodselct, setProdSelect] = useState(false);
   const [promoCad, setPromoCad] = useState({});
@@ -74,37 +70,44 @@ export default function Promo01(){
       setPromo(r.data.promo)
     })
   }
-console.log(promo)
+
   return (
-    <Box component="form" 
-    onSubmit={(e) => {
-      let obj = {};
+    <Box
+      component={Paper}
+      
+    >
+      <Box
+        component={"form"}
+        onSubmit={(e) => {
+          let obj = {};
 
-      e.preventDefault();
-      if (prodselct) {
-        obj = { newdesc: e.target["newdesc"].value, id_prod: promoCad.id_prod, valpromo: e.target["valpromo"].value };
+          e.preventDefault();
+          if (prodselct) {
+            obj = { newdesc: e.target["newdesc"].value, id_prod: promoCad.id_prod, valpromo: e.target["valpromo"].value };
 
-      } else {
-        obj = { newdesc: e.target["newdesc"].value, valpromo: e.target["valpromo"].value, id_image: promoCad.img.id }
+          } else {
+            obj = { newdesc: e.target["newdesc"].value, valpromo: e.target["valpromo"].value, id_image: promoCad.img.id }
 
-      }
+          }
 
-      api.post("/promo", { ...obj }).then(r => {
-        if (r.data.status) {
-          alert("Promoção cadastrada");
-          getPromos();
+          api.post("/promo", { ...obj }).then(r => {
+            if (r.data.status) {
+              alert("Promoção cadastrada");
+              getPromos();
 
-          return
-        }
-        alert("error ao cadastrar ")
-        return
-      })
+              return
+            }
+            alert("error ao cadastrar ")
+            return
+          })
 
 
-    }} 
-    sx={{ marginTop: theme.spacing(7), padding: theme.spacing(2)}}>
+        }}
+        sx={{ marginTop: theme.spacing(0), padding: theme.spacing(2) }}
+      >
+
       <FormControl sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", height: "auto" }} >
-        <Avatar sx={{ width: 100, height: 100, marginBottom: 1 }} onClick={() => { handleOpenfp() }} src={promoCad?.img?.url||promoCad?.prod?.img?.url} alt='imagem produto'></Avatar>
+        <Avatar sx={{ width: 100, height: 100, marginBottom: 1 }} onClick={() => { handleOpenfp() }} src={promoCad?.img?.url || promoCad?.prod?.img?.url} alt='imagem produto'></Avatar>
 
         <TextField
           sx={{ width: "40%", marginBottom: theme.spacing(2) }}
@@ -118,10 +121,10 @@ console.log(promo)
 
           </MenuItem>
           {produtos.map((prod) => (
-            <MenuItem 
-            onClick={() => { setProdSelect(true); setPromoCad(a => ({ ...a, id_prod: prod.id, img: prod.img })) }} 
-            key={prod.id + "prod"+uniqueId()} 
-            value={prod.id}
+            <MenuItem
+              onClick={() => { setProdSelect(true); setPromoCad(a => ({ ...a, id_prod: prod.id, img: prod.img })) }}
+              key={prod.id + "prod" + uniqueId()}
+              value={prod.id}
             >
               {prod.desc + " " + prod.tam}
             </MenuItem>
@@ -134,13 +137,13 @@ console.log(promo)
           multiline
           rows={5}
           value={promoCad.newdesc}
-          onChange={e=>{
-            setPromoCad(a=>({...a,newdesc:e.target.value}))
+          onChange={e => {
+            setPromoCad(a => ({ ...a, newdesc: e.target.value }))
           }}
 
         />
 
-        <Box sx={{ display: "flex", width: "45%", justifyContent: "space-around",[theme.breakpoints.down('md')]:{flexDirection:"column"} }}>
+        <Box sx={{ display: "flex", width: "45%", justifyContent: "space-around", [theme.breakpoints.down('md')]: { flexDirection: "column" } }}>
 
           <TextField
             sx={{ marginBottom: theme.spacing(2) }}
@@ -148,8 +151,8 @@ console.log(promo)
             label="Valor"
             type="number"
             value={promoCad.valpromo}
-            onChange={e=>{
-              setPromoCad(a=>({...a,valpromo:e.target.value}))
+            onChange={e => {
+              setPromoCad(a => ({ ...a, valpromo: e.target.value }))
             }}
             InputLabelProps={{
               shrink: true,
@@ -162,6 +165,7 @@ console.log(promo)
 
         </Box>
       </FormControl>
+      </Box>
 
       {/* fotos principal */}
       <Modal
@@ -175,7 +179,7 @@ console.log(promo)
 
           <ImageList sx={{ width: 500, height: 450, marginTop: 2, background: "#fff" }} cols={3} rowHeight={164}>
             {imagens.map((item) => (
-              <ImageListItem sx={{ padding: 2 }} key={item.id+uniqueId()}>
+              <ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
                 <img
                   src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
                   srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
@@ -192,7 +196,7 @@ console.log(promo)
       <Promo proms={{
         promocoes: promo,
         atualizarPromo: setPromo,
-        setPromoCad:setPromoCad,
+        setPromoCad: setPromoCad,
       }}></Promo>
 
     </Box>
