@@ -59,19 +59,8 @@ export default function MenuAppBar(prop) {
 
 	const navegator = useNavigate();
 	const theme = useTheme()
-
-
-
-
-
-
 	const [anchorE2, setAnchorE2] = React.useState(null);
-
-
-
-
-	const handleMenu2 = (event) => {
-		
+	const handleMenu2 = (event) => {		
 		setAnchorE2(event.currentTarget);
 	};
 

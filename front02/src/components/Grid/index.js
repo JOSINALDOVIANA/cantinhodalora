@@ -1,34 +1,27 @@
 import * as React from 'react';
-
 import Box from '@mui/material/Box';
-import Carousel from 'react-material-ui-carousel'
 import Grid from '@mui/material/Grid';
 import ComplexGrid from './card';
-
-import { api, url } from '../../api';
+import { api } from '../../api';
 import { Paper, Typography, useTheme } from '@mui/material';
-
-import "./style.css"
 import { SearchContex } from '../../routs';
 import { uniqueId } from 'lodash';
 
 
 
 
+
 export default function GridContainer() {
+
   const [search, setSearch] = React.useContext(SearchContex);
-  // console.log(search)
   const theme = useTheme();
-
   const [produtos, setProd] = React.useState([]);
-
   const [produtosFilter, setProdFilter] = React.useState([]);
   const [categorias, setCat] = React.useState([]);
 
 
   //caso algo seja digitado no campo de pesquisa isso executa
   React.useEffect(() => {
-
     setProdFilter(produtos.filter(i => i.desc.toUpperCase().includes(search.toUpperCase())))
   }, [search])
 
@@ -51,17 +44,8 @@ export default function GridContainer() {
 
   //controla o filtro qaundo se clica numa categoria
   function filtro(id) {
-    const l = document.querySelectorAll(".active2")
-    l.forEach(element => {
-      element.classList.remove("active2")
-    });
-    document.getElementById(`${id + "C"}`).classList.add("active2")
     setProdFilter(() => (produtos.filter(p => p.cat.filter(c => c.id == id).length > 0)))
   }
-
-
-
-
 
   return (
     <Box
@@ -102,7 +86,7 @@ export default function GridContainer() {
               elevation={1}
               key={cat.id + uniqueId()}
               id={cat.id + "C"}
-              onClick={() => { filtro(cat.id)}}
+              onClick={() => { filtro(cat.id) }}
               sx={{ cursor: "pointer", padding: 2, width: "auto", "& ": { marginRight: 1 } }}
             >
               <Typography noWrap>

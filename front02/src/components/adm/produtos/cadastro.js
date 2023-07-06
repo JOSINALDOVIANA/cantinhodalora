@@ -102,8 +102,7 @@ function Produtoscad() {
     });
   }, [IMGC]);
 
-  // console.log(categorias)
-  // console.log(produto)
+
 
   return (
 
@@ -156,12 +155,14 @@ function Produtoscad() {
 
           }}
         >
+          {/* foto do produto */}
           <Avatar variant='rounded' sx={{ width: theme.spacing(10), height: theme.spacing(10), marginBottom: theme.spacing(2) }} onClick={handleOpenfp} src={produto?.img?.url} srcSet={produto?.img?.url} alt='imagem produto'></Avatar>
+          {/* logos relacionadas ao produto */}
           {produto?.logos?.length > 0 &&
             <Paper elevation={0} sx={{ display: "flex", width: "100%", height: "10%", justifyContent: "space-evenly", background: "transparent" }}>
               {produto?.logos?.map((logo, index) => (
 
-                <Avatar key={logo.id+uniqueId()} src={logo.url} srcSet={logo.url} onClick={() => {
+                <Avatar key={logo.id + uniqueId()} src={logo.url} srcSet={logo.url} onClick={() => {
                   // setLogos(a => (a.filter(i => i.id != logo.id)));
                   setProduto(a => ({ ...a, logos: a.logos.filter(i => i.id != logo.id) }))
                 }} alt="img_logo">
@@ -171,7 +172,7 @@ function Produtoscad() {
               ))}
             </Paper>
           }
-
+          {/* categorias do produto */}
           {!!produto.cat &&
             <Paper elevation={0} sx={{ display: "flex", width: "100%", justifyContent: "space-evenly", background: "transparent" }}>
               {produto?.cat?.map((item) => (
@@ -180,23 +181,23 @@ function Produtoscad() {
                   onClick={() => {
                     let c = produto.cat.filter(i => i.id != item.id)
                     setProduto(a => ({ ...a, cat: c }))
-                  }} 
-                  key={item.id+uniqueId()}>
+                  }}
+                  key={item.id + uniqueId()}>
                   {item.desc}
                 </ColorButton>
 
               ))}
             </Paper>}
 
-
-
           <div style={{ width: "100%" }} className='row justify-content-around'>
+            {/* input Descrição */}
             <TextField className='col' sx={{ margin: 1 }}
               value={produto.desc}
               onChange={(e) => setProduto(a => ({ ...a, desc: e.target.value }))}
-              type="text" label="Descrição"
+              type="text"
+              label="Descrição"
             />
-
+            {/* input Tamanho */}
             <TextField className='col' sx={{ margin: 1 }}
               value={produto.tam}
               onChange={(e) => setProduto(a => ({ ...a, tam: e.target.value }))}
@@ -206,18 +207,22 @@ function Produtoscad() {
           <div
             style={{ width: "100%" }} className='row justify-content-around'
           >
-            <TextField className='col-2' sx={{ margin: 1 }}
+            {/* input Preço */}
+            <TextField className='col-2'
+              sx={{ margin: 1 }}
               value={produto.preco}
               onChange={(e) => setProduto(a => ({ ...a, preco: e.target.value }))}
-              type="number" label="Preço/UND" />
-
-            <TextField className='col-2' sx={{ margin: 1 }}
+              type="number"
+              label="Preço/UND"
+            />
+            {/* input Quantidade */}
+            <TextField className='col-2'
+              sx={{ margin: 1 }}
               value={produto.und}
               onChange={(e) => setProduto(a => ({ ...a, und: e.target.value }))}
-              type="number" label="Quantidade/UND" />
-
-
-
+              type="number" label="Quantidade/UND"
+            />
+            {/* pintup/select categorias */}
             <InputLabel id="demo-simple-select-label">Categorias</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -238,12 +243,14 @@ function Produtoscad() {
             >
 
               {categorias?.map(cat => (
-                <MenuItem key={cat.id+uniqueId} value={cat.id}>{cat.desc}</MenuItem>
+                <MenuItem key={cat.id + uniqueId} value={cat.id}>{cat.desc}</MenuItem>
               ))}
 
             </Select>
+
           </div>
 
+          {/* espaço dos botoes */}
           <Box component={"div"} sx={{ width: "100%", display: "flex", justifyContent: "space-between", marginTop: theme.spacing(2) }} >
 
             <Button
@@ -251,7 +258,7 @@ function Produtoscad() {
                 e.preventDefault();
 
                 if (!!produto.id) {
-                  api.put("/produtos", { ...produto }).then(r => {
+                  api.put("/produtos", { ...produto, cat: produto.cat.map(c => (c.id)), logos: produto.logos.map(l => (l.id)) }).then(r => {
 
                     if (r.data.status) {
                       Swal.fire(
@@ -274,7 +281,7 @@ function Produtoscad() {
                   })
                 }
                 else {
-                  api.post("/produtos", { ...produto }).then(r => {
+                  api.post("/produtos", { ...produto, cat: produto.cat.map(c => (c.id)), logos: produto.logos.map(l => (l.id)) }).then(r => {
 
                     if (r.data.status) {
                       Swal.fire(
@@ -403,17 +410,17 @@ function Produtoscad() {
         }}
       >
 
-        <Grid 
-        container 
-        // flexGrow={1} 
-        sx={{ overflow: "scroll" }} 
-        alignItems="center" 
-        spacing={1} >
+        <Grid
+          container
+          // flexGrow={1} 
+          sx={{ overflow: "scroll" }}
+          alignItems="center"
+          spacing={1} >
           {
             produtos?.map(p => (
               <Grid
                 // direction={theme.breakpoints.down("md")?"column":"row"}
-                key={p.id+uniqueId()}
+                key={p.id + uniqueId()}
                 item
                 xs={6}
                 sm={6}
@@ -475,6 +482,8 @@ function Produtoscad() {
 
       </Box>
 
+
+      {/* select */}
       <Box sx={{
         width: "90%", [theme.breakpoints.up("md")]: {
           display: 'none'
@@ -490,18 +499,12 @@ function Produtoscad() {
             onChange={handleChange2}
           >
             {produtos.map((p, i) => (
-              <MenuItem key={p.id+uniqueId()} value={p.id}>{p.desc + ' ' + p.tam}</MenuItem>
+              <MenuItem key={p.id + uniqueId()} value={p.id}>{p.desc + ' ' + p.tam}</MenuItem>
             ))}
 
           </Select>
         </FormControl>
       </Box>
-
-
-
-
-
-
 
       {/* selecionar as logos */}
       <Modal
@@ -515,7 +518,7 @@ function Produtoscad() {
 
           <ImageList sx={{ width: 500, height: 450, marginTop: 2 }} cols={3} rowHeight={164}>
             {imagens.map((item) => (
-              <ImageListItem sx={{ padding: 2 }} key={item.id+uniqueId()}>
+              <ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
                 <img
                   src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
                   srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
@@ -528,6 +531,7 @@ function Produtoscad() {
           </ImageList>
         </Box>
       </Modal>
+
       {/* fotos principal */}
       <Modal
         open={openfp}
@@ -540,7 +544,7 @@ function Produtoscad() {
 
           <ImageList sx={{ width: 500, height: 450, marginTop: 2 }} cols={3} rowHeight={164}>
             {imagens.map((item) => (
-              <ImageListItem sx={{ padding: 2 }} key={item.id+uniqueId()}>
+              <ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
                 <img
                   src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
                   srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}

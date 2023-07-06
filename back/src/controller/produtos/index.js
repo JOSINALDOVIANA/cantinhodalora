@@ -14,12 +14,12 @@ export default {
                 desc, tam, preco, url, und, id_image
             })
             if (logos && logos.length > 0) {
-                logos = logos.map(logo => ({ id_image: logo.id, id_prod: id }));
+                logos = logos.map(logo => ({ id_image: logo, id_prod: id }));
                 await conexao("image_prod").insert(logos)
             }
             if (cat && cat.length > 0) {
-                let cats = cat.map(item => ({ id_prod: id, id_cat: item.id }))
-                await conexao("prod_cat").insert(cats)
+                 cat = cat.map(item => ({ id_prod: id, id_cat: item }))
+                await conexao("prod_cat").insert(cat)
             }
             return res.json({ status: true, mensagem: "produto salvo" })
         } catch (error) {
@@ -32,17 +32,20 @@ export default {
     async Update(req, res) {
         let { id, desc, tam, preco, url = '', und, id_image = null, logos = false, cat = false } = req.body;
 
+        console.log(req.body)
+
         try {
             await conexao("produtos").update({
                 desc, tam, preco, url, und, id_image
             }).where({ id })
             if (logos && logos.length > 0) {
-                logos = logos.map(logo => ({ id_image: logo.id, id_prod: id }));
+                logos = logos.map(logo => ({ id_image: logo, id_prod: id }));
                 await conexao("image_prod").delete().where({ id_prod: id });
                 await conexao("image_prod").insert(logos);
             }
             if (cat && cat.length > 0) {
-                cat = cat.map(id_cat => ({ id_prod: id, id_cat:id_cat.id }));
+                console.log("entrou aqui")
+                cat = cat.map(id_cat => ({ id_prod: id, id_cat }));
                 await conexao("prod_cat").delete().where({ id_prod: id });
                 await conexao("prod_cat").insert(cat);
             }

@@ -28,7 +28,7 @@ export default function BasicTable() {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-      <TableContainer component={Paper} sx={{ width: "90%" }}>
+      <TableContainer component={Box} sx={{ width: "100%" }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
