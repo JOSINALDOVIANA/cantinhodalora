@@ -16,6 +16,7 @@ import categorias from "./controller/categorias/index.js";
 import cols from "./controller/cols/index.js";
 import close_col from "./controller/close_col/index.js";
 import close from "./controller/close/index.js";
+import clientes from "./controller/clientes/index.js";
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
 const rotas=express.Router();
@@ -103,6 +104,10 @@ rotas.post("/promo",promo.Insert)
 rotas.get("/promo",promo.Select)
 rotas.put("/promo",promo.Update)
 rotas.delete("/promo",promo.Delete)
+
+// ####################clientes########################
+rotas.post("/clientes/login",clientes.Login)
+rotas.post("/clientes/insert",clientes.Insert)
 
 
 
