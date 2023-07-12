@@ -2,7 +2,8 @@ import conexao from "../../databases/conexao.js"
 
 export default {
     async Login (req,res){
-        let {email,senha}=req.body
+        let {email,password:senha}=req.body
+        console.log(req.body)
         try {
            let dados=await conexao("clientes").where({email,senha}).first();
 
