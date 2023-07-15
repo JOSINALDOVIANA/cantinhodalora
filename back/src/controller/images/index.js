@@ -46,7 +46,7 @@ export default {
         try {
            await conexao("images").del().where({id,prod:false});
          promisify(fs.unlink)(path.resolve(__dirname, "..", "..","tmp", "uploads", `${key}`), (err) => {
-            if (err) { console.log("não foi possivel apagar o arquivo"); }
+            if (err) { console.log("não foi possivel apagar o arquivo");console.log(err) }
             else { console.log('aquivo deletado'); };
         })
           

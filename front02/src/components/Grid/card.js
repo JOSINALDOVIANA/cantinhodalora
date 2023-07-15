@@ -34,16 +34,15 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 				borderRadius: 1,
 				flexDirection: "column",
 				fontFamily: "Roboto",
-				alignItems: "center",
-				// background: theme.palette.mode=="dark"?"#121212":"trasparent",
+				alignItems: "center",				
 				position: "relative",
-				// border: "solid 0.000001px #ddd",
-				// background:"#ddd"
+				// boxShadow:`0px 0px 5px 0 ${theme.palette.mode=="dark"?"#fff":"#000"}`
+				
 
 
 
 			}}
-			// className='card marcado'
+			
 
 
 		>

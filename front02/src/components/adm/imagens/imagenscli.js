@@ -1,6 +1,6 @@
 import { Box, Button, Grid, ImageList, ImageListItem, Paper, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import {uniqueId} from "lodash"
+import { uniqueId } from "lodash"
 import { api, url } from "../../../api";
 
 // import { Container } from './styles';
@@ -28,7 +28,7 @@ function Imagens() {
 				{images.map(i => (
 					<Grid
 
-						key={i.key+uniqueId()}
+						key={i.key + uniqueId()}
 						item
 						xs={6}
 						sm={6}
@@ -44,11 +44,11 @@ function Imagens() {
 									alignItems: "center",
 									justifyContent: "center",
 									paddingBottom: theme.spacing(2),
-									
+
 								}
 							}
 						>
-							<Box
+							{/* <Box
 								component={"div"}
 								sx={{
 									backgroundImage: `url(${i.url})`,
@@ -58,7 +58,9 @@ function Imagens() {
 									height: "400px",
 									width: "100%",
 								}}
-							/>
+							/> */}
+
+							<img style={{ width: "50%", height: "50%",marginTop:"5px",marginBottom:"5px" }} src={i.url} />
 							{/* <Typography >
 								key:{i.key}
 							</Typography> */}

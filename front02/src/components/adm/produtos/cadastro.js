@@ -4,6 +4,7 @@ import { uniqueId } from 'lodash';
 import React from 'react';
 import { api, url } from '../../../api.js'
 import Swal from 'sweetalert2'
+import UploadImage from '../../../functions/UploadImage.js';
 
 
 const style = {
@@ -90,6 +91,7 @@ function Produtoscad() {
       setCat(r.data.categorias)
     })
   }, [])
+
   //carrega os produtos
   React.useEffect(() => {
     api.get("/produtos").then(r => {
@@ -253,6 +255,7 @@ function Produtoscad() {
           {/* espaço dos botoes */}
           <Box component={"div"} sx={{ width: "100%", display: "flex", justifyContent: "space-between", marginTop: theme.spacing(2) }} >
 
+            {/* botaão Salvar */}
             <Button
               onClick={async (e) => {
                 e.preventDefault();
@@ -309,8 +312,7 @@ function Produtoscad() {
               color="success">
               Salvar
             </Button>
-
-
+            {/* botão de exolha de logos */}
             <Button
               variant='contained'
               color="success"
@@ -320,67 +322,8 @@ function Produtoscad() {
               onClick={handleOpen}>
               Escolher logos
             </Button>
-            <IconButton className='col-1' id="Camera" color="success" aria-label="upload picture" component="label">
-              <input id='img' hidden accept="image/*" type="file"
-                onChange={(ee) => {
-
-
-                  const files = ee.target.files;
-                  let uploadedFiles = []
-                  // console.log(files)
-
-                  for (let iterator of files) {
-
-                    uploadedFiles.push(
-                      {
-                        "file": iterator,
-                        "id": uniqueId(),//definindo um id unico 
-                        "name": iterator.name,
-                        "prod": false,
-                        "readableSize": iterator.size,
-                        preview: URL.createObjectURL(iterator), // criando um link para preview da foto carregada
-                        url: URL.createObjectURL(iterator),// sera usado para setar a variavel img no proprietario/index.js
-                      }
-                    )
-                  }
-
-
-
-                  // CRIANDO UM DATAFORM
-                  const data = new FormData();
-                  data.append('file', uploadedFiles[0].file, uploadedFiles[0].name);
-
-                  // SALVANDO NOVA IMAGEM
-
-                  try {
-                    api.post(`/insertImageP`, data, {
-                      // onUploadProgress: e => {
-                      //   let progress = parseInt(Math.round((e.loaded * 100) / e.total));
-                      //   setProgress(a => a + progress)
-                      // }
-                    }).then(r => {
-
-
-                      // document.location.reload()
-
-                      Swal.fire(
-                        'Imagem Salva!',
-                        '',
-                        'success'
-                      )
-                      setIMGC(a => !a)
-
-
-                    })
-
-                  } catch (error) {
-                    console.log(error)
-                    alert("formato nao aceito");
-                  }
-                }}
-              />
-              <PhotoCamera />
-            </IconButton>
+            {/* enviar imagem */}
+            <UploadImage setIMGC={setIMG} produto={false}/>
 
           </Box>
         </Box>
@@ -498,7 +441,7 @@ function Produtoscad() {
             label="Produto"
             onChange={handleChange2}
           >
-            {produtos.map((p, i) => (
+            {produtos?.map((p, i) => (
               <MenuItem key={p.id + uniqueId()} value={p.id}>{p.desc + ' ' + p.tam}</MenuItem>
             ))}
 
@@ -517,7 +460,7 @@ function Produtoscad() {
 
 
           <ImageList sx={{ width: 500, height: 450, marginTop: 2 }} cols={3} rowHeight={164}>
-            {imagens.map((item) => (
+            {imagens?.map((item) => (
               <ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
                 <img
                   src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
@@ -543,7 +486,7 @@ function Produtoscad() {
 
 
           <ImageList sx={{ width: 500, height: 450, marginTop: 2 }} cols={3} rowHeight={164}>
-            {imagens.map((item) => (
+            {imagens?.map((item) => (
               <ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
                 <img
                   src={`${item.url}?w=164&h=164&fit=crop&auto=format`}

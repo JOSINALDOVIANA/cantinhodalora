@@ -79,7 +79,7 @@ export default function MenuAppBar(prop) {
 			sx={{
 				background: "transparent",
 				color: theme.palette.mode == "light" ? "#000" : null,
-				boxShadow: 1,
+				boxShadow:`0px 0px 10px 0 ${theme.palette.mode=="dark"?"#fff":"#000"}`,
 				verticalAlign: "center",
 			}}
 			>
