@@ -53,12 +53,12 @@ export default function UploadImage({setIMGC,produto}){
 
                       // document.location.reload()
 
+                      setIMGC(a => !a)
                       Swal.fire(
                         'Imagem Salva!',
                         '',
                         'success'
                       )
-                      setIMGC(a => !a)
 
 
                     })

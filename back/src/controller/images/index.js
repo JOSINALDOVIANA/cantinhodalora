@@ -45,7 +45,7 @@ export default {
         
         try {
            await conexao("images").del().where({id,prod:false});
-         promisify(fs.unlink)(path.resolve(__dirname, "..", "..","tmp", "uploads", `${key}`), (err) => {
+         promisify(fs.unlink)(path.resolve(__dirname, "..", "..","..","tmp", "uploads", `${key}`), (err) => {
             if (err) { console.log("não foi possivel apagar o arquivo");console.log(err) }
             else { console.log('aquivo deletado'); };
         })
@@ -99,7 +99,7 @@ export default {
         console.log(req.query)
         try {
            await conexao("images").del().where({id});
-           promisify(fs.unlink)(path.resolve(__dirname, "..","..", "tmp", "uploads", `${key}`), (err) => {
+           promisify(fs.unlink)(path.resolve(__dirname, "..","..","..","tmp", "uploads", `${key}`), (err) => {
             if (err) { console.log("não foi possivel apagar o arquivo"); }
             else { console.log('aquivo deletado'); };
         })
