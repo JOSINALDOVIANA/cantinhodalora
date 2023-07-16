@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Divider, Grid, ImageList, ImageListItem, Modal, Paper, TextField, Typography, styled, useTheme } from "@mui/material";
+import { Avatar, Box, Button, Divider, FormControl, Grid, ImageList, ImageListItem, Modal, Paper, TextField, Typography, styled, useTheme } from "@mui/material";
 import React from "react";
 import { api, url } from "../../../api";
 import { uniqueId } from "lodash";
@@ -7,7 +7,7 @@ import { uniqueId } from "lodash";
 import "./styleeditar.css";
 import Swal from "sweetalert2";
 
-// import { Container } from './styles';
+
 const style = {
 	position: "absolute",
 	top: "50%",
@@ -19,9 +19,25 @@ const style = {
 
 	p: 4,
 };
+const BoxStyle = styled(Paper)(({ theme }) => ({
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	bgcolor: 'background.paper',
+	border: '0.5px solid #000',
+	[theme.breakpoints.up("sm")]: { width: "70vw" },
+	overflow: "scroll"
+}))
+
+const ButtonStyle = styled(Button)(({ theme }) => ({
+	margin: theme.spacing(1),
+	padding: theme.spacing(1)
+}))
+
 const Img = styled("img")({
 	margin: "auto",
-	display: "block",
+
 	maxWidth: "100%",
 	maxHeight: "100%",
 });
@@ -60,7 +76,7 @@ function Produtosedit() {
 	const handleCloseTeste = () => setOpenTeste(false);
 
 
- //carregar todos os produtos
+	//carregar todos os produtos
 	React.useEffect(() => {
 		api.get("/produtos").then(r => {
 			let p = r.data.produtos;
@@ -77,7 +93,7 @@ function Produtosedit() {
 
 		api.get("/selectimagesP").then(r => {
 			if (r.data.status) {
-				
+
 				setIMG(r.data.images);
 			}
 		});
@@ -90,14 +106,12 @@ function Produtosedit() {
 		});
 	}, []);
 
-	// console.log(selectprod);
+
 	return (
 		<Paper className='p-1'>
 			<Grid container alignItems="center" spacing={2}>
 				{produtos?.map((p, index) => (
-					<Grid key={p.id + "prod"+uniqueId()} item xs={6} sm={4} md={3} lg={3}>
-
-
+					<Grid key={p.id + "prod" + uniqueId()} item xs={6} sm={4} md={3} lg={3}>
 						<Paper
 
 							elevation={4}
@@ -158,26 +172,40 @@ function Produtosedit() {
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
 			>
-				<Box sx={style}>
+				<BoxStyle sx={{ height: "90vh", width: "80vw" }} >
 
 
-					<ImageList sx={{ width: 500, height: 450, marginTop: 2 }} cols={3} rowHeight={164}>
+
+					<Grid container alignItems="center" spacing={1} >
 						{imagens?.map((item) => (
-							<ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
-								<img
-									src={`${item?.url}?w=164&h=164&fit=crop&auto=format`}
-									srcSet={`${item?.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-									alt={item?.name}
+							<Grid
+								// direction={theme.breakpoints.down("md") ? "column" : "row"}
+								key={item.id + uniqueId()}
+								item
+								xs={6}
+								sm={6}
+								md={4}
+								lg={2}
+
+							>
+								<Img
+
+
+
+									src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
+									alt={item.name}
+
 									onClick={() => {
 										setSelectP(a => ({ ...a, prod: { ...a.prod, img: item, id_image: item.id } }));
 										handleClose();
 									}}
 									loading="lazy"
 								/>
-							</ImageListItem>
+							</Grid>
+
 						))}
-					</ImageList>
-				</Box>
+					</Grid>
+				</BoxStyle>
 			</Modal>
 
 			{/* -----Modal para Logos------ */}
@@ -189,50 +217,25 @@ function Produtosedit() {
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
 			>
-				<Box sx={{
-					position: "absolute",
-					top: "50%",
-					left: "50%",
-					transform: "translate(-50%, -50%)",
-					// overflow: "scroll",
-					bgcolor: "background.paper",
-					overflow: "scroll",
-					display:"flex",
-					flexDirection:"column",
-					height:"100%"
+				<BoxStyle sx={{height:"90vh",width:"90%"}}>
 
-				}}>
 
-					<Paper elevation={0} component={"div"} sx={{ display: "flex", justifyContent: "space-around", height: "50px",width:"90%",marginBottom:theme.spacing(5) }}>
-						{selectprod?.prod?.logos?.map((item, ind) => (
-							<Img
-								key={ind + item.id + item.key + "-" + uniqueId()}
-								src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
-								// srcSet={`${}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-								alt={item.name}
-								onClick={() => {
-									let log=selectprod?.prod?.logos.filter(i => i.id != item.id)
-									setSelectP(a=>({...a,prod:{...a.prod,logos:[...log]}}))
-								}}
-								loading="lazy"
-							/>
-						))}
-					</Paper>
-					
-					<Grid container alignItems="center" spacing={2} sx={{ background: "backgroud.paper", overflow: "scroll" }} >
+					<Grid container alignItems="center" spacing={1}  >
 						{imagens.map(item => (
-							<Grid key={item.id + uniqueId()} item xs={6} sm={4} md={3} lg={3}>
+							<Grid
+								key={item.id + uniqueId()}
+								item
+								xs={6}
+								sm={6}
+								md={3}
+								lg={3}
+							>
 								<Img
 									alt={item.name}
-									src={item.url}
-									sx={{ borderRadius: 0, width: 70, height: 70}}
+									src={item.url+"?w=164&h=164&fit=crop&auto=format"}
+									
 									onClick={() => {
-
-										
-											setSelectP(a => ({ ...a, prod: { ...a.prod, logos: [...a.prod.logos, item] } }));
-										
-										
-
+										setSelectP(a => ({ ...a, prod: { ...a.prod, logos: [...a.prod.logos, item] } }));
 									}}
 								/>
 
@@ -240,7 +243,7 @@ function Produtosedit() {
 							</Grid>
 						))}
 					</Grid>
-				</Box>
+				</BoxStyle>
 			</Modal>
 
 
@@ -254,16 +257,20 @@ function Produtosedit() {
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
 			>
-				<Box sx={style}>
+				<BoxStyle sx={{width:"90vw",height:"auto"}}>
 
-					<Box>
+					<Box sx={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
 						<Typography>
 							Cadastradas
 						</Typography>
+						<Box sx={{}}>
 						{
 							selectprod?.prod?.cat?.map(cat => (
 								<Button
-									key={cat.id+uniqueId()}
+								sx={{"&":{margin:1}}}
+								variant="contained"
+								color="success"
+									key={cat.id + uniqueId()}
 									onClick={() => {
 										let c = selectprod.prod.cat;
 										c = c.filter(i => i.id != cat.id);
@@ -274,22 +281,24 @@ function Produtosedit() {
 								</Button>
 							))
 						}
+						</Box>
+						
 					</Box>
 					<Box>
 						<Typography>
 							Todas
 						</Typography>
 						{categorias.map(cat => (
-							<Button key={cat.id+uniqueId()} onClick={() => {
+							<Button sx={{margin:1}} variant="contained" color="error" key={cat.id + uniqueId()} onClick={() => {
 								setSelectP(a => ({ ...a, prod: { ...a.prod, cat: [...a.prod.cat, { ...cat }] } }));
 							}}>{cat.desc}</Button>
 						))}
 					</Box>
-				</Box>
+				</BoxStyle>
 			</Modal>
 			{/* Modal editar dados*/}
 			<Modal
-				sx={{ overflow: "scroll" }}
+
 				open={openTeste}
 				onClose={() => {
 
@@ -298,18 +307,16 @@ function Produtosedit() {
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
 			>
-				<Box sx={{
-					...style, ...{
-						display: "flex",
-						borderRadius: 1,
-						flexDirection: "column",
-						fontFamily: "Roboto",
-						alignItems: "center",
-						justifyContent: "center",
-						padding: theme.spacing(3),
+				<BoxStyle sx={{
+					display: "flex",
+					flexDirection: "column",
+					fontFamily: "Roboto",
+					alignItems: "center",
+					justifyContent: "center",
+					padding: theme.spacing(1),
+					width: "90vw",
+					height: "90vh"
 
-						width: theme.spacing(50)
-					}
 				}}
 
 				>
@@ -317,22 +324,32 @@ function Produtosedit() {
 
 
 					<Img
-
 						onClick={() => { handleOpen(); }}
 						alt={selectprod.prod.desc}
 						src={url + "images/" + selectprod?.prod?.img?.key}
-						sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
+						sx={{ borderRadius: 0, width: "auto", height: "12vh", }} />
 					<Paper
+						elevation={12}
 						onClick={() => {
 							handleOpenL(selectprod?.prod?.logos);
 						}}
-						elevation={0}
-						sx={{ background: "transparent", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 1, height: theme.spacing(8), width: "100%", border: " dashed 1px #000" }}>
-						{selectprod?.prod?.logos?.map(item => (<Avatar key={item.id+uniqueId()} src={item.url} alt={item.desc}></Avatar>))}
+
+						sx={{ display: "flex", alignItems: "center", justifyContent: "space-evenly", marginBottom: 1, height: "auto", width: "50%", padding: "2px" }}>
+						{selectprod?.prod?.logos?.map(item => (
+							<Avatar
+								// onClick={()=>{
+								// 	setSelectP(a=>({...a,prod:{...a.prod,logos:a.prod.logos.filter(i=>(i.id!=item.id))}}))
+								// }} 
+								key={item.id + uniqueId()}
+								sx={{ width: "auto", height: "5vh" }}
+								src={item.url}
+								alt={item.desc}
+							>
+							</Avatar>))}
 					</Paper>
 
 
-					<Typography sx={{ color: "#404E5C", fontSize: "0.9em", width: "90%" }} noWrap variant="subtitle1" component="p">
+					<Typography sx={{ fontFamily: "Roboto" }} noWrap variant="subtitle1" component="p">
 						{selectprod.prod.desc + " " + selectprod.prod.tam}
 					</Typography>
 
@@ -342,109 +359,116 @@ function Produtosedit() {
 
 					<Divider color="#000" sx={{ width: "90%" }} ></Divider>
 
-					<div
-						style={{ display: "flex", marginTop: theme.spacing(5), alignItems: "center", justifyContent: "center", flexDirection: "column" }}
+					{/* entradas de texto */}
+
+					<Box
+						sx={{ display: "flex", marginTop: theme.spacing(2), alignItems: "center", justifyContent: "center", flexDirection: "column", width: "90%" }}
 						aria-labelledby="modal-modal-title"
 						aria-describedby="modal-modal-description"
 					>
-						<TextField sx={{ marginBottom: 1 }}
-							value={selectprod.prod.desc}
-							onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, desc: e.target.value } }))}
-							type="text" label="Descrição"
-						></TextField>
+						<FormControl sx={{ width: "90%" }}>
+							<TextField sx={{ marginBottom: 1 }}
+								value={selectprod.prod.desc}
+								onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, desc: e.target.value } }))}
+								type="text" label="Descrição"
+							></TextField>
 
-						<TextField sx={{ marginBottom: 1 }}
-							value={selectprod.prod.tam}
-							onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, tam: e.target.value } }))}
-							type="text" label="Tamanho"></TextField>
+							<TextField sx={{ marginBottom: 1 }}
+								value={selectprod.prod.tam}
+								onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, tam: e.target.value } }))}
+								type="text" label="Tamanho"></TextField>
 
-						<TextField sx={{ marginBottom: 1 }}
-							value={selectprod.prod.preco}
-							onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, preco: e.target.value } }))}
-							type="number" label="Preço/UND"></TextField>
-						<TextField sx={{ marginBottom: 1 }}
-							value={selectprod.prod.und}
-							onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, und: e.target.value } }))}
-							type="number" label="Quantidade"></TextField>
-					</div>
-
-					<Box className="row">
-						<Button
-							variant='contained'
-							color='success'
-							className='col m-2'
-							onClick={(e) => {
-								e.preventDefault();
-
-								api.put("/produtos", { ...selectprod.prod, cat: selectprod.prod.cat.map(c => (c.id)), logos: selectprod.prod.logos.map(l => (`${l.id}`)) }).then(r => {
-									if (r.data.status) {
-										Swal.fire(
-											"Atualizado!",
-											"",
-											"success"
-										);
-										setProd(a => {
-											let ProdAnteriores = a;
-											ProdAnteriores[selectprod.index] = selectprod.prod;
-
-											return (ProdAnteriores);
-										});
-										handleCloseTeste();
-									} else {
-										Swal.fire(
-											"Error!",
-											"",
-											"error"
-										);
-										handleCloseTeste();
-									}
-								});
-							}}
-						>Salvar</Button>
-						<Button
-							variant='contained'
-							color='info'
-							className='col m-2'
-							onClick={() => {
-								handleOpenC();
-							}}
-						>
-							Categorias
-						</Button>
+							<TextField sx={{ marginBottom: 1 }}
+								value={selectprod.prod.preco}
+								onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, preco: e.target.value } }))}
+								type="number" label="Preço/UND"></TextField>
+							<TextField sx={{ marginBottom: 1 }}
+								value={selectprod.prod.und}
+								onChange={(e) => setSelectP(a => ({ ...a, prod: { ...a.prod, und: e.target.value } }))}
+								type="number" label="Quantidade"></TextField>
+						</FormControl>
 					</Box>
 
-					<Box className="row">
-						<Button
-							variant='contained'
-							color='error'
-							className='col m-2'
+					{/* botoes */}
 
+					<Box sx={{ display: "flex", width: "70vw", [theme.breakpoints.up("sm")]: { width: "20vw" }, height: "20vh", justifyContent: "space-around", alignItems: "center" }}>
+						<FormControl >
+							<ButtonStyle
+								variant='contained'
+								color='success'
+								onClick={(e) => {
+									e.preventDefault();
 
-							onClick={() => {
-								api.delete(`/produtos?id=${selectprod.prod.id}`).then(r => {
-									if (r.data.status) {
-										let pr = produtos.filter(item => item.id != selectprod.prod.id);
+									api.put("/produtos", { ...selectprod.prod, cat: selectprod.prod.cat.map(c => (c.id)), logos: selectprod.prod.logos.map(l => (`${l.id}`)) }).then(r => {
+										if (r.data.status) {
+											Swal.fire(
+												"Atualizado!",
+												"",
+												"success"
+											);
+											setProd(a => {
+												let ProdAnteriores = a;
+												ProdAnteriores[selectprod.index] = selectprod.prod;
 
-										setProd(pr);
+												return (ProdAnteriores);
+											});
+											handleCloseTeste();
+										} else {
+											Swal.fire(
+												"Error!",
+												"",
+												"error"
+											);
+											handleCloseTeste();
+										}
+									});
+								}}
+							>
+								Salvar
+							</ButtonStyle>
+							<ButtonStyle
+								variant='contained'
+								color='info'
 
-										handleCloseTeste();
-									}
-								});
-							}}
+								onClick={() => {
+									handleOpenC();
+								}}
+							>
+								Categorias
+							</ButtonStyle>
 
-						>
-							Excluir
-						</Button>
-						<Button
-							variant='contained'
-							color='warning'
-							className='col m-2'
-							onClick={() => {
-								handleCloseTeste();
-							}}
-						>
-							Cancelar
-						</Button>
+						</FormControl>
+						<FormControl>
+							<ButtonStyle
+								variant='contained'
+								color='error'
+
+								onClick={() => {
+									api.delete(`/produtos?id=${selectprod.prod.id}`).then(r => {
+										if (r.data.status) {
+											let pr = produtos.filter(item => item.id != selectprod.prod.id);
+
+											setProd(pr);
+
+											handleCloseTeste();
+										}
+									});
+								}}
+
+							>
+								Excluir
+							</ButtonStyle>
+							<ButtonStyle
+								variant='contained'
+								color='warning'
+
+								onClick={() => {
+									handleCloseTeste();
+								}}
+							>
+								Cancelar
+							</ButtonStyle>
+						</FormControl>
 					</Box>
 
 
@@ -461,7 +485,8 @@ function Produtosedit() {
 
 
 
-				</Box>
+
+				</BoxStyle>
 			</Modal>
 
 		</Paper>

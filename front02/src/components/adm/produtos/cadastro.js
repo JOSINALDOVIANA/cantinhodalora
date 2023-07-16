@@ -4,21 +4,22 @@ import { uniqueId } from 'lodash';
 import React from 'react';
 import { api, url } from '../../../api.js'
 import Swal from 'sweetalert2'
-import UploadImage from '../../../functions/UploadImage.js';
 
 
-const style = {
+
+
+
+const BoxStyle=styled(Paper)(({theme})=>({
+  // transition: theme.transitions.create(['width',0.5]),
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-
   bgcolor: 'background.paper',
-  border: '2px solid #000',
+  border: '0.5px solid #000',
   boxShadow: 24,
   padding: 4,
-  // width:"90%"
-};
+}))
 
 const Img = styled("img")({
   margin: "auto",
@@ -38,6 +39,8 @@ const ColorButton = styled(Button)(({ theme }) => ({
 function Produtoscad() {
   // carrega o tema
   const theme = useTheme();
+  // mostra o progresso aio enviar uma Imagem
+  const [progress,setProgress]=React.useState(0)
   //inicializa o produto a ser criado
   const [produto, setProduto] = React.useState({ desc: '', tam: '', logos: [], preco: 0, img: {}, und: 0, id_image: '', cat: [] })
   //carrega todos os produtos ja cadastrados
@@ -225,6 +228,8 @@ function Produtoscad() {
               type="number" label="Quantidade/UND"
             />
             {/* pintup/select categorias */}
+            <FormControl fullWidth>
+
             <InputLabel id="demo-simple-select-label">Categorias</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -249,6 +254,7 @@ function Produtoscad() {
               ))}
 
             </Select>
+            </FormControl>
 
           </div>
 
@@ -323,7 +329,66 @@ function Produtoscad() {
               Escolher logos
             </Button>
             {/* enviar imagem */}
-            <UploadImage setIMGC={setIMG} produto={false}/>
+            {/* <UploadImage setIMGC={setIMG} produto={false}/> */}
+            <IconButton className='col-1' id="Camera" color="success" aria-label="upload picture" component="label">
+              <input id='img' hidden accept="image/*" type="file"
+                onChange={(ee) => {
+                  
+
+                  const files = ee.target.files;
+                  let uploadedFiles = []
+                 
+
+                  for (let iterator of files) {
+
+                    uploadedFiles.push(
+                      {
+                        "file": iterator,
+                        "id": uniqueId(),//definindo um id unico 
+                        "name": iterator.name,
+                        "prod": false,
+                        "readableSize": iterator.size,
+                        preview: URL.createObjectURL(iterator), // criando um link para preview da foto carregada
+                        url: URL.createObjectURL(iterator),// sera usado para setar a variavel img no proprietario/index.js
+                      }
+                    )
+                  }
+
+
+
+                  // CRIANDO UM DATAFORM
+                  const data = new FormData();
+                  data.append('file', uploadedFiles[0].file, uploadedFiles[0].name);
+
+                  // SALVANDO NOVA IMAGEM
+                  console.log(data)
+
+                  try {
+                    api.post(`/insertImageP`, data, {
+                      onUploadProgress: e => {
+                        let progr = parseInt(Math.round((e.loaded * 100) / e.total));
+                        setProgress(a => a + progr)
+                      }
+                    }).then(r => {                     
+
+                      Swal.fire(
+                        'Imagem Salva!',
+                        '',
+                        'success'
+                      )
+                      setIMGC(a => !a)
+
+
+                    })
+
+                  } catch (error) {
+                    console.log(error)
+                    alert("formato nao aceito");
+                  }
+                }}
+              />
+              <PhotoCamera />
+            </IconButton>
 
           </Box>
         </Box>
@@ -426,19 +491,19 @@ function Produtoscad() {
       </Box>
 
 
-      {/* select */}
+      {/* select de produtos caso a tela seja pequena*/}
       <Box sx={{
         width: "90%", [theme.breakpoints.up("md")]: {
           display: 'none'
         }
       }}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Produto</InputLabel>
+          <InputLabel id="demo-simple-select-label">Produtos</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={age2}
-            label="Produto"
+            label="Produtos"
             onChange={handleChange2}
           >
             {produtos?.map((p, i) => (
@@ -456,10 +521,10 @@ function Produtoscad() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <BoxStyle >
 
 
-          <ImageList sx={{ width: 500, height: 450, marginTop: 2 }} cols={3} rowHeight={164}>
+          <ImageList sx={{ width: "90vw", height: "70vh", marginTop: 2 }}  rowHeight={"auto"}>
             {imagens?.map((item) => (
               <ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
                 <img
@@ -472,7 +537,7 @@ function Produtoscad() {
               </ImageListItem>
             ))}
           </ImageList>
-        </Box>
+        </BoxStyle>
       </Modal>
 
       {/* fotos principal */}
@@ -482,10 +547,10 @@ function Produtoscad() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <BoxStyle >
 
 
-          <ImageList sx={{ width: 500, height: 450, marginTop: 2 }} cols={3} rowHeight={164}>
+          <ImageList sx={{ width: "90vw", height: "70vh", marginTop: 2 }}  rowHeight={"auto"}>
             {imagens?.map((item) => (
               <ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
                 <img
@@ -498,7 +563,7 @@ function Produtoscad() {
               </ImageListItem>
             ))}
           </ImageList>
-        </Box>
+        </BoxStyle>
       </Modal>
 
 

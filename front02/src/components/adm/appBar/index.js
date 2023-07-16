@@ -23,7 +23,7 @@ export default function MenuAppBar() {
 	const [Dados,setDados]=useContext(DadosContext);
     useEffect(() => {
 		if (Object.keys(Dados).length>0) { return }
-		navegar("/")
+		navegar("/login")
 	  }, [Dados])
 	
 	//controla o menu suspenso

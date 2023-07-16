@@ -16,8 +16,7 @@ export const __dirname = path.dirname(__filename);
 export default {
     async uploadIMGclient (req,res){
         let { originalname: name, size, key, location: url = ''} = req.file;
-        // console.log(req.body)
-        // url=`http://localhost:3001/images/${key}`
+        
             const id = `${Crypto.randomBytes(12).toString('HEX')}`;
     
             try {
@@ -71,6 +70,7 @@ export default {
     },
     async uploadIMGprod (req,res){
         let { originalname: name, size, key, location: url = '' } = req.file;
+        console.log(req.file)
        
             const id = `${Crypto.randomBytes(12).toString('HEX')}`;
     

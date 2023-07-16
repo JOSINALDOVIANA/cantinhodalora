@@ -15,11 +15,11 @@ export default {
     storage: multer.diskStorage({
         destination: (req,file, cb) => {
 
-            cb(null, path.resolve(__dirname,"..",'..','..', 'tmp', 'uploads'));
+            cb(null, path.resolve(__dirname,"..",'..',"..",'tmp', 'uploads'));
         },
         filename: (req, file, cb) => {
             Crypto.randomBytes(16, (err, hash) => {
-                if (err) { cb(err) };
+                if (err) { cb(err);console.log(err) };
                 file.key = `${hash.toString('hex')}-${file.originalname}`;
                 cb(null, file.key);
             });
