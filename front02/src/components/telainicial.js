@@ -18,7 +18,7 @@ function TelaInicial() {
     <React.Fragment>
       <CssBaseline />
       <MenuAppBar></MenuAppBar>
-      <Container sx={{ marginTop: theme.spacing(10), paddingBottom: theme.spacing(5) }} >
+      <Container maxWidth={false} sx={{ margin:0,marginTop: theme.spacing(10), padding:1,paddingBottom:theme.spacing(10) }} >
         <Outlet></Outlet>
       </Container>
     </React.Fragment>

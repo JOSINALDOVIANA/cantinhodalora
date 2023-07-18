@@ -28,7 +28,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 
 		<Paper
 
-			elevation={1}
+			elevation={24}
 			sx={{
 				display: "flex",
 				borderRadius: 1,
@@ -72,7 +72,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 
 
 
-			{logos.length > 0 ? <Typography noWrap sx={{  fontFamily: "Roboto", "&:hover": { cursor: "pointer" },marginBottom:1 }} onClick={() => {
+			{logos.length > 0 ? <Typography noWrap sx={{  fontFamily: "Roboto", "&:hover": { cursor: "pointer" },fontSize:"0.8em",marginBottom:1 }} onClick={() => {
 				if (logos.length > 0) {
 
 					if (window.getComputedStyle(document.getElementById(id), null).display == "none") {
@@ -97,14 +97,14 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 
 
 
-				<Box  sx={{ flexGrow: 1, display: "flex", flexDirection: "column", alignItems: "center",marginBottom:2  }}>
-					<Typography noWrap sx={{ fontFamily: "Roboto",width:"100%",textAlign:"center" }}  >
+				<Box  sx={{ display: "flex", flexDirection: "column", alignItems: "center",marginBottom:2,width:"97%"  }}>
+					<Typography noWrap sx={{ fontFamily: "Roboto",width:"90%",textAlign:"center" }}  >
 						{desc}
 					</Typography>
 					<Typography> {tamanho}</Typography>
 
 				</Box>
-				<Button variant="contained" sx={{width:"100%","&:hover":{cursor:"default"}}} color="warning">
+				<Button variant="contained" sx={{width:"90%","&:hover":{cursor:"default"}}} color="warning">
 					<Typography noWrap sx={{ fontSize: "1rem", textAlign: "center", fontFamily: "Roboto", fontWeight: "bold" }} variant="subtitle1" component="span">
 						{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(valor)}
 					</Typography>
