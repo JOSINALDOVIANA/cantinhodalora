@@ -5,7 +5,7 @@ import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { Badge, Box, Button, Chip } from "@mui/material";
-import { red, green } from "@mui/material/colors";
+import { red, green, purple } from "@mui/material/colors";
 
 // eslint-disable-next-line no-unused-vars
 import { ListAlt } from "@mui/icons-material";
@@ -19,6 +19,14 @@ const Img = styled("img")({
 	maxHeight: "100%",
 });
 
+// const ColorButton = styled(Button)(({ theme }) => ({
+// 	color: theme.palette.getContrastText(green[900]),
+// 	backgroundColor: green[900],
+// 	'&:hover': {
+// 	  backgroundColor: green[500],
+// 	},
+//   }));
+
 
 
 export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, und }) {
@@ -28,7 +36,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 
 		<Paper
 
-			elevation={24}
+			elevation={3}
 			sx={{
 				display: "flex",
 				borderRadius: 1,
@@ -98,10 +106,10 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 
 
 				<Box  sx={{ display: "flex", flexDirection: "column", alignItems: "center",marginBottom:2,width:"97%"  }}>
-					<Typography noWrap sx={{ fontFamily: "Roboto",width:"90%",textAlign:"center" }}  >
+					<Typography noWrap sx={{ fontFamily: "Roboto",width:"90%",textAlign:"center",fontStretch:"extra-condensed",fontWeight:"bold" }}  >
 						{desc}
 					</Typography>
-					<Typography> {tamanho}</Typography>
+					<Typography sx={{fontStyle:"italic",fontFamily:"Roboto"}}> {tamanho}</Typography>
 
 				</Box>
 				<Button variant="contained" sx={{width:"90%","&:hover":{cursor:"default"}}} color="warning">

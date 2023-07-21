@@ -1,16 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import SearchIcon from '@mui/icons-material/Search';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { BsFacebook, BsInstagram, BsWhatsapp, BsArrowDownLeftSquare } from "react-icons/bs";
-import {  InputBase, alpha, styled, useTheme } from "@mui/material";
-import { SearchContex, TrocarTheme } from "../../routs";
+import {  Button, Dialog, DialogTitle, FormControl, InputBase, Paper, TextField, Typography, alpha, styled, useTheme } from "@mui/material";
+import { DadosContext, SearchContex, TrocarTheme } from "../../routs";
+import { useQuery } from "../../functions/searchquery";
+import { Cancel, CloseSharp, CoffeeOutlined, Face, FlagOutlined, Settings } from "@mui/icons-material";
+import { api } from "../../api";
+import Swal from "sweetalert2";
 
 const Search = styled('div')(({ theme }) => ({
 	position: 'relative',
@@ -54,21 +58,32 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 export default function MenuAppBar(prop) {
+	const {name}=useParams()
+	const query = useQuery();
+	
 
 	const [search, setSearch] = useContext(SearchContex);
+	const [openDialog, setDialog] =useState(false);
+	const [Dados, setDados] = useContext(DadosContext);
+	const dadosrota=useLocation()
 
-	const navegator = useNavigate();
+	const navegador = useNavigate();
 	const theme = useTheme()
 	const [anchorE2, setAnchorE2] = React.useState(null);
 	const handleMenu2 = (event) => {		
 		setAnchorE2(event.currentTarget);
 	};
-
+	
+	useEffect(()=>{
+		if(!!dadosrota?.state?.user){setDados(a=>({...a,user:dadosrota?.state?.user}))}
+	},[dadosrota])
 
 
 	const handleClose2 = () => {
 		setAnchorE2(null);
 	};
+
+	console.log(Dados)
 
 	return (
 		<Box flexGrow>
@@ -79,7 +94,7 @@ export default function MenuAppBar(prop) {
 			sx={{
 				background: "transparent",
 				color: theme.palette.mode == "light" ? "#000" : null,
-				boxShadow:`0px 0px 10px 0 ${theme.palette.mode=="dark"?"#fff":"#000"}`,
+				boxShadow:`0px 0px 10px 0 #ffa726`,
 				verticalAlign: "center",
 			}}
 			>
@@ -96,7 +111,7 @@ export default function MenuAppBar(prop) {
 						<MenuIcon />
 					</IconButton>
 
-					<Box sx={{ display: "flex" }} component={"div"}>
+					<Box sx={{ display: "flex",width:"auto", alignItems:"center",justifyContent:"space-around" }} component={"div"}>
 						<Search  >
 							<SearchIconWrapper>
 								<SearchIcon />
@@ -108,6 +123,34 @@ export default function MenuAppBar(prop) {
 								onChange={e => setSearch(e.target.value)}
 							/>
 						</Search>
+
+						{!Dados.user?<Button onClick={()=>{
+							setDialog(true)
+						}} sx={{marginLeft:2}} color="success" variant="contained" startIcon={<Face></Face>}>
+							Login
+						</Button>:
+						<Box sx={{display:"flex",justifyContent:"space-around",alignItems:"center",width:"100%"}}>
+
+							<Typography sx={{fontFamily:"Roboto",fontWeight:"300",margin:1}}>
+								{Dados.user.nome}
+							</Typography>
+							<Cancel
+							onClick={()=>{
+								let d=delete Dados.user;
+								setDados(d)
+							}}
+							 sx={{cursor:"pointer",margin:1}} 
+							 color="error">
+
+							 </Cancel>
+
+							 <Settings onClick={()=>{
+								navegador("/cliente",{state:{...Dados.user}})
+							 }} sx={{cursor:"pointer"}}></Settings>
+
+						</Box>
+
+						}
 
 
 						<TrocarTheme></TrocarTheme>
@@ -137,11 +180,68 @@ export default function MenuAppBar(prop) {
 						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("http://www.instagran.com/cantinho_dalora"); handleClose2(); }}><BsInstagram color="#405DE6"></BsInstagram>Instagran</MenuItem>
 						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("https://www.facebook.com/cantinhodalora"); handleClose2(); }}><BsFacebook color="#4267B2"></BsFacebook>Facebook</MenuItem>
 						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("https://api.whatsapp.com/send?phone=+5596981325410&text=Oi"); handleClose2(); }}><BsWhatsapp color="#25D366"></BsWhatsapp>Proprietário</MenuItem>
-						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { navegator("/login") }}><BsArrowDownLeftSquare color="#e02141"></BsArrowDownLeftSquare>Login/Entrar</MenuItem>
+						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => {navegador("/login") }}><BsArrowDownLeftSquare color="#e02141"></BsArrowDownLeftSquare>Login/Entrar</MenuItem>
 
 
 
 					</Menu>
+
+					<Dialog onClose={()=>{setDialog(false)}} open={openDialog}>
+						<DialogTitle sx={{textAlign:"center"}}>
+							LOGIN
+						</DialogTitle>
+						<Paper 
+						sx={{
+							display:"flex",
+							justifyContent:"center",
+							alignItems:"center",
+							width:"auto",
+							height:"50vh"
+						}} 
+						onSubmit={async(e)=>{
+							e.preventDefault()
+							api.post("clientes/login",{email:e.target["email"].value,password:e.target["password"].value}).then(r=>{
+								if(!r.data.status){
+									
+									setDialog(false);
+									Swal.fire(
+										"erro ao logar",
+										`<Typography component={"span"}>Tente Novamente, se persistir contacte o ADM do estabelecimento ou tente o "esqueci a senha"</Typography>`,
+										"error"
+										)
+								}else{
+									// console.log(r.data)
+									setDados(a=>({...a,user:{...r.data.dados}}));
+									setDialog(false);
+									Swal.fire(
+										"Login realizado com sucesso",
+										`<Typography component={"span"}>Por favor sinta-se a vontade!!</Typography>`,
+										"success"
+										)
+								}
+
+							})
+							
+						}}  
+						component={"form"}>
+
+							<FormControl sx={{display:"flex",flexDirection:"column",justifyContent:"space-evenly",height:"100%",margin:2}}>
+								<TextField  name="email" label="E-mail" type="text"></TextField>
+								<TextField  name="password" label="Senha" type="password"></TextField>
+								<Box component={"div"} sx={{display:"flex",width:"90%",justifyContent:"space-around"}}>
+								<Typography href="/recuperar" sx={{textDecoration:"none",cursor:"pointer",margin:2}} component={"a"}>Esqueci a senha</Typography>
+								<Typography href="/cadastro" sx={{textDecoration:"none",cursor:"pointer",margin:2}} component={"a"}>Cadastrar</Typography>
+								</Box>
+								<Box component={"div"} sx={{display:"flex",width:"90%",justifyContent:"space-around"}}>
+
+								<Button sx={{"& ":{marginRight:2}}} type="submit" variant="contained" color="success">Entrar</Button>
+								<Button type="button" onClick={()=>{setDialog(false)}} variant="contained" color="error">Cancelar</Button>
+								</Box>
+							</FormControl>
+
+						</Paper>
+						
+					</Dialog>
 
 
 

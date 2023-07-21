@@ -121,7 +121,7 @@ export default function GridContainer() {
               img={!!p.id_image ? p.img.url : ""}
               desc={p.desc}
               tamanho={p.tam}
-              valor={p.tam == "Carteira (20 UND)" ? 20 : p.preco}
+              valor={p.tam == "Carteira (20 UND)" ? 25 : p.preco}
               logos={p.logos}
               id={p.id}
               und={p.und} />

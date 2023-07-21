@@ -6,6 +6,9 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Load from './components/load';
+import Cliente from './components/cliente';
+import Swal from 'sweetalert2';
+import { Typography } from '@mui/material';
 // const InicialTela = React.lazy(() => import("./telas/home/index.js"));
 const TelaInicial = React.lazy(()=>import('./components/telainicial.js')) ;
 const Produtos = React.lazy(()=>import('./components/produtos/index.js')) ;
@@ -19,7 +22,7 @@ const Imagenscli = React.lazy(()=>import('./components/adm/imagens/imagenscli.js
 const Imagensprod = React.lazy(()=>import('./components/adm/imagens/imagenspro.js')) ;
 const Promo = React.lazy(()=>import('./components/adm/promo/index.js')) ;
 const Perfil = React.lazy(()=>import('./components/adm/index.js')) ;
-
+const TelaIncialCliente= React.lazy(()=>import('./components/cliente/index.js')) ;
 
 
 
@@ -79,6 +82,7 @@ export function Rotas() {
                     <BrowserRouter >
 
                         <Routes>
+                        <Route path="/*" element={<Typography>DESCULPE!! este recuso esta indisponivel ou em desenvolvimento</Typography>} />
                             <Route path="/" element={<TelaInicial />} >
                                 <Route index element={<Produtos />}></Route>
                             </Route>
@@ -94,6 +98,9 @@ export function Rotas() {
                                 <Route path="/perfil/imagensclientes" element={<Imagenscli />}></Route>
                                 <Route path="/perfil/imagensprodutos" element={<Imagensprod />}></Route>
                                 <Route path="/perfil/promocoes" element={<Promo />}></Route>
+                            </Route>
+                            <Route path="/cliente" element={<TelaIncialCliente/>} >
+                                <Route index element={<TelaIncialCliente />}></Route>
                             </Route>
                             {/* <Route path="/" element={<InicialTela />} >
                                 <Route index element={<Produtos />}></Route>
