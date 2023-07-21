@@ -8,7 +8,7 @@ export default {
            let dados=await conexao("clientes").where({email,senha}).first();
 
         if(!!dados){
-            dados.image=await conexao("images").where({id:dados.id_image})
+            dados.image=await conexao("images").where({id:dados.id_image}).first()
             dados.image.url=`http:${process.IP_SERVER}/images+${dados.image.key}`
             return res.json({status:true,dados})
         }
