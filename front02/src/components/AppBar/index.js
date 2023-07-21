@@ -187,7 +187,7 @@ export default function MenuAppBar(prop) {
 					</Menu>
 
 					<Dialog onClose={()=>{setDialog(false)}} open={openDialog}>
-						<DialogTitle sx={{textAlign:"center"}}>
+						<DialogTitle sx={{textAlign:"center",padding:4}}>
 							LOGIN
 						</DialogTitle>
 						<Paper 
