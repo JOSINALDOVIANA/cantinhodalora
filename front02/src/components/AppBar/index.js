@@ -94,7 +94,7 @@ export default function MenuAppBar(prop) {
 			sx={{
 				background: "transparent",
 				color: theme.palette.mode == "light" ? "#000" : null,
-				boxShadow:`0px 0px 10px 0 #ffa726`,
+				// boxShadow:`0px 0px 10px 0 #ffa726`,
 				verticalAlign: "center",
 			}}
 			>
@@ -111,6 +111,10 @@ export default function MenuAppBar(prop) {
 						<MenuIcon />
 					</IconButton>
 
+					<Typography
+					sx={{fontFamily:"Lunasima",fontSize:"2rem",[theme.breakpoints.down("md")]:{display:"none"}}}
+					>CANTINHO DA LORA</Typography>
+
 					<Box sx={{ display: "flex",width:"auto", alignItems:"center",justifyContent:"space-around" }} component={"div"}>
 						<Search  >
 							<SearchIconWrapper>
@@ -126,7 +130,7 @@ export default function MenuAppBar(prop) {
 
 						{!Dados.user?<Button onClick={()=>{
 							setDialog(true)
-						}} sx={{marginLeft:2}} color="success" variant="contained" startIcon={<Face></Face>}>
+						}} sx={{marginLeft:1,padding:"auto 3px auto 3px"}} color="success" variant="contained" startIcon={<Face></Face>}>
 							Login
 						</Button>:
 						<Box sx={{display:"flex",justifyContent:"space-around",alignItems:"center",width:"100%"}}>
