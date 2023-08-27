@@ -12,7 +12,7 @@ import { BsFacebook, BsInstagram, BsWhatsapp, BsArrowDownLeftSquare } from "reac
 import {  Button, Dialog, DialogTitle, FormControl, InputBase, Paper, TextField, Typography, alpha, styled, useTheme } from "@mui/material";
 import { DadosContext, SearchContex, TrocarTheme } from "../../routs";
 import { useQuery } from "../../functions/searchquery";
-import { Cancel, CloseSharp, CoffeeOutlined, Face, FlagOutlined, Settings } from "@mui/icons-material";
+import { Cancel, Settings } from "@mui/icons-material";
 import { api } from "../../api";
 import Swal from "sweetalert2";
 
@@ -83,12 +83,13 @@ export default function MenuAppBar(prop) {
 		setAnchorE2(null);
 	};
 
-	console.log(Dados)
+	
 
 	return (
 		<Box flexGrow>
 
 			<AppBar 
+			elevation={0}
 			// flexGrow 
 			position="static" 
 			sx={{
@@ -111,9 +112,9 @@ export default function MenuAppBar(prop) {
 						<MenuIcon />
 					</IconButton>
 
-					<Typography
+					{/* <Typography
 					sx={{fontFamily:"Lunasima",fontSize:"2rem",[theme.breakpoints.down("md")]:{display:"none"}}}
-					>CANTINHO DA LORA</Typography>
+					>CANTINHO DA LORA</Typography> */}
 
 					<Box sx={{ display: "flex",width:"auto", alignItems:"center",justifyContent:"space-around" }} component={"div"}>
 						<Search  >
@@ -130,7 +131,9 @@ export default function MenuAppBar(prop) {
 
 						{!Dados.user?<Button onClick={()=>{
 							setDialog(true)
-						}} sx={{marginLeft:1,padding:"auto 3px auto 3px"}} color="success" variant="contained" startIcon={<Face></Face>}>
+						}} sx={{marginLeft:1,padding:"auto 3px auto 3px",borderRadius:"20px"}} color="success" variant="contained" 
+						// startIcon={<Face></Face>}
+						>
 							Login
 						</Button>:
 						<Box sx={{display:"flex",justifyContent:"space-around",alignItems:"center",width:"100%"}}>
@@ -164,7 +167,8 @@ export default function MenuAppBar(prop) {
 
 
 					<Menu
-
+					
+						
 						id="menu-appbar"
 						anchorEl={anchorE2}
 						anchorOrigin={{
@@ -184,7 +188,7 @@ export default function MenuAppBar(prop) {
 						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("http://www.instagran.com/cantinho_dalora"); handleClose2(); }}><BsInstagram color="#405DE6"></BsInstagram>Instagran</MenuItem>
 						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("https://www.facebook.com/cantinhodalora"); handleClose2(); }}><BsFacebook color="#4267B2"></BsFacebook>Facebook</MenuItem>
 						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => { window.open("https://api.whatsapp.com/send?phone=+5596981325410&text=Oi"); handleClose2(); }}><BsWhatsapp color="#25D366"></BsWhatsapp>Proprietário</MenuItem>
-						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "150px" }} onClick={() => {navegador("/login") }}><BsArrowDownLeftSquare color="#e02141"></BsArrowDownLeftSquare>Login/Entrar</MenuItem>
+						<MenuItem sx={{ display: "flex", justifyContent: "space-between", width: "200px" }} onClick={() => {navegador("/login") }}><BsArrowDownLeftSquare color="#e02141"></BsArrowDownLeftSquare>Área administrativa</MenuItem>
 
 
 

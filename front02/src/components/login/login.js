@@ -16,9 +16,8 @@ export default function Login() {
 	const theme = useTheme()
 	const [values, setValues] = React.useState({ email: "", password: "" });
 	const [Dados, setDados] = React.useContext(DadosContext);
-	const [cliente, setCliente] = React.useState(true);
-	const [proprietário, setProp] = React.useState(false);
-	console.log(cliente)
+	
+	
 
 	return (
 		<React.Fragment>
@@ -71,7 +70,7 @@ export default function Login() {
 
 
 						height: "60%",
-						// backgroundColor:theme.palette.mode=="dark"?"#fff":"#000",
+						
 						[theme.breakpoints.down("md")]: { height: "70%", width: "90%" },
 						width: "50%",
 						display: "flex",
@@ -79,8 +78,7 @@ export default function Login() {
 						justifyContent: "space-evenly",
 						alignItems: "center",
 						padding: theme.spacing(1),
-						// marginTop:theme.spacing(3),
-						// marginBottom:theme.spacing(3),
+						
 
 					}}
 					component="form"
@@ -88,20 +86,14 @@ export default function Login() {
 					autoComplete
 					onSubmit={async (e) => {
 						e.preventDefault();
-						if (proprietário){
+						
 							api.post("/login", { ...values }).then(r => {
 								// console.log(r.data);
 								if (r.data.status) { setDados({ user: r.data.user }); navegator("/perfil", { state: r.data.user }); }
 								else { alert(r.data.mensagem); }
 							});
-						}
-						else{
-							api.post("clientes/login", { ...values }).then(r => {
-								;
-								if (r.data.status) { setDados({ user: r.data.dados }); navegator("/perfil", { state: r.data.dados }); }
-								else { alert(r.data.mensagem); }
-							});
-						}
+						
+					
 					}}
 					action="#"
 
@@ -114,10 +106,10 @@ export default function Login() {
 
 					<TextField id="password" variant="outlined" label="Senha" sx={{ marginBottom: theme.spacing(1), width: "70%" }} onChange={(e) => setValues(a => ({ ...a, password: e.target.value }))} type="password" ></TextField>
 
-					<FormGroup sx={{display:"flex",justifyContent:"space-evenly",width:"90%",alignItems:"center",flexDirection:"row"}}>
+					{/* <FormGroup sx={{display:"flex",justifyContent:"space-evenly",width:"90%",alignItems:"center",flexDirection:"row"}}>
 						<FormControlLabel control={<Checkbox  checked={cliente} onChange={()=>{setCliente(a=>!a);setProp(a=>!a)}} />} label="Cliente" />
 						<FormControlLabel  control={<Checkbox checked={proprietário} onChange={()=>{setProp(a=>!a);setCliente(a=>!a)}} />} label="Proprietário" />						
-					</FormGroup>
+					</FormGroup> */}
 
 
 					<Button type='submit' sx={{ width: "50%", padding: theme.spacing(2), fontFamily: "Roboto", fontWeight: "bold", fontSize: "1rem" }} variant="contained" color="success">Entrar</Button>

@@ -45,7 +45,7 @@ function Promo() {
 				
 
 				<Paper
-				elevation={0}
+				elevation={1}
 					sx={{
 
 						width: "100%",
@@ -53,7 +53,7 @@ function Promo() {
 						justifyContent:"space-between",
 						alignItems:"center",
 						maxHeight:400,
-						background:"transparent",
+						// background:"transparent",
 
 
 						[theme.breakpoints.down("sm")]: {

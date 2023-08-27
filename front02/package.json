@@ -2,6 +2,7 @@
   "name": "front02",
   "version": "0.1.0",
   "private": true,
+ " throwIfNamespace": false,
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
