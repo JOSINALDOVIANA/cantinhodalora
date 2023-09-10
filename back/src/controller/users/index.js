@@ -11,7 +11,7 @@ export default {
                 dados.img=await conexao("images").where({"id":dados.id_image}).first()
                 if(!!dados.img){
                     dados.img.delete=`http://${process.env.IP_SERVER}:3009/deleteImage?id=${dados.img.id}&key=${dados.img.key}`
-                    images[key].url=`http://${process.env.IP_SERVER}:3009/images/${dados.img.key}`;
+                    dados.img.url=`http://${process.env.IP_SERVER}:3009/images/${dados.img.key}`;
                 }
             }
             return res.json({status:true,user:dados})
@@ -33,9 +33,9 @@ export default {
     }
  },
  async Update(req,res){
-    const {id,email,password,name}=req.body;
+    const {id,email,password,name,id_image=null}=req.body;
     try {
-        await conexao("users").where({id}).update({email,password,name});
+        await conexao("users").where({id}).update({email,password,name,id_image});
         
         return res.json({status:true,mensagem:"Dados salvos"})
     } catch (error) {
