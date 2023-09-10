@@ -4,8 +4,8 @@ export function up(knex) {
         table.increments('id');        
         table.string('desc').notNullable();
         table.string('tam').notNullable();
-        table.integer('preco').notNullable().defaultTo(0);
-        table.string('url').notNullable();
+        table.integer('preco').notNullable().defaultTo(0);         
+        table.string('url').notNullable();         
         table.integer('und').notNullable();
         table.string('id_image').defaultTo("null");
         table.foreign('id_image').references('id').inTable('images').onDelete("SET NULL");  
