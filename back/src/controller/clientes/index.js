@@ -2,15 +2,15 @@ import conexao from "../../databases/conexao.js"
 
 export default {
     async Login (req,res){
-        let {email,password:senha}=req.body
-        console.log(req.body)
+        let {email,password}=req.body
+        // console.log(req.body)
         try {
-           let dados=await conexao("clientes").where({email,senha}).first();
+           let user=await conexao("clientes").where({email,password}).first();
 
-        if(!!dados){
-            dados.image=await conexao("images").where({id:dados.id_image}).first()
-            dados.image.url=`http:${process.env.IP_SERVER}:3009/images/${dados.image.key}`
-            return res.json({status:true,dados})
+        if(!!user){
+            user.img=await conexao("images").where({id:user.id_image}).first()
+            user.img.url=`http:${process.env.IP_SERVER}:3009/images/${user.image.key}`
+            return res.json({status:true,user})
         }
         else{
             return res.json({status:false,mensagem:"verifique os dados digitados e tente novamente"})
