@@ -9,10 +9,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { BsFacebook, BsInstagram, BsWhatsapp, BsArrowDownLeftSquare } from "react-icons/bs";
-import {  Button, Dialog, DialogTitle, FormControl, InputBase, Paper, TextField, Typography, alpha, styled, useTheme } from "@mui/material";
+import {  Avatar, Button, Dialog, DialogTitle, FormControl, InputBase, Paper, TextField, Typography, alpha, styled, useTheme } from "@mui/material";
 import { DadosContext, SearchContex, TrocarTheme } from "../../routs";
 import { useQuery } from "../../functions/searchquery";
-import { Cancel, Settings } from "@mui/icons-material";
+import { Cancel, People, Settings } from "@mui/icons-material";
 import { api } from "../../api";
 import Swal from "sweetalert2";
 
@@ -64,26 +64,25 @@ export default function MenuAppBar(prop) {
 
 	const [search, setSearch] = useContext(SearchContex);
 	const [openDialog, setDialog] =useState(false);
+	
 	const [Dados, setDados] = useContext(DadosContext);
-	const dadosrota=useLocation()
+	
 
 	const navegador = useNavigate();
 	const theme = useTheme()
+
+	
 	const [anchorE2, setAnchorE2] = React.useState(null);
 	const handleMenu2 = (event) => {		
 		setAnchorE2(event.currentTarget);
 	};
-	
-	useEffect(()=>{
-		if(!!dadosrota?.state?.user){setDados(a=>({...a,user:dadosrota?.state?.user}))}
-	},[dadosrota])
-
-
 	const handleClose2 = () => {
 		setAnchorE2(null);
 	};
+	
 
 	
+console.log(Dados)
 
 	return (
 		<Box flexGrow>
@@ -128,19 +127,20 @@ export default function MenuAppBar(prop) {
 								onChange={e => setSearch(e.target.value)}
 							/>
 						</Search>
+						<Box component={"div"} sx={{backgroundImage:`url(${Dados?.user?.img?.url})`,display: "flex", justifyContent: "center", alignItems: "center", maxHeight: "30px", maxWidth: "30px", objectFit: "cover"}}></Box>
 
-						{!Dados.user?<Button onClick={()=>{
+						{!Dados.user?
+						<People onClick={()=>{
 							setDialog(true)
-						}} sx={{marginLeft:1,padding:"auto 3px auto 3px",borderRadius:"20px"}} color="success" variant="contained" 
-						// startIcon={<Face></Face>}
+						}}  
+						 sx={{ml:1}}
+						
 						>
-							Login
-						</Button>:
+							
+						</People>:
 						<Box sx={{display:"flex",justifyContent:"space-around",alignItems:"center",width:"100%"}}>
 
-							<Typography sx={{fontFamily:"Roboto",fontWeight:"300",margin:1}}>
-								{Dados.user.nome}
-							</Typography>
+							
 							<Cancel
 							onClick={()=>{
 								let d=delete Dados.user;
@@ -195,7 +195,7 @@ export default function MenuAppBar(prop) {
 					</Menu>
 
 					<Dialog onClose={()=>{setDialog(false)}} open={openDialog}>
-						<DialogTitle sx={{textAlign:"center",padding:4}}>
+						<DialogTitle sx={{textAlign:"center",padding:4,bgcolor:"background.paper"}}>
 							LOGIN
 						</DialogTitle>
 						<Paper 
@@ -218,8 +218,8 @@ export default function MenuAppBar(prop) {
 										"error"
 										)
 								}else{
-									// console.log(r.data)
-									setDados(a=>({...a,user:{...r.data.dados}}));
+									
+									setDados(a=>({...a,user:{...r.data.user}}));
 									setDialog(false);
 									Swal.fire(
 										"Login realizado com sucesso",

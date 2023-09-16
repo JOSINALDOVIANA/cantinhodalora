@@ -124,11 +124,11 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 
 				</Box>
 
-				<Button variant="contained" sx={{ width: "95%", height: "70px", marginBottom: theme.spacing(2), "&:hover": { cursor: "default" } }} color="warning">
-					<Typography noWrap sx={{ fontSize: "1.5rem", textAlign: "center", fontFamily: "Roboto", fontWeight: "bold" }} variant="subtitle1" component="span">
+				
+					<Typography noWrap sx={{ color:"#e02141", fontSize: "1.5rem", textAlign: "center", fontFamily: "Roboto", fontWeight: "bold" }}  >
 						{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(valor)}
 					</Typography>
-				</Button>
+				
 
 				<Typography sx={{ fontSize: "0.7em" }} color={green[600]} noWrap gutterBottom variant="subtitle1" component="div">
 					Verifique a disponibilidade

@@ -145,7 +145,8 @@ function ResponsiveAppBar() {
             {/* <IconButton
               //  onClick={handleOpenUserMenu}
               sx={{ p: 0 }}> */}
-              <Avatar alt="Remy Sharp" src={Dados?.user?.image?.url} />
+              
+              {!!Dados  && <Box component={"div"} sx={{backgroundImage:`url(${Dados?.user?.img?.url})`,display: "flex", justifyContent: "center", alignItems: "center", maxHeight: "30px", maxWidth: "30px", objectFit: "cover"}}></Box> }
             {/* </IconButton> */}
             {/* </Tooltip> */}
             {/* <Menu

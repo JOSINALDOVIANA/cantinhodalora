@@ -9,7 +9,7 @@ export default {
 
         if(!!user){
             user.img=await conexao("images").where({id:user.id_image}).first()
-            user.img.url=`http:${process.env.IP_SERVER}:3009/images/${user.img.key}`
+            user.img.url=`http://${process.env.IP_SERVER}:3009/images/${user.img.key}`
             return res.json({status:true,user})
         }
         else{
