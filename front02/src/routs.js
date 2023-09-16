@@ -1,14 +1,12 @@
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
-import Box from '@mui/material/Box';
 import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Load from './components/load';
-import Cliente from './components/cliente';
-import Swal from 'sweetalert2';
+import {MdBrightness6,MdBrightness4} from "react-icons/md"
+
 import { Typography } from '@mui/material';
+import { Brightness1, Brightness2 } from '@mui/icons-material';
 // const InicialTela = React.lazy(() => import("./telas/home/index.js"));
 const TelaInicial = React.lazy(() => import('./components/telainicial.js'));
 const Produtos = React.lazy(() => import('./components/produtos/index.js'));
@@ -37,8 +35,8 @@ export function TrocarTheme(props) {
     return (
 
 
-        <IconButton {...props} sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+        <IconButton {...props}  onClick={colorMode.toggleColorMode} color="inherit">
+            {theme.palette.mode === 'dark' ? <MdBrightness4 /> : <Brightness2 />}
         </IconButton>
 
     );

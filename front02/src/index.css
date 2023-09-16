@@ -9,6 +9,13 @@
 body,
 html,
 #root {
+  --primary: #8257e5;
+  --primary-facebook: #4267B2;
+  --primary-telegran: #405DE6;
+  --primary-whatsapp: #25D366;
+  --configDanger: #e02141;
+  --configDanger-dark: #440812;
+
   margin: 0;
   padding: 0;
   box-sizing: border-box;
