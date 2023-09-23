@@ -89,6 +89,7 @@ export default function MenuAppBar() {
 						<MenuItem onClick={() => { navegar("/perfil/promocoes", { state: Dados.user}) }}>Promoções</MenuItem>
 						<MenuItem onClick={() => { navegar("/perfil/fecharCaixa", { state: Dados.user }) }}>Fechamentos</MenuItem>
 						<MenuItem onClick={() => { navegar("/perfil/relatorio", { state: Dados.user }) }}>Relatotios</MenuItem>
+						<MenuItem onClick={() => { navegar("/") }}>Página inicial</MenuItem>
 						<MenuItem onClick={() => { delete Dados["user"]; navegar("/") }}>Sair</MenuItem>
 					</Menu>
 				</Toolbar>

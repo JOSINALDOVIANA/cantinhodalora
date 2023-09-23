@@ -45,7 +45,7 @@ function Promo() {
 				
 
 				<Paper
-				elevation={1}
+				elevation={0}
 					sx={{
 
 						width: "100%",

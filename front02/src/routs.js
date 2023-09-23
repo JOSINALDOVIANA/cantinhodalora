@@ -10,7 +10,7 @@ import { Brightness1, Brightness2 } from '@mui/icons-material';
 // const InicialTela = React.lazy(() => import("./telas/home/index.js"));
 const TelaInicial = React.lazy(() => import('./components/telainicial.js'));
 const Produtos = React.lazy(() => import('./components/produtos/index.js'));
-const Login = React.lazy(() => import('./components/login/login.js'));
+const Login = React.lazy(() => import('./components/adm/user/login.js'));
 const Produtosedit = React.lazy(() => import('./components/adm/produtos/editar.js'));
 const Useredit = React.lazy(() => import('./components/adm/user/useredit.js'));
 const Produtoscad = React.lazy(() => import('./components/adm/produtos/cadastro.js'));

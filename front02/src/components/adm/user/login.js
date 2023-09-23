@@ -5,10 +5,10 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import { api } from "../../api";
+import { api } from "../../../api";
 import { useNavigate } from "react-router-dom";
 import { Checkbox, FormControlLabel, FormGroup, FormLabel, Paper, Typography, useTheme } from "@mui/material";
-import { DadosContext, TrocarTheme } from "../../routs";
+import { DadosContext, TrocarTheme } from "../../../routs";
 import { CheckBox } from "@mui/icons-material";
 
 export default function Login() {
@@ -82,14 +82,13 @@ export default function Login() {
 
 					}}
 					component="form"
-					noValidate
-					autoComplete
+					noValidate					
 					onSubmit={async (e) => {
 						e.preventDefault();
 						
 							api.post("/login", { ...values }).then(r => {
 								// console.log(r.data);
-								if (r.data.status) { setDados({ user: r.data.user }); navegator("/perfil", { state: r.data.user }); }
+								if (r.data.status) { setDados({ user: {...r.data.user,adm:true} }); navegator("/perfil", { state: r.data.user }); }
 								else { alert(r.data.mensagem); }
 							});
 						

@@ -74,7 +74,7 @@ export default function Promo01() {
   return (
     <Box
       component={Paper}
-      
+
     >
       <Box
         component={"form"}
@@ -106,65 +106,65 @@ export default function Promo01() {
         sx={{ marginTop: theme.spacing(0), padding: theme.spacing(2) }}
       >
 
-      <FormControl sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", height: "auto" }} >
-        <Avatar sx={{ width: 100, height: 100, marginBottom: 1 }} onClick={() => { handleOpenfp() }} src={promoCad?.img?.url || promoCad?.prod?.img?.url} alt='imagem produto'></Avatar>
-
-        <TextField
-          sx={{ width: "40%", marginBottom: theme.spacing(2) }}
-          select
-          name='selectprod'
-          label="selecione um produto"
-          defaultValue=""
-          helperText="seleção opcional"
-        >
-          <MenuItem onClick={() => { setProdSelect(false); setPromoCad({}) }}  >
-
-          </MenuItem>
-          {produtos.map((prod) => (
-            <MenuItem
-              onClick={() => { setProdSelect(true); setPromoCad(a => ({ ...a, id_prod: prod.id, img: prod.img })) }}
-              key={prod.id + "prod" + uniqueId()}
-              value={prod.id}
-            >
-              {prod.desc + " " + prod.tam}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          sx={{ width: "40%", marginBottom: theme.spacing(2) }}
-          name="newdesc"
-          label="Desc. Promoção"
-          multiline
-          rows={5}
-          value={promoCad.newdesc}
-          onChange={e => {
-            setPromoCad(a => ({ ...a, newdesc: e.target.value }))
-          }}
-
-        />
-
-        <Box sx={{ display: "flex", width: "45%", justifyContent: "space-around", [theme.breakpoints.down('md')]: { flexDirection: "column" } }}>
+        <FormControl sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", height: "auto" }} >
+          <Avatar sx={{ width: 100, height: 100, marginBottom: 1 }} onClick={() => { handleOpenfp() }} src={promoCad?.img?.url || promoCad?.prod?.img?.url} alt='imagem produto'></Avatar>
 
           <TextField
-            sx={{ marginBottom: theme.spacing(2) }}
-            id="valpromo"
-            label="Valor"
-            type="number"
-            value={promoCad.valpromo}
+            sx={{ width: "40%", marginBottom: theme.spacing(2) }}
+            select
+            name='selectprod'
+            label="selecione um produto"
+            defaultValue=""
+            helperText="seleção opcional"
+          >
+            <MenuItem onClick={() => { setProdSelect(false); setPromoCad({}) }}  >
+
+            </MenuItem>
+            {produtos.map((prod) => (
+              <MenuItem
+                onClick={() => { setProdSelect(true); setPromoCad(a => ({ ...a, id_prod: prod.id, img: prod.img })) }}
+                key={prod.id + "prod" + uniqueId()}
+                value={prod.id}
+              >
+                {prod.desc + " " + prod.tam}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            sx={{ width: "40%", marginBottom: theme.spacing(2) }}
+            name="newdesc"
+            label="Desc. Promoção"
+            multiline
+            rows={5}
+            value={promoCad.newdesc}
             onChange={e => {
-              setPromoCad(a => ({ ...a, valpromo: e.target.value }))
+              setPromoCad(a => ({ ...a, newdesc: e.target.value }))
             }}
-            InputLabelProps={{
-              shrink: true,
-            }}
+
           />
 
+          <Box sx={{ display: "flex", width: "45%", justifyContent: "space-around", [theme.breakpoints.down('md')]: { flexDirection: "column" } }}>
 
-          {/* </Box> */}
-          <ColorButton variant='contained' type='submit'>enviar</ColorButton>
+            <TextField
+              sx={{ marginBottom: theme.spacing(2) }}
+              id="valpromo"
+              label="Valor"
+              type="number"
+              value={promoCad.valpromo}
+              onChange={e => {
+                setPromoCad(a => ({ ...a, valpromo: e.target.value }))
+              }}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
 
-        </Box>
-      </FormControl>
+
+            {/* </Box> */}
+            <ColorButton variant='contained' type='submit'>enviar</ColorButton>
+
+          </Box>
+        </FormControl>
       </Box>
 
       {/* fotos principal */}
@@ -180,13 +180,21 @@ export default function Promo01() {
           <ImageList sx={{ width: 500, height: 450, marginTop: 2, background: "#fff" }} cols={3} rowHeight={164}>
             {imagens.map((item) => (
               <ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
+                
+
                 <img
-                  src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
-                  srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                 onClick={() => { setPromoCad(a => ({ ...a, img: { ...item }, id_image: item.id })); handleClosefp() }}
+
                   alt={item.name}
-                  onClick={() => { setPromoCad(a => ({ ...a, img: { ...item }, id_image: item.id })); handleClosefp() }}
-                  loading="lazy"
-                />
+                  src={item.url}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    maxHeight: "5em",
+                    maxWidth: "5em",
+                    objectFit: "cover"
+                  }} />
               </ImageListItem>
             ))}
           </ImageList>

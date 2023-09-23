@@ -1,24 +1,27 @@
 import PhotoCamera from '@mui/icons-material/PhotoCamera.js';
-import { Avatar, Box, Button, IconButton, ImageList, ImageListItem, TextField, Typography, Modal, Paper, styled, useTheme, Select, InputLabel, MenuItem, Grid, FormControl } from '@mui/material';
+import { Avatar, Box, Button, IconButton, ImageList, ImageListItem, TextField, Typography, Modal, Paper, styled, useTheme, Select, InputLabel, MenuItem, Grid, FormControl, ButtonBase } from '@mui/material';
 import { uniqueId } from 'lodash';
 import React from 'react';
 import { api, url } from '../../../api.js'
 import Swal from 'sweetalert2'
+import {DeleteForever,ReplyAll} from '@mui/icons-material'
 
 
 
 
 
-const BoxStyle=styled(Paper)(({theme})=>({
+const BoxStyle = styled(Paper)(({ theme }) => ({
   // transition: theme.transitions.create(['width',0.5]),
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   bgcolor: 'background.paper',
-  border: '0.5px solid #000',
-  boxShadow: 24,
-  padding: 4,
+  width: "70%",
+  height: "70%",
+  overflow: "scroll"
+
+
 }))
 
 const Img = styled("img")({
@@ -40,7 +43,7 @@ function Produtoscad() {
   // carrega o tema
   const theme = useTheme();
   // mostra o progresso aio enviar uma Imagem
-  const [progress,setProgress]=React.useState(0)
+  const [progress, setProgress] = React.useState(0)
   //inicializa o produto a ser criado
   const [produto, setProduto] = React.useState({ desc: '', tam: '', logos: [], preco: 0, img: {}, und: 0, id_image: '', cat: [] })
   //carrega todos os produtos ja cadastrados
@@ -116,17 +119,78 @@ function Produtoscad() {
     <Box
       sx={{
         bgcolor: "background.paper",
-        // flexGrow: 1,
         height: "100vh",
         width: "100%",
         display: "flex",
         justifyContent: "space-evenly",
-        alignItems: "center",
-
+        // alignItems: "center",
+        position:"relative",
         [theme.breakpoints.down("md")]: {
-          flexDirection: "column"
+          flexDirection: "column",
+
+
         }
       }} >
+         <IconButton sx={{width:"5px", position: "absolute", top: theme.spacing(3), right: theme.spacing(3), [theme.breakpoints.up("md")]: { top: theme.spacing(3), left: theme.spacing(3) } }}  color="success" component="label">
+          <input id='img' hidden accept="image/*" type="file"
+            onChange={(ee) => {
+
+
+              const files = ee.target.files;
+              let uploadedFiles = []
+
+
+              for (let iterator of files) {
+
+                uploadedFiles.push(
+                  {
+                    "file": iterator,
+                    "id": uniqueId(),//definindo um id unico 
+                    "name": iterator.name,
+                    "prod": false,
+                    "readableSize": iterator.size,
+                    preview: URL.createObjectURL(iterator), // criando um link para preview da foto carregada
+                    url: URL.createObjectURL(iterator),// sera usado para setar a variavel img no proprietario/index.js
+                  }
+                )
+              }
+
+
+
+              // CRIANDO UM DATAFORM
+              const data = new FormData();
+              data.append('file', uploadedFiles[0].file, uploadedFiles[0].name);
+
+              // SALVANDO NOVA IMAGEM
+              console.log(data)
+
+              try {
+                api.post(`/insertImageP`, data, {
+                  onUploadProgress: e => {
+                    let progr = parseInt(Math.round((e.loaded * 100) / e.total));
+                    setProgress(a => a + progr)
+                  }
+                }).then(r => {
+
+                  Swal.fire(
+                    'Imagem Salva!',
+                    '',
+                    'success'
+                  )
+                  setIMGC(a => !a)
+
+
+                })
+
+              } catch (error) {
+                console.log(error)
+                alert("formato nao aceito");
+              }
+            }}
+          />
+
+          <PhotoCamera />
+        </IconButton>
 
       {/* box de inserção de dados */}
       <Box
@@ -135,18 +199,21 @@ function Produtoscad() {
           display: "flex",
           justifyContent: "space-evenly",
           alignItems: "center",
+          width: "50%",
+         
           [theme.breakpoints.down("md")]: {
-            flexDirection: "column"
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%"
           },
-          "& +": {
-            width: "50%"
-          },
-
-          borderRadius: 3
+         
 
         }}
-        className='container'
+
       >
+
+       
 
         <Box
           sx={{
@@ -154,14 +221,15 @@ function Produtoscad() {
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-            marginTop: theme.spacing(2),
             overflow: "scroll",
+
+
 
 
           }}
         >
           {/* foto do produto */}
-          <Avatar variant='rounded' sx={{ width: theme.spacing(10), height: theme.spacing(10), marginBottom: theme.spacing(2) }} onClick={handleOpenfp} src={produto?.img?.url} srcSet={produto?.img?.url} alt='imagem produto'></Avatar>
+          <Avatar variant='rounded' sx={{ width: theme.spacing(10), height: theme.spacing(10), marginBottom: theme.spacing(2) }} onClick={handleOpenfp} src={produto?.img?.url}  alt='imagemproduto'></Avatar>
           {/* logos relacionadas ao produto */}
           {produto?.logos?.length > 0 &&
             <Paper elevation={0} sx={{ display: "flex", width: "100%", height: "10%", justifyContent: "space-evenly", background: "transparent" }}>
@@ -194,23 +262,26 @@ function Produtoscad() {
               ))}
             </Paper>}
 
-          <div style={{ width: "100%" }} className='row justify-content-around'>
+          <Box component={FormControl} sx={{ width: "100%", display: "flex", [theme.breakpoints.up("md")]: { flexDirection: "row" } }} >
+
             {/* input Descrição */}
-            <TextField className='col' sx={{ margin: 1 }}
+            <TextField sx={{ margin: 1 }}
               value={produto.desc}
               onChange={(e) => setProduto(a => ({ ...a, desc: e.target.value }))}
               type="text"
               label="Descrição"
             />
             {/* input Tamanho */}
-            <TextField className='col' sx={{ margin: 1 }}
+            <TextField sx={{ margin: 1 }}
               value={produto.tam}
               onChange={(e) => setProduto(a => ({ ...a, tam: e.target.value }))}
               type="text" label="Tamanho" />
-          </div>
 
-          <div
-            style={{ width: "100%" }} className='row justify-content-around'
+          </Box>
+
+          <Box
+            sx={{ width: "100%", display: "flex", [theme.breakpoints.up("md")]: { flexDirection: "row" } }}
+            component={FormControl}
           >
             {/* input Preço */}
             <TextField className='col-2'
@@ -227,8 +298,11 @@ function Produtoscad() {
               onChange={(e) => setProduto(a => ({ ...a, und: e.target.value }))}
               type="number" label="Quantidade/UND"
             />
-            {/* pintup/select categorias */}
-            <FormControl fullWidth>
+
+
+          </Box>
+          {/* input/select categorias */}
+          <FormControl fullWidth>
 
             <InputLabel id="demo-simple-select-label">Categorias</InputLabel>
             <Select
@@ -254,12 +328,33 @@ function Produtoscad() {
               ))}
 
             </Select>
-            </FormControl>
+            {/* select de produtos caso a tela seja pequena*/}
+            <Box sx={{
+              mt: 2,
+              [theme.breakpoints.up("md")]: {
+                display: 'none'
+              }
+            }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Produtos</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={age2}
+                  label="Produtos"
+                  onChange={handleChange2}
+                >
+                  {produtos?.map((p, i) => (
+                    <MenuItem key={p.id + uniqueId()} value={p.id}>{p.desc + ' ' + p.tam}</MenuItem>
+                  ))}
 
-          </div>
+                </Select>
+              </FormControl>
+            </Box>
+          </FormControl>
 
           {/* espaço dos botoes */}
-          <Box component={"div"} sx={{ width: "100%", display: "flex", justifyContent: "space-between", marginTop: theme.spacing(2) }} >
+          <Box component={FormControl} sx={{ mt: 2, width: "100%", display: "flex", gap: 2 }} >
 
             {/* botaão Salvar */}
             <Button
@@ -318,7 +413,7 @@ function Produtoscad() {
               color="success">
               Salvar
             </Button>
-            {/* botão de exolha de logos */}
+            {/* botão de escolha de logos */}
             <Button
               variant='contained'
               color="success"
@@ -328,67 +423,51 @@ function Produtoscad() {
               onClick={handleOpen}>
               Escolher logos
             </Button>
-            {/* enviar imagem */}
-            {/* <UploadImage setIMGC={setIMG} produto={false}/> */}
-            <IconButton className='col-1' id="Camera" color="success" aria-label="upload picture" component="label">
-              <input id='img' hidden accept="image/*" type="file"
-                onChange={(ee) => {
-                  
+            {/* excluir produto selecionado */}
 
-                  const files = ee.target.files;
-                  let uploadedFiles = []
-                 
+          {
+            !!produto.id?
+            <Button 
+            startIcon={<DeleteForever/>}
+               variant='contained'
+               color='error'
 
-                  for (let iterator of files) {
+               onClick={() => {
+                 api.delete(`/produtos?id=${produto.id}`).then(r => {
+                   if (r.data.status) {
+                     let pr = produtos.filter(item => item.id != produto.id);
 
-                    uploadedFiles.push(
-                      {
-                        "file": iterator,
-                        "id": uniqueId(),//definindo um id unico 
-                        "name": iterator.name,
-                        "prod": false,
-                        "readableSize": iterator.size,
-                        preview: URL.createObjectURL(iterator), // criando um link para preview da foto carregada
-                        url: URL.createObjectURL(iterator),// sera usado para setar a variavel img no proprietario/index.js
-                      }
-                    )
-                  }
+                     setProdutos(pr);
 
+                   
+                   }
+                 });
+               }}
 
+             >
+               Excluir
+             </Button>:null
+          }
+          {
+            !!produto.id?
+            <Button 
+            startIcon={<ReplyAll/>}
+               variant='contained'
+               color='success'
 
-                  // CRIANDO UM DATAFORM
-                  const data = new FormData();
-                  data.append('file', uploadedFiles[0].file, uploadedFiles[0].name);
+               onClick={() => {
+                 setProduto({ desc: '', tam: '', logos: [], preco: 0, img: {}, und: 0, id_image: '', cat: [] })
+               }}
 
-                  // SALVANDO NOVA IMAGEM
-                  console.log(data)
-
-                  try {
-                    api.post(`/insertImageP`, data, {
-                      onUploadProgress: e => {
-                        let progr = parseInt(Math.round((e.loaded * 100) / e.total));
-                        setProgress(a => a + progr)
-                      }
-                    }).then(r => {                     
-
-                      Swal.fire(
-                        'Imagem Salva!',
-                        '',
-                        'success'
-                      )
-                      setIMGC(a => !a)
+             >
+               Limpar
+             </Button>:null
+          }
+            
 
 
-                    })
 
-                  } catch (error) {
-                    console.log(error)
-                    alert("formato nao aceito");
-                  }
-                }}
-              />
-              <PhotoCamera />
-            </IconButton>
+
 
           </Box>
         </Box>
@@ -396,23 +475,20 @@ function Produtoscad() {
 
       </Box>
 
+
       {/* box para carregar os produtos */}
       <Box
         sx={{
           width: "50%",
           overflow: "scroll",
-          height: "90%",
+          
           // margin:`${theme.spacing(1)}${0}${theme.spacing(1)}${0}`,
           marginTop: theme.spacing(2),
           marginBottom: theme.spacing(2),
           marginRight: theme.spacing(1),
 
           [theme.breakpoints.down("md")]: {
-            // height: "50%",
-            // width: "100%",
-            // marginTop: theme.spacing(2),
-            // marginBottom:theme.spacing(2),
-            // marginRight:theme.spacing(1),
+
             display: "none"
           }
         }}
@@ -491,28 +567,7 @@ function Produtoscad() {
       </Box>
 
 
-      {/* select de produtos caso a tela seja pequena*/}
-      <Box sx={{
-        width: "90%", [theme.breakpoints.up("md")]: {
-          display: 'none'
-        }
-      }}>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Produtos</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={age2}
-            label="Produtos"
-            onChange={handleChange2}
-          >
-            {produtos?.map((p, i) => (
-              <MenuItem key={p.id + uniqueId()} value={p.id}>{p.desc + ' ' + p.tam}</MenuItem>
-            ))}
 
-          </Select>
-        </FormControl>
-      </Box>
 
       {/* selecionar as logos */}
       <Modal
@@ -524,16 +579,26 @@ function Produtoscad() {
         <BoxStyle >
 
 
-          <ImageList sx={{ width: "90vw", height: "70vh", marginTop: 2 }}  rowHeight={"auto"}>
+          <ImageList sx={{ width: "auto", height: "auto", marginTop: 2 }} rowHeight={"auto"} cols={4}>
             {imagens?.map((item) => (
               <ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
+                
                 <img
-                  src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
-                  srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.name}
                   onClick={() => { setProduto(a => ({ ...a, logos: [...a.logos, item] })) }}
-                  loading="lazy"
-                />
+
+                  alt={item.name}
+                  src={item.url}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    maxHeight: "5em",
+                    maxWidth: "5em",
+                    objectFit: "cover"
+                  }} />
+
+
+               
               </ImageListItem>
             ))}
           </ImageList>
@@ -548,18 +613,23 @@ function Produtoscad() {
         aria-describedby="modal-modal-description"
       >
         <BoxStyle >
-
-
-          <ImageList sx={{ width: "90vw", height: "70vh", marginTop: 2 }}  rowHeight={"auto"}>
+        <ImageList sx={{ width: "auto", height: "auto", marginTop: 2 }} rowHeight={"auto"} cols={4}>
             {imagens?.map((item) => (
               <ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
                 <img
-                  src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
-                  srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.name}
                   onClick={() => { setProduto(a => ({ ...a, id_image: item.id, img: { ...item } })); handleClosefp() }}
-                  loading="lazy"
-                />
+
+                  alt={item.name}
+                  src={item.url}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    maxHeight: "5em",
+                    maxWidth: "5em",
+                    objectFit: "cover"
+                  }} />
+
               </ImageListItem>
             ))}
           </ImageList>

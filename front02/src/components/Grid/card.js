@@ -14,9 +14,8 @@ import { uniqueId } from "lodash";
 
 const Img = styled("img")({
 	margin: "auto",
-	display: "block",
-	maxWidth: "100%",
-	maxHeight: "100%",
+
+	
 });
 
 // const ColorButton = styled(Button)(({ theme }) => ({

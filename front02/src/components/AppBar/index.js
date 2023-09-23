@@ -9,13 +9,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { BsFacebook, BsInstagram, BsWhatsapp, BsArrowDownLeftSquare, BsBoxArrowInLeft } from "react-icons/bs";
-import { IoSettings, IoSettingsOutline } from "react-icons/io5";
+import { IoHome, IoSettings, IoSettingsOutline } from "react-icons/io5";
 import { Avatar, Button, Dialog, DialogTitle, FormControl, InputBase, Paper, TextField, Typography, alpha, styled, useTheme } from "@mui/material";
 import { DadosContext, SearchContex, TrocarTheme } from "../../routs";
 import { useQuery } from "../../functions/searchquery";
 import { Cancel, People, Settings } from "@mui/icons-material";
 import { api } from "../../api";
 import Swal from "sweetalert2";
+import LoginCli from "../cliente/login";
 
 const Search = styled('div')(({ theme }) => ({
 	position: 'relative',
@@ -83,7 +84,7 @@ export default function MenuAppBar(prop) {
 
 
 
-	console.log(Dados)
+	// console.log(Dados)
 
 	return (
 		<Box flexGrow>
@@ -112,9 +113,9 @@ export default function MenuAppBar(prop) {
 						<MenuIcon />
 					</IconButton>
 
-					{/* <Typography
+					 <Typography
 					sx={{fontFamily:"Lunasima",fontSize:"2rem",[theme.breakpoints.down("md")]:{display:"none"}}}
-					>CANTINHO DA LORA</Typography> */}
+					>{!!Dados.user?Dados.user.name:"CANTINHO DA LORA"}</Typography>
 
 					<Box sx={{ display: "flex", width: "auto", alignItems: "center", justifyContent: "space-around" }} component={"div"}>
 						<Search  >
@@ -130,14 +131,14 @@ export default function MenuAppBar(prop) {
 						</Search>
 
 						{
-							!!Dados.user ? <Avatar src={Dados.user.img.url} alt="imageperfil"></Avatar> : ""
+							!!Dados.user ? <Avatar sx={{margin:1}} src={Dados.user.img.url} alt="imageperfil"></Avatar> : ""
 						}
 
 						{!Dados.user ?
 							<People onClick={() => {
 								setDialog(true)
 							}}
-								sx={{ ml: 1 }}
+								sx={{ margin: 1 }}
 
 							>
 
@@ -156,8 +157,8 @@ export default function MenuAppBar(prop) {
 								</Cancel>
 
 								<Settings onClick={() => {
-									navegador("/cliente", { state: { ...Dados.user } })
-								}} sx={{ cursor: "pointer" }}></Settings>
+									navegador(`${!!Dados.user.cli?"/cliente":"/perfil"}`, { state: { ...Dados.user } })
+								}} sx={{ cursor: "pointer",margin:1 }}></Settings>
 
 							</Box>
 
@@ -189,18 +190,40 @@ export default function MenuAppBar(prop) {
 
 
 					>
+						<MenuItem sx={{ display: "flex", justifyContent: "flex-start", width: "auto" }} onClick={() => {navegador("/") ; handleClose2(); }}><IoHome style={{ marginRight: theme.spacing(2) }} color="var(--primary)"></IoHome>Pagina inicial</MenuItem>
 						<MenuItem sx={{ display: "flex", justifyContent: "flex-start", width: "auto" }} onClick={() => { window.open("http://www.instagran.com/cantinho_dalora"); handleClose2(); }}><BsInstagram style={{ marginRight: theme.spacing(2) }} color="var(--primary-telegran)"></BsInstagram>Instagran</MenuItem>
 						<MenuItem sx={{ display: "flex", justifyContent: "flex-start", width: "auto" }} onClick={() => { window.open("https://www.facebook.com/cantinhodalora"); handleClose2(); }}><BsFacebook style={{ marginRight: theme.spacing(2) }} color="var(--primary-facebook)"></BsFacebook>Facebook</MenuItem>
 						<MenuItem sx={{ display: "flex", justifyContent: "flex-start", width: "auto" }} onClick={() => { window.open("https://api.whatsapp.com/send?phone=+5596981325410&text=Oi"); handleClose2(); }}><BsWhatsapp style={{ marginRight: theme.spacing(2) }} color="var(--primary-whatsapp)"></BsWhatsapp>Proprietário</MenuItem>
 
 						{!!Dados.user?null:
-						<MenuItem sx={{ display: "flex", justifyContent: "flex-start", width: "auto" }} onClick={() => { navegador("/login") }}><BsArrowDownLeftSquare style={{ marginRight: theme.spacing(2) }} color="var(--configDanger-dark)"></BsArrowDownLeftSquare>Área administrativa</MenuItem>
+						<MenuItem sx={{ display: "flex", justifyContent: "flex-start", width: "auto" }} onClick={() => { navegador("/login");handleClose2() }}><BsArrowDownLeftSquare style={{ marginRight: theme.spacing(2) }} color="var(--configDanger-dark)"></BsArrowDownLeftSquare>Área administrativa</MenuItem>
 					}
+						
+						{!!Dados.user ?
+							<MenuItem
+								onClick={() => {
+									navegador(`${!!Dados.user.adm?"/perfil":"/cliente"}`, { state: { ...Dados.user } })
+								}}
+								sx={{
+									[theme.breakpoints.up("md")]: { display: "none" },
+									display: "flex",
+									justifyContent: "flex-start",
+									width: "auto",
+
+								}}>
+
+
+
+								<IoSettingsOutline color="var(--primary)" size={20} style={{ marginRight: theme.spacing(2) }} ></IoSettingsOutline>
+								Perfil
+							</MenuItem> : null
+						}
 						{!!Dados.user ?
 							<MenuItem
 								onClick={() => {
 									let d = delete Dados.user;
 									setDados(d)
+									navegador("/")
 								}}
 								sx={{
 									[theme.breakpoints.up("md")]: { display: "none" },
@@ -221,87 +244,13 @@ export default function MenuAppBar(prop) {
 								Sair
 							</MenuItem> : null
 						}
-						{!!Dados.user ?
-							<MenuItem
-								onClick={() => {
-									navegador("/cliente", { state: { ...Dados.user } })
-								}}
-								sx={{
-									[theme.breakpoints.up("md")]: { display: "none" },
-									display: "flex",
-									justifyContent: "flex-start",
-									width: "auto",
-
-								}}>
-
-
-
-								<IoSettingsOutline color="var(--primary)" size={20} style={{ marginRight: theme.spacing(2) }} ></IoSettingsOutline>
-								Configurações
-							</MenuItem> : null
-						}
 
 						<MenuItem sx={{ [theme.breakpoints.up("md")]: { display: "none" }, display: "flex", justifyContent: "flex-start", width: "auto" }}><TrocarTheme sx={{ margin: 0 }} ></TrocarTheme>Trocar Tema</MenuItem>
 
 
 					</Menu>
 
-					<Dialog onClose={() => { setDialog(false) }} open={openDialog}>
-						<DialogTitle sx={{ textAlign: "center", padding: 4, bgcolor: "background.paper" }}>
-							LOGIN
-						</DialogTitle>
-						<Paper
-							sx={{
-								display: "flex",
-								justifyContent: "center",
-								alignItems: "center",
-								width: "auto",
-								height: "50vh"
-							}}
-							onSubmit={async (e) => {
-								e.preventDefault()
-								api.post("clientes/login", { email: e.target["email"].value, password: e.target["password"].value }).then(r => {
-									if (!r.data.status) {
-
-										setDialog(false);
-										Swal.fire(
-											"erro ao logar",
-											`<Typography component={"span"}>Tente Novamente, se persistir contacte o ADM do estabelecimento ou tente o "esqueci a senha"</Typography>`,
-											"error"
-										)
-									} else {
-
-										setDados(a => ({ ...a, user: { ...r.data.user } }));
-										setDialog(false);
-										Swal.fire(
-											"Login realizado com sucesso",
-											`<Typography component={"span"}>Por favor sinta-se a vontade!!</Typography>`,
-											"success"
-										)
-									}
-
-								})
-
-							}}
-							component={"form"}>
-
-							<FormControl sx={{ display: "flex", flexDirection: "column", justifyContent: "space-evenly", height: "100%", margin: 2 }}>
-								<TextField name="email" label="E-mail" type="text"></TextField>
-								<TextField name="password" label="Senha" type="password"></TextField>
-								<Box component={"div"} sx={{ display: "flex", width: "90%", justifyContent: "space-around" }}>
-									<Typography href="/recuperar" sx={{ textDecoration: "none", cursor: "pointer", margin: 2 }} component={"a"}>Esqueci a senha</Typography>
-									<Typography href="/cadastro" sx={{ textDecoration: "none", cursor: "pointer", margin: 2 }} component={"a"}>Cadastrar</Typography>
-								</Box>
-								<Box component={"div"} sx={{ display: "flex", width: "90%", justifyContent: "space-around" }}>
-
-									<Button sx={{ "& ": { marginRight: 2 } }} type="submit" variant="contained" color="success">Entrar</Button>
-									<Button type="button" onClick={() => { setDialog(false) }} variant="contained" color="error">Cancelar</Button>
-								</Box>
-							</FormControl>
-
-						</Paper>
-
-					</Dialog>
+					<LoginCli onClose={() => { setDialog(false) }} open={openDialog}/>
 
 
 
