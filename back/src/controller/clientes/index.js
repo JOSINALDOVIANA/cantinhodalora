@@ -35,6 +35,7 @@ export default {
     },
     async Update (req,res){
         let {id,nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart=null,validadecart=null,cvc=null,email,senha,id_image=""}=req.body
+        console.log(req.body)
         try {
            await conexao("clientes").where({id}).Update({nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,senha,id_image});
 

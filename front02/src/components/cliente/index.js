@@ -147,8 +147,8 @@ function TelaCliente() {
 
           <Box component={FormControl}>
           <Button sx={{ mt: 2 }} variant='contained' color="warning">Alterar Foto</Button>
-          <Button onClick={()=>{
-            api.put("/clientes/update",{...Dados.user}).then(r=>{
+          <Button onClick={async ()=>{
+           await api.put("/clientes/update",{...Dados.user}).then(r=>{
               r.data.status?alert("Dados atualçizados"):alert("Não foi possivel atualizar seus dados entre em contatos com o administrador")
             })
           }} sx={{ mt: 2 }} variant='contained' color='success'>Atualizar Dados</Button>
