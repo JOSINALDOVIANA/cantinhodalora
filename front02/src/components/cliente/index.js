@@ -9,13 +9,26 @@ import Button from '@mui/material/Button';
 
 import { DadosContext } from '../../routs';
 import MenuAppBar from '../AppBar';
-import { Chip, CssBaseline, Divider, FormControl, FormLabel, InputAdornment, OutlinedInput, Paper, TextField, useTheme } from '@mui/material';
+import { Chip, CssBaseline, Divider, FormControl, FormLabel, ImageList, ImageListItem, InputAdornment, Link, Modal, OutlinedInput, Paper, TextField, styled, useTheme } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { blue } from '@mui/material/colors';
-import { api } from '../../api';
 
-const pages = ['Meus Dados'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import { api } from '../../api';
+import { Navigate } from 'react-router-dom';
+import { uniqueId } from 'lodash';
+
+const BoxStyle = styled(Paper)(({ theme }) => ({
+  // transition: theme.transitions.create(['width',0.5]),
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'background.paper',
+  width: "70%",
+  height: "70%",
+  overflow: "scroll"
+
+
+}))
 
 function TelaCliente() {
 
@@ -23,6 +36,13 @@ function TelaCliente() {
 
   const [Dados, setDados] = React.useContext(DadosContext);
   const [showPassword, setshowPassword] = React.useState(false);
+
+  // vcontrole do modal galeria 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+
   const theme = useTheme();
   console.log(Dados)
 
@@ -146,21 +166,93 @@ function TelaCliente() {
           </Box>
 
           <Box component={FormControl}>
-          <Button sx={{ mt: 2 }} variant='contained' color="warning">Alterar Foto</Button>
-          <Button onClick={async ()=>{
-           await api.put("/clientes/update",{...Dados.user}).then(r=>{
-              r.data.status?alert("Dados atualçizados"):alert("Não foi possivel atualizar seus dados entre em contatos com o administrador")
+          <FormLabel variant='outlined'  component={Button} sx={{padding:1,}} htmlFor='foto'>Carregar Foto</FormLabel>
+          <Button 
+          sx={{mt:2}} 
+          variant='contained' 
+          color='warning' 
+          onClick={async ()=>{
+            
+            await api.get(`/imagesget&id_cli=${Dados.user.id}`).then(r=>{
+              if(r.data.status){
+                setDados(a=>({...a,user:{...a.user,loadedImages:r.data.images}}));
+                handleOpen();
+              
+              }
             })
-          }} sx={{ mt: 2 }} variant='contained' color='success'>Atualizar Dados</Button>
-          <Button sx={{ mt: 2, [theme.breakpoints.down("md")]: { mb: 2 } }} variant='contained' color='error'>Excluir Conta</Button>
+
+          }}
+          >
+            Foto/Galeria
+            </Button>
+          
+          <Button 
+          onClick={async ()=>{
+           await api.put("/clientes/update",{...Dados.user}).then(r=>{
+              r.data.status?alert("Dados atualizados"):alert("Não foi possivel atualizar seus dados entre em contatos com o administrador")
+            })
+          }} 
+          sx={{ mt: 2 }} 
+          variant='contained' 
+          color='success'
+          >
+            Atualizar Dados
+            </Button>
+          <Button 
+          onClick={
+            async ()=>{
+            await  api.delete("/clientes/delete",{...Dados.user}).then(r=>{
+              r.data.status?alert("Dados Apagados"):alert("não foi possivel excluir,contacte o administrador")
+              if(r.data.status){Navigate("/")}
+            })
+          }}
+          sx={{ mt: 2, [theme.breakpoints.down("md")]: { mb: 2 } }} 
+          variant='contained' 
+          color='error'
+          >
+            Excluir Conta
+            </Button>
           </Box>
 
 
         </Paper>
 
 
+{/* Modal galeria */}
+<Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <BoxStyle >
 
 
+          <ImageList sx={{ width: "auto", height: "auto", marginTop: 2 }} rowHeight={"auto"} cols={4}>
+            {Dados?.user?.loadedImages?.map((item) => (
+              <ImageListItem sx={{ padding: 2 }} key={item.id + uniqueId()}>
+                
+                <img
+                  onClick={() => { setDados(a=>({...a,user:{...a.user,id_image:item.id,img:{...item}}}))}}
+
+                  alt={item.name}
+                  src={item.url}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    maxHeight: "5em",
+                    maxWidth: "5em",
+                    objectFit: "cover"
+                  }} />
+
+
+               
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </BoxStyle>
+      </Modal>
 
       </Box>
 

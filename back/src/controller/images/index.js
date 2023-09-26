@@ -15,7 +15,8 @@ export const __dirname = path.dirname(__filename);
 
 export default {
     async uploadIMGclient (req,res){
-        let { originalname: name, size, key, location: url = ''} = req.file;
+        let {originalname: name, size, key, location: url = ''} = req.file;
+        let {id_cli}=req.query;
         
             const id = `${Crypto.randomBytes(12).toString('HEX')}`;
     
@@ -29,6 +30,7 @@ export default {
                     prod:false
                     
                 });
+                await conexao("image_cli").insert({id_image:id,id_cli});
                 res.json({
                     id, name, size, key, url,prod:false
                 });
@@ -40,7 +42,7 @@ export default {
      
     },
     async deleteIMGclient (req,res){
-        const {id,key}=req.query
+        const {key}=req.query
         
         try {
            await conexao("images").del().where({id,prod:false});
@@ -56,8 +58,9 @@ export default {
         }
     },
     async selectIMGclient (req,res){
+        let {id_cli}=req.query
         try {
-            let images=await conexao("images").where({prod:false})
+            let images=await conexao("image_cli").where({prod:false,id_cli}).join("images","image_cli.id_image","=","images.id").first().select("images.*")
             for (const key in images) {
                images[key].delete=`http://${process.env.IP_SERVER}:3009/deleteImage?id=${images[key].id}&key=${images[key].key}`
                images[key].url=`http://${process.env.IP_SERVER}:3009/images/${images[key].key}`;

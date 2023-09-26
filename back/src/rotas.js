@@ -109,6 +109,7 @@ rotas.delete("/promo",promo.Delete)
 rotas.post("/clientes/login",clientes.Login)
 rotas.post("/clientes/insert",clientes.Insert)
 rotas.put("/clientes/update",clientes.Update)
+rotas.delete("/clientes/delete",clientes.Delete)
 
 
 

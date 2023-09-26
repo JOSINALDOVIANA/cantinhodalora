@@ -21,9 +21,9 @@ export default {
         }
     },
     async Insert (req,res){
-        let {nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart=null,validadecart=null,cvc=null,email,senha,id_image=""}=req.body
+        let {nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart=null,validadecart=null,cvc=null,email,password,id_image=""}=req.body
         try {
-           await conexao("clientes").insert({nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,senha,id_image});
+           await conexao("clientes").insert({nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,password,id_image});
 
        
             return res.json({status:true,mensagem:"salvo"})
@@ -34,13 +34,27 @@ export default {
         }
     },
     async Update (req,res){
-        let {id,nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart=null,validadecart=null,cvc=null,email,senha,id_image=""}=req.body
-        console.log(req.body)
+        let {id,nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart=null,validadecart=null,cvc=null,email,password,id_image=""}=req.body
+       
         try {
-           await conexao("clientes").where({id}).update({nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,senha,id_image});
+           await conexao("clientes").where({id}).update({nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,password,id_image});
 
        
             return res.json({status:true,mensagem:"atualizado"})
+        
+        } catch (error) {
+            console.log(error)
+            return res.json({status:false,mensagem:"verifique os dados digitados e tente novamente"})
+        }
+    },
+    async Delete (req,res){
+        let {id,email,password}=req.body
+        
+        try {
+           await conexao("clientes").where({id,password,email}).del()
+
+       
+            return res.json({status:true,mensagem:"Dados Apagados"})
         
         } catch (error) {
             console.log(error)
