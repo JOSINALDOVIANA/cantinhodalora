@@ -21,12 +21,25 @@ export default {
         }
     },
     async Insert (req,res){
-        let {nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,senha}=req.body
+        let {nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart=null,validadecart=null,cvc=null,email,senha,id_image=""}=req.body
         try {
-           await conexao("clientes").insert({nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,senha});
+           await conexao("clientes").insert({nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,senha,id_image});
 
        
             return res.json({status:true,mensagem:"salvo"})
+        
+        } catch (error) {
+            console.log(error)
+            return res.json({status:false,mensagem:"verifique os dados digitados e tente novamente"})
+        }
+    },
+    async Update (req,res){
+        let {id,nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart=null,validadecart=null,cvc=null,email,senha,id_image=""}=req.body
+        try {
+           await conexao("clientes").where({id}).Update({nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,senha,id_image});
+
+       
+            return res.json({status:true,mensagem:"atualizado"})
         
         } catch (error) {
             console.log(error)

@@ -108,6 +108,7 @@ rotas.delete("/promo",promo.Delete)
 // ####################clientes########################
 rotas.post("/clientes/login",clientes.Login)
 rotas.post("/clientes/insert",clientes.Insert)
+rotas.post("/clientes/update",clientes.Update)
 
 
 
