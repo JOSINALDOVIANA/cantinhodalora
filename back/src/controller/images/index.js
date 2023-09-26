@@ -61,10 +61,11 @@ export default {
         let {id_cli}=req.query
         try {
             let images=await conexao("image_cli").where({prod:false,id_cli}).join("images","image_cli.id_image","=","images.id").first().select("images.*")
-            for (const key in images) {
-               images[key].delete=`http://${process.env.IP_SERVER}:3009/deleteImage?id=${images[key].id}&key=${images[key].key}`
-               images[key].url=`http://${process.env.IP_SERVER}:3009/images/${images[key].key}`;
-            }
+            console.log(images)
+            // for (const key in images) {
+            //    images[key].delete=`http://${process.env.IP_SERVER}:3009/deleteImage?id=${images[key].id}&key=${images[key].key}`
+            //    images[key].url=`http://${process.env.IP_SERVER}:3009/images/${images[key].key}`;
+            // }
             return res.json({status:true,images})
         } catch (error) {
             console.log(error)

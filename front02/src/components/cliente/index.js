@@ -15,6 +15,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { api } from '../../api';
 import { Navigate } from 'react-router-dom';
 import { uniqueId } from 'lodash';
+import Swal from 'sweetalert2';
 
 const BoxStyle = styled(Paper)(({ theme }) => ({
   // transition: theme.transitions.create(['width',0.5]),
@@ -166,14 +167,80 @@ function TelaCliente() {
           </Box>
 
           <Box component={FormControl}>
-          <FormLabel variant='outlined'  component={Button} sx={{padding:1,}} htmlFor='foto'>Carregar Foto</FormLabel>
+          <FormLabel   
+          sx={{
+            padding:2,
+            textAlign:"center",
+            cursor:"pointer", 
+            borderRadius:1,
+            backgroundColor:"#e02141",
+            '&:hover':{
+              opacity:0.50
+            }
+            }} htmlFor='foto'>Carregar Foto</FormLabel>
+          <input id='foto' hidden accept="image/*" type="file"
+            onChange={(ee) => {
+
+
+              const files = ee.target.files;
+              let uploadedFiles = []
+
+
+              for (let iterator of files) {
+
+                uploadedFiles.push(
+                  {
+                    "file": iterator,
+                    "id": uniqueId(),//definindo um id unico 
+                    "name": iterator.name,
+                    "prod": false,
+                    "readableSize": iterator.size,
+                    preview: URL.createObjectURL(iterator), // criando um link para preview da foto carregada
+                    url: URL.createObjectURL(iterator),// sera usado para setar a variavel img no proprietario/index.js
+                  }
+                )
+              }
+
+
+
+              // CRIANDO UM DATAFORM
+              const data = new FormData();
+              data.append('file', uploadedFiles[0].file, uploadedFiles[0].name);
+
+              // SALVANDO NOVA IMAGEM
+              // console.log(data)
+
+              try {
+                api.post(`/uploadImage?id_cli=${Dados.user.id}`, data, {
+                  onUploadProgress: e => {
+                    let progr = parseInt(Math.round((e.loaded * 100) / e.total));
+                    // setProgress(a => a + progr)
+                  }
+                }).then(r => {
+
+                  Swal.fire(
+                    'Imagem Salva!',
+                    '',
+                    'success'
+                  )
+                  
+
+
+                })
+
+              } catch (error) {
+                console.log(error)
+                alert("formato nao aceito");
+              }
+            }}
+          />
           <Button 
           sx={{mt:2}} 
           variant='contained' 
           color='warning' 
           onClick={async ()=>{
             
-            await api.get(`/imagesget&id_cli=${Dados.user.id}`).then(r=>{
+            await api.get(`/imagesget?id_cli=${Dados.user.id}`).then(r=>{
               if(r.data.status){
                 setDados(a=>({...a,user:{...a.user,loadedImages:r.data.images}}));
                 handleOpen();
