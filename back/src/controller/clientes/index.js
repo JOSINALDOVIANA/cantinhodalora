@@ -37,7 +37,7 @@ export default {
         let {id,nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart=null,validadecart=null,cvc=null,email,senha,id_image=""}=req.body
         console.log(req.body)
         try {
-           await conexao("clientes").where({id}).Update({nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,senha,id_image});
+           await conexao("clientes").where({id}).update({nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,senha,id_image});
 
        
             return res.json({status:true,mensagem:"atualizado"})
