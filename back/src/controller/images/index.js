@@ -46,11 +46,13 @@ export default {
         let status=false
         let mensagem=""
         try {
-           await conexao("images").del().where({id,prod:false});
-         promisify(fs.unlink)(path.resolve(__dirname, "..", "..","..","tmp", "uploads", `${key}`), (err) => {
-            if (err) { mensagem="não foi possivel apagar o arquivo";console.log(err);status=false }
-            else { mensagem='aquivo deletado';status=true };
-        })
+          await   promisify(fs.unlink)(path.resolve(__dirname, "..", "..","..","tmp", "uploads", `${key}`), (err) => {
+               if (err) { mensagem="não foi possivel apagar o arquivo";console.log(err);status=false }
+               else { mensagem='aquivo deletado';status=true };
+           })
+           if(status){
+            await conexao("images").del().where({id,prod:false});
+           }
           
            return res.json({status,mensagem})
         } catch (error) {
