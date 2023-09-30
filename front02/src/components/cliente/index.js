@@ -434,6 +434,7 @@ function TelaCliente() {
                         onClick={async(e)=>{
                           e.preventDefault();
                           await axios.delete(item.delete).then(r=>{
+                            console.log(r.data)
                             if(r.data.status){
                               setDados(a=>({...a,user:{...a.user,loadedImages:[...a.user.loadedImages.filter(i=>(i.id!=item.id))]}}))
                             }
