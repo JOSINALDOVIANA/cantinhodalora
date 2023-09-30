@@ -42,16 +42,17 @@ export default {
      
     },
     async deleteIMGclient (req,res){
-        const {key}=req.query
-        
+        const {id,key}=req.query
+        let status=false
+        let mensagem=""
         try {
            await conexao("images").del().where({id,prod:false});
          promisify(fs.unlink)(path.resolve(__dirname, "..", "..","..","tmp", "uploads", `${key}`), (err) => {
-            if (err) { console.log("não foi possivel apagar o arquivo");console.log(err) }
-            else { console.log('aquivo deletado'); };
+            if (err) { mensagem="não foi possivel apagar o arquivo";console.log(err);status:false }
+            else { mensagem='aquivo deletado';status:true };
         })
           
-           return res.json({status:true,mensagem:"apagada"})
+           return res.json({status,mensagem})
         } catch (error) {
             console.log(error)
             return res.json({status:false,mensagem:"error ao excluir"})

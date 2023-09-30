@@ -3,7 +3,10 @@ import IconButton from '@mui/material/IconButton';
 import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Load from './components/load';
-import {MdBrightness6,MdBrightness4} from "react-icons/md"
+// import { LocalizationProvider } from '@mui/x-date-pickers';
+// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import {  MdBrightness4 } from "react-icons/md"
 
 import { Typography } from '@mui/material';
 import { Brightness1, Brightness2 } from '@mui/icons-material';
@@ -35,7 +38,7 @@ export function TrocarTheme(props) {
     return (
 
 
-        <IconButton {...props}  onClick={colorMode.toggleColorMode} color="inherit">
+        <IconButton {...props} onClick={colorMode.toggleColorMode} color="inherit">
             {theme.palette.mode === 'dark' ? <MdBrightness4 /> : <Brightness2 />}
         </IconButton>
 
@@ -75,34 +78,35 @@ export function Rotas() {
         <DadosContext.Provider value={[Dados, setDados]}>
             <SearchContex.Provider value={[search, setSearch]}>
                 <ColorModeContext.Provider value={colorMode}>
-                    <ThemeProvider theme={theme}>
-                        <React.Suspense fallback={<Load />}>
+                    {/* <LocalizationProvider dateAdapter={AdapterDayjs}> */}
+                        <ThemeProvider theme={theme}>
+                            <React.Suspense fallback={<Load />}>
 
-                            <BrowserRouter >
+                                <BrowserRouter >
 
-                                <Routes>
-                                    <Route path="/*" element={<Typography>DESCULPE!! este recuso esta indisponivel ou em desenvolvimento</Typography>} />
-                                    <Route path="/teste" element={<Teste/>} />
-                                    <Route path="/" element={<TelaInicial />} >
-                                        <Route index element={<Produtos />}></Route>
-                                    </Route>
-                                    <Route path="/login" element={<Login />} />
-                                    <Route path="/perfil" element={<Perfil />}>
-                                        <Route index element={<Produtosedit />}></Route>
-                                        <Route path="/perfil/inicio" element={<Produtosedit />}></Route>
-                                        <Route path="/perfil/userEdit" element={<Useredit />}></Route>
-                                        <Route path="/perfil/produtosedit" element={<Produtosedit />}></Route>
-                                        <Route path="/perfil/produtoscad" element={<Produtoscad />}></Route>
-                                        <Route path="/perfil/fecharCaixa" element={<Fcaixa />}></Route>
-                                        <Route path="/perfil/relatorio" element={<Relatorios />}></Route>
-                                        <Route path="/perfil/imagensclientes" element={<Imagenscli />}></Route>
-                                        <Route path="/perfil/imagensprodutos" element={<Imagensprod />}></Route>
-                                        <Route path="/perfil/promocoes" element={<Promo />}></Route>
-                                    </Route>
-                                    <Route path="/cliente" element={<TelaIncialCliente />} >
-                                        <Route index element={<TelaIncialCliente />}></Route>
-                                    </Route>
-                                    {/* <Route path="/" element={<InicialTela />} >
+                                    <Routes>
+                                        <Route path="/*" element={<Typography>DESCULPE!! este recuso esta indisponivel ou em desenvolvimento</Typography>} />
+                                        <Route path="/teste" element={<Teste />} />
+                                        <Route path="/" element={<TelaInicial />} >
+                                            <Route index element={<Produtos />}></Route>
+                                        </Route>
+                                        <Route path="/login" element={<Login />} />
+                                        <Route path="/perfil" element={<Perfil />}>
+                                            <Route index element={<Produtosedit />}></Route>
+                                            <Route path="/perfil/inicio" element={<Produtosedit />}></Route>
+                                            <Route path="/perfil/userEdit" element={<Useredit />}></Route>
+                                            <Route path="/perfil/produtosedit" element={<Produtosedit />}></Route>
+                                            <Route path="/perfil/produtoscad" element={<Produtoscad />}></Route>
+                                            <Route path="/perfil/fecharCaixa" element={<Fcaixa />}></Route>
+                                            <Route path="/perfil/relatorio" element={<Relatorios />}></Route>
+                                            <Route path="/perfil/imagensclientes" element={<Imagenscli />}></Route>
+                                            <Route path="/perfil/imagensprodutos" element={<Imagensprod />}></Route>
+                                            <Route path="/perfil/promocoes" element={<Promo />}></Route>
+                                        </Route>
+                                        <Route path="/cliente" element={<TelaIncialCliente />} >
+                                            <Route index element={<TelaIncialCliente />}></Route>
+                                        </Route>
+                                        {/* <Route path="/" element={<InicialTela />} >
                                 <Route index element={<Produtos />}></Route>
                             </Route>
                             <Route path="/login" element={<Login />} />
@@ -118,11 +122,13 @@ export function Rotas() {
                                 <Route path="/perfil/imagensprodutos" element={<Imagenspro />}></Route>
                                 <Route path="/perfil/promocoes" element={<Promo />}></Route>
                             </Route> */}
-                                </Routes>
+                                    </Routes>
 
-                            </BrowserRouter>
-                        </React.Suspense>
-                    </ThemeProvider>
+                                </BrowserRouter>
+                            </React.Suspense>
+                        </ThemeProvider>
+                        {/* </LocalizationProvider> */}
+
                 </ColorModeContext.Provider>
             </SearchContex.Provider>
         </DadosContext.Provider>
