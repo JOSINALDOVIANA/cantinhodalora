@@ -12,11 +12,11 @@ import Button from '@mui/material/Button';
 
 import { DadosContext } from '../../routs';
 import MenuAppBar from '../AppBar';
-import { Chip, CssBaseline, Divider, FormControl, FormLabel, ImageList, ImageListItem, ImageListItemBar, InputAdornment, InputBase, Link, Modal, OutlinedInput, Paper, TextField, useTheme } from '@mui/material';
+import { Chip, CircularProgress, CssBaseline, Divider, FormControl, FormLabel, ImageList, ImageListItem, ImageListItemBar, InputAdornment, InputBase, Link, Modal, OutlinedInput, Paper, TextField, useTheme } from '@mui/material';
 import { Delete, Visibility, VisibilityOff } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { api } from '../../api';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { uniqueId } from 'lodash';
 import Swal from 'sweetalert2';
 import dayjs from 'dayjs';
@@ -64,10 +64,12 @@ function TelaCliente() {
 
 
   dayjs.locale(locale_pt)
+  const navegador=useNavigate()
 
 
   const [Dados, setDados] = React.useContext(DadosContext);
   const [showPassword, setshowPassword] = React.useState(false);
+  const [Progress, setProgress] = React.useState(0);
 
   // vcontrole do modal galeria 
   const [open, setOpen] = React.useState(false);
@@ -77,8 +79,15 @@ function TelaCliente() {
 
   const theme = useTheme();
 
-  console.log(Dados)
+  // console.log(Dados)
+  
   // console.log(dayjs(new Date()).format("DD/MM/YYYY"))
+
+  React.useEffect(()=>{
+    if(!!!Dados.user){
+      navegador("/")
+    }
+  },[])
 
   return (
     <>
@@ -219,6 +228,7 @@ function TelaCliente() {
               }}
             />
           </Box>
+
           <Box sx={{ margin: 2, [theme.breakpoints.down("md")]: {} }} component={FormControl}>
             <Divider>
               <Chip label="Formas de Pagamento"></Chip>
@@ -313,27 +323,32 @@ function TelaCliente() {
                 // SALVANDO NOVA IMAGEM
                 // console.log(data)
 
-                try {
-                  api.post(`/uploadImage?id_cli=${Dados.user.id}`, data, {
-                    onUploadProgress: e => {
-                      let progr = parseInt(Math.round((e.loaded * 100) / e.total));
-                      // setProgress(a => a + progr)
-                    }
-                  }).then(r => {
-
-                    Swal.fire(
-                      'Imagem Salva!',
-                      '',
-                      'success'
-                    )
-
-
-
-                  })
-
-                } catch (error) {
-                  console.log(error)
-                  alert("formato nao aceito");
+                if(!!Dados.user){
+                  try {
+                    api.post(`/uploadImage?id_cli=${Dados.user.id}`, data, {
+                      onUploadProgress: async e => {
+                        let progr = parseInt(Math.round((e.loaded * 100) / e.total));
+                        setProgress(a => {
+                         if( a>=100){return 0+progr}
+                        return a+progr  
+                        })
+                      }
+                    }).then(r => {
+  
+                      Swal.fire(
+                        'Imagem Salva!',
+                        '',
+                        'success'
+                      )
+  
+  
+  
+                    })
+  
+                  } catch (error) {
+                    console.log(error)
+                    alert("formato nao aceito");
+                  }
                 }
               }}
             />
@@ -342,7 +357,8 @@ function TelaCliente() {
               variant='contained'
               color='warning'
               onClick={async () => {
-
+                if(!!Dados.user){
+                  
                 await api.get(`/imagesget?id_cli=${Dados.user.id}`).then(r => {
                   if (r.data.status) {
                     setDados(a => ({ ...a, user: { ...a.user, loadedImages: r.data.images } }));
@@ -350,7 +366,7 @@ function TelaCliente() {
 
                   }
                 })
-
+                }
               }}
             >
               Foto/Galeria
@@ -358,9 +374,11 @@ function TelaCliente() {
 
             <Button
               onClick={async () => {
-                await api.put("/clientes/update", { ...Dados.user }).then(r => {
-                  r.data.status ? alert("Dados atualizados") : alert("Não foi possivel atualizar seus dados entre em contatos com o administrador")
-                })
+                if(!!Dados.user){
+                  await api.put("/clientes/update", { ...Dados.user }).then(r => {
+                    r.data.status ? alert("Dados atualizados") : alert("Não foi possivel atualizar seus dados entre em contatos com o administrador")
+                  })
+                }
               }}
               sx={{ mt: 2 }}
               variant='contained'
@@ -371,10 +389,12 @@ function TelaCliente() {
             <Button
               onClick={
                 async () => {
-                  await api.delete("/clientes/delete", { ...Dados.user }).then(r => {
-                    r.data.status ? alert("Dados Apagados") : alert("não foi possivel excluir,contacte o administrador")
-                    if (r.data.status) { Navigate("/") }
-                  })
+                  if(!!Dados.user){
+                    await api.delete("/clientes/delete", { ...Dados.user }).then(r => {
+                      r.data.status ? alert("Dados Apagados") : alert("não foi possivel excluir,contacte o administrador")
+                      if (r.data.status) { Navigate("/") }
+                    })
+                  }
                 }}
               sx={{ mt: 2, [theme.breakpoints.down("md")]: { mb: 2 } }}
               variant='contained'
@@ -383,6 +403,8 @@ function TelaCliente() {
               Excluir Conta
             </Button>
           </Box>
+
+          {/* <CircularProgress variant='determinate' value={Progress}></CircularProgress> */}
 
 
         </Paper>
