@@ -2,4 +2,5 @@
 back/knexfile.js
 back/tmp/uploads/*
 *.lock
-Front/package-lock.json
+front02/package-lock.json
+back/package-lock.json
