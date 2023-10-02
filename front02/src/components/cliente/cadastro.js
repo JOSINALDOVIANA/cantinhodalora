@@ -5,6 +5,9 @@ import { Box, Button, Chip, CssBaseline, Divider, FormControl, FormLabel, IconBu
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import MenuAppBar from '../AppBar';
 
+import { api } from '../../api';
+import Swal from 'sweetalert2';
+
 // import { Container } from './styles';
 const TextFieldStyled = styled(TextField)(({ theme }) => ({
 
@@ -37,26 +40,62 @@ function Cadastro() {
   const [dados, setDados] = React.useState({})
   const [showPassword, setshowPassword] = React.useState(false);
   const theme = useTheme();
-
+  console.log(dados)
   return (
 
     <>
       <CssBaseline />
       <MenuAppBar></MenuAppBar>
-      <Box component={"form"} sx={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",      
-        padding: theme.spacing(2),
-              
-        overflow:"scroll",       
+      <Box
+        component={"form"}
+        sx={{
+          width: "100%",         
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: theme.spacing(2),
 
-      }} onSubmit={e => {
-        e.preventDefault()
-        console.log()
-      }}
+          overflow: "scroll",
+
+        }}
+        onSubmit={async e => {
+          e.preventDefault()
+
+          const form = e.target;
+          
+          for (const iterator of form.elements) {
+            if (iterator.tagName === "INPUT") {
+              if (iterator.type === "date") {
+                setDados(a => ({ ...a, [iterator["name"]]: dayjs(iterator.value) }))
+              } else {
+
+                setDados(a => ({ ...a, [iterator["name"]]: iterator.value }))
+              }
+              
+            }
+          }
+
+          try {
+            
+            await api.post("/clientes/insert",{...dados}).then(r=>{
+              if(r.status){
+                Swal.fire(
+                'Cadastro realizado com sucesso!',
+                '',
+                'success'
+                )
+              }
+            })
+          } catch (error) {
+            alert("Este Serviço esta Indisponivel no momento")            
+          }
+
+
+
+
+
+
+        }}
 
       >
 
@@ -66,9 +105,10 @@ function Cadastro() {
           elevation={3}
           sx={{
             display: "flex",
-            maxHeight:"70vh",
+            maxHeight: "90%",
             flexDirection: "row",
-            overflow:"scroll",
+            padding:theme.spacing(1),
+            // overflow: "scroll",
             [theme.breakpoints.down("md")]: { flexDirection: "column" },
             // boxShadow: "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
             // boxShadow: "rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset"
@@ -77,17 +117,18 @@ function Cadastro() {
 
           }}
         >
-
+          {/* Dados pessoais */}
           <Box sx={{ padding: 2, display: "flex", flexDirection: "column", [theme.breakpoints.up("md")]: { mr: theme.spacing(2) } }}>
             <Divider sx={{ mb: 2 }}>
               <Chip label="Dados pessoais"></Chip>
             </Divider>
-            <TextFieldStyled name='name' label="Nome" />
+            <TextFieldStyled name='nome' label="Nome" />
             <TextFieldStyled name='cpf' label="CPF" />
             <TextFieldStyled name='telefone' label="Telefone" />
             <TextFieldStyled type='date' defaultValue={dayjs(new Date()).format("YYYY-MM-DD")} name='nascimento' label="D. Nascimen." />
           </Box>
 
+          {/* Dados de Acesso */}
           <Box sx={{ padding: 2, display: "flex", flexDirection: "column", [theme.breakpoints.up("md")]: { mr: theme.spacing(2) } }}>
             <Divider sx={{ mb: 2 }} >
               <Chip label="Dados de Acesso"></Chip>
@@ -113,22 +154,24 @@ function Cadastro() {
                 </InputAdornment>
               }
             />
-             
+
           </Box>
 
+          {/* Dados de Localização */}
           <Box sx={{ padding: 2, display: "flex", flexDirection: "column", [theme.breakpoints.up("md")]: { mr: theme.spacing(2) } }}>
             <Divider sx={{ mb: 2 }} >
               <Chip label="Localização"></Chip>
             </Divider>
-            <TextFieldStyled name='cidade' label="Endereço" type='text' placeholder={dados?.cidade} />
+            <TextFieldStyled name='cidade' label="Cidade" type='text' placeholder={dados?.cidade} />
             <TextFieldStyled name='bairro' label="Bairro" type='text' placeholder={dados?.bairro} />
             <TextFieldStyled name='endereco' label="Endereço" type='text' placeholder={dados?.endereco} />
-            
-            
-          </Box>          
 
-          <Box  sx={{ padding: 2, display: "flex", flexDirection: "column", [theme.breakpoints.up("md")]: { mr: theme.spacing(2) } }} component={FormControl}>
-            <Divider sx={{mb:2}}>
+
+          </Box>
+
+          {/* Formas de Pagamento */}
+          <Box sx={{  padding: 2, display: "flex", flexDirection: "column", [theme.breakpoints.up("md")]: { mr: theme.spacing(2) } }} component={FormControl}>
+            <Divider sx={{ mb: 2 }}>
               <Chip label="Formas de Pagamento"></Chip>
             </Divider>
 
@@ -137,34 +180,32 @@ function Cadastro() {
               type='number'
               placeholder={dados?.ncart}
               name='ncart'
-             
+              helperText="Não Obrigatório"
+
             />
-           
-
-
-
 
             <FormLabel sx={{ mt: 2 }}>Validade</FormLabel>
             <CssTextField
-            name='validadecart'
-              helperText={"será valido apenas o mês e ano!"}
+              name='validadecart'
+              helperText={"valido apenas o mês e ano, Não Obrigatório"}
               type='date'
               defaultValue={dayjs(dados?.validadecart).format("YYYY-MM-DD")}
-              
+
             />
 
 
             <FormLabel sx={{ mt: 2 }}>CVC</FormLabel>
             <TextField
-            name='cvc'
+              name='cvc'
               type='text'
-             placeholder={dados?.cvc}
-              
+              placeholder={dados?.cvc}
+              helperText="Não Obrigatório"
+
             />
 
-<Button sx={{my:3}} variant='contained' type='submit' color='success'>Salvar</Button>
+            <Button sx={{ my: 3 }} variant='contained' type='submit' color='success'>Salvar</Button>
           </Box>
-         
+
 
         </Box>
 
