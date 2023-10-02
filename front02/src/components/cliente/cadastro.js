@@ -7,6 +7,7 @@ import MenuAppBar from '../AppBar';
 
 import { api } from '../../api';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 // import { Container } from './styles';
 const TextFieldStyled = styled(TextField)(({ theme }) => ({
@@ -40,7 +41,8 @@ function Cadastro() {
   const [dados, setDados] = React.useState({})
   const [showPassword, setshowPassword] = React.useState(false);
   const theme = useTheme();
-  console.log(dados)
+  const navegador=useNavigate()
+  // console.log(dados)
   return (
 
     <>
@@ -83,7 +85,9 @@ function Cadastro() {
                 'Cadastro realizado com sucesso!',
                 '',
                 'success'
-                )
+                );
+                navegador('/')
+
               }
             })
           } catch (error) {
