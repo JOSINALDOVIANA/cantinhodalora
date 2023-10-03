@@ -32,7 +32,7 @@ export default {
         }
     },
     async Insert (req,res){
-        let {nome:name,cpf,endereco,cidade,bairro,telefone,nascimento,ncart=null,validadecart=null,cvc=null,email,password,id_image=""}=req.body
+        let {name,cpf,endereco,cidade,bairro,telefone,nascimento,ncart=null,validadecart=null,cvc=null,email,password,id_image=""}=req.body
         try {
            await conexao("clientes").insert({name,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,password,id_image});
 

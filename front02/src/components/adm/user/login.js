@@ -7,7 +7,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import { api } from "../../../api";
 import { useNavigate } from "react-router-dom";
-import { Checkbox, FormControlLabel, FormGroup, FormLabel, Paper, Typography, useTheme } from "@mui/material";
+import { Checkbox, CssBaseline, FormControlLabel, FormGroup, FormLabel, Paper, Typography, useTheme } from "@mui/material";
 import { DadosContext, TrocarTheme } from "../../../routs";
 import { CheckBox } from "@mui/icons-material";
 
@@ -21,7 +21,7 @@ export default function Login() {
 
 	return (
 		<React.Fragment>
-
+			<CssBaseline/>
 
 			<Paper
 				sx={{

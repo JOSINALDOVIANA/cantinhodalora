@@ -80,7 +80,7 @@ function Cadastro() {
           try {
             
             await api.post("/clientes/insert",{...dados}).then(r=>{
-              if(r.status){
+              if(r.data.status){
                 Swal.fire(
                 'Cadastro realizado com sucesso!',
                 '',
@@ -91,7 +91,8 @@ function Cadastro() {
               }
             })
           } catch (error) {
-            alert("Este Serviço esta Indisponivel no momento")            
+            alert("Este Serviço esta Indisponivel no momento")
+            console.log(error)          
           }
 
 
@@ -126,7 +127,7 @@ function Cadastro() {
             <Divider sx={{ mb: 2 }}>
               <Chip label="Dados pessoais"></Chip>
             </Divider>
-            <TextFieldStyled name='nome' label="Nome" />
+            <TextFieldStyled name='name' label="Nome" />
             <TextFieldStyled name='cpf' label="CPF" />
             <TextFieldStyled name='telefone' label="Telefone" />
             <TextFieldStyled type='date' defaultValue={dayjs(new Date()).format("YYYY-MM-DD")} name='nascimento' label="D. Nascimen." />

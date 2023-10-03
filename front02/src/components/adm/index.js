@@ -7,7 +7,7 @@ import { Box} from "@mui/material";
 export default function Perfil() {
 
 	return (		
-		<Box  sx={{bgcolor:"background.paper",height:"100vh"}}>
+		<Box  sx={{bgcolor:"background.paper"}}>
 			<MenuAppBar></MenuAppBar>	  
 			<Outlet></Outlet>
 		</Box>		
