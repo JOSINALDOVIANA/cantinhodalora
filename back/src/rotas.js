@@ -111,6 +111,8 @@ rotas.post("/clientes/insert",clientes.Insert)
 rotas.put("/clientes/update",clientes.Update)
 rotas.delete("/clientes/delete",clientes.Delete)
 
+// ####################rotas auxiliares########################
+rotas.get("/getclientes",clientes.GetClientes)
 
 
 

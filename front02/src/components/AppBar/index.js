@@ -131,7 +131,7 @@ export default function MenuAppBar(prop) {
 						</Search>
 
 						{
-							!!Dados.user ? <Avatar sx={{margin:1}} src={Dados.user.img.url} alt="imageperfil"></Avatar> : ""
+							!!Dados.user ? <Avatar sx={{margin:1}} src={Dados?.user?.img?.url} alt="imageperfil"></Avatar> : ""
 						}
 
 						{!Dados.user ?
@@ -149,7 +149,8 @@ export default function MenuAppBar(prop) {
 								<Cancel
 									onClick={() => {
 										let d = delete Dados.user;
-										setDados(d)
+										setDados(d);
+										navegador("/")
 									}}
 									sx={{ cursor: "pointer", margin: 1 }}
 									color="error">

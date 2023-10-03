@@ -1,6 +1,17 @@
 import conexao from "../../databases/conexao.js"
 
 export default {
+    async GetClientes(req,res){
+        
+        try {
+           let user=await conexao("clientes");
+        
+        return res.json({status:true,user})
+        } catch (error) {
+            console.log(error)
+            return res.json({status:false,mensagem:"verifique os dados digitados e tente novamente"})
+        }
+    },
     async Login (req,res){
         let {email,password}=req.body
         // console.log(req.body)

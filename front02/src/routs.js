@@ -25,6 +25,7 @@ const Promo = React.lazy(() => import('./components/adm/promo/index.js'));
 const Perfil = React.lazy(() => import('./components/adm/index.js'));
 const TelaIncialCliente = React.lazy(() => import('./components/cliente/index.js'));
 const CadastroCliente = React.lazy(() => import('./components/cliente/cadastro.js'));
+const ListaClientes = React.lazy(() => import('./components/adm/user/ClientesList.js'));
 const Teste = React.lazy(() => import('./components/teste/index.js'));
 
 
@@ -104,6 +105,7 @@ export function Rotas() {
                                             <Route path="/perfil/imagensclientes" element={<Imagenscli />}></Route>
                                             <Route path="/perfil/imagensprodutos" element={<Imagensprod />}></Route>
                                             <Route path="/perfil/promocoes" element={<Promo />}></Route>
+                                            <Route path="/perfil/clientes" element={<ListaClientes />}></Route>
                                         </Route>
                                         <Route path="/cliente" element={<TelaIncialCliente />} >
                                             <Route index element={<TelaIncialCliente />}></Route>

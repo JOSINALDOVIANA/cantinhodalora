@@ -250,7 +250,7 @@ function TelaCliente() {
 
             <FormLabel sx={{ mt: 2 }}>Validade</FormLabel>
             <CssTextField
-              helperText={"Ecolha um dia qualquer!"}
+              helperText={"Valido Mês/Ano!"}
               type='date'
               defaultValue={dayjs(Dados?.user?.validadecart).format("YYYY-MM-DD")}
               onChange={e => {
