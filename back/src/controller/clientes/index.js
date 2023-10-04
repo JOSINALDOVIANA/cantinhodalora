@@ -4,9 +4,17 @@ export default {
     async GetClientes(req,res){
         
         try {
+            let user_serialize=[]
            let user=await conexao("clientes");
+           for (let value of !!user?user:[]) {
+            if(!!value.id_image){
+                value.img=await conexao("images").where({id:value.id_image}).first();
+                if(!!value.img){value.img.url=`http://${process.env.IP_SERVER}:3009/images/${value.img.key}`}
+            }
+            user_serialize.push(value)
+           }
         
-        return res.json({status:true,user})
+        return res.json({status:true,user:user_serialize})
         } catch (error) {
             console.log(error)
             return res.json({status:false,mensagem:"verifique os dados digitados e tente novamente"})
@@ -33,6 +41,7 @@ export default {
     },
     async Insert (req,res){
         let {name,cpf,endereco,cidade,bairro,telefone,nascimento,ncart=null,validadecart=null,cvc=null,email,password,id_image=""}=req.body
+        
         try {
            await conexao("clientes").insert({name,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,password,id_image});
 
@@ -45,10 +54,10 @@ export default {
         }
     },
     async Update (req,res){
-        let {id,nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart=null,validadecart=null,cvc=null,email,password,id_image=""}=req.body
+        let {id,name,cpf,endereco,cidade,bairro,telefone,nascimento,ncart=null,validadecart=null,cvc=null,email,password,id_image=""}=req.body
        
         try {
-           await conexao("clientes").where({id}).update({nome,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,password,id_image});
+           await conexao("clientes").where({id}).update({name,cpf,endereco,cidade,bairro,telefone,nascimento,ncart,validadecart,cvc,email,password,id_image});
 
        
             return res.json({status:true,mensagem:"atualizado"})

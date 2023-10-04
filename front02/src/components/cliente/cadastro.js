@@ -42,7 +42,7 @@ function Cadastro() {
   const [showPassword, setshowPassword] = React.useState(false);
   const theme = useTheme();
   const navegador=useNavigate()
-  // console.log(dados)
+  console.log(dados)
   return (
 
     <>
@@ -127,10 +127,10 @@ function Cadastro() {
             <Divider sx={{ mb: 2 }}>
               <Chip label="Dados pessoais"></Chip>
             </Divider>
-            <TextFieldStyled name='name' label="Nome" />
-            <TextFieldStyled name='cpf' label="CPF" />
-            <TextFieldStyled name='telefone' label="Telefone" />
-            <TextFieldStyled type='date' defaultValue={dayjs(new Date()).format("YYYY-MM-DD")} name='nascimento' label="D. Nascimen." />
+            <TextFieldStyled required name='name' label="Nome" />
+            <TextFieldStyled required name='cpf' label="CPF" />
+            <TextFieldStyled required name='telefone' label="Telefone" />
+            <TextFieldStyled required type='date' defaultValue={dayjs(new Date()).format("YYYY-MM-DD")} name='nascimento' label="D. Nascimen." />
           </Box>
 
           {/* Dados de Acesso */}
@@ -138,8 +138,8 @@ function Cadastro() {
             <Divider sx={{ mb: 2 }} >
               <Chip label="Dados de Acesso"></Chip>
             </Divider>
-            <TextFieldStyled name='email' label="E-mail" type='text' placeholder={dados?.email} />
-            <InputLabel htmlFor="password">Password</InputLabel>
+            <TextFieldStyled required name='email' label="E-mail" type='text' placeholder={dados?.email} />
+            <InputLabel required htmlFor="password">Password</InputLabel>
             <OutlinedInput
               id='password'
               label="Senha"
@@ -167,9 +167,9 @@ function Cadastro() {
             <Divider sx={{ mb: 2 }} >
               <Chip label="Localização"></Chip>
             </Divider>
-            <TextFieldStyled name='cidade' label="Cidade" type='text' placeholder={dados?.cidade} />
-            <TextFieldStyled name='bairro' label="Bairro" type='text' placeholder={dados?.bairro} />
-            <TextFieldStyled name='endereco' label="Endereço" type='text' placeholder={dados?.endereco} />
+            <TextFieldStyled required name='cidade' label="Cidade" type='text' placeholder={dados?.cidade} />
+            <TextFieldStyled required name='bairro' label="Bairro" type='text' placeholder={dados?.bairro} />
+            <TextFieldStyled required name='endereco' label="Endereço" type='text' placeholder={dados?.endereco} />
 
 
           </Box>
@@ -193,6 +193,7 @@ function Cadastro() {
             <CssTextField
               name='validadecart'
               helperText={"valido apenas o mês e ano, Não Obrigatório"}
+              
               type='date'
               defaultValue={dayjs(dados?.validadecart).format("YYYY-MM-DD")}
 

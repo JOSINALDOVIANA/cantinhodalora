@@ -2,15 +2,15 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import MenuAppBar from "./appBar/index.js";
-import { Box} from "@mui/material";
+import { Box, Container} from "@mui/material";
 
 export default function Perfil() {
 
 	return (		
-		<Box  sx={{bgcolor:"background.paper"}}>
+		<Container  sx={{bgcolor:"background.paper"}}>
 			<MenuAppBar></MenuAppBar>	  
 			<Outlet></Outlet>
-		</Box>		
+		</Container>		
 	);
 }
 

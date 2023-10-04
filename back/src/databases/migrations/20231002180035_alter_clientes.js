@@ -9,7 +9,7 @@ export function up(knex) {
         table.string("cpf").notNullable().unique().alter();
         table.string("email").notNullable().unique().alter();
         table.string("telefone").notNullable().unique().alter();
-        table.string("ncart").defaultTo(null).unique().alter();
+        
     })
   }
   
@@ -22,7 +22,7 @@ export function up(knex) {
         table.string("cpf").notNullable().alter();
         table.string("email").notNullable().alter();
         table.string("telefone").notNullable().alter();
-        table.string("ncart").defaultTo(null).alter();
+     
   })
   }
   
