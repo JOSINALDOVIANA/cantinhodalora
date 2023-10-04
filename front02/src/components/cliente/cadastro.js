@@ -92,7 +92,7 @@ function Cadastro() {
             })
           } catch (error) {
             alert("Este Serviço esta Indisponivel no momento")
-            console.log(error)          
+                    
           }
 
 

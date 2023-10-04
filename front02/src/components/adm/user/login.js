@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { Checkbox, CssBaseline, FormControlLabel, FormGroup, FormLabel, Paper, Typography, useTheme } from "@mui/material";
 import { DadosContext, TrocarTheme } from "../../../routs";
 import { CheckBox } from "@mui/icons-material";
+import MenuAppBar from "../appBar";
 
 export default function Login() {
 	const navegator = useNavigate();
@@ -22,7 +23,7 @@ export default function Login() {
 	return (
 		<React.Fragment>
 			<CssBaseline/>
-
+			<MenuAppBar></MenuAppBar>
 			<Paper
 				sx={{
 					height: "100%",
@@ -42,7 +43,8 @@ export default function Login() {
 
 
 				}} >
-				<TrocarTheme style={{ position: "absolute", top: "10px", right: "10px" }}></TrocarTheme>
+				{/* <TrocarTheme style={{ position: "absolute", top: "10px", right: "10px" }}></TrocarTheme> */}
+				
 				<Box sx={{
 					width: "20%",
 					height: "100%",
