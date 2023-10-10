@@ -69,8 +69,8 @@ export default function MenuAppBar() {
 						id="menu-appbar"
 						anchorEl={anchorE2}
 						anchorOrigin={{
-							vertical: "top",
-							horizontal: "right",
+							vertical: "bottom",
+							horizontal: "left",
 						}}
 						keepMounted
 						transformOrigin={{

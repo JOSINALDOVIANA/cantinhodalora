@@ -29,20 +29,20 @@ function ListeClientes() {
     return (
         
             <Grid 
-            // sx={{position:"relative"}} 
+            // sx={{mb:3}} 
             container 
             justifyContent={"center"} 
             // alignItems="center" 
             spacing={1} >
             {clientes?.map((item, index) => (
                     <Grid
-                    // maxWidth={300}
+                    minHeight={300}
                         key={item.id + uniqueId()}
                         item
                         xs={12}
-                        sm={12}
+                        sm={6}
                         md={4}
-                        lg={2}
+                        lg={3}
                     >
                         <RecipeReviewCard setClientes={setClientes} user={item}></RecipeReviewCard>
 
