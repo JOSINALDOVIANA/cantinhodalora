@@ -1,9 +1,9 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import locale_pt from 'dayjs/locale/pt-br'
-import { Box, Button, Chip, CssBaseline, Divider, FormControl, FormLabel, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, TextField, styled, useTheme } from '@mui/material';
+import { Box, Button, Chip,  Divider, FormControl, FormLabel, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, TextField, styled, useTheme } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import MenuAppBar from '../AppBar';
+
 
 import { api } from '../../api';
 import Swal from 'sweetalert2';
@@ -46,8 +46,8 @@ function Cadastro() {
   return (
 
     <>
-      <CssBaseline />
-      <MenuAppBar></MenuAppBar>
+      {/* <CssBaseline /> */}
+      {/* <MenuAppBar></MenuAppBar> */}
       <Box
         component={"form"}
         sx={{

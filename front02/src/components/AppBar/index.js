@@ -1,21 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import SearchIcon from '@mui/icons-material/Search';
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { BsFacebook, BsInstagram, BsWhatsapp, BsArrowDownLeftSquare, BsBoxArrowInLeft } from "react-icons/bs";
-import { IoHome, IoSettings, IoSettingsOutline } from "react-icons/io5";
-import { Avatar, Button, Dialog, DialogTitle, FormControl, InputBase, Paper, TextField, Typography, alpha, styled, useTheme } from "@mui/material";
-import { DadosContext, SearchContex, TrocarTheme } from "../../routs";
-import { useQuery } from "../../functions/searchquery";
+import { IoHome, IoSettingsOutline } from "react-icons/io5";
+import { Avatar, InputBase, Typography, alpha, styled, useTheme } from "@mui/material";
+import { ColorModeContext, DadosContext, SearchContex, TrocarTheme } from "../../routs";
 import { Cancel, People, Settings } from "@mui/icons-material";
-import { api } from "../../api";
-import Swal from "sweetalert2";
+import { Brightness6, Brightness7 } from '@mui/icons-material';
 import LoginCli from "../cliente/login";
 
 const Search = styled('div')(({ theme }) => ({
@@ -60,11 +58,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 export default function MenuAppBar(prop) {
-	const { name } = useParams()
-	const query = useQuery();
+	// const { name } = useParams()
+	// const query = useQuery();
+	const colorMode=useContext(ColorModeContext)
 
 
-	const [search, setSearch] = useContext(SearchContex);
+	const [setSearch] = useContext(SearchContex);
 	const [openDialog, setDialog] = useState(false);
 
 	const [Dados, setDados] = useContext(DadosContext);
@@ -246,7 +245,7 @@ export default function MenuAppBar(prop) {
 							</MenuItem> : null
 						}
 
-						<MenuItem sx={{ [theme.breakpoints.up("md")]: { display: "none" }, display: "flex", justifyContent: "flex-start", width: "auto" }}><TrocarTheme sx={{ margin: 0 }} ></TrocarTheme>Trocar Tema</MenuItem>
+						<MenuItem onClick={colorMode.toggleColorMode} sx={{ [theme.breakpoints.up("md")]: { display: "none" }, display: "flex", justifyContent: "flex-start", width: "auto" }}>{theme.palette.mode === 'dark' ? <Brightness6 sx={{mr:2}} /> : <Brightness7 sx={{mr:2}}/>}Trocar Tema</MenuItem>
 
 
 					</Menu>

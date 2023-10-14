@@ -1,7 +1,7 @@
-import { Box, Button, Grid, ImageList, ImageListItem, Paper, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Box, Button, Grid, Paper,  useTheme } from "@mui/material";
 import { uniqueId } from "lodash"
-import { api, url } from "../../../api";
+import { api } from "../../../api";
 
 // import { Container } from './styles';
 

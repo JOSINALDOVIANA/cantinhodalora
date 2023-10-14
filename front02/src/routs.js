@@ -6,10 +6,10 @@ import Load from './components/load';
 // import { LocalizationProvider } from '@mui/x-date-pickers';
 // import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import {  MdBrightness4 } from "react-icons/md"
+// import {  MdBrightness4 } from "react-icons/md"
 
 import { Typography } from '@mui/material';
-import { Brightness1, Brightness2 } from '@mui/icons-material';
+import { Brightness6, Brightness7 } from '@mui/icons-material';
 // const InicialTela = React.lazy(() => import("./telas/home/index.js"));
 const TelaInicial = React.lazy(() => import('./components/telainicial.js'));
 const Produtos = React.lazy(() => import('./components/produtos/index.js'));
@@ -25,12 +25,13 @@ const Promo = React.lazy(() => import('./components/adm/promo/index.js'));
 const Perfil = React.lazy(() => import('./components/adm/index.js'));
 const TelaIncialCliente = React.lazy(() => import('./components/cliente/index.js'));
 const CadastroCliente = React.lazy(() => import('./components/cliente/cadastro.js'));
+const ClienteDados = React.lazy(() => import('./components/cliente/dadoscliente.js'));
 const ListaClientes = React.lazy(() => import('./components/adm/user/ClientesList.js'));
 const Teste = React.lazy(() => import('./components/teste/index.js'));
 
 
 
-const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
+export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 export let SearchContex = React.createContext(null);
 export let DadosContext = React.createContext(null);
 
@@ -41,7 +42,7 @@ export function TrocarTheme(props) {
 
 
         <IconButton {...props} onClick={colorMode.toggleColorMode} color="inherit">
-            {theme.palette.mode === 'dark' ? <MdBrightness4 /> : <Brightness2 />}
+            {theme.palette.mode === 'dark' ? <Brightness6 /> : <Brightness7 />}
         </IconButton>
 
     );
@@ -108,7 +109,8 @@ export function Rotas() {
                                             <Route path="/perfil/clientes" element={<ListaClientes />}></Route>
                                         </Route>
                                         <Route path="/cliente" element={<TelaIncialCliente />} >
-                                            <Route index element={<TelaIncialCliente />}></Route>
+                                            <Route index element={<ClienteDados />}></Route>
+                                            <Route path="/cliente/cadastro" element={<CadastroCliente />} />
                                           
                                         </Route>
                                         {/* <Route path="/" element={<InicialTela />} >

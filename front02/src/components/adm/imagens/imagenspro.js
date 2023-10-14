@@ -1,6 +1,6 @@
-import { Box, Button, Grid, ImageList, ImageListItem, Paper, Typography, useTheme } from "@mui/material";
+import { Button, Grid, Paper, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { api, url } from "../../../api";
+import { api } from "../../../api";
 import { uniqueId } from "lodash";
 
 

@@ -7,16 +7,15 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import { api } from "../../../api";
 import { useNavigate } from "react-router-dom";
-import { Checkbox, CssBaseline, FormControlLabel, FormGroup, FormLabel, Paper, Typography, useTheme } from "@mui/material";
-import { DadosContext, TrocarTheme } from "../../../routs";
-import { CheckBox } from "@mui/icons-material";
+import { CssBaseline, Paper, Typography, useTheme } from "@mui/material";
+import { DadosContext} from "../../../routs";
 import MenuAppBar from "../appBar";
 
 export default function Login() {
 	const navegator = useNavigate();
 	const theme = useTheme()
 	const [values, setValues] = React.useState({ email: "", password: "" });
-	const [Dados, setDados] = React.useContext(DadosContext);
+	const [Dados,setDados] = React.useContext(DadosContext);
 	
 	
 

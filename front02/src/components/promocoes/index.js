@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Paper, Typography, styled, useTheme, Grid, Badge, Divider, Chip, Box, IconButton } from "@mui/material";
-import Torre from "../../assets/Torres.png";
+import { Paper, Typography, styled, useTheme, Box } from "@mui/material";
 import Carousel from 'react-material-ui-carousel'
-import ComplexGrid from "../Grid/card";
 import "./style.css"
 
-import { green } from "@mui/material/colors";
 import { api } from "../../api";
-import { Fingerprint } from "@mui/icons-material";
 import { uniqueId } from "lodash";
-const Img = styled("img")({
 
-	display: "block",
-	maxWidth: "100%",
-	maxHeight: "100%",
-});
 function Promo() {
 	const theme = useTheme();
 	const [promo, setPromo] = useState([]);

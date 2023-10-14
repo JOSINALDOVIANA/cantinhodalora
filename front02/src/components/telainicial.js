@@ -1,4 +1,4 @@
-import { Box, Container, CssBaseline, Typography, useTheme } from '@mui/material';
+import {  Container, CssBaseline, Typography, useTheme } from '@mui/material';
 
 import React from 'react';
 

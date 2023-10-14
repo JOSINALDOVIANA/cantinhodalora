@@ -20,7 +20,7 @@ export default function MenuAppBar() {
 	const theme = useTheme();//usado para prover as propriedades do thema
 	
 	
-	const [Dados,setDados]=useContext(DadosContext);
+	const [Dados]=useContext(DadosContext);
     useEffect(() => {
 		if (Object.keys(Dados).length>0) { return }
 		navegar("/login")

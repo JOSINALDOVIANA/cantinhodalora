@@ -1,8 +1,8 @@
 import React from 'react';
-import { Avatar, Box, Button, Chip, Divider, FormControl, Grid, ImageList, ImageListItem, InputLabel, MenuItem, Modal, Paper, Select, TextField, Typography, styled, useTheme } from '@mui/material';
+import {  Box, Button, Chip, Divider, FormControl, Grid,  InputLabel, MenuItem, Modal, Paper, Select, TextField, Typography, styled, useTheme } from '@mui/material';
 import { api, url } from '../../../api';
-import { uniqueId } from 'lodash';
-import { TfiTrash, TfiRulerPencil, TfiStackOverflow } from "react-icons/tfi";
+
+import {  TfiRulerPencil, TfiStackOverflow } from "react-icons/tfi";
 
 import "./styleeditar.css";
 import Swal from 'sweetalert2';

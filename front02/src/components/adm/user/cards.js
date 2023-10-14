@@ -2,7 +2,6 @@ import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
@@ -10,13 +9,11 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { green, red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 import dayjs from 'dayjs';
 import locale_pt from 'dayjs/locale/pt-br'
-import { Box, Button, Chip, Divider, FormControl, Input, InputAdornment, InputLabel, OutlinedInput, Paper, TextField } from '@mui/material';
+import { Box, Button, Chip, Divider, FormControl, Input, InputAdornment, InputLabel,  TextField } from '@mui/material';
 
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { api } from '../../../api';
@@ -42,7 +39,7 @@ export default function RecipeReviewCard({ user, setClientes }) {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-    const theme = useTheme()
+    // const theme = useTheme()
 
     return (
         <Card elevation={5} sx={{
@@ -74,15 +71,15 @@ export default function RecipeReviewCard({ user, setClientes }) {
 
                 <Box sx={{ display: "flex", flexDirection: "column", alignItems: "initial", width: "50%", "&&": { mr: 2 } }}>
                     <Box>
-                        <Typography sx={{ fontSize: "0.7rem" }} component={"span"}>Cidade:</Typography>
+                        <Typography sx={{ fontSize: "0.7rem" }} component={"span"}>CIDADE:</Typography>
                         <Typography sx={{ fontSize: "0.5rem", color: green[500] }} >{userInterno?.cidade.toUpperCase()}</Typography>
                     </Box>
                     <Box>
-                        <Typography sx={{ fontSize: "0.7rem" }} component={"span"}>Bairro:</Typography>
+                        <Typography sx={{ fontSize: "0.7rem" }} component={"span"}>BAIRRO:</Typography>
                         <Typography sx={{ fontSize: "0.5rem", color: green[500] }} >{userInterno?.bairro.toUpperCase()}</Typography>
                     </Box>
                     <Box>
-                        <Typography sx={{ fontSize: "0.7rem" }} component={"span"}>Endereço:</Typography>
+                        <Typography sx={{ fontSize: "0.7rem" }} component={"span"}>ENDEREÇO: </Typography>
                         <Typography sx={{ fontSize: "0.5rem", color: green[500] }} >{userInterno?.endereco.toUpperCase()}</Typography>
                     </Box>
 
@@ -90,11 +87,11 @@ export default function RecipeReviewCard({ user, setClientes }) {
 
                 <Box sx={{ display: "flex", flexDirection: "column", alignItems: "initial", width: "50%" }}>
                     <Box>
-                        <Typography sx={{ fontSize: "0.7rem" }} component={"span"}>Telefone:</Typography>
+                        <Typography sx={{ fontSize: "0.7rem" }} component={"span"}>TELEFONE:</Typography>
                         <Typography sx={{ fontSize: "0.5rem", color: green[500] }} >{userInterno?.telefone.toUpperCase()}</Typography>
                     </Box>
                     <Box>
-                        <Typography sx={{ fontSize: "0.7rem" }} component={"span"}>E-mail:</Typography>
+                        <Typography sx={{ fontSize: "0.7rem" }} component={"span"}>E-MAIL:</Typography>
                         <Typography sx={{ fontSize: "0.5rem", color: green[500] }} >{userInterno?.email.toUpperCase()}</Typography>
                     </Box>
                     <Box>

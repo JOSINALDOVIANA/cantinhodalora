@@ -40,7 +40,7 @@ export default function Load() {
 					</li>
 				</ul>
 			</div>
-			<span>Loading</span>
+			<span>Carregando...</span>
 			</div>
 		</Paper>
 	);

@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import ComplexGrid from './card';
 import { api } from '../../api';
-import { Paper, Typography, useTheme } from '@mui/material';
+import { Paper, Typography} from '@mui/material';
 import { SearchContex } from '../../routs';
 import { uniqueId } from 'lodash';
 
@@ -13,8 +13,8 @@ import { uniqueId } from 'lodash';
 
 export default function GridContainer() {
 
-  const [search, setSearch] = React.useContext(SearchContex);
-  const theme = useTheme();
+  const [search] = React.useContext(SearchContex);
+  // const theme = useTheme();
   const [produtos, setProd] = React.useState([]);
   const [produtosFilter, setProdFilter] = React.useState([]);
   const [categorias, setCat] = React.useState([]);
