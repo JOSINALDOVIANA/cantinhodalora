@@ -136,7 +136,7 @@ const navegador=useNavigate()
             />
           </Box>
 
-          <Box sx={{ margin: 2, [theme.breakpoints.down("md")]: {} }} component={FormControl}>
+          {/* <Box sx={{ margin: 2, [theme.breakpoints.down("md")]: {} }} component={FormControl}>
             <Divider >
               <Chip label="Localização"></Chip>
             </Divider>
@@ -167,9 +167,9 @@ const navegador=useNavigate()
                 setDados(a => ({ ...a, user: { ...a.user, endereco: e.target.value } }))
               }}
             />
-          </Box>
+          </Box> */}
 
-          <Box sx={{ margin: 2, [theme.breakpoints.down("md")]: {} }} component={FormControl}>
+          {/* <Box sx={{ margin: 2, [theme.breakpoints.down("md")]: {} }} component={FormControl}>
             <Divider>
               <Chip label="Dados Pessoais"></Chip>
             </Divider>
@@ -214,9 +214,9 @@ const navegador=useNavigate()
                 setDados(a => ({ ...a, user: { ...a.user, telefone: e.target.value } }))
               }}
             />
-          </Box>
+          </Box> */}
 
-          <Box sx={{ margin: 2, [theme.breakpoints.down("md")]: {} }} component={FormControl}>
+          {/* <Box sx={{ margin: 2, [theme.breakpoints.down("md")]: {} }} component={FormControl}>
             <Divider>
               <Chip label="Formas de Pagamento"></Chip>
             </Divider>
@@ -258,7 +258,7 @@ const navegador=useNavigate()
                 setDados(a => ({ ...a, user: { ...a.user, cvc: e.target.value } }))
               }}
             />
-          </Box>
+          </Box> */}
 
           {/* botoes */}
 
