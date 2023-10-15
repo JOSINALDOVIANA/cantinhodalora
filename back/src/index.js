@@ -14,8 +14,9 @@ const  api=express();
 
 api.use(express.json())
 api.use(requestIP.mw())
-api.use((req,res)=>{
+api.use((req,res,next)=>{
     console.log(req.clientIp)
+    next()
 })
 api.use(cors({ exposedHeaders: ['Total_lojas_cliente', 'Total_categorias',
  'Total_criticas_loja', 'Total_categorias','login','update_prop','login_loja','FeedbackTotais','sugestoesTotais',
