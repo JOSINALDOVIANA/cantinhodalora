@@ -7,7 +7,7 @@ import { api } from '../../api';
 
 
 function LoginCli(props) {
-    const [setDados]=useContext(DadosContext);
+    const [Dados,setDados]=useContext(DadosContext);
     // const theme=useTheme()
   return (
 <Dialog sx={{borderRadius:"5px"}}  {...props}>

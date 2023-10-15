@@ -123,7 +123,7 @@ function Produtoscad() {
         width: "100%",
         display: "flex",
         justifyContent: "space-evenly",
-        // alignItems: "center",
+        alignItems: "flex-start",
         position:"relative",
         [theme.breakpoints.down("md")]: {
           flexDirection: "column",
@@ -481,10 +481,10 @@ function Produtoscad() {
         sx={{
           width: "50%",
           overflow: "scroll",
+          maxHeight:"80%",
           
-          // margin:`${theme.spacing(1)}${0}${theme.spacing(1)}${0}`,
-          marginTop: theme.spacing(2),
-          marginBottom: theme.spacing(2),
+          
+         
           marginRight: theme.spacing(1),
 
           [theme.breakpoints.down("md")]: {
@@ -547,7 +547,7 @@ function Produtoscad() {
 
 
 
-                  <Typography sx={{ color: "#404E5C", fontSize: "0.9em", width: "90%" }} noWrap variant="subtitle1" component="p">
+                  <Typography sx={{  fontSize: "0.7em" }} noWrap variant="subtitle1" component="p">
                     {p.desc + " " + p.tam}
                   </Typography>
 
