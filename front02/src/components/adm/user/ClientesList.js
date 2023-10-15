@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, useTheme } from '@mui/material';
+import { CssBaseline, Grid } from '@mui/material';
 import { api } from '../../../api';
 import { uniqueId } from 'lodash';
-import dayjs from 'dayjs';
-import locale_pt from 'dayjs/locale/pt-br'
+// import dayjs from 'dayjs';
+// import locale_pt from 'dayjs/locale/pt-br'
 
 import RecipeReviewCard from './cards';
 
@@ -11,10 +11,10 @@ import RecipeReviewCard from './cards';
 
 
 function ListeClientes() {
-    dayjs.locale(locale_pt)
-    const theme = useTheme()
+    // dayjs.locale(locale_pt)
+    // const theme = useTheme()
     const [clientes, setClientes] = useState([])
-    const [showPassword, setshowPassword] = React.useState(false);
+    // const [showPassword, setshowPassword] = React.useState(false);
     useEffect(() => {
         const carregar = async () => {
             await api.get('/getclientes').then(r => {
@@ -25,33 +25,36 @@ function ListeClientes() {
         }
         carregar()
     }, [])
-    console.log(clientes)
+    // console.log(clientes)
     return (
-        
-            <Grid 
+
+        <>
+        <CssBaseline></CssBaseline>
+        <Grid
             // sx={{mb:3}} 
-            container 
-            justifyContent={"center"} 
+            container
+            justifyContent={"center"}
             // alignItems="center" 
             spacing={1} >
             {clientes?.map((item, index) => (
-                    <Grid
+                <Grid
                     minHeight={300}
-                        key={item.id + uniqueId()}
-                        item
-                        xs={12}
-                        sm={6}
-                        md={4}
-                        lg={3}
-                    >
-                        <RecipeReviewCard setClientes={setClientes} user={item}></RecipeReviewCard>
+                    key={item.id + uniqueId()}
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={3}
+                >
+                    <RecipeReviewCard setClientes={setClientes} user={item}></RecipeReviewCard>
 
-                    </Grid>
-                
-                ))}
                 </Grid>
 
-        
+            ))}
+        </Grid>
+        </>
+
+
     );
 }
 

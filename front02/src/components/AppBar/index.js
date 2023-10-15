@@ -3,7 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import SearchIcon from '@mui/icons-material/Search';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -94,7 +94,7 @@ export default function MenuAppBar(prop) {
 				position="static"
 				sx={{
 					background: "transparent",
-					color: theme.palette.mode == "light" ? "#000" : null,
+					color: theme.palette.mode === "light" ? "#000" : null,
 					// boxShadow:`0px 0px 10px 0 #ffa726`,
 					verticalAlign: "center",
 				}}

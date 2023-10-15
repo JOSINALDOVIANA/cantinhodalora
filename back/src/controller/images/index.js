@@ -14,6 +14,64 @@ export const __dirname = path.dirname(__filename);
 
 
 export default {
+    async uploadIMGuser (req,res){
+        let {originalname: name, size, key, location: url = ''} = req.file;
+        let {id_cli}=req.query;
+        
+            const id = `${Crypto.randomBytes(12).toString('HEX')}`;
+    
+            try {
+                await conexao('images').insert({
+                    id,
+                    name,
+                    size,
+                    key,
+                    url,
+                    prod:false
+                    
+                });
+                await conexao("image_user").insert({id_image:id,id_user:id_cli});
+                res.json({
+                    id, name, size, key, url,prod:false
+                });
+            } catch (error) {
+                console.error(error)
+                return res.json({status:false,mensagem:"error"
+                })
+            }
+     
+    },
+    async deleteIMGuser (req,res){
+        const {id,key}=req.query
+        
+        try {
+           await conexao("images").del().where({id,prod:false});
+         promisify(fs.unlink)(path.resolve(__dirname, "..", "..","..","tmp", "uploads", `${key}`), (err) => {
+            if (err) { console.log("não foi possivel apagar o arquivo");console.log(err) }
+            else { console.log('aquivo deletado'); };
+        })
+          
+           return res.json({status:true,mensagem:"apagada"})
+        } catch (error) {
+            console.log(error)
+            return res.json({status:false,mensagem:"error ao excluir"})
+        }
+    },
+    async selectIMGuser (req,res){
+        let {id_cli}=req.query
+        try {
+            let images=await conexao("image_user").where({prod:false,id_user:id_cli}).join("images","image_user.id_image","=","images.id").select("images.*")
+            console.log(images)
+            for (const key in images) {
+               images[key].delete=`http://${process.env.IP_SERVER}:3009/deleteImage?id=${images[key].id}&key=${images[key].key}`
+               images[key].url=`http://${process.env.IP_SERVER}:3009/images/${images[key].key}`;
+            }
+            return res.json({status:true,images})
+        } catch (error) {
+            console.log(error)
+            return res.json({status:false,mensagem:"error ao consultar"})
+        }
+    },
     async uploadIMGclient (req,res){
         let {originalname: name, size, key, location: url = ''} = req.file;
         let {id_cli}=req.query;

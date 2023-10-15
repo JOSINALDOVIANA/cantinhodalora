@@ -18,14 +18,14 @@ export default function MenuAppBar() {
 
 	const navegar = useNavigate();//usado para navegar nas rotas
 	const theme = useTheme();//usado para prover as propriedades do thema
-	
-	
-	const [Dados]=useContext(DadosContext);
-    useEffect(() => {
-		if (Object.keys(Dados).length>0) { return }
+
+
+	const [Dados] = useContext(DadosContext);
+	useEffect(() => {
+		if (Object.keys(Dados).length > 0) { return }
 		navegar("/login")
-	  }, [Dados])
-	
+	}, [Dados, navegar])
+
 	//controla o menu suspenso
 	const [anchorE2, setAnchorE2] = React.useState(null);
 	//controle para o menu suspenso (abrir)
@@ -36,7 +36,7 @@ export default function MenuAppBar() {
 	const handleClose2 = () => {
 		setAnchorE2(null);
 	};
-	
+
 
 	return (
 		<Box>
@@ -44,8 +44,8 @@ export default function MenuAppBar() {
 			<AppBar
 				position="static"
 				sx={{
-					background: theme.palette.mode == "light" ? "#fff" : null,
-					color: theme.palette.mode == "light" ? "#000" : null,
+					background: theme.palette.mode === "light" ? "#fff" : null,
+					color: theme.palette.mode === "light" ? "#000" : null,
 					boxShadow: 1,
 					verticalAlign: "center",
 				}}
@@ -80,18 +80,24 @@ export default function MenuAppBar() {
 						open={Boolean(anchorE2)}
 						onClose={handleClose2}
 						sx={{ padding: theme.spacing(2) }}
+
+
 					>
-						<MenuItem onClick={() => { navegar("/perfil/produtosedit", { state: Dados.user }) }}>Editar Produtos</MenuItem>
-						<MenuItem onClick={() => { navegar("/perfil/produtoscad", { state: Dados.user }) }}>Cadastrar Produto</MenuItem>
-						<MenuItem onClick={() => { navegar("/perfil/userEdit", { state: Dados.user }) }}>Usuário/Dados</MenuItem>
-						<MenuItem onClick={() => { navegar("/perfil/imagensclientes", { state: Dados.user }) }}>Imagens/Clientes</MenuItem>
-						<MenuItem onClick={() => { navegar("/perfil/imagensprodutos", { state: Dados.user }) }}>Imagens/Produtos</MenuItem>
-						<MenuItem onClick={() => { navegar("/perfil/promocoes", { state: Dados.user}) }}>Promoções</MenuItem>
-						<MenuItem onClick={() => { navegar("/perfil/fecharCaixa", { state: Dados.user }) }}>Fechamentos</MenuItem>
-						<MenuItem onClick={() => { navegar("/perfil/relatorio", { state: Dados.user }) }}>Relatotios</MenuItem>
-						<MenuItem onClick={() => { navegar("/perfil/clientes", { state: Dados.user }) }}>Clientes</MenuItem>
 						<MenuItem onClick={() => { navegar("/") }}>Página inicial</MenuItem>
-						<MenuItem onClick={() => { delete Dados["user"]; navegar("/") }}>Sair</MenuItem>
+
+
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/produtosedit"); handleClose2() }}>Editar Produtos</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/produtoscad"); handleClose2() }}>Cadastrar Produto</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/userEdit"); handleClose2() }}>Usuário/Dados</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/imagensclientes"); handleClose2() }}>Imagens/Clientes</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/imagensprodutos"); handleClose2() }}>Imagens/Produtos</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/promocoes"); handleClose2() }}>Promoções</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/fecharCaixa"); handleClose2() }}>Fechamentos</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/relatorio"); handleClose2() }}>Relatotios</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/clientes"); handleClose2() }}>Clientes</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { delete Dados["user"]; navegar("/") }}>Sair</MenuItem>}
+
+
 					</Menu>
 				</Toolbar>
 

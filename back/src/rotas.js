@@ -31,6 +31,15 @@ rotas.delete("/deleteImage",images.deleteIMGclient)
 rotas.get("/imagesget",images.selectIMGclient)
 // #######################################################
 
+// #####################IMAGESNS users############################
+
+rotas.post("/users/uploadImage",multer(config).single('file'),images.uploadIMGuser)
+
+rotas.delete("/users/deleteImage",images.deleteIMGuser)
+
+rotas.get("/users/imagesget",images.selectIMGuser)
+// #######################################################
+
 
 
 // #####################IMAGENS Produtos############################
@@ -47,7 +56,7 @@ rotas.get("/selectimagesP",images.selectIMGprod)
 
 // #####################USERS###############################
 
-rotas.get("/users",users.Select);
+// rotas.get("/users",users.Select);
 rotas.post("/login",users.Login);
 rotas.put("/update",users.Update);
 rotas.post("/insert",users.Insert);

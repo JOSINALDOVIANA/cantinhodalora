@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Box, Button, Dialog, DialogTitle, FormControl, Paper, TextField, Typography, useTheme } from '@mui/material';
+import { Box, Button, Dialog, DialogTitle, FormControl, Paper, TextField, Typography } from '@mui/material';
 import Swal from 'sweetalert2';
 import { DadosContext } from '../../routs';
 import { api } from '../../api';
@@ -7,8 +7,8 @@ import { api } from '../../api';
 
 
 function LoginCli(props) {
-    const [Dados,setDados]=useContext(DadosContext);
-    const theme=useTheme()
+    const [setDados]=useContext(DadosContext);
+    // const theme=useTheme()
   return (
 <Dialog sx={{borderRadius:"5px"}}  {...props}>
 						<DialogTitle sx={{ 
