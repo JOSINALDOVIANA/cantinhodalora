@@ -63,7 +63,7 @@ export default function MenuAppBar(prop) {
 	const colorMode=useContext(ColorModeContext)
 
 
-	const [setSearch] = useContext(SearchContex);
+	const [search,setSearch] = useContext(SearchContex);
 	const [openDialog, setDialog] = useState(false);
 
 	const [Dados, setDados] = useContext(DadosContext);

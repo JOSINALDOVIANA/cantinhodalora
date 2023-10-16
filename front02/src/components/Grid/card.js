@@ -3,7 +3,7 @@ import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import {  Box} from "@mui/material";
+import {  Box, Divider} from "@mui/material";
 import { red, green,  } from "@mui/material/colors";
 
 import { uniqueId } from "lodash";
@@ -61,11 +61,12 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 				   maxHeight: "100px",
 				    maxWidth: "100px",
 					 objectFit: "cover",
+					//  boxShadow: "rgba(236, 241, 235, 0.836) 5px 5px, rgba(241, 233, 238, 0.3) 10px 10px, rgba(142, 150, 140, 0.2) 15px 15px, rgba(173, 185, 176, 0.1) 20px 20px, rgba(182, 174, 178, 0.05) 25px 25px",
 					 WebkitMaskImage: `linear-gradient(to top, transparent 0.1%, ${theme.palette.mode=="dark"?"#000":"#fff"} 20%)`,
-				// backgroundImage: "url(http://109.123.243.212:3009/images/3e17e289553cc7211552684fc40d5d7f-torre%20sem%20fundo.png)",
+				
 					 }} />
 
-			{/* <Divider sx={{ margin: 1, marginTop: 2, width: "100%", height: 5 }} /> */}
+			{/* <Divider sx={{  width: "98%", height: 5 }} /> */}
 
 
 
@@ -112,21 +113,27 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 
 
 
-				<Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 2, width: "97%" }}>
 					<Typography noWrap sx={{ fontFamily: "Roboto", width: "90%", textAlign: "center", fontStretch: "extra-condensed", fontWeight: "bold" }}  >
 						{desc}
 					</Typography>
-					<Typography sx={{ fontStyle: "italic", fontFamily: "Roboto" }}> {tamanho}</Typography>
+				<Box sx={{ display: "flex",  alignItems: "center",justifyContent:"space-between", width:"90%" }}>
+					<Typography>Medida: </Typography>
+					<Typography sx={{ fontStyle: "italic", fontFamily: "Roboto",fontSize:"0.8rem" }}> {tamanho}</Typography>
+
+				</Box>
+				<Box sx={{ display: "flex",  alignItems: "center",justifyContent:"space-between", width:"90%" }}>
+					<Typography>Valor: </Typography>
+					
+					<Typography noWrap sx={{ color:"#e02141", fontSize: "1.2rem", textAlign: "center", fontFamily: "Roboto", fontWeight: "bold" }}  >
+						{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(valor)}
+					</Typography>
 
 				</Box>
 
 				
-					<Typography noWrap sx={{ color:"#e02141", fontSize: "1.5rem", textAlign: "center", fontFamily: "Roboto", fontWeight: "bold" }}  >
-						{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(valor)}
-					</Typography>
 				
 
-				<Typography sx={{ fontSize: "0.7em" }} color={green[600]} noWrap gutterBottom variant="subtitle1" component="div">
+				<Typography sx={{ fontSize: "0.7em",mt:2 }} color={green[600]} noWrap gutterBottom variant="subtitle1" component="div">
 					Verifique a disponibilidade
 				</Typography>
 
