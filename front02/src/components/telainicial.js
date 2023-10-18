@@ -20,7 +20,7 @@ function TelaInicial() {
       <CssBaseline />
       <MenuAppBar></MenuAppBar>
       <Typography
-					sx={{display:"none",fontFamily:"Lunasima",fontSize:"2rem",justifyContent:"center",alignItems:"center",[theme.breakpoints.down("md")]:{display:"flex"}}}
+					sx={{display:"none",fontFamily:"Lunasima",fontSize:"2rem",textAlign:"center",[theme.breakpoints.down("md")]:{display:"flex",textAlign:"center",justifyContent:"center",alignItems:"center"}}}
 					>CANTINHO DA LORA</Typography>
       <Container maxWidth={false} sx={{ margin: 0, marginTop: theme.spacing(10), padding: 1, paddingBottom: theme.spacing(10) }} >
         <Outlet></Outlet>

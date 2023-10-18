@@ -86,15 +86,15 @@ export default function MenuAppBar() {
 						<MenuItem onClick={() => { navegar("/") }}>Página inicial</MenuItem>
 
 
-						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/produtosedit"); handleClose2() }}>Editar Produtos</MenuItem>}
-						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/produtoscad"); handleClose2() }}>Cadastrar Produto</MenuItem>}
-						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/userEdit"); handleClose2() }}>Usuário/Dados</MenuItem>}
-						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/imagensclientes"); handleClose2() }}>Imagens/Clientes</MenuItem>}
-						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/imagensprodutos"); handleClose2() }}>Imagens/Produtos</MenuItem>}
-						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/promocoes"); handleClose2() }}>Promoções</MenuItem>}
-						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/fecharCaixa"); handleClose2() }}>Fechamentos</MenuItem>}
-						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/relatorio"); handleClose2() }}>Relatotios</MenuItem>}
-						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/clientes"); handleClose2() }}>Clientes</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/produtosedit") }}>Editar Produtos</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/produtoscad") }}>Cadastrar Produto</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/userEdit") }}>Usuário/Dados</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/imagensclientes") }}>Imagens/Clientes</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/imagensprodutos") }}>Imagens/Produtos</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/promocoes") }}>Promoções</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/fecharCaixa") }}>Fechamentos</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/relatorio") }}>Relatotios</MenuItem>}
+						{!!Dados?.user?.adm && <MenuItem onClick={() => { navegar("/perfil/clientes") }}>Clientes</MenuItem>}
 						{!!Dados?.user?.adm && <MenuItem onClick={() => { delete Dados["user"]; navegar("/") }}>Sair</MenuItem>}
 
 

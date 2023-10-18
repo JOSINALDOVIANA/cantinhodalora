@@ -3,9 +3,10 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import ComplexGrid from './card';
 import { api } from '../../api';
-import { Paper, Typography} from '@mui/material';
+import { Paper, Typography, useTheme} from '@mui/material';
 import { SearchContex } from '../../routs';
 import { uniqueId } from 'lodash';
+
 
 
 
@@ -14,7 +15,7 @@ import { uniqueId } from 'lodash';
 export default function GridContainer() {
 
   const [search] = React.useContext(SearchContex);
-  // const theme = useTheme();
+  const theme = useTheme();
   const [produtos, setProd] = React.useState([]);
   const [produtosFilter, setProdFilter] = React.useState([]);
   const [categorias, setCat] = React.useState([]);
@@ -49,7 +50,7 @@ export default function GridContainer() {
 
   return (
     <Box
-
+    sx={{display:"flex",flexDirection:"column"}}
     >
       <Box sx={{ display: "flex", flexGrow: 1, margin: 2, overflow: "scroll" }}>
 
@@ -103,13 +104,13 @@ export default function GridContainer() {
 
 
       </Box>
-      <Grid container alignItems="center" spacing={1} >
+      <Grid spacing={2}  container >
 
 
         {produtosFilter?.map(p => (
           <Grid
-            // direction={theme.breakpoints.down("md") ? "column" : "row"}
-            key={p.id + uniqueId()}
+          
+            key={p.id + uniqueId()}         
             item
             xs={6}
             sm={6}

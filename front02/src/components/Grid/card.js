@@ -54,17 +54,22 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 
 
 
-			<Box sx={{height:"200px",width:"100%",}}>
+			<Box sx={{
+				height:"200px",
+				width:"100%",
+				[theme.breakpoints.down("sm")]:{
+						maxHeight:"50%"
+					},
+					}}>
 			<Img alt={desc} src={img}
 				sx={{
-					display: "flex",
-					justifyContent: "center",
-					alignItems: "center",
+					// [theme.breakpoints.down("sm")]:{
+					// 	objectFit: "fill",
+					// },
 					height:"100%",
 					width:"100%",
 					objectFit: "cover",
-					backgroundPosition:"50% 50%",
-					//  boxShadow: "rgba(236, 241, 235, 0.836) 5px 5px, rgba(241, 233, 238, 0.3) 10px 10px, rgba(142, 150, 140, 0.2) 15px 15px, rgba(173, 185, 176, 0.1) 20px 20px, rgba(182, 174, 178, 0.05) 25px 25px",
+					
 					WebkitMaskImage: `linear-gradient(to top, transparent 0.1%, ${theme.palette.mode == "dark" ? "#000" : "#fff"} 20%)`,
 
 				}} />

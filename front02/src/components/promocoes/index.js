@@ -6,6 +6,11 @@ import "./style.css"
 import { api } from "../../api";
 import { uniqueId } from "lodash";
 
+const Img = styled("img")({
+	margin: "auto",
+
+
+});
 function Promo() {
 	const theme = useTheme();
 	const [promo, setPromo] = useState([]);
@@ -15,72 +20,94 @@ function Promo() {
 		})
 	}, [])
 
-	console.log(promo)
+	// console.log(promo)
 
 
 
 	function Item({ i }) {
 		return (
-			<Box
-				sx={{
-					width: "100%",
-					display: "flex",
-					minHeight:400,
-					maxHeight:400,
-					justifyContent: "center",
-					alignItems: "center",
-					border:0
-
-				}}
-			>
+			
 
 
-				
+
 
 				<Paper
-				elevation={0}
+					elevation={1}
 					sx={{
-
+						padding:0,
 						width: "100%",
-						display: "flex",						
-						justifyContent:"space-between",
-						alignItems:"center",
-						maxHeight:400,
-						// background:"transparent",
+						height:500,
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
+						
+						
 
 
 						[theme.breakpoints.down("sm")]: {
-							
-							
+
+
 							flexDirection: "column",
-							justifyContent: "center",
+							// justifyContent: "center",
 							alignItems: "center"
 
 
 						}
 					}}
 				>
-					<img
-						alt={"test"}
-						src={i.id_prod ? i.prod?.img?.url : i?.img?.url}
-						height={300}
-						width={300}
-						
-					/>
+					<Box sx={{
+						[theme.breakpoints.down("sm")]:{
+							height:250,width:"100%"
+						},
+						width:"50%",
+						height:500
+					}}>
+						<Img
+							alt={"test"}
+							src={i.id_prod ? i.prod?.img?.url : i?.img?.url}
+							sx={{
+								height: "100%",
+								width: "100%",
+								objectFit: "cover",
+								
+								[theme.breakpoints.down("md")]:{
+									WebkitMaskImage: `linear-gradient(to top, transparent 0.1%, ${theme.palette.mode == "dark" ? "#000" : "#fff"} 20%)`
+								},
+								[theme.breakpoints.up("md")]:{
+									WebkitMaskImage: `linear-gradient(to left, transparent 0.1%, ${theme.palette.mode == "dark" ? "#000" : "#fff"} 20%)`
+								}
+								,
+							}}
 
-					<Typography sx={{ fontFamily: "Roboto", textAlign: "center" }} component="span">
+						/>
+					</Box>
+
+					<Box sx={{[theme.breakpoints.down('sm')]:{
+						width:"100%",
+						padding:theme.spacing(5),
+						height:100
+					},
+					width:"30%",
+					height:500,
+					display:"flex",
+					justifyContent:"center",
+					alignItems:"center",
+					padding:2
+					}}>
+					<Typography sx={{ fontFamily: "Roboto", textAlign: "justify" }} component="span">
 						{i.newdesc}
 					</Typography>
+					</Box>
 
 					<Box
-						sx={{ 
-							flexDirection: "column", 
-							width: "30%", 
+						sx={{
+							flexDirection: "column",
+							width: "30%",
 							padding: 2,
-							[theme.breakpoints.down("sm")]:{
-								width:"100%"
-							} 
-							}}>
+							[theme.breakpoints.down("sm")]: {
+								width: "100%"
+							}
+						}}>
 						{!!i.id_prod ?
 							<Box sx={{ display: "flex" }}>
 								<Typography noWrap sx={{ fontFamily: "Roboto", fontWeight: 300, textAlign: "initial", marginRight: theme.spacing(2) }} variant="subtitle1" component="span">
@@ -127,7 +154,7 @@ function Promo() {
 				</Paper>
 
 
-			</Box>
+			
 
 
 
@@ -139,13 +166,13 @@ function Promo() {
 	return (
 
 
-		<Carousel  indicators>
+		<Carousel indicators>
 
 
 
 			{promo?.map(i => (
 
-				<Item key={i.id+uniqueId()} i={i}></Item>
+				<Item key={i.id + uniqueId()} i={i}></Item>
 
 
 			))}
