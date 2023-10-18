@@ -27,7 +27,7 @@ const TelaIncialCliente = React.lazy(() => import('./components/cliente/index.js
 const CadastroCliente = React.lazy(() => import('./components/cliente/cadastro.js'));
 const ClienteDados = React.lazy(() => import('./components/cliente/dadoscliente.js'));
 const ListaClientes = React.lazy(() => import('./components/adm/user/ClientesList.js'));
-const Teste = React.lazy(() => import('./components/teste/index.js'));
+// const Teste = React.lazy(() => import('./components/teste/index.js'));
 
 
 
@@ -89,12 +89,12 @@ export function Rotas() {
 
                                     <Routes>
                                         <Route path="/*" element={<Typography>DESCULPE!! este recuso esta indisponivel ou em desenvolvimento</Typography>} />
-                                        <Route path="/teste" element={<Teste />} />
+                                        {/* <Route path="/teste" element={<Teste />} /> */}
                                         <Route path="/" element={<TelaInicial />} >
                                             <Route index element={<Produtos />}></Route>
                                         </Route>
                                         <Route path="/login" element={<Login />} />
-                                        <Route path="/cadastro/cliente" element={<CadastroCliente />} />
+                                        {/* <Route path="/cadastro/cliente" element={<CadastroCliente />} /> */}
                                         <Route path="/perfil" element={<Perfil />}>
                                             <Route index element={<Produtosedit />}></Route>
                                             <Route path="/perfil/inicio" element={<Produtosedit />}></Route>
@@ -113,22 +113,7 @@ export function Rotas() {
                                             <Route path="/cliente/cadastro" element={<CadastroCliente />} />
                                           
                                         </Route>
-                                        {/* <Route path="/" element={<InicialTela />} >
-                                <Route index element={<Produtos />}></Route>
-                            </Route>
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/perfil" element={<Perfil />}>
-                                <Route index element={<Produtosedit />}></Route>
-                                <Route path="/perfil/inicio" element={<Produtosedit />}></Route>
-                                <Route path="/perfil/userEdit" element={<Useredit />}></Route>
-                                <Route path="/perfil/produtosedit" element={<Produtosedit />}></Route>
-                                <Route path="/perfil/produtoscad" element={<Produtoscad />}></Route>
-                                <Route path="/perfil/fecharCaixa" element={<Fcaixa />}></Route>
-                                <Route path="/perfil/relatorio" element={<Relatorios />}></Route>
-                                <Route path="/perfil/imagensclientes" element={<Imagenscli />}></Route>
-                                <Route path="/perfil/imagensprodutos" element={<Imagenspro />}></Route>
-                                <Route path="/perfil/promocoes" element={<Promo />}></Route>
-                            </Route> */}
+                                        
                                     </Routes>
 
                                 </BrowserRouter>

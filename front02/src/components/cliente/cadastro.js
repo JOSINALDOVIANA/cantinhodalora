@@ -1,13 +1,14 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import locale_pt from 'dayjs/locale/pt-br'
-import { Box, Button, Chip,  Divider, FormControl, FormLabel, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, TextField, styled, useTheme } from '@mui/material';
+import { Box, Button, Chip,  CssBaseline,  Divider, FormControl, FormLabel, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, TextField, styled, useTheme } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 
 import { api } from '../../api';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import MenuAppBar from '../AppBar';
 
 // import { Container } from './styles';
 const TextFieldStyled = styled(TextField)(({ theme }) => ({
@@ -46,7 +47,7 @@ function Cadastro() {
   return (
 
     <>
-      {/* <CssBaseline /> */}
+      <CssBaseline />
       {/* <MenuAppBar></MenuAppBar> */}
       <Box
         component={"form"}

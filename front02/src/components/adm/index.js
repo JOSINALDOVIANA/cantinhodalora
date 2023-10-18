@@ -10,7 +10,7 @@ export default function Perfil() {
 		<>
 		<CssBaseline/>
 			<MenuAppBar></MenuAppBar>	  
-		<Container sx={{mt:3}} >
+		<Container sx={{mt:3,pb:3}} >
 			<Outlet></Outlet>
 		</Container>
 		</>		

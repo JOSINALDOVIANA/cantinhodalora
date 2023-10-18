@@ -3,7 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import SearchIcon from '@mui/icons-material/Search';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -60,6 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function MenuAppBar(prop) {
 	// const { name } = useParams()
 	// const query = useQuery();
+	const rota=useLocation()
 	const colorMode=useContext(ColorModeContext)
 
 
@@ -83,7 +84,7 @@ export default function MenuAppBar(prop) {
 
 
 
-	// console.log(Dados)
+	// console.log(rota)
 
 	return (
 		<Box flexGrow>
@@ -117,7 +118,7 @@ export default function MenuAppBar(prop) {
 					>{!!Dados.user?Dados.user.name:"CANTINHO DA LORA"}</Typography>
 
 					<Box sx={{ display: "flex", width: "auto", alignItems: "center", justifyContent: "space-around" }} component={"div"}>
-						<Search  >
+						{rota.pathname==="/" && <Search  >
 							<SearchIconWrapper>
 								<SearchIcon />
 							</SearchIconWrapper>
@@ -127,7 +128,7 @@ export default function MenuAppBar(prop) {
 								inputProps={{ 'aria-label': 'Pesquisar...' }}
 								onChange={e => setSearch(e.target.value)}
 							/>
-						</Search>
+						</Search>}
 
 						{
 							!!Dados.user ? <Avatar sx={{margin:1}} src={Dados?.user?.img?.url} alt="imageperfil"></Avatar> : ""

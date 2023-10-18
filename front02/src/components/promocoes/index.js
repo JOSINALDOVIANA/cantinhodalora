@@ -15,6 +15,8 @@ function Promo() {
 		})
 	}, [])
 
+	console.log(promo)
+
 
 
 	function Item({ i }) {

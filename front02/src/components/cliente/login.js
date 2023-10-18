@@ -61,7 +61,7 @@ function LoginCli(props) {
 								<TextField name="password" label="Senha" type="password"></TextField>
 								<Box component={"div"} sx={{ display: "flex", width: "90%", justifyContent: "space-around" }}>
 									<Typography href="/recuperar" sx={{ textDecoration: "none", cursor: "pointer", margin: 2 }} component={"a"}>Esqueci a senha</Typography>
-									<Typography href="/cadastro/cliente" sx={{ textDecoration: "none", cursor: "pointer", margin: 2 }} component={"a"}>Cadastrar</Typography>
+									<Typography href="/cliente/cadastro" sx={{ textDecoration: "none", cursor: "pointer", margin: 2 }} component={"a"}>Cadastrar</Typography>
 								</Box>
 								<Box component={"div"} sx={{ display: "flex", width: "100%", justifyContent: "space-around" }}>
 
