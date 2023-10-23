@@ -3,7 +3,7 @@ import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import { red, green, } from "@mui/material/colors";
 
 import { uniqueId } from "lodash";
@@ -42,7 +42,11 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 				alignItems: "center",
 				justifyContent:"space-between",
 				position: "relative",
-				height: theme.spacing(44)
+				height: theme.spacing(44),
+
+				// [theme.breakpoints.down("md")]:{
+				// 	// height:theme.spacing(70)
+				// }
 			}}
 
 
@@ -55,17 +59,15 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 
 
 			<Box sx={{
-				height:"200px",
+				height:"50%",
 				width:"100%",
-				[theme.breakpoints.down("sm")]:{
-						maxHeight:"50%"
+				[theme.breakpoints.down("md")]:{
+						height:"60%"
 					},
 					}}>
 			<Img alt={desc} src={img}
 				sx={{
-					// [theme.breakpoints.down("sm")]:{
-					// 	objectFit: "fill",
-					// },
+					
 					height:"100%",
 					width:"100%",
 					objectFit: "cover",
@@ -131,8 +133,9 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 					<Typography noWrap sx={{ color: "#e02141", fontStyle: "italic", fontFamily: "Roboto", fontSize: "0.8rem",pr:1 }}> {tamanho}</Typography>
 
 				</Box>}
+				<Divider sx={{width:"90%"}}></Divider>
 				<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "90%" }}>
-					<Typography>Valor: </Typography>
+					<Typography>Preço: </Typography>
 
 					<Typography noWrap sx={{ color: "#e02141", fontSize: "1.2rem", textAlign: "center", fontFamily: "Roboto", fontWeight: "bold" }}  >
 						{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(valor)}

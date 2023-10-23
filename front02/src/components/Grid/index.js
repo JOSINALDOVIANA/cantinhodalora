@@ -12,6 +12,7 @@ import { uniqueId } from 'lodash';
 
 
 
+
 export default function GridContainer() {
 
   const [search] = React.useContext(SearchContex);
@@ -125,7 +126,9 @@ export default function GridContainer() {
               valor={p.tam == "Carteira (20 UND)" ? 25 : p.preco}
               logos={p.logos}
               id={p.id}
-              und={p.und} />
+              und={p.und} 
+              />
+             
           </Grid>
         ))}
 
