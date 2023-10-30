@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, CssBaseline, Divider, FormControl, Grid,  Modal, Paper, TextField, Typography, styled, useTheme } from "@mui/material";
+import { Avatar, Box, Button, CssBaseline, Divider, FormControl, FormLabel, Grid, Modal, Paper, TextField, Typography, styled, useTheme } from "@mui/material";
 import React from "react";
 import { api, url } from "../../../api";
 import { uniqueId } from "lodash";
@@ -6,6 +6,7 @@ import { uniqueId } from "lodash";
 
 import "./styleeditar.css";
 import Swal from "sweetalert2";
+import { DadosContext } from "../../../routs";
 
 
 const style = {
@@ -49,6 +50,7 @@ function Produtosedit() {
 	const [imagens, setIMG] = React.useState([]);
 	const [logos, setL] = React.useState([]);
 	const [categorias, setCatgorias] = React.useState([]);
+	const [Dados,setDados]=React.useContext(DadosContext)
 
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
@@ -106,56 +108,62 @@ function Produtosedit() {
 		});
 	}, []);
 
+	// console.log(selectprod)
+
 
 	return (
 		<>
-		<CssBaseline/>
-			<Grid sx={{background:"transparent"}} container alignItems="center" spacing={2}>
+			<CssBaseline />
+			<Grid container alignItems="center" spacing={2}>
 				{produtos?.map((p, index) => (
-					<Grid key={p.id + "prod" + uniqueId()} item xs={6} sm={4} md={3} lg={3}>
+					<Grid key={p.id + "prod" + uniqueId()} item xs={6} sm={4} md={3} lg={2}>
 						<Paper
-
 							elevation={4}
 							sx={{
+								height: 300,
 								display: "flex",
-								borderRadius: 1,
 								flexDirection: "column",
-								fontFamily: "Roboto",
-								alignItems: "center",
-								justifyContent: "center",
-								padding: 1,
 								overflow: "hidden"
-
-
 							}}
-							className='card'
 							onClick={() => {
 								setSelectP({ id: p.id, index, prod: p }); handleOpenTeste();
 							}}
-
 						>
+							<Box sx={{ height: "70%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+								<Img
+									alt={p.desc}
+									src={p?.img?.url}
+									sx={{
+										width: "100%",
+										objectFit: "cover",
+										height: "100%",
+										WebkitMaskImage: `linear-gradient(to top, transparent 0.1%, ${theme.palette.mode == "dark" ? "#000" : "#fff"} 20%)`,
+									}}
+								/>
+							</Box>
 
+							<Box sx={{ p: 1, height: "30%", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
 
+								<Box sx={{ display: "flex", justifyContent: "center" }}>
 
+									<Typography noWrap sx={{ fontWeight: "bold" }}> {p.desc} </Typography>
+								</Box>
+								<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+									<Typography sx={{ fontSize: "0.8rem" }}> Tamanho:  </Typography>
+									<Typography sx={{ fontFamily: "source-code-pro", fontSize: "0.8rem" }}> {p.tam} </Typography>
 
+								</Box>
+								<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+									<Typography sx={{ fontSize: "0.8rem" }}> Quant.:  </Typography>
+									<Typography sx={{ fontFamily: "source-code-pro", fontSize: "0.8rem" }}> {p.und} UND </Typography>
+								</Box>
+								<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+									<Typography sx={{ fontSize: "0.8rem" }}> Preço:  </Typography>
+									<Typography sx={{ color: "#e02141", fontSize: "1.2rem", textAlign: "center", fontFamily: "Roboto", fontWeight: "bold" }}> {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(p.preco)} </Typography>
 
-							<Img
+								</Box>
 
-								alt={p.desc}
-								src={!!p.img ? url + "images/" + p.img.key : ""}
-								sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
-
-
-
-							<Typography sx={{ color: "#404E5C", fontSize: "0.9em", width: "90%" }} noWrap variant="subtitle1" component="p">
-								{p.desc + " " + p.tam}
-							</Typography>
-
-
-
-
-
-
+							</Box>
 
 						</Paper>
 					</Grid>
@@ -172,11 +180,11 @@ function Produtosedit() {
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
 			>
-				<BoxStyle sx={{ height: "90vh", width: "80vw" }} >
+				<BoxStyle sx={{ height: "90%", width: "80%" }} >
 
 
 
-					<Grid container alignItems="center" spacing={1} >
+					<Grid sx={{ p: 1 }} container alignItems="center" spacing={1} >
 						{imagens?.map((item) => (
 							<Grid
 								// direction={theme.breakpoints.down("md") ? "column" : "row"}
@@ -188,19 +196,24 @@ function Produtosedit() {
 								lg={2}
 
 							>
-								<Img
+								<Box sx={{ width: "100%", height: "100%" }}>
+									<Img
+										src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
+										alt={item.name}
+										onClick={() => {
+											setSelectP(a => ({ ...a, prod: { ...a.prod, img: item, id_image: item.id } }));
+											handleClose();
+										}}
+										loading="lazy"
+										sx={{
+											width: "100%",
+											objectFit: "fill",
+											height: "100%",
+											// WebkitMaskImage: `linear-gradient(to top, transparent 0.1%, ${theme.palette.mode == "dark" ? "#000" : "#fff"} 20%)`,
+										}}
+									/>
 
-
-
-									src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
-									alt={item.name}
-
-									onClick={() => {
-										setSelectP(a => ({ ...a, prod: { ...a.prod, img: item, id_image: item.id } }));
-										handleClose();
-									}}
-									loading="lazy"
-								/>
+								</Box>
 							</Grid>
 
 						))}
@@ -217,10 +230,10 @@ function Produtosedit() {
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
 			>
-				<BoxStyle sx={{height:"90vh",width:"90%"}}>
+				<BoxStyle sx={{ height: "90%", width: "90%" }}>
 
 
-					<Grid container alignItems="center" spacing={1}  >
+					<Grid sx={{ p: 1 }} container alignItems="center" spacing={1}  >
 						{imagens.map(item => (
 							<Grid
 								key={item.id + uniqueId()}
@@ -232,10 +245,27 @@ function Produtosedit() {
 							>
 								<Img
 									alt={item.name}
-									src={item.url+"?w=164&h=164&fit=crop&auto=format"}
-									
+									src={item.url + "?w=164&h=164&fit=crop&auto=format"}
+									sx={{
+										width: "100%",
+										objectFit: "cover",
+										height: "100%",
+										// WebkitMaskImage: `linear-gradient(to top, transparent 0.1%, ${theme.palette.mode == "dark" ? "#000" : "#fff"} 20%)`,
+									}}
 									onClick={() => {
-										setSelectP(a => ({ ...a, prod: { ...a.prod, logos: [...a.prod.logos, item] } }));
+
+										if (selectprod.prod.logos.filter(i => (i.id === item.id)).length > 0) {
+											console.log("if")
+											setSelectP(a => ({ ...a, prod: { ...a.prod, logos: a.prod.logos.filter(i => (i.id != item.id)) } }));
+
+										}
+										else {
+											console.log("else")
+
+											setSelectP(a => ({ ...a, prod: { ...a.prod, logos: [...a.prod.logos, item] } }));
+										}
+
+
 									}}
 								/>
 
@@ -257,39 +287,39 @@ function Produtosedit() {
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
 			>
-				<BoxStyle sx={{width:"90vw",height:"auto"}}>
+				<BoxStyle sx={{ width: "90vw", height: "auto" }}>
 
-					<Box sx={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+					<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
 						<Typography>
 							Cadastradas
 						</Typography>
 						<Box sx={{}}>
-						{
-							selectprod?.prod?.cat?.map(cat => (
-								<Button
-								sx={{"&":{margin:1}}}
-								variant="contained"
-								color="success"
-									key={cat.id + uniqueId()}
-									onClick={() => {
-										let c = selectprod.prod.cat;
-										c = c.filter(i => i.id != cat.id);
-										setSelectP(a => ({ ...a, prod: { ...a.prod, cat: c } }));
-									}}
-								>
-									{cat.desc}
-								</Button>
-							))
-						}
+							{
+								selectprod?.prod?.cat?.map(cat => (
+									<Button
+										sx={{ "&": { margin: 1 } }}
+										variant="contained"
+										color="success"
+										key={cat.id + uniqueId()}
+										onClick={() => {
+											let c = selectprod.prod.cat;
+											c = c.filter(i => i.id != cat.id);
+											setSelectP(a => ({ ...a, prod: { ...a.prod, cat: c } }));
+										}}
+									>
+										{cat.desc}
+									</Button>
+								))
+							}
 						</Box>
-						
+
 					</Box>
 					<Box>
 						<Typography>
 							Todas
 						</Typography>
 						{categorias.map(cat => (
-							<Button sx={{margin:1}} variant="contained" color="error" key={cat.id + uniqueId()} onClick={() => {
+							<Button sx={{ margin: 1 }} variant="contained" color="error" key={cat.id + uniqueId()} onClick={() => {
 								setSelectP(a => ({ ...a, prod: { ...a.prod, cat: [...a.prod.cat, { ...cat }] } }));
 							}}>{cat.desc}</Button>
 						))}
@@ -311,45 +341,56 @@ function Produtosedit() {
 					display: "flex",
 					flexDirection: "column",
 					fontFamily: "Roboto",
-					alignItems: "center",
-					justifyContent: "center",
-					padding: theme.spacing(1),
-					width: "90vw",
+
+					width: "70%",
 					height: "90vh"
 
 				}}
 
 				>
-
-
-
-					<Img
+					<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "30%" }}>
+						<Img
+							onClick={() => { handleOpen(); }}
+							alt={selectprod.prod.desc}
+							src={selectprod?.prod?.img?.url}
+							sx={{ width: "100%", height: "100%", objectFit: "cover", [theme.breakpoints.up("md")]: { display: "none" } }} />
+						<Avatar
 						onClick={() => { handleOpen(); }}
-						alt={selectprod.prod.desc}
-						src={url + "images/" + selectprod?.prod?.img?.key}
-						sx={{ borderRadius: 0, width: "auto", height: "12vh", }} />
-					<Paper
-						elevation={12}
+							sx={{ [theme.breakpoints.down("md")]: { display: "none" }, width: 100, height: 100 }}
+							src={url + "images/" + selectprod?.prod?.img?.key}
+							alt={selectprod.prod.desc}
+
+						/>
+
+					</Box>
+
+
+
+
+
+
+					<Box
+
 						onClick={() => {
 							handleOpenL(selectprod?.prod?.logos);
 						}}
 
-						sx={{ display: "flex", alignItems: "center", justifyContent: "space-evenly", marginBottom: 1, height: "auto", width: "50%", padding: "2px" }}>
+						sx={{ border: "dashed 1px #e02141", m: 1, display: "flex", alignItems: "center", justifyContent: "space-evenly", marginBottom: 1, height: "5%", width: "auto", padding: 1 }}>
 						{selectprod?.prod?.logos?.map(item => (
 							<Avatar
 								// onClick={()=>{
 								// 	setSelectP(a=>({...a,prod:{...a.prod,logos:a.prod.logos.filter(i=>(i.id!=item.id))}}))
 								// }} 
 								key={item.id + uniqueId()}
-								sx={{ width: "auto", height: "5vh" }}
+								sx={{ width: "auto", height: "4vh" }}
 								src={item.url}
 								alt={item.desc}
 							>
 							</Avatar>))}
-					</Paper>
+					</Box>
 
 
-					<Typography sx={{ fontFamily: "Roboto" }} noWrap variant="subtitle1" component="p">
+					<Typography sx={{ fontFamily: "Roboto", textAlign: "center" }} noWrap variant="subtitle1" component="p">
 						{selectprod.prod.desc + " " + selectprod.prod.tam}
 					</Typography>
 
@@ -357,14 +398,13 @@ function Produtosedit() {
 
 
 
-					<Divider color="#000" sx={{ width: "90%" }} ></Divider>
+
 
 					{/* entradas de texto */}
 
 					<Box
-						sx={{ display: "flex", marginTop: theme.spacing(2), alignItems: "center", justifyContent: "center", flexDirection: "column", width: "90%" }}
-						aria-labelledby="modal-modal-title"
-						aria-describedby="modal-modal-description"
+						sx={{ display: "flex", marginTop: theme.spacing(2), alignItems: "center", justifyContent: "center", flexDirection: "column", width: "100%" }}
+
 					>
 						<FormControl sx={{ width: "90%" }}>
 							<TextField sx={{ marginBottom: 1 }}
@@ -391,15 +431,23 @@ function Produtosedit() {
 
 					{/* botoes */}
 
-					<Box sx={{ display: "flex", width: "70vw", [theme.breakpoints.up("sm")]: { width: "20vw" }, height: "20vh", justifyContent: "space-around", alignItems: "center" }}>
-						<FormControl >
+
+					<FormControl sx={{ display: "flex", flexDirection: "row", [theme.breakpoints.down('md')]: { flexDirection: "column" }, width: "100%", justifyContent: "center", alignItems: "center" }}>
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "space-around",
+								[theme.breakpoints.down("md")]: { width: "100%" }
+							}}
+						>
 							<ButtonStyle
 								variant='contained'
 								color='success'
+								sx={{ [theme.breakpoints.down('md')]: { width: "49%" } }}
 								onClick={(e) => {
 									e.preventDefault();
 
-									api.put("/produtos", { ...selectprod.prod, cat: selectprod.prod.cat.map(c => (c.id)), logos: selectprod.prod.logos.map(l => (`${l.id}`)) }).then(r => {
+									api.put("/produtos", { ...selectprod.prod, cat: selectprod.prod.cat.map(c => (c.id)), logos: selectprod.prod.logos.map(l => (`${l.id}`)) },{headers:{Authorization:Dados.token}}).then(r => {
 										if (r.data.status) {
 											Swal.fire(
 												"Atualizado!",
@@ -429,22 +477,28 @@ function Produtosedit() {
 							<ButtonStyle
 								variant='contained'
 								color='info'
-
+								sx={{ [theme.breakpoints.down('md')]: { width: "49%" } }}
 								onClick={() => {
 									handleOpenC();
 								}}
 							>
 								Categorias
 							</ButtonStyle>
+						</Box>
 
-						</FormControl>
-						<FormControl>
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "space-around",
+								[theme.breakpoints.down("md")]: { width: "100%" }
+							}}
+						>
 							<ButtonStyle
 								variant='contained'
 								color='error'
 
 								onClick={() => {
-									api.delete(`/produtos?id=${selectprod.prod.id}`).then(r => {
+									api.delete(`/produtos?id=${selectprod.prod.id}`,{headers:{Authorization:Dados.token}}).then(r => {
 										if (r.data.status) {
 											let pr = produtos.filter(item => item.id != selectprod.prod.id);
 
@@ -453,7 +507,9 @@ function Produtosedit() {
 											handleCloseTeste();
 										}
 									});
-								}}
+								}
+								}
+								sx={{ [theme.breakpoints.down('md')]: { width: "49%" } }}
 
 							>
 								Excluir
@@ -461,6 +517,7 @@ function Produtosedit() {
 							<ButtonStyle
 								variant='contained'
 								color='warning'
+								sx={{ [theme.breakpoints.down('md')]: { width: "49%" } }}
 
 								onClick={() => {
 									handleCloseTeste();
@@ -468,8 +525,100 @@ function Produtosedit() {
 							>
 								Cancelar
 							</ButtonStyle>
-						</FormControl>
-					</Box>
+						</Box>
+
+						<Box
+							sx={{
+								display: "flex",
+								p:1,
+								justifyContent: "space-around",
+								[theme.breakpoints.down("md")]: { width: "100%" }
+							}}
+						>
+
+							<FormLabel
+								sx={{
+									padding: 1,
+									textAlign: "center",
+									cursor: "pointer",
+									borderRadius: 1,
+									backgroundColor: "#e02141",
+									color: theme.palette.getContrastText("#e02141"),
+									'&:hover': {
+										opacity: 0.50
+									},
+									[theme.breakpoints.down("md")]:{width:"100%"}
+								}} htmlFor='foto'
+							>
+								Carregar Foto
+							</FormLabel>
+							<input id='foto' hidden accept="image/*" type="file"
+								onChange={(ee) => {
+
+
+									const files = ee.target.files;
+									let uploadedFiles = []
+
+
+									for (let iterator of files) {
+
+										uploadedFiles.push(
+											{
+												"file": iterator,
+												"id": uniqueId(),//definindo um id unico 
+												"name": iterator.name,
+												"prod": false,
+												"readableSize": iterator.size,
+												preview: URL.createObjectURL(iterator), // criando um link para preview da foto carregada
+												url: URL.createObjectURL(iterator),// sera usado para setar a variavel img no proprietario/index.js
+											}
+										)
+									}
+
+
+
+									// CRIANDO UM DATAFORM
+									const data = new FormData();
+									data.append('file', uploadedFiles[0].file, uploadedFiles[0].name);
+
+									// SALVANDO NOVA IMAGEM
+									// console.log(data)
+
+									if (!!Dados.user) {
+										try {
+											api.post(`/insertImageP`, data, {
+												headers:{Authorization:Dados.token}
+												// onUploadProgress: async e => {
+												// 	let progr = parseInt(Math.round((e.loaded * 100) / e.total));
+												// 	setProgress(a => {
+												// 		if (a >= 100) { return 0 + progr }
+												// 		return a + progr
+												// 	})
+												// }
+											}).then(r => {
+
+												Swal.fire(
+													'Imagem Salva!',
+													'',
+													'success'
+												)
+
+
+
+											})
+
+										} catch (error) {
+											console.log(error)
+											alert("formato nao aceito");
+										}
+									}
+								}}
+							/>
+
+						</Box>
+					</FormControl>
+
+
 
 
 
@@ -489,12 +638,12 @@ function Produtosedit() {
 				</BoxStyle>
 			</Modal>
 		</>
-		
 
 
-			
 
-		
+
+
+
 	);
 }
 

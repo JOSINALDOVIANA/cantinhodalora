@@ -17,6 +17,7 @@ import cols from "./controller/cols/index.js";
 import close_col from "./controller/close_col/index.js";
 import close from "./controller/close/index.js";
 import clientes from "./controller/clientes/index.js";
+import isAuthenticated from "./middlewares/isAuthenticated.js";
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
 const rotas=express.Router();
@@ -24,29 +25,29 @@ const rotas=express.Router();
 
 // #####################IMAGENS clientes############################
 
-rotas.post("/uploadImage",multer(config).single('file'),images.uploadIMGclient)
+rotas.post("/uploadImage",isAuthenticated,multer(config).single('file'),images.uploadIMGclient)
 
-rotas.delete("/deleteImage",images.deleteIMGclient)
+rotas.delete("/deleteImage",isAuthenticated,images.deleteIMGclient)
 
-rotas.get("/imagesget",images.selectIMGclient)
+rotas.get("/imagesget",isAuthenticated,images.selectIMGclient)
 // #######################################################
 
 // #####################IMAGESNS users############################
 
-rotas.post("/users/uploadImage",multer(config).single('file'),images.uploadIMGuser)
+rotas.post("/users/uploadImage",isAuthenticated,multer(config).single('file'),images.uploadIMGuser)
 
-rotas.delete("/users/deleteImage",images.deleteIMGuser)
+rotas.delete("/users/deleteImage",isAuthenticated,images.deleteIMGuser)
 
-rotas.get("/users/imagesget",images.selectIMGuser)
+rotas.get("/users/imagesget",isAuthenticated,images.selectIMGuser)
 // #######################################################
 
 
 
 // #####################IMAGENS Produtos############################
 
-rotas.post("/insertImageP",multer(config).single('file'),images.uploadIMGprod)
+rotas.post("/insertImageP",isAuthenticated,multer(config).single('file'),images.uploadIMGprod)
 
-rotas.delete("/deleteImageP",images.deleteIMGprod)
+rotas.delete("/deleteImageP",isAuthenticated,images.deleteIMGprod)
 
 rotas.get("/selectimagesP",images.selectIMGprod)
 
@@ -58,7 +59,7 @@ rotas.get("/selectimagesP",images.selectIMGprod)
 
 // rotas.get("/users",users.Select);
 rotas.post("/login",users.Login);
-rotas.put("/update",users.Update);
+rotas.put("/update",isAuthenticated,users.Update);
 rotas.post("/insert",users.Insert);
 
 
@@ -68,10 +69,10 @@ rotas.post("/insert",users.Insert);
 // #####################Produtos###############################
 
 
-rotas.post("/produtos",Produtos.Insert);
+rotas.post("/produtos",isAuthenticated,Produtos.Insert);
 rotas.get("/produtos",Produtos.Select);
-rotas.delete("/produtos",Produtos.Delete);
-rotas.put("/produtos",Produtos.Update);
+rotas.delete("/produtos",isAuthenticated,Produtos.Delete);
+rotas.put("/produtos",isAuthenticated,Produtos.Update);
 
 
 
@@ -81,25 +82,25 @@ rotas.post("/categorias",categorias.insert)
 rotas.get("/categorias",categorias.select)
 
 //cols colaboradores
- rotas.post("/cols",cols.Insert)
- rotas.put("/cols",cols.Update)
- rotas.get("/cols",cols.Select)
- rotas.delete("/cols",cols.Delete)
+//  rotas.post("/cols",cols.Insert)
+//  rotas.put("/cols",cols.Update)
+//  rotas.get("/cols",cols.Select)
+//  rotas.delete("/cols",cols.Delete)
 
 
 //close_col fechamento do colaborador
 
-rotas.post("/fechamentocolaborador",close_col.Insert)
-rotas.put("/fechamentocolaborador",close_col.Update)
-rotas.get("/fechamentocolaborador",close_col.Select)
-rotas.delete("/fechamentocolaborador",close_col.Delete)
+// rotas.post("/fechamentocolaborador",close_col.Insert)
+// rotas.put("/fechamentocolaborador",close_col.Update)
+// rotas.get("/fechamentocolaborador",close_col.Select)
+// rotas.delete("/fechamentocolaborador",close_col.Delete)
 
 //close fechamento geral
 
-rotas.post("/fechamentogerente",close.Insert)
-rotas.put("/fechamentogerente",close.Update)
-rotas.get("/fechamentogerente",close.Select)
-rotas.delete("/fechamentogerente",close.Delete)
+// rotas.post("/fechamentogerente",close.Insert)
+// rotas.put("/fechamentogerente",close.Update)
+// rotas.get("/fechamentogerente",close.Select)
+// rotas.delete("/fechamentogerente",close.Delete)
 
 //pagamentos faze de teste
 // rotas.post("/payments/create",payments.Insert)
@@ -108,17 +109,17 @@ rotas.delete("/fechamentogerente",close.Delete)
 // rotas.delete("/payments/delete",payments.DEL)
 
 
-//pagamentos faze de teste
-rotas.post("/promo",promo.Insert)
+//promoções
+rotas.post("/promo",isAuthenticated,promo.Insert)
 rotas.get("/promo",promo.Select)
-rotas.put("/promo",promo.Update)
-rotas.delete("/promo",promo.Delete)
+rotas.put("/promo",isAuthenticated,promo.Update)
+rotas.delete("/promo",isAuthenticated,promo.Delete)
 
 // ####################clientes########################
 rotas.post("/clientes/login",clientes.Login)
 rotas.post("/clientes/insert",clientes.Insert)
-rotas.put("/clientes/update",clientes.Update)
-rotas.delete("/clientes/delete",clientes.Delete)
+rotas.put("/clientes/update",isAuthenticated,clientes.Update)
+rotas.delete("/clientes/delete",isAuthenticated,clientes.Delete)
 
 // ####################rotas auxiliares########################
 rotas.get("/getclientes",clientes.GetClientes)

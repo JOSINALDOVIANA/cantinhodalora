@@ -194,10 +194,10 @@ export default function MenuAppBar(prop) {
 						<MenuItem sx={{ display: "flex", justifyContent: "flex-start", width: "auto" }} onClick={() => {navegador("/") ; handleClose2(); }}><IoHome style={{ marginRight: theme.spacing(2) }} color="var(--primary)"></IoHome>Pagina inicial</MenuItem>
 						<MenuItem sx={{ display: "flex", justifyContent: "flex-start", width: "auto" }} onClick={() => { window.open("http://www.instagran.com/cantinho_dalora"); handleClose2(); }}><BsInstagram style={{ marginRight: theme.spacing(2) }} color="var(--primary-telegran)"></BsInstagram>Instagran</MenuItem>
 						<MenuItem sx={{ display: "flex", justifyContent: "flex-start", width: "auto" }} onClick={() => { window.open("https://www.facebook.com/cantinhodalora"); handleClose2(); }}><BsFacebook style={{ marginRight: theme.spacing(2) }} color="var(--primary-facebook)"></BsFacebook>Facebook</MenuItem>
-						<MenuItem sx={{ display: "flex", justifyContent: "flex-start", width: "auto" }} onClick={() => { window.open("https://api.whatsapp.com/send?phone=+5596981325410&text=Oi"); handleClose2(); }}><BsWhatsapp style={{ marginRight: theme.spacing(2) }} color="var(--primary-whatsapp)"></BsWhatsapp>Proprietário</MenuItem>
+						<MenuItem sx={{ display: "flex", justifyContent: "flex-start", width: "auto" }} onClick={() => { window.open("https://api.whatsapp.com/send?phone=+5596981325410&text=Oi"); handleClose2(); }}><BsWhatsapp style={{ marginRight: theme.spacing(2) }} color="var(--primary-whatsapp)"></BsWhatsapp>Whatsaap</MenuItem>
 
 						{!!Dados.user?null:
-						<MenuItem sx={{ display: "flex", justifyContent: "flex-start", width: "auto" }} onClick={() => { navegador("/login");handleClose2() }}><BsArrowDownLeftSquare style={{ marginRight: theme.spacing(2) }} color="var(--configDanger-dark)"></BsArrowDownLeftSquare>Área administrativa</MenuItem>
+						<MenuItem sx={{ display: "flex", justifyContent: "flex-start", width: "auto" }} onClick={() => { navegador("/login");handleClose2() }}><BsArrowDownLeftSquare style={{ marginRight: theme.spacing(2) }} color="var(--configDanger)"></BsArrowDownLeftSquare>Área administrativa</MenuItem>
 					}
 						
 						{!!Dados.user ?

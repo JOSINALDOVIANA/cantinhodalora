@@ -138,7 +138,7 @@ export default {
     },
     async uploadIMGprod (req,res){
         let { originalname: name, size, key, location: url = '' } = req.file;
-        console.log(req.file)
+        // console.log(req.file)
        
             const id = `${Crypto.randomBytes(12).toString('HEX')}`;
     

@@ -2,7 +2,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 import locale_pt from 'dayjs/locale/pt-br';
 import { DadosContext } from '../../routs';
-import { Chip,Box,IconButton,Avatar,Button, Divider, FormControl, FormLabel, ImageList, ImageListItem, ImageListItemBar, InputAdornment, Modal, OutlinedInput, Paper, TextField, useTheme, styled } from '@mui/material';
+import { Chip,Box,IconButton,Avatar,Button, Divider, FormControl, FormLabel, ImageList, ImageListItem, ImageListItemBar, InputAdornment, Modal, OutlinedInput, Paper, TextField, useTheme, styled, FormHelperText } from '@mui/material';
 import { Delete, Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { api } from '../../api';
@@ -110,7 +110,7 @@ const navegador=useNavigate()
             }} />
             <FormLabel sx={{ mt: 2 }} >Senha</FormLabel>
             <OutlinedInput
-
+            required
               onChange={e => {
                 e.preventDefault();
                 setDados(a => ({ ...a, user: { ...a.user, password: e.target.value } }))
@@ -127,10 +127,12 @@ const navegador=useNavigate()
                   >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
+                  
                 </InputAdornment>
               }
 
             />
+            <FormHelperText >Nova Senha ou a Atual</FormHelperText>
           </Box>
 
           <Box sx={{ margin: 2, [theme.breakpoints.down("md")]: {} }} component={FormControl}>
@@ -260,6 +262,7 @@ const navegador=useNavigate()
           {/* botoes */}
 
           <Box sx={{ [theme.breakpoints.up("sm")]: { ml: 2 } }} component={FormControl}>
+
             <FormLabel
               sx={{
                 padding: 1,
@@ -336,6 +339,8 @@ const navegador=useNavigate()
                 }
               }}
             />
+
+
             <Button
               sx={{ mt: 2 }}
               variant='contained'
@@ -343,7 +348,7 @@ const navegador=useNavigate()
               onClick={async () => {
                 if(!!Dados.user){
                   
-                await api.get(`/imagesget?id_cli=${Dados.user.id}`).then(r => {
+                await api.get(`/imagesget?id_cli=${Dados.user.id}`,{headers:{Authorization:Dados.token}}).then(r => {
                   if (r.data.status) {
                     setDados(a => ({ ...a, user: { ...a.user, loadedImages: r.data.images } }));
                     handleOpen();
@@ -357,9 +362,10 @@ const navegador=useNavigate()
             </Button>
 
             <Button
+            disabled={!!Dados.user.password?false:true}
               onClick={async () => {
                 if(!!Dados.user){
-                  await api.put("/clientes/update", { ...Dados.user }).then(r => {
+                  await api.put("/clientes/update", { ...Dados.user },{headers:{Authorization:Dados.token}}).then(r => {
                     r.data.status ? alert("Dados atualizados") : alert("Não foi possivel atualizar seus dados entre em contatos com o administrador")
                   })
                 }
@@ -374,7 +380,7 @@ const navegador=useNavigate()
               onClick={
                 async () => {
                   if(!!Dados.user){
-                    await api.delete("/clientes/delete", { ...Dados.user }).then(r => {
+                    await api.delete("/clientes/delete", { ...Dados.user },{headers:{Authorization:Dados.token}}).then(r => {
                       r.data.status ? alert("Dados Apagados") : alert("não foi possivel excluir,contacte o administrador")
                       if (r.data.status) { Navigate("/") }
                     })

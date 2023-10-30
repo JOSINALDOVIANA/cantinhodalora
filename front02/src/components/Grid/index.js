@@ -44,7 +44,7 @@ export default function GridContainer() {
     })
   }, [])
 
-  //controla o filtro qaundo se clica numa categoria
+  //controla o filtro quando se clica numa categoria
   function filtro(id) {
     setProdFilter(() => (produtos.filter(p => p.cat.filter(c => c.id == id).length > 0)))
   }

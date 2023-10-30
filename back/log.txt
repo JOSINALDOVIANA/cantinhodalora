@@ -1,1 +1,0 @@
-error produtos cadastro: Error: insert into `produtos` (`desc`, `id_image`, `preco`, `tam`, `und`, `url`) values (DEFAULT, NULL, DEFAULT, DEFAULT, DEFAULT, DEFAULT) - ER_NO_DEFAULT_FOR_FIELD: Field 'desc' doesn't have a default value 

@@ -10,3 +10,6 @@ iptables -t nat -A OUTPUT -o lo -p tcp --dport 80 -j REDIRECT --to-port 8080
 pm2 serve <build:pasta> <port:3000> --spa --name <name> ##front end
 pm2 start <arquivo> --name <name> ##backend
 
+
+@#_0111{}/-+.apofis
+

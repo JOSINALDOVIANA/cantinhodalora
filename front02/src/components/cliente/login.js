@@ -41,8 +41,10 @@ function LoginCli(props) {
 											"error"
 										)
 									} else {
-
-										setDados(a => ({ ...a, user: { ...r.data.user,cli:true } }));
+										let dados=r.data.user
+										let token=dados.token
+										delete dados["token"]
+										setDados(a => ({ ...a, user: { ...dados,cli:true },token }));
 										props.onClose();
 										Swal.fire(
 											"Login realizado com sucesso",

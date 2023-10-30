@@ -70,7 +70,9 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 					
 					height:"100%",
 					width:"100%",
-					objectFit: "cover",
+					objectFit: "fill",
+
+					
 					
 					WebkitMaskImage: `linear-gradient(to top, transparent 0.1%, ${theme.palette.mode == "dark" ? "#000" : "#fff"} 20%)`,
 
