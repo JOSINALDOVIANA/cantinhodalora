@@ -360,9 +360,10 @@ const navegador=useNavigate()
             </Button>
 
             <Button
+            disabled={!!Dados?.user?.password?false:true}
               onClick={async () => {
                 if(!!Dados.user){
-                  await api.put("/update", { ...Dados.user }).then(r => {
+                  await api.put("/update", { ...Dados.user },{headers:{Authorization:Dados.token}}).then(r => {
                     r.data.status ? alert("Dados atualizados") : alert("Não foi possivel atualizar seus dados entre em contatos com o administrador")
                   })
                 }
@@ -444,7 +445,7 @@ const navegador=useNavigate()
                         onClick={async(e)=>{
                           e.preventDefault();
                           await axios.delete(item.delete).then(r=>{
-                            console.log(r.data)
+                            // console.log(r.data)
                             if(r.data.status){
                               setDados(a=>({...a,user:{...a.user,loadedImages:[...a.user.loadedImages.filter(i=>(i.id!=item.id))]}}))
                             }

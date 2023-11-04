@@ -42,7 +42,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 				alignItems: "center",
 				justifyContent:"space-between",
 				position: "relative",
-				height: theme.spacing(44),
+				height: theme.spacing(40),
 
 				// [theme.breakpoints.down("md")]:{
 				// 	// height:theme.spacing(70)
@@ -59,10 +59,10 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 
 
 			<Box sx={{
-				height:"50%",
+				height:"60%",
 				width:"100%",
 				[theme.breakpoints.down("md")]:{
-						height:"60%"
+						height:"55%"
 					},
 					}}>
 			<Img alt={desc} src={img}
@@ -70,7 +70,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 					
 					height:"100%",
 					width:"100%",
-					objectFit: "fill",
+					objectFit: "cover",
 
 					
 					
@@ -122,7 +122,7 @@ export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, 
 				</Typography> : null}
 
 
-			<Box sx={{ display: "flex", flexDirection: "column", width: "100%", justifyContent: "center", alignItems: "center" }}>
+			<Box sx={{ height:"40%",display: "flex", flexDirection: "column", width: "100%", justifyContent: "center", alignItems: "center" }}>
 
 
 

@@ -348,7 +348,7 @@ function Produtosedit() {
 				}}
 
 				>
-					<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "30%" }}>
+					<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "40%" }}>
 						<Img
 							onClick={() => { handleOpen(); }}
 							alt={selectprod.prod.desc}
@@ -485,48 +485,6 @@ function Produtosedit() {
 								Categorias
 							</ButtonStyle>
 						</Box>
-
-						<Box
-							sx={{
-								display: "flex",
-								justifyContent: "space-around",
-								[theme.breakpoints.down("md")]: { width: "100%" }
-							}}
-						>
-							<ButtonStyle
-								variant='contained'
-								color='error'
-
-								onClick={() => {
-									api.delete(`/produtos?id=${selectprod.prod.id}`,{headers:{Authorization:Dados.token}}).then(r => {
-										if (r.data.status) {
-											let pr = produtos.filter(item => item.id != selectprod.prod.id);
-
-											setProd(pr);
-
-											handleCloseTeste();
-										}
-									});
-								}
-								}
-								sx={{ [theme.breakpoints.down('md')]: { width: "49%" } }}
-
-							>
-								Excluir
-							</ButtonStyle>
-							<ButtonStyle
-								variant='contained'
-								color='warning'
-								sx={{ [theme.breakpoints.down('md')]: { width: "49%" } }}
-
-								onClick={() => {
-									handleCloseTeste();
-								}}
-							>
-								Cancelar
-							</ButtonStyle>
-						</Box>
-
 						<Box
 							sx={{
 								display: "flex",
@@ -542,15 +500,15 @@ function Produtosedit() {
 									textAlign: "center",
 									cursor: "pointer",
 									borderRadius: 1,
-									backgroundColor: "#e02141",
-									color: theme.palette.getContrastText("#e02141"),
+									backgroundColor: "var(--primary)",
+									color: theme.palette.getContrastText("#8257e5"),
 									'&:hover': {
 										opacity: 0.50
 									},
 									[theme.breakpoints.down("md")]:{width:"100%"}
 								}} htmlFor='foto'
 							>
-								Carregar Foto
+								{"Carregar Foto".toUpperCase()}
 							</FormLabel>
 							<input id='foto' hidden accept="image/*" type="file"
 								onChange={(ee) => {
@@ -616,6 +574,49 @@ function Produtosedit() {
 							/>
 
 						</Box>
+
+						<Box
+							sx={{
+								display: "flex",
+								justifyContent: "space-around",
+								[theme.breakpoints.down("md")]: { width: "100%" }
+							}}
+						>
+							<ButtonStyle
+								variant='contained'
+								color='error'
+
+								onClick={() => {
+									api.delete(`/produtos?id=${selectprod.prod.id}`,{headers:{Authorization:Dados.token}}).then(r => {
+										if (r.data.status) {
+											let pr = produtos.filter(item => item.id != selectprod.prod.id);
+
+											setProd(pr);
+
+											handleCloseTeste();
+										}
+									});
+								}
+								}
+								sx={{ [theme.breakpoints.down('md')]: { width: "49%" } }}
+
+							>
+								Excluir
+							</ButtonStyle>
+							<ButtonStyle
+								variant='contained'
+								color='warning'
+								sx={{ [theme.breakpoints.down('md')]: { width: "49%" } }}
+
+								onClick={() => {
+									handleCloseTeste();
+								}}
+							>
+								Cancelar
+							</ButtonStyle>
+						</Box>
+
+						
 					</FormControl>
 
 

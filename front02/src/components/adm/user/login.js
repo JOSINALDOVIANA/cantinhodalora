@@ -88,8 +88,14 @@ export default function Login() {
 						e.preventDefault();
 						
 							api.post("/login", { ...values }).then(r => {
-								// console.log(r.data);
-								if (r.data.status) { setDados({ user: {...r.data.user,adm:true} }); navegator("/perfil", { state: r.data.user }); }
+								
+								if (r.data.status) { 
+									let user=r.data.user
+									let token=user.token
+									delete user["token"] 
+									setDados({ user: {...user,adm:true},token });
+									 navegator("/perfil"); 
+									}
 								else { alert(r.data.mensagem); }
 							});
 						

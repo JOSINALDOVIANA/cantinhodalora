@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, Box, Button, FormControl,  ImageList, ImageListItem,  MenuItem, Modal, Paper, TextField, styled, useTheme } from '@mui/material';
 import { api } from '../../../api';
 import { uniqueId } from 'lodash';
-import Promo from './index copy';
+import Promo from './index copy.js';
 import { green } from '@mui/material/colors';
 const style = {
   position: 'absolute',
