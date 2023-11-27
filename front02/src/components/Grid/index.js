@@ -43,7 +43,7 @@ export default function GridContainer() {
       setCat(r.data.categorias)
     })
   }, [])
-
+ 
   //controla o filtro quando se clica numa categoria
   function filtro(id) {
     setProdFilter(() => (produtos.filter(p => p.cat.filter(c => c.id == id).length > 0)))
@@ -120,13 +120,14 @@ export default function GridContainer() {
 
           >
             <ComplexGrid
-              img={!!p.id_image ? p.img.url : ""}
-              desc={p.desc}
-              tamanho={p.tam}
-              valor={p.tam == "Carteira (20 UND)" ? 25 : p.preco}
-              logos={p.logos}
-              id={p.id}
-              und={p.und} 
+              produto={p}
+              img={p?.img?.url}
+              desc={p?.desc}
+              tamanho={p?.tam}
+              valor={p?.preco}
+              logos={p?.logos}
+              id={p?.id}
+              und={p?.und}
               />
              
           </Grid>

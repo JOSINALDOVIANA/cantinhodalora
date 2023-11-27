@@ -2,7 +2,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 import locale_pt from 'dayjs/locale/pt-br';
 
-import { Chip,Box,IconButton,Avatar,Button, Divider, FormControl, FormLabel, ImageList, ImageListItem, ImageListItemBar, InputAdornment, Modal, OutlinedInput, Paper, TextField, useTheme, styled } from '@mui/material';
+import { Chip,Box,IconButton,Avatar,Button, Divider, FormControl, FormLabel, ImageList, ImageListItem, ImageListItemBar, InputAdornment, Modal, OutlinedInput, Paper, TextField, useTheme, styled, CssBaseline } from '@mui/material';
 import { Delete, Visibility, VisibilityOff } from '@mui/icons-material';
 
 
@@ -79,7 +79,7 @@ const navegador=useNavigate()
   console.log(Dados)
   return (
     <>
-    
+    <CssBaseline></CssBaseline>
     <Box sx={{
         display: "flex",
         flexWrap: "wrap",

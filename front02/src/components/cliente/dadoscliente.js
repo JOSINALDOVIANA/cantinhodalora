@@ -132,7 +132,7 @@ const navegador=useNavigate()
               }
 
             />
-            <FormHelperText >Nova Senha ou a Atual</FormHelperText>
+            <FormHelperText sx={{color:"#e02141"}} >Obrigatório!! Nova Senha ou a Atual</FormHelperText>
           </Box>
 
           <Box sx={{ margin: 2, [theme.breakpoints.down("md")]: {} }} component={FormControl}>

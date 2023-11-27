@@ -158,7 +158,7 @@ export default function MenuAppBar(prop) {
 								</Cancel>
 
 								<Settings onClick={() => {
-									navegador(`${!!Dados.user.cli?"/cliente":"/perfil"}`, { state: { ...Dados.user } })
+									navegador(`${!!Dados.user.cli?"/cliente":"/perfil/userEdit"}`, { state: { ...Dados.user } })
 								}} sx={{ cursor: "pointer",margin:1 }}></Settings>
 
 							</Box>
@@ -203,7 +203,7 @@ export default function MenuAppBar(prop) {
 						{!!Dados.user ?
 							<MenuItem
 								onClick={() => {
-									navegador(`${!!Dados.user.adm?"/perfil":"/cliente"}`, { state: { ...Dados.user } })
+									navegador(`${!!Dados.user.adm?"/perfil/userEdit":"/cliente"}`, { state: { ...Dados.user } })
 								}}
 								sx={{
 									[theme.breakpoints.up("md")]: { display: "none" },

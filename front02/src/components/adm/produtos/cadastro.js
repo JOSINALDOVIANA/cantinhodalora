@@ -25,7 +25,7 @@ const BoxStyle = styled(Paper)(({ theme }) => ({
 }))
 
 const Img = styled("img")({
-  margin: "auto",
+  // margin: "auto",
   display: "block",
   maxWidth: "100%",
   maxHeight: "100%",
@@ -495,15 +495,14 @@ function Produtoscad() {
       >
 
         <Grid
-          container
-          // flexGrow={1} 
+          container        
           sx={{ overflow: "scroll" }}
-          alignItems="center"
+          
           spacing={1} >
           {
             produtos?.map(p => (
               <Grid
-                // direction={theme.breakpoints.down("md")?"column":"row"}
+               
                 key={p.id + uniqueId()}
                 item
                 xs={6}
@@ -521,14 +520,12 @@ function Produtoscad() {
                     borderRadius: 1,
                     flexDirection: "column",
                     fontFamily: "Roboto",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: 1,
-                    overflow: "hidden"
-
-
+                    alignItems: "center",                 
+                    overflow: "hidden",
+                    height:"250px",
+                    
                   }}
-                  className='card'
+                 
                   onClick={() => {
                     setProduto({ ...p });
                   }}
@@ -543,11 +540,11 @@ function Produtoscad() {
 
                     alt={p.desc}
                     src={!!p.img ? url + "images/" + p.img.key : ""}
-                    sx={{ borderRadius: 0, width: 100, height: 100, margin: 2 }} />
+                    sx={{ borderRadius: 0, width: "100%", height: "90%",objectFit:"cover" }} />
 
 
 
-                  <Typography sx={{  fontSize: "0.7em" }} noWrap variant="subtitle1" component="p">
+                  <Typography sx={{  fontSize: "0.7em",width:"90%",textAlign:"center" }} noWrap variant="subtitle1" component="p">
                     {p.desc + " " + p.tam}
                   </Typography>
 

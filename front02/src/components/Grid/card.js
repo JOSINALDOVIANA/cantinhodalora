@@ -15,17 +15,19 @@ const Img = styled("img")({
 
 });
 
-// const ColorButton = styled(Button)(({ theme }) => ({
-// 	color: theme.palette.getContrastText(green[900]),
-// 	backgroundColor: green[900],
-// 	'&:hover': {
-// 	  backgroundColor: green[500],
-// 	},
-//   }));
 
 
 
-export default function ComplexGrid({ img, desc, tamanho, valor, logos, bg, id, und }) {
+export default function ComplexGrid({produto=[], img, desc, tamanho, valor, logos, bg, id, und }) {
+	
+	// function viewKeysObj(obj){
+	// 	Object.getOwnPropertyNames(obj).forEach(function (val, idx, array) {
+	// 	  console.log(val + " -> " + obj[val]);
+	// 	});
+	//   }
+	  
+	 
+	
 	const theme = useTheme()
 	return (
 

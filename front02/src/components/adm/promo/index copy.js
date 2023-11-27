@@ -1,4 +1,4 @@
-import React, { } from "react";
+import React, { useContext } from "react";
 import { Paper, Typography, styled, useTheme, Grid, Divider, Chip, Box } from "@mui/material";
 import Button from '@mui/material/Button';
 import { uniqueId } from "lodash"
@@ -6,6 +6,7 @@ import "./style.css"
 
 import { red } from "@mui/material/colors";
 import { api } from "../../../api";
+import { DadosContext } from "../../../routs";
 const Img = styled("img")({
 
 	display: "block",
@@ -17,15 +18,17 @@ const ColorButton = styled(Button)(({ theme }) => ({
 	color: theme.palette.getContrastText(red[500]),
 	backgroundColor: red[500],
 	fontFamily: "Roboto",
-	fontSize: "1em",
+	fontSize: "0.8em",
 	fontWeight: "bold",
 	'&:hover': {
 		backgroundColor: red["A700"],
 
 	},
+	'&&':{marginRight:2}
 }));
 function Promo02({ proms }) {
 	const theme = useTheme();
+	const [Dados,setDados]=useContext(DadosContext);
 
 	
 	return (
@@ -34,19 +37,9 @@ function Promo02({ proms }) {
 
 
 
-		<Box
-			sx={{
-				margin: theme.spacing(2),
-				padding: theme.spacing(2),
-				overflow:"scroll"
-			}}
-			component="div"
-		>
+		
 
-			<Grid
-				container				
-				spacing={0.9}
-			>
+			<Grid sx={{p:1}}	container	spacing={0.9}>
 
 				{proms?.promocoes?.map(i => (
 
@@ -63,24 +56,22 @@ function Promo02({ proms }) {
 
 							elevation={4}
 							sx={{
-								padding: theme.spacing(1),								
-								height: "auto",
+																
+								height: "500px",
 								display: "flex",
 								flexDirection: "column",
-								justifyContent: "center",
+								// justifyContent: "center",
 								alignItems: "center",
 								position: "relative",
 							}}
 						>
 
-							<Img alt={"test"} src={i.id_prod ? i.prod?.img?.url : i?.img?.url} sx={{ borderRadius: 0, maxWidth: 90, maxHeight: 90, width: "auto", height: "auto", overflowClipMargin: "content-box", overflow: "clip" }} />
+							<Img alt={"test"} src={i.id_prod ? i.prod?.img?.url : i?.img?.url} sx={{ width:"100%",height:"50%",objectFit:"cover" }} />
 
-							<Divider >
-								<Chip label="Promoção"/>									
-							</Divider>
+							
 
 							{/* <Box sx={{ display: "flex", flexDirection: "column", width: theme.spacing(30),height:"100px" }}> */}
-							<Typography sx={{ textAlign: "center",  fontFamily: "Roboto" }} variant="subtitle1" component="p">
+							<Typography sx={{p:1, textAlign: "center",  fontFamily: "Roboto",fontSize:"0.9rem",height:"20%" }} >
 								{i.newdesc}
 							</Typography>
 
@@ -90,7 +81,7 @@ function Promo02({ proms }) {
 							{/* </Box> */}
 
 							<Box
-								sx={{ flexDirection: "column", width: "100%", padding: theme.spacing(1) }}>
+								sx={{ height:"15%",flexDirection: "column", width: "100%", padding: theme.spacing(1) }}>
 								{!!i.id_prod ?
 									<Box sx={{ display: "flex" }}>
 										<Typography noWrap sx={{ fontFamily: "Roboto",  textAlign: "initial", marginRight: theme.spacing(2) }} variant="subtitle1" >
@@ -117,26 +108,13 @@ function Promo02({ proms }) {
 										{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(i.valpromo)}
 									</Typography>
 								</Box>
-								<Typography sx={{ fontFamily:"Roboto", color: "#e02141" }}   variant="subtitle1" >
-									OBS: Enquanto durar o estoque
-								</Typography>
-
-
-
-
-
-
-
-
-
-
 							</Box>
 							<Box 
 							component={"div"}
-							sx={{width:"100%",padding:theme.spacing(1),display:"flex",justifyContent:"space-evenly"}}
+							sx={{ height:"15%", width:"100%",padding:theme.spacing(1),display:"flex",justifyContent:"space-evenly"}}
 							>
 								<ColorButton variant="contained" sx={{}} onClick={() => {
-								api.delete(`/promo?id=${i.id}`).then(r => {
+								api.delete(`/promo?id=${i.id}`,{headers:{Authorization:Dados.token}}).then(r => {
 									if (r.data.status) {
 										alert("apagado");
 										proms?.atualizarPromo(a => (a.filter(e => i.id != e.id)))
@@ -167,7 +145,7 @@ function Promo02({ proms }) {
 
 
 
-		</Box>
+		
 	);
 }
 

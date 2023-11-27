@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Box, Button, FormControl,  ImageList, ImageListItem,  MenuItem, Modal, Paper, TextField, styled, useTheme } from '@mui/material';
+import { Avatar, Box, Button, Container, FormControl,  ImageList, ImageListItem,  MenuItem, Modal, Paper, TextField, styled, useTheme } from '@mui/material';
 import { api } from '../../../api';
 import { uniqueId } from 'lodash';
 import Promo from './index copy.js';
@@ -72,10 +72,7 @@ export default function Promo01() {
   }
 
   return (
-    <Box
-      component={Paper}
-
-    >
+    <Container>
       <Box
         component={"form"}
         onSubmit={(e) => {
@@ -103,14 +100,31 @@ export default function Promo01() {
 
 
         }}
-        sx={{ marginTop: theme.spacing(0), padding: theme.spacing(2) }}
+        sx={{ 
+          display:"flex",
+          flexDirection:"column",
+          justifyContent:"center",
+          alignItems:"center",
+          width:"100%",
+         }}
       >
 
-        <FormControl sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", height: "auto" }} >
+        <FormControl 
+        sx={{ 
+          display:"flex",
+          flexDirection:"column",
+          justifyContent:"center",
+          // alignItems:"center",
+          width: "100%",
+          [theme.breakpoints.up("sm")]:{width:"70%"} 
+        }}
+         >
+          <Box sx={{display:"flex",justifyContent:"center",alignItems:"ceneter",width:"100%"}}>
           <Avatar sx={{ width: 100, height: 100, marginBottom: 1 }} onClick={() => { handleOpenfp() }} src={promoCad?.img?.url || promoCad?.prod?.img?.url} alt='imagem produto'></Avatar>
 
+          </Box>
           <TextField
-            sx={{ width: "40%", marginBottom: theme.spacing(2) }}
+            sx={{  marginBottom: theme.spacing(2) }}
             select
             name='selectprod'
             label="selecione um produto"
@@ -131,7 +145,7 @@ export default function Promo01() {
             ))}
           </TextField>
           <TextField
-            sx={{ width: "40%", marginBottom: theme.spacing(2) }}
+            sx={{  marginBottom: theme.spacing(2) }}
             name="newdesc"
             label="Desc. Promoção"
             multiline
@@ -143,7 +157,7 @@ export default function Promo01() {
 
           />
 
-          <Box sx={{ display: "flex", width: "45%", justifyContent: "space-around", [theme.breakpoints.down('md')]: { flexDirection: "column" } }}>
+          <Box sx={{ display: "flex", justifyContent: "space-around", [theme.breakpoints.down('md')]: { flexDirection: "column" } }}>
 
             <TextField
               sx={{ marginBottom: theme.spacing(2) }}
@@ -207,7 +221,7 @@ export default function Promo01() {
         setPromoCad: setPromoCad,
       }}></Promo>
 
-    </Box>
+    </Container>
   );
 }
 

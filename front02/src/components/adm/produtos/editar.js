@@ -149,8 +149,8 @@ function Produtosedit() {
 									<Typography noWrap sx={{ fontWeight: "bold" }}> {p.desc} </Typography>
 								</Box>
 								<Box sx={{ display: "flex", justifyContent: "space-between" }}>
-									<Typography sx={{ fontSize: "0.8rem" }}> Tamanho:  </Typography>
-									<Typography sx={{ fontFamily: "source-code-pro", fontSize: "0.8rem" }}> {p.tam} </Typography>
+									<Typography sx={{ fontSize: "0.8rem" }}> Tam.:  </Typography>
+									<Typography noWrap sx={{ fontFamily: "source-code-pro", fontSize: "0.8rem" }}> {p.tam} </Typography>
 
 								</Box>
 								<Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -343,7 +343,8 @@ function Produtosedit() {
 					fontFamily: "Roboto",
 
 					width: "70%",
-					height: "90vh"
+					height: "90vh",
+					alignItems:"center"
 
 				}}
 
@@ -375,14 +376,14 @@ function Produtosedit() {
 							handleOpenL(selectprod?.prod?.logos);
 						}}
 
-						sx={{ border: "dashed 1px #e02141", m: 1, display: "flex", alignItems: "center", justifyContent: "space-evenly", marginBottom: 1, height: "5%", width: "auto", padding: 1 }}>
+						sx={{ border: "dashed 1px #ddd5", m: 1, display: "flex", alignItems: "center", justifyContent: "space-evenly", marginBottom: 1, height: "5%", width: "90%", padding: 2 }}>
 						{selectprod?.prod?.logos?.map(item => (
 							<Avatar
 								// onClick={()=>{
 								// 	setSelectP(a=>({...a,prod:{...a.prod,logos:a.prod.logos.filter(i=>(i.id!=item.id))}}))
 								// }} 
 								key={item.id + uniqueId()}
-								sx={{ width: "auto", height: "4vh" }}
+								sx={{ width: "auto", height: "3vh",objectFit:"contain" }}
 								src={item.url}
 								alt={item.desc}
 							>
@@ -390,9 +391,9 @@ function Produtosedit() {
 					</Box>
 
 
-					<Typography sx={{ fontFamily: "Roboto", textAlign: "center" }} noWrap variant="subtitle1" component="p">
+					{/* <Typography sx={{ fontFamily: "Roboto", textAlign: "center" }} noWrap variant="subtitle1" component="p">
 						{selectprod.prod.desc + " " + selectprod.prod.tam}
-					</Typography>
+					</Typography> */}
 
 
 
