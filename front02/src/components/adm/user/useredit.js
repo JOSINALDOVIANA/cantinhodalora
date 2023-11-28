@@ -76,7 +76,7 @@ const navegador=useNavigate()
       navegador("/")
     }
   },[])
-  console.log(Dados)
+  // console.log(Dados)
   return (
     <>
     <CssBaseline></CssBaseline>
@@ -333,7 +333,7 @@ const navegador=useNavigate()
                     })
   
                   } catch (error) {
-                    console.log(error)
+                    // console.log(error)
                     alert("formato nao aceito");
                   }
                 }
@@ -346,7 +346,7 @@ const navegador=useNavigate()
               onClick={async () => {
                 if(!!Dados.user){
                   
-                await api.get(`/users/imagesget?id_cli=${Dados.user.id}`).then(r => {
+                await api.get(`/users/imagesget?id_cli=${Dados.user.id}`,{headers:{Authorization:Dados.token}}).then(r => {
                   if (r.data.status) {
                     setDados(a => ({ ...a, user: { ...a.user, loadedImages: r.data.images } }));
                     handleOpen();

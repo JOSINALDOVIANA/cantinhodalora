@@ -162,7 +162,7 @@ function Produtoscad() {
               data.append('file', uploadedFiles[0].file, uploadedFiles[0].name);
 
               // SALVANDO NOVA IMAGEM
-              console.log(data)
+              // console.log(data)
 
               try {
                 api.post(`/insertImageP`, data, {
@@ -183,7 +183,7 @@ function Produtoscad() {
                 })
 
               } catch (error) {
-                console.log(error)
+                // console.log(error)
                 alert("formato nao aceito");
               }
             }}

@@ -333,7 +333,7 @@ const navegador=useNavigate()
                     })
   
                   } catch (error) {
-                    console.log(error)
+                    // console.log(error)
                     alert("formato nao aceito");
                   }
                 }
@@ -446,7 +446,7 @@ const navegador=useNavigate()
                         onClick={async(e)=>{
                           e.preventDefault();
                           await axios.delete(item.delete).then(r=>{
-                            console.log(r.data)
+                            // console.log(r.data)
                             if(r.data.status){
                               setDados(a=>({...a,user:{...a.user,loadedImages:[...a.user.loadedImages.filter(i=>(i.id!=item.id))]}}))
                             }

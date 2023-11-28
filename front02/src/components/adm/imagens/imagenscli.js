@@ -15,7 +15,7 @@ function Imagens() {
 			setImages(r.data.images);
 		});
 	}, []);
-	console.log(images)
+	// console.log(images)
 	return (
 		<Container
 		// sx={{

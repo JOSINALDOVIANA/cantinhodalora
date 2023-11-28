@@ -46,7 +46,7 @@ function Relatorios() {
 	React.useEffect(() => {
 
 		api.get("/fechamentogerente").then(r => {
-			console.log(r.data);
+			// console.log(r.data);
 			if (r.data.status) {
 				setCloses(r.data.close);
 				setClosesF(r.data.close);
@@ -72,7 +72,7 @@ function Relatorios() {
 
 	};
 
-	console.log(closesFilter);
+	// console.log(closesFilter);
 	return (
 		<Box
 			sx={{

@@ -255,12 +255,12 @@ function Produtosedit() {
 									onClick={() => {
 
 										if (selectprod.prod.logos.filter(i => (i.id === item.id)).length > 0) {
-											console.log("if")
+											
 											setSelectP(a => ({ ...a, prod: { ...a.prod, logos: a.prod.logos.filter(i => (i.id != item.id)) } }));
 
 										}
 										else {
-											console.log("else")
+											
 
 											setSelectP(a => ({ ...a, prod: { ...a.prod, logos: [...a.prod.logos, item] } }));
 										}
@@ -567,7 +567,7 @@ function Produtosedit() {
 											})
 
 										} catch (error) {
-											console.log(error)
+											// console.log(error)
 											alert("formato nao aceito");
 										}
 									}

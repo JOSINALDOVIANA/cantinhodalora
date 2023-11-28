@@ -43,7 +43,7 @@ function Cadastro() {
   const [showPassword, setshowPassword] = React.useState(false);
   const theme = useTheme();
   const navegador=useNavigate()
-  console.log(dados)
+  // console.log(dados)
   return (
 
     <>
