@@ -11,7 +11,7 @@ function LoginCli(props) {
     // const theme=useTheme()
   return (
 <Dialog sx={{borderRadius:"5px"}}  {...props}>
-						<DialogTitle sx={{ 
+						{/* <DialogTitle sx={{ 
                             textAlign: "center", 
                             padding: 4,
                             fontFamily:"Roboto"
@@ -19,7 +19,7 @@ function LoginCli(props) {
                             // color:theme.palette.getContrastText("#f1faee")
                             }}>
 							LOGIN
-						</DialogTitle>
+						</DialogTitle> */}
 						<Paper
 							sx={{
 								display: "flex",

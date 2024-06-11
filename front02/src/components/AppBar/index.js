@@ -113,9 +113,9 @@ export default function MenuAppBar(prop) {
 						<MenuIcon />
 					</IconButton>
 
-					 <Typography
+					 {/* <Typography
 					sx={{fontFamily:"Lunasima",fontSize:"2rem",[theme.breakpoints.down("md")]:{display:"none"}}}
-					>{!!Dados.user?Dados.user.name:"CANTINHO DA LORA"}</Typography>
+					>{!!Dados.user?Dados.user.name:"CANTINHO DA LORA"}</Typography> */}
 
 					<Box sx={{ display: "flex", width: "auto", alignItems: "center", justifyContent: "space-around" }} component={"div"}>
 						{rota.pathname==="/" && <Search  >

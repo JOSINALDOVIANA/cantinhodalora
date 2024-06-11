@@ -12,7 +12,7 @@ function Produtos() {
 	return (
 		<Box>
 			<Promo></Promo>
-			<Typography sx={{ fontSize: "1.5em", fontFamily: "Roboto" }}>Categorias</Typography>
+			{/* <Typography sx={{ fontSize: "1.5em", fontFamily: "Roboto" }}>Categorias</Typography> */}
 			<GridContainer />
 			
 			

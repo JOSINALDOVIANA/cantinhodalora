@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import ComplexGrid from './card';
 import { api } from '../../api';
-import { Paper, Typography, useTheme} from '@mui/material';
+import { Paper, Typography, useTheme } from '@mui/material';
 import { SearchContex } from '../../routs';
 import { uniqueId } from 'lodash';
 
@@ -43,7 +43,7 @@ export default function GridContainer() {
       setCat(r.data.categorias)
     })
   }, [])
- 
+
   //controla o filtro quando se clica numa categoria
   function filtro(id) {
     setProdFilter(() => (produtos.filter(p => p.cat.filter(c => c.id == id).length > 0)))
@@ -51,23 +51,10 @@ export default function GridContainer() {
 
   return (
     <Box
-    sx={{display:"flex",flexDirection:"column"}}
+      sx={{ display: "flex", flexDirection: "column" }}
     >
       <Box sx={{ display: "flex", flexGrow: 1, margin: 2, overflow: "scroll" }}>
 
-        <Paper
-          elevation={6}
-          onClick={() => {
-            setProdFilter(produtos)
-
-            const l = document.querySelectorAll(".active2")
-            l.forEach(element => {
-              element.classList.remove("active2")
-            });
-          }}
-          sx={{ cursor: "pointer", display: "flex", height: "30%", justifyContent: "center", alignItems: "center", padding: 2, margin: 2, width: "auto" }}>
-          <Typography>Todos</Typography>
-        </Paper>
 
 
         <Box
@@ -81,7 +68,19 @@ export default function GridContainer() {
 
           }}
         >
+          <Paper
+            elevation={6}
+            onClick={() => {
+              setProdFilter(produtos)
 
+              const l = document.querySelectorAll(".active2")
+              l.forEach(element => {
+                element.classList.remove("active2")
+              });
+            }}
+            sx={{ cursor: "pointer", display: "flex", justifyContent: "center", alignItems: "center", padding: 2, margin: 2, width: "auto" }}>
+            <Typography>Todos</Typography>
+          </Paper>
           {categorias.map(cat => (
 
             <Paper
@@ -105,13 +104,13 @@ export default function GridContainer() {
 
 
       </Box>
-      <Grid spacing={2}  container >
+      <Grid spacing={2} container >
 
 
         {produtosFilter?.map(p => (
           <Grid
-          
-            key={p.id + uniqueId()}         
+
+            key={p.id + uniqueId()}
             item
             xs={6}
             sm={6}
@@ -128,8 +127,8 @@ export default function GridContainer() {
               logos={p?.logos}
               id={p?.id}
               und={p?.und}
-              />
-             
+            />
+
           </Grid>
         ))}
 
