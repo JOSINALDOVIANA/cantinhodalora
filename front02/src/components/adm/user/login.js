@@ -93,7 +93,7 @@ export default function Login() {
 									let user=r.data.user
 									let token=user.token
 									delete user["token"] 
-									setDados({ user: {...user,adm:true},token });
+									setDados(a=>({...a,user:{...user,adm:true},token}));
 									 navegator("/perfil"); 
 									}
 								else { alert(r.data.mensagem); }

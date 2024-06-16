@@ -3,10 +3,12 @@ import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { Box, Divider } from "@mui/material";
+import { Box, Divider, Fab } from "@mui/material";
 import { red, green, } from "@mui/material/colors";
 
 import { uniqueId } from "lodash";
+import { Add, AddShoppingCart } from "@mui/icons-material";
+import { DadosContext } from "../../routs";
 
 
 const Img = styled("img")({
@@ -18,17 +20,17 @@ const Img = styled("img")({
 
 
 
-export default function ComplexGrid({produto=[], img, desc, tamanho, valor, logos, bg, id, und }) {
-	
+export default function ComplexGrid({produto, img, desc, tamanho, valor, logos, id, }) {
+
 	// function viewKeysObj(obj){
 	// 	Object.getOwnPropertyNames(obj).forEach(function (val, idx, array) {
 	// 	  console.log(val + " -> " + obj[val]);
 	// 	});
 	//   }
-	  
-	 
 	
+    const [Dados,setDados]=React.useContext(DadosContext)
 	const theme = useTheme()
+    // console.log(Dados)
 	return (
 
 
@@ -42,43 +44,57 @@ export default function ComplexGrid({produto=[], img, desc, tamanho, valor, logo
 				flexDirection: "column",
 				fontFamily: "Roboto",
 				alignItems: "center",
-				justifyContent:"space-between",
+				justifyContent: "space-between",
 				position: "relative",
-				height: theme.spacing(40),
+				height: theme.spacing(47),
 
 				// [theme.breakpoints.down("md")]:{
 				// 	// height:theme.spacing(70)
 				// }
 			}}
-
-
-
 		>
-
+			<Fab size="small" sx={{position:"absolute",top:"2px",right:"2px"}}  color="warning" aria-label="add">
+				<AddShoppingCart onClick={(e)=>{e.preventDefault();setDados(a=>{
+					
+					let r=[...a.carr]
+					let r2=r.filter((item)=>(item.id===produto.id))
+					if(r2.length==0){
+						r=[...r,produto]
+					}else{
+					r.forEach((item,index)=>{
+						
+						if(item.id===produto.id){							
+							!!r[index].qt?r[index].qt=r[index].qt+1:r[index].qt=(r2.length+1)
+						}
+					})
+					}
+					return({...a,carr:[...r]})
+				})}} />
+			</Fab>
 
 
 
 
 
 			<Box sx={{
-				height:"60%",
-				width:"100%",
-				[theme.breakpoints.down("md")]:{
-						height:"55%"
-					},
-					}}>
-			<Img alt={desc} src={img}
-				sx={{
-					
-					height:"100%",
-					width:"100%",
-					objectFit: "cover",
+				height: "60%",
+				width: "100%",
+				[theme.breakpoints.down("md")]: {
+					height: "55%"
+				},
+			}}>
+				<Img alt={desc} src={img}
+					sx={{
 
-					
-					
-					WebkitMaskImage: `linear-gradient(to top, transparent 0.1%, ${theme.palette.mode == "dark" ? "#000" : "#fff"} 20%)`,
+						height: "100%",
+						width: "100%",
+						objectFit: "cover",
 
-				}} />
+
+
+						WebkitMaskImage: `linear-gradient(to top, transparent 0.1%, ${theme.palette.mode == "dark" ? "#000" : "#fff"} 20%)`,
+
+					}} />
 			</Box>
 
 			{/* <Divider sx={{  width: "98%", height: 5 }} /> */}
@@ -124,7 +140,7 @@ export default function ComplexGrid({produto=[], img, desc, tamanho, valor, logo
 				</Typography> : null}
 
 
-			<Box sx={{ height:"40%",display: "flex", flexDirection: "column", width: "100%", justifyContent: "center", alignItems: "center" }}>
+			<Box sx={{ height: "40%", display: "flex", flexDirection: "column", width: "100%", justifyContent: "center", alignItems: "center" }}>
 
 
 
@@ -132,16 +148,16 @@ export default function ComplexGrid({produto=[], img, desc, tamanho, valor, logo
 					{desc}
 				</Typography>
 				{!!tamanho &&
-				 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "90%" }}>
-					<Typography>Medida: </Typography>
-					<Typography noWrap sx={{ color: "#e02141", fontStyle: "italic", fontFamily: "Roboto", fontSize: "0.8rem",pr:1 }}> {tamanho}</Typography>
+					<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "90%" }}>
+						<Typography>Medida: </Typography>
+						<Typography noWrap sx={{ color: "#e02141", fontStyle: "italic", fontFamily: "Roboto", fontSize: "0.8rem", pr: 1 }}> {tamanho}</Typography>
 
-				</Box>}
-				<Divider sx={{width:"90%"}}></Divider>
-				<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "90%" }}>
-					<Typography>Preço: </Typography>
+					</Box>}
+				{/* <Divider sx={{width:"90%"}}></Divider> */}
+				<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "90%", backgroundColor: theme.palette.warning.main, borderRadius: 1, padding: 1 }}>
+					<Typography sx={{ color: theme.palette.getContrastText(theme.palette.warning.main) }}>Preço: </Typography>
 
-					<Typography noWrap sx={{ color: "#e02141", fontSize: "1.2rem", textAlign: "center", fontFamily: "Roboto", fontWeight: "bold" }}  >
+					<Typography noWrap sx={{ color: theme.palette.getContrastText(theme.palette.warning.main), fontSize: "1.2rem", textAlign: "center", fontFamily: "Roboto", fontWeight: "bold" }}  >
 						{new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format(valor)}
 					</Typography>
 

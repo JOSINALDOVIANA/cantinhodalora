@@ -27,7 +27,7 @@ const BoxStyle = styled(Paper)(({ theme }) => ({
 	transform: 'translate(-50%, -50%)',
 	bgcolor: 'background.paper',
 	border: '0.5px solid #000',
-	[theme.breakpoints.up("sm")]: { width: "70vw" },
+	[theme.breakpoints.up("sm")]: { width: "30vw" },
 	overflow: "scroll"
 }))
 
@@ -50,7 +50,7 @@ function Produtosedit() {
 	const [imagens, setIMG] = React.useState([]);
 	const [logos, setL] = React.useState([]);
 	const [categorias, setCatgorias] = React.useState([]);
-	const [Dados,setDados]=React.useContext(DadosContext)
+	const [Dados, setDados] = React.useContext(DadosContext)
 
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
@@ -72,7 +72,7 @@ function Produtosedit() {
 	const handleOpenC = () => setOpenC(true);
 	const handleCloseC = () => setOpenC(false);
 
-
+	// controla o modal de edição do produto
 	const [openTeste, setOpenTeste] = React.useState(false);
 	const handleOpenTeste = () => setOpenTeste(true);
 	const handleCloseTeste = () => setOpenTeste(false);
@@ -108,12 +108,13 @@ function Produtosedit() {
 		});
 	}, []);
 
-	// console.log(selectprod)
+	// console.log(theme)
 
 
 	return (
 		<>
 			<CssBaseline />
+			{/* grid onde aparece todos os produtos */}
 			<Grid container alignItems="center" spacing={2}>
 				{produtos?.map((p, index) => (
 					<Grid key={p.id + "prod" + uniqueId()} item xs={6} sm={4} md={3} lg={2}>
@@ -255,12 +256,12 @@ function Produtosedit() {
 									onClick={() => {
 
 										if (selectprod.prod.logos.filter(i => (i.id === item.id)).length > 0) {
-											
+
 											setSelectP(a => ({ ...a, prod: { ...a.prod, logos: a.prod.logos.filter(i => (i.id != item.id)) } }));
 
 										}
 										else {
-											
+
 
 											setSelectP(a => ({ ...a, prod: { ...a.prod, logos: [...a.prod.logos, item] } }));
 										}
@@ -341,23 +342,27 @@ function Produtosedit() {
 					display: "flex",
 					flexDirection: "column",
 					fontFamily: "Roboto",
-
 					width: "70%",
 					height: "90vh",
-					alignItems:"center"
+					alignItems: "center"
 
 				}}
 
 				>
+					{/* box da imagem do produto */}
 					<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%", height: "40%" }}>
 						<Img
 							onClick={() => { handleOpen(); }}
 							alt={selectprod.prod.desc}
 							src={selectprod?.prod?.img?.url}
-							sx={{ width: "100%", height: "100%", objectFit: "cover", [theme.breakpoints.up("md")]: { display: "none" } }} />
+							sx={{ width: "100%", height: "100%", objectFit: "cover", [theme.breakpoints.up("md")]: { display: "none" } }}
+						/>
+
 						<Avatar
-						onClick={() => { handleOpen(); }}
-							sx={{ [theme.breakpoints.down("md")]: { display: "none" }, width: 100, height: 100 }}
+							onClick={() => { handleOpen(); }}
+							sx={{ 
+								[theme.breakpoints.down("md")]: { display: "none" },
+								 width: 100, height: 100 }}
 							src={url + "images/" + selectprod?.prod?.img?.key}
 							alt={selectprod.prod.desc}
 
@@ -369,40 +374,28 @@ function Produtosedit() {
 
 
 
-
+					{/* /box da logos */}
 					<Box
 
 						onClick={() => {
 							handleOpenL(selectprod?.prod?.logos);
 						}}
 
-						sx={{ border: "dashed 1px #ddd5", m: 1, display: "flex", alignItems: "center", justifyContent: "space-evenly", marginBottom: 1, height: "5%", width: "90%", padding: 2 }}>
+						sx={{ m: 1, display: "flex", alignItems: "center", justifyContent: "space-evenly", marginBottom: 1, height: "5%", width: "90%", padding: 2 }}>
 						{selectprod?.prod?.logos?.map(item => (
 							<Avatar
 								// onClick={()=>{
 								// 	setSelectP(a=>({...a,prod:{...a.prod,logos:a.prod.logos.filter(i=>(i.id!=item.id))}}))
 								// }} 
 								key={item.id + uniqueId()}
-								sx={{ width: "auto", height: "3vh",objectFit:"contain" }}
+								sx={{ width: "auto", height: "3vh", objectFit: "contain" }}
 								src={item.url}
 								alt={item.desc}
 							>
 							</Avatar>))}
 					</Box>
 
-
-					{/* <Typography sx={{ fontFamily: "Roboto", textAlign: "center" }} noWrap variant="subtitle1" component="p">
-						{selectprod.prod.desc + " " + selectprod.prod.tam}
-					</Typography> */}
-
-
-
-
-
-
-
 					{/* entradas de texto */}
-
 					<Box
 						sx={{ display: "flex", marginTop: theme.spacing(2), alignItems: "center", justifyContent: "center", flexDirection: "column", width: "100%" }}
 
@@ -431,9 +424,7 @@ function Produtosedit() {
 					</Box>
 
 					{/* botoes */}
-
-
-					<FormControl sx={{ display: "flex", flexDirection: "row", [theme.breakpoints.down('md')]: { flexDirection: "column" }, width: "100%", justifyContent: "center", alignItems: "center" }}>
+					<FormControl sx={{ display: "flex", width: "100%", justifyContent: "center", alignItems: "center" }}>
 						<Box
 							sx={{
 								display: "flex",
@@ -448,7 +439,7 @@ function Produtosedit() {
 								onClick={(e) => {
 									e.preventDefault();
 
-									api.put("/produtos", { ...selectprod.prod, cat: selectprod.prod.cat.map(c => (c.id)), logos: selectprod.prod.logos.map(l => (`${l.id}`)) },{headers:{Authorization:Dados.token}}).then(r => {
+									api.put("/produtos", { ...selectprod.prod, cat: selectprod.prod.cat.map(c => (c.id)), logos: selectprod.prod.logos.map(l => (`${l.id}`)) }, { headers: { Authorization: Dados.token } }).then(r => {
 										if (r.data.status) {
 											Swal.fire(
 												"Atualizado!",
@@ -489,7 +480,7 @@ function Produtosedit() {
 						<Box
 							sx={{
 								display: "flex",
-								p:1,
+								p: 1,
 								justifyContent: "space-around",
 								[theme.breakpoints.down("md")]: { width: "100%" }
 							}}
@@ -506,7 +497,7 @@ function Produtosedit() {
 									'&:hover': {
 										opacity: 0.50
 									},
-									[theme.breakpoints.down("md")]:{width:"100%"}
+									[theme.breakpoints.down("md")]: { width: "100%" }
 								}} htmlFor='foto'
 							>
 								{"Carregar Foto".toUpperCase()}
@@ -546,7 +537,7 @@ function Produtosedit() {
 									if (!!Dados.user) {
 										try {
 											api.post(`/insertImageP`, data, {
-												headers:{Authorization:Dados.token}
+												headers: { Authorization: Dados.token }
 												// onUploadProgress: async e => {
 												// 	let progr = parseInt(Math.round((e.loaded * 100) / e.total));
 												// 	setProgress(a => {
@@ -588,7 +579,7 @@ function Produtosedit() {
 								color='error'
 
 								onClick={() => {
-									api.delete(`/produtos?id=${selectprod.prod.id}`,{headers:{Authorization:Dados.token}}).then(r => {
+									api.delete(`/produtos?id=${selectprod.prod.id}`, { headers: { Authorization: Dados.token } }).then(r => {
 										if (r.data.status) {
 											let pr = produtos.filter(item => item.id != selectprod.prod.id);
 
@@ -617,7 +608,7 @@ function Produtosedit() {
 							</ButtonStyle>
 						</Box>
 
-						
+
 					</FormControl>
 
 

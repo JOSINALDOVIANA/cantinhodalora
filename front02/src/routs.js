@@ -50,7 +50,7 @@ export function TrocarTheme(props) {
 
 export function Rotas() {
     const [search, setSearch] = React.useState("")
-    const [Dados, setDados] = React.useState({})
+    const [Dados, setDados] = React.useState({carr:[]})
     const [mode, setMode] = React.useState(() => {
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             return "dark"

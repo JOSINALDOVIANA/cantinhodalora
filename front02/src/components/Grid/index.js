@@ -48,7 +48,7 @@ export default function GridContainer() {
   function filtro(id) {
     setProdFilter(() => (produtos.filter(p => p.cat.filter(c => c.id == id).length > 0)))
   }
-
+//  console.log(produtos)
   return (
     <Box
       sx={{ display: "flex", flexDirection: "column" }}
@@ -118,7 +118,7 @@ export default function GridContainer() {
             lg={2}
 
           >
-            <ComplexGrid
+            {p.und>0 && <ComplexGrid
               produto={p}
               img={p?.img?.url}
               desc={p?.desc}
@@ -127,7 +127,7 @@ export default function GridContainer() {
               logos={p?.logos}
               id={p?.id}
               und={p?.und}
-            />
+            />}
 
           </Grid>
         ))}
